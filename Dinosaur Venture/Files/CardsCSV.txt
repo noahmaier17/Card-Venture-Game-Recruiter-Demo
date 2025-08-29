@@ -1,0 +1,178 @@
+\\SHELL\\ Rust;;;  > Shell this. 
+ ;;;  > ... 
+ ;;;  > Draw until you have 3 Cards in Hand.;;; ['Fallow Farmland']
+Brass Muzzle;;;  Pick an Enemy. To it: 2B / 2M; Discard a Card.;;; ['Fallow Farmland']
+Forklift Certificate;;; { HH } + Cantrip. 
+ ;;;  At Turn End, if you have 2+ ^Junk^ in Play: Move this onto the Into-Hand Mat.;;; ['Packing Bot']
+Courage Building;;;  1B-notick / 1R.
+ ;;;  |>| Pocket a ^Trip^ Card.;;; ['Graverobber']
+Organized Armaments;;; { HH } +2 Actions. 
+ ;;;  Once a Turn WTIP, if you have 1+ Actions at the End of Turn, you may: 
+ ;;;  (1) 1M.;;; ['Copper Croppers']
+Last Seeds;;;  +1 Action. 9L. +1 Card.;;; ['Fallow Farmland']
+Road Sign Augers;;;  +1 Action. Discard your Hand for +2 Cards.
+ ;;;  & Pocket a ^Shovel^ Card.;;; ['Bandits of the Highway']
+Wheel Shrapnel;;;  +1 Action. 2R-notick / 2M. Discard your Hand.;;; ['Bandits of the Highway']
+Highway-Grass Median;;;  2G-notick / 2B-notick. 
+ ;;;  You may Discard your Hand for: + Cantrip. 
+ ;;;  0.2 Chance for: + Cantrip.;;; ['Bandits of the Highway']
+Bees Nest;;; { 1H } 3x, to an arbitrary Enemy: 1L. 
+ ;;;  Next Turn, +1 Action.;;; ['New Bear Order']
+Raccoon Heist;;;  +2 Actions. Pocket a ^Shovel^ Card.
+ ;;;  |>| 2B.;;; ['Bandits of the Highway']
+Bear Claws;;; { HH } 3R. Then: 2B.
+ ;;;  |>| Discard your Draw.;;; ['New Bear Order']
+Time in a Bottle;;; [ iMuck ] + Cantrip.
+ ;;;  |>| { HH } Take a 2nd Turn. To every Enemy: Take a 2nd Turn. 
+ ;;;      Gain a ^Broken Bottle^.;;; ['Horse Hostelry']
+Pocket Test;;; [ iTop ] Move this onto the Pocket Mat.
+ ;;;  |>| 999M.;;; ['Debug']
+Trampled Rodent;;;  1R-notick / 1G-notick / 1B-notick / 1M.;;; ['Fallow Farmland']
+Leave No Trace Mantra;;;  +2 Actions. Move an Arbitrary non-^Muck^ Card from Discard into Hand.;;; ['New Bear Order']
+Bay of Pigs;;;  2Random-notick / 2Random-notick / 2Random-notick.
+ ;;;  |>| { HH } Next Turn, +1 Action.;;; ['Copper Croppers']
+Potpourri;;;  1Random.;;; ['Packing Bot']
+\\SHELL\\ Final Straw;;;  > { HH } Shell this. 
+ ;;;  > ... 
+ ;;;  > + Cantrip.;;; ['Fallow Farmland']
+Stowaway;;;  +1 Action. 3G.;;; ['Graverobber']
+Rebuild or Destroy;;; { HH } + Cantrip. Draw 1 more Card for your Next Turn.
+ ;;;  |>| { HH } To every Enemy: Discard a Card.;;; ['Copper Croppers']
+Smashed Bottles;;;  *;;; ['Horse Hostelry']
+Car Feigning;;;  1G / 1R. If your Hand is Empty: + Cantrip; + Cantrip.
+ ;;;  |>| Pocket this.;;; ['Bandits of the Highway']
+Rusted Scythe;;;  2R-notick / 2M. 
+ ;;;  You may: Discard your Hand for +2 Cards. 
+ ;;;  +1 Card.;;; ['Fallow Farmland']
+Rescued Plankwalker;;; { 2H } +1 Action. 3B. 
+ ;;;  Next Next Turn, Discard both this and Draw.;;; ['Fruit-Bearing Monks']
+Hunk of Junk;;;  +1 Action. 1G / 1G-notick / 1R / 1R-notick. 
+ ;;;  You may: (+1 Card. 0.5 Chance for: Pocket a Rubbish Card.).;;; ['Bandits of the Highway']
+Draw 6;;; [ iTop ] +6 Cards.;;; ['Debug']
+Junk;;; [ iMuck ] Does Nothing.;;; ['Muck']
+Lugged Creature;;;  +1 Action. 1B-notick.
+ ;;;  & Pocket a ^Holy Shovel^ Card.;;; ['Graverobber']
+Recycling Bin;;; [ iTop ], < iTop > 1B / 1B / 1B / 1G / 1G. 
+ ;;;  +1 Card. Discard the Bottom Card of Draw.;;; ['New Bear Order']
+MEGA Damage;;;  +1 Action. 10R / 10G / 10B. Pocket this.;;; ['Debug']
+Band-it Bond;;;  2R-notick / 2G-notick / 2B-notick. Discard your Hand.;;; ['Bandits of the Highway']
+Metal Crate;;; { HH } 1M / 1M.
+ ;;;  ~ When Replaced with Loot: +1 Looting.;;; ['Packing Bot']
+Packing Peanuts;;;  1L. Then: 1L.;;; ['Packing Bot']
+Diligent Deckhand;;;  + Cantrip. Move the Bottom Card of Draw onto the Into-Into Hand mat.
+ ;;;  & Move the Bottom Card of Draw onto the Into-Into Hand mat.;;; ['Fruit-Bearing Monks']
+Bottle Caps;;;  (1Notnil x3); 
+ ;;;  If Fatal or Broke a Band, Replace this with ^Broken Bottle^. 
+ ;;;  Otherwise, Discard this.;;; ['Horse Hostelry']
+Holy Shovel;;;  \ Temporary \ +1 Action. Discard your Hand, for +2 Cards.
+ ;;;  |>| Entoken all Pocket Cards with <<feathery>>.;;; ['Fundamental']
+Attempt Appeasement;;; { HH } +1 Action. 2B.
+ ;;;  ~ When Looted, Bottom-Text Upgrade this Card's Play Text with either: 
+ ;;;  (1) +2 Cards. 
+ ;;;  (2) +1 Action.;;; ['Copper Croppers']
+Spare Spade;;; [ iPocket ] +1 Action. Discard your Hand, for +2 Cards.;;; ['Graverobber']
+Fight or Flight;;;  1G-notick / 1B-notick / 1G / 1B.
+ ;;;  |>| Entoken the top Card of Draw with <<feathery>>.;;; ['Horse Hostelry']
+Shipping Tape;;;  2R.;;; ['Packing Bot']
+Rowers;;; { 2H } 3Notnil. Next Turn, and Next Next Turn: +1 Card.;;; ['Fruit-Bearing Monks']
+Hibernation;;; [ iTop ], < iTop > To each Enemy that has yet to take a Turn: 
+ ;;;  (1) Discard their Hand. 
+ ;;;  Discard your Hand.;;; ['New Bear Order']
+Missionary;;; { 2H } +1 Action. 3R. 
+ ;;;  Next Next Turn, + Cantrip.;;; ['Fruit-Bearing Monks']
+Chase Until Exhaustion;;; [ iTop ], < iTop > +1 Action. 1Notnil. Discard your Draw. 
+ ;;;  0.67 Chance for: { HH } Next Turn, -1 Action.;;; ['New Bear Order']
+Flickering Lantern;;;  +1 Action. 1R-notick.;;; ['Graverobber']
+Castaway;;;  6R.
+ ;;;  |>| Move a Card from Hand onto Draw.;;; ['Fruit-Bearing Monks']
+New Fresh Air;;;  +1 Action. 1G-notick.
+ ;;;  |>| 1G-notick.;;; ['Packing Bot']
+Cowboys In Exile;;; [ iMuck ] +2 Actions.
+ ;;;  |>| Entoken all Cards in Play with <<feathery>>.;;; ['Horse Hostelry']
+Shovel;;;  \ Temporary \ +1 Action. Discard your Hand for +2 Cards. 
+ ;;;  Destroy this.;;; ['Fundamental']
+Stamp Gun;;;  1G-notick / 1B-notick.
+ ;;;  |>| Draw a Card to the Into-Hand mat.;;; ['Packing Bot']
+Will-o-Wisps;;;  2x, to an Arbitrary Enemy: 1L.
+ ;;;  ~ When Replaced with Loot: Change Replacement Card with [ iTop ].;;; ['Graverobber']
+Friendly Bark;;;  \ Temporary \ +1 Card. Destroy this.;;; ['Fundamental']
+Getaway Horse;;; [ iMuck ] Discard all ^Junk^ in Hand. +4 Cards.;;; ['Horse Hostelry']
+Trot Trot;;;  +1 Action. 1R-notick / 1R. +1 Card. 
+ ;;;  Replace this with ^Broken Bottle^.;;; ['Horse Hostelry']
+Car Casing;;; { HH } 0.67 Chance for: 2R-notick / 2G-notick / 2B-notick / 2M. 
+ ;;;  Otherwise: Pocket this.;;; ['Bandits of the Highway']
+Failed Peace Treaty;;;  +2 Actions.
+ ;;;  |>| { HH } To every Enemy: 2Random.;;; ['Copper Croppers']
+Broken Bottle;;;  \ Temporary \ +1 Action. 0.5Chance for: +1 Card.;;; ['Fundamental']
+Trip;;;  \ Temporary \ + Cantrip.;;; ['Fundamental']
+Dead Harvested Grass;;;  3G. Then: 1L.;;; ['Fallow Farmland']
+Twig-Rock Scarecrow;;;  -1 Action. 
+ ;;;  Plus 1 Action and Draw 1 more Card for your Next Turn.
+ ;;;  |>| 1Random / 1Random.;;; ['Fallow Farmland']
+Torch Bearing;;; [ iTop ], < iTop > +2 Actions.;;; ['New Bear Order']
+Bone-Gnaw;;;  +1 Card. (1M x4).
+ ;;;  & Arbitrarily Discard 4 Cards of Draw.;;; ['New Bear Order']
+Brake Cutters;;;  1M / 1M / 1M. 
+ ;;;  Gain a ^Rubbish^.;;; ['Bandits of the Highway']
+Infiltrator Interrogators;;; { HH } +2 Actions. 2x, Draw a Card to the Pocket Mat. 
+ ;;;  Discard your Hand.
+ ;;;  & Pocket a ^Rubbish^ Card.;;; ['Bandits of the Highway']
+Draw All;;; [ iTop ] +20 Cards.;;; ['Debug']
+Collective Bargaining;;;  +1 Action. 2G. 
+ ;;;  Once WTIP, if you have 1+ Actions at the End of Turn, you may: 
+ ;;;  (1) { HH } Plus 1 Action for your Next Turn.;;; ['Copper Croppers']
+Hatching Coup;;; { HH } 4R-notick / 4B-notick / 2M. 
+ ;;;  WTIP, if you have 1+ Actions at the End of Turn, you may: 
+ ;;;  (1) Move this onto Draw.
+ ;;;  & -1 Action.;;; ['Copper Croppers']
+Shoulder Hump;;;  4Notnil / 3Notnil.
+ ;;;  |>| Move this into Play. If you did: { 1H } Next Turn, +1 Action.;;; ['New Bear Order']
+Mangled Shrew;;;  2R-notick / 1Notnil / 1Notnil / 1Notnil.;;; ['Fallow Farmland']
+Icelandic Horse;;;  +1 Action. Mill, Unless a Card with '+1 Card', '+X Cards' or '+ Cantrip' in body-text is found; Move such a Card into Hand. Then, Immill, and +1 Card.
+ ;;;  |>| 1B / 1M.;;; ['Horse Hostelry']
+Honey Pot;;; { 1H }, [ iTop ], < iTop > Discard your Hand. 
+ ;;;  Next Turn, +2 Actions.;;; ['New Bear Order']
+Anchorman;;;  3M. From Hand, Pick a Card to Save, Discarding all others.;;; ['Fruit-Bearing Monks']
+Expired Milk;;;  +1 Action. Pick an Enemy. To it: 
+ ;;;  (1) 1G-notick / 1M. 
+ ;;;  (2) Replace an Arbitrary Card in Hand with ^Broken Bottle^.;;; ['Horse Hostelry']
+Cowboy Duel Mantra;;;  Pick an Enemy. 3x, to it: 
+ ;;;  (1) If it has any Cards in Hand, Discard a Card; Otherwise 1Notnil. 
+ ;;;  Replace this with ^Broken Bottle^.;;; ['Horse Hostelry']
+Action Overthrow;;;  2R. Then: 2R.
+ ;;;  & +1 Action.;;; ['Copper Croppers']
+Empty Mantle;;; [ iDiscard ] Does Nothing.
+ ;;;  ~ When Replaced with Loot: Change Replacement Card with [ iDiscard ].;;; ['Graverobber']
+New Farm Leader;;;  + Cantrip. Move a Card from Hand onto Draw.
+ ;;;  |>| { HH } 1G.
+ ;;;  ~ When Looted, Change a Card in Deck's Initialization Zone to [ iTop ].;;; ['Copper Croppers']
+Rubbish;;;  \ Temporary \ { 3H } Does Nothing.;;; ['Fundamental']
+Card Overthrow;;; { HH } Pick an Enemy. To it: 4Notnil; Discard their Hand.
+ ;;;  & +1 Card.;;; ['Copper Croppers']
+Grasshopper Cache;;;  + Cantrip.
+ ;;;  |>| 2G / 2M. Move this onto Draw.;;; ['Fallow Farmland']
+Faithful Hound;;;  1Notnil / 1Notnil.
+ ;;;  & Pocket a ^Friendly Bark^ Card.;;; ['Graverobber']
+Dethronement;;;  -1 Action. 4M / 2G. 
+ ;;;  Discard the Top Card of Draw. 
+ ;;;  Discard the Bottom Card of Draw.;;; ['Copper Croppers']
+Back Scratcher;;; [ iDiscard ], < iTop > + Cantrip. (1L x6).;;; ['New Bear Order']
+Sham Speed Sign;;;  2B. +3 Cards.
+ ;;;  |>| Pocket this.;;; ['Bandits of the Highway']
+Miscellany;;; { 3H }, [ iPocket ] Does Nothing.;;; ['Muck']
+Coercion Cultivator;;; { HH } Pick an Enemy. To it: 1L. 
+ ;;;  If it is still alive, Pocket a ^Shovel^ Card, and Discard this.;;; ['Bandits of the Highway']
+\\SHELL\\ Sheriff's Badge;;;  > Entoken this with: <<feathery>>, <<alliance>>.;;; ['Horse Hostelry']
+Navigator;;;  3G. Look at the top 3 Card of Draw; you may Discard them.
+ ;;;  |>| { 2H } Play this.;;; ['Fruit-Bearing Monks']
+Gnawed Cable Cord;;;  +1 Action. 2B-notick. Move this onto Draw.
+ ;;;  |>| Draw a Card to the Into-Hand mat.;;; ['Fallow Farmland']
+Heirloom;;; [ iTop ] 2M.
+ ;;;  ~ When Replaced with Loot: Change Replacement Card with [ iTop ].;;; ['Graverobber']
+Cultivator;;;  2M. Move this onto Draw.
+ ;;;  |>| Draw a Card to the Into-Hand mat.;;; ['Fallow Farmland']
+Warehouse Helmet;;; { HH } +3 Cards.;;; ['Packing Bot']
+Trough Boy;;;  +1 Action. 4B-notick.
+ ;;;  |>| { HH } Pick an Enemy. To it: Destroy a Band.;;; ['Copper Croppers']
+Good Bad and Ugly;;;  1M / 1L / 1Random. +1 Card. 
+ ;;;  Replace this with ^Broken Bottle^.;;; ['Horse Hostelry']
