@@ -34,7 +34,7 @@ while True:
     for i in range(len(picks)):
         print(" " + str(i + 1) + ". " 
             + Back.CYAN + Style.BRIGHT + " " + picks[i].name + " "
-            + Back.BLACK + Style.NORMAL 
+            + Back.RESET + Style.NORMAL 
             + h.normalize("", 41 - 5 - len(str(i+1)) - len(picks[i].name)) 
             + picks[i].niceBodyText(41, h.WIDTH, supressedTypes = []))
         print("")

@@ -48,7 +48,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
             '''
             print(" " + str(count + 1) + ". " 
                 + Back.CYAN + Style.BRIGHT + " " + dino.deck.at(i).name + " "
-                + Back.BLACK + Style.NORMAL 
+                + Back.RESET + Style.NORMAL 
                 + normalize("", 41 - 5 - len(str(count + 1)) - len(dino.deck.at(i).name) - 3) + ":  "
                 + dino.deck.at(i).niceBodyText(41, WIDTH, supressedTypes = []))
             # '''
@@ -108,7 +108,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
                 '''
                 print(" " + str(i + 1) + ". " 
                         + Back.CYAN + Style.BRIGHT + " " + picks.at(i).name + " "
-                        + Back.BLACK + Style.NORMAL 
+                        + Back.RESET + Style.NORMAL 
                         + normalize("", 41 - 5 - len(str(i+1)) - len(picks.at(i).name) - 3) + ":  "
                         + picks.at(i).niceBodyText(41, WIDTH, supressedTypes))
                 print(normalize("", 41 - 3) + ".")
@@ -186,7 +186,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
     if lootVacuously or dino.looting <= 0:
         return
     else:
-        selectCard(dino, clearingName, roundCount, lootTable, pulls = pulls, lootVacuously = lootVacuously)
+        selectCard(dino, clearingName, roundCount, lootTables, pulls = pulls, lootVacuously = lootVacuously)
 
 ## Checks for if a given card is found within an array of cards. 
 ##  Returns the index of that array if found, otherwise returning -1. 
@@ -559,10 +559,10 @@ def colorize(text):
             # G = Fore.GREEN
             # B = Fore.BLUE
             # returnText += R + "R" + G + "a" + B + "n" + R + "d" + G + "o" + B + "m" + Fore.WHITE
-            # best? returnText += Style.DIM + R + "Ra" + G + "nd" + B + "om" + Fore.WHITE + Back.BLACK + Style.NORMAL
+            # best? returnText += Style.DIM + R + "Ra" + G + "nd" + B + "om" + Fore.WHITE + Back.RESET + Style.NORMAL
             returnText += Fore.MAGENTA + word + Fore.WHITE
         elif word == "Row":
-            returnText += Style.BRIGHT + Back.RED + "R" + Back.GREEN + "o" + Back.BLUE + "w" + Style.NORMAL + Back.BLACK
+            returnText += Style.BRIGHT + Back.RED + "R" + Back.GREEN + "o" + Back.BLUE + "w" + Style.NORMAL + Back.RESET
         elif word == "Notnil":
             returnText += Style.BRIGHT + Fore.BLACK + "Filled" + Style.NORMAL + Fore.WHITE
             # returnText += Fore.MAGENTA + "Nonzero" + Fore.WHITE
@@ -603,13 +603,13 @@ def colorize(text):
         elif word == "Chance":
             returnText += Fore.YELLOW + word + Fore.WHITE
         elif word == "M":
-            returnText += Back.WHITE + Style.BRIGHT + Fore.BLACK + word + Style.NORMAL + Fore.WHITE + Back.BLACK
+            returnText += Back.WHITE + Style.BRIGHT + Fore.BLACK + word + Style.NORMAL + Fore.WHITE + Back.RESET
         elif word in ["H", "HH"]:
             returnText += Fore.BLACK + Style.BRIGHT + word + Fore.WHITE + Style.NORMAL
         elif word in ["Enemy", "Enemies", "Carcass"]:
-            returnText += Back.RED + word + Back.BLACK
+            returnText += Back.RED + word + Back.RESET
         elif word == "Enemy's":
-            returnText += Back.RED + "Enemy" + Back.BLACK + "'s"
+            returnText += Back.RED + "Enemy" + Back.RESET + "'s"
         elif word in ["Band", "Bands", "EXCEPT"]:
             returnText += Fore.RED + Style.BRIGHT + word + Fore.WHITE + Style.NORMAL
         elif word in ["Triggered", "Special", "Gimmick"]:
@@ -628,7 +628,7 @@ def colorize(text):
         elif word in ["notick"]:
             returnText += "nt"
         elif word in ["Fatal"]:
-            returnText += Back.RED + "Fatal" + Back.BLACK
+            returnText += Back.RED + "Fatal" + Back.RESET
         elif word == "FoG":
             returnText += Fore.GREEN
         elif word == "FoW":
@@ -649,20 +649,20 @@ def colorize(text):
                     returnText += Style.BRIGHT + Fore.YELLOW + word + Style.NORMAL + Fore.WHITE
                 elif word[0:1] == "^" and word[len(word) - 1:len(word)] == "^":                     ## Contains ^text^ phrase
                     returnText += (Style.BRIGHT + Back.CYAN + " " + word[1:len(word) - 1] + " " 
-                                    + Style.NORMAL + Back.BLACK)
+                                    + Style.NORMAL + Back.RESET)
                 elif word[0:1] == "^":                                                              ## Starts with ^
                     returnText += Style.BRIGHT + Back.CYAN + " " + word[1:len(word)]
                 elif word[len(word) - 1:len(word)] == "^":                                          ## Ends with ^
                     returnText += (Style.BRIGHT + Back.CYAN + word[0:len(word) - 1] + " " 
-                                    + Style.NORMAL + Back.BLACK)
+                                    + Style.NORMAL + Back.RESET)
                 elif word[0:1] == "%" and word[len(word) - 1:len(word)] == "%":                     ## Contains %text% phrase
                     returnText += (Fore.BLACK + Back.RED + " " + word[1:len(word) - 1] + " " 
-                                    + Fore.WHITE + Back.BLACK)
+                                    + Fore.WHITE + Back.RESET)
                 elif word[0:1] == "%":                                                              ## Starts with %
                     returnText += Fore.BLACK + Back.RED + " " + word[1:len(word)]
                 elif word[len(word) - 1:len(word)] == "%":                                          ## Ends with %
                     returnText += (Fore.BLACK + Back.RED + word[0:len(word) - 1] + " " 
-                                    + Fore.WHITE + Back.BLACK)
+                                    + Fore.WHITE + Back.RESET)
                 else:
                     returnText += word
 

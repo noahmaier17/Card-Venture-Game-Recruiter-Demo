@@ -1,0 +1,280 @@
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   -- CARD NAME --                     | -- TEXT --
+  \\SHELL\\ Rust                       :   > Shell this. 
+                                           > ... 
+                                           > Draw until you have 3 Cards in Hand.
+                                       .
+  Brass Muzzle                         :   Pick an Enemy. To it: 2B / 2M; Discard a Card.
+                                       .
+  Forklift Certificate                 :  { HH } + Cantrip. 
+                                           At Turn End, if you have 2+ ^Junk^ in Play: Move this onto the Into-Hand 
+                                           Mat.
+                                       .
+  Courage Building                     :   1B-notick / 1R.
+                                           |>| Pocket a ^Trip^ Card.
+                                       .
+  Organized Armaments                  :  { HH } +2 Actions. 
+                                           Once a Turn WTIP, if you have 1+ Actions at the End of Turn, you may: 
+                                           (1) 1M.
+                                       .
+  Last Seeds                           :   +1 Action. 9L. +1 Card.
+                                       .
+  Road Sign Augers                     :   +1 Action. Discard your Hand for +2 Cards.
+                                           & Pocket a ^Shovel^ Card.
+                                       .
+  Wheel Shrapnel                       :   +1 Action. 2R-notick / 2M. Discard your Hand.
+                                       .
+  Highway-Grass Median                 :   2G-notick / 2B-notick. 
+                                           You may Discard your Hand for: + Cantrip. 
+                                           0.2 Chance for: + Cantrip.
+                                       .
+  Bees Nest                            :  { 1H } 3x, to an arbitrary Enemy: 1L. 
+                                           Next Turn, +1 Action.
+                                       .
+  Raccoon Heist                        :   +2 Actions. Pocket a ^Shovel^ Card.
+                                           |>| 2B.
+                                       .
+  Bear Claws                           :  { HH } 3R. Then: 2B.
+                                           |>| Discard your Draw.
+                                       .
+  Time in a Bottle                     :  [ iMuck ] + Cantrip.
+                                           |>| { HH } Take a 2nd Turn. To every Enemy: Take a 2nd Turn. 
+                                               Gain a ^Broken Bottle^.
+                                       .
+  Pocket Test                          :  [ iTop ] Move this onto the Pocket Mat.
+                                           |>| 999M.
+                                       .
+  Trampled Rodent                      :   1R-notick / 1G-notick / 1B-notick / 1M.
+                                       .
+  Leave No Trace Mantra                :   +2 Actions. Move an Arbitrary non-^Muck^ Card from Discard into Hand.
+                                       .
+  Bay of Pigs                          :   2Random-notick / 2Random-notick / 2Random-notick.
+                                           |>| { HH } Next Turn, +1 Action.
+                                       .
+  Potpourri                            :   1Random.
+                                       .
+  \\SHELL\\ Final Straw                :   > { HH } Shell this. 
+                                           > ... 
+                                           > + Cantrip.
+                                       .
+  Stowaway                             :   +1 Action. 3G.
+                                       .
+  Rebuild or Destroy                   :  { HH } + Cantrip. Draw 1 more Card for your Next Turn.
+                                           |>| { HH } To every Enemy: Discard a Card.
+                                       .
+  Smashed Bottles                      :   *
+                                       .
+  Car Feigning                         :   1G / 1R. If your Hand is Empty: + Cantrip; + Cantrip.
+                                           |>| Pocket this.
+                                       .
+  Rusted Scythe                        :   2R-notick / 2M. 
+                                           You may: Discard your Hand for +2 Cards. 
+                                           +1 Card.
+                                       .
+  Rescued Plankwalker                  :  { 2H } +1 Action. 3B. 
+                                           Next Next Turn, Discard both this and Draw.
+                                       .
+  Hunk of Junk                         :   +1 Action. 1G / 1G-notick / 1R / 1R-notick. 
+                                           You may: (+1 Card. 0.5 Chance for: Pocket a Rubbish Card.).
+                                       .
+  Draw 6                               :  [ iTop ] +6 Cards.
+                                       .
+  Junk                                 :  [ iMuck ] Does Nothing.
+                                       .
+  Lugged Creature                      :   +1 Action. 1B-notick.
+                                           & Pocket a ^Holy Shovel^ Card.
+                                       .
+  Recycling Bin                        :  [ iTop ], < iTop > 1B / 1B / 1B / 1G / 1G. 
+                                           +1 Card. Discard the Bottom Card of Draw.
+                                       .
+  MEGA Damage                          :   +1 Action. 10R / 10G / 10B. Pocket this.
+                                       .
+  Band-it Bond                         :   2R-notick / 2G-notick / 2B-notick. Discard your Hand.
+                                       .
+  Metal Crate                          :  { HH } 1M / 1M.
+                                           ~ When Replaced with Loot: +1 Looting.
+                                       .
+  Packing Peanuts                      :   1L. Then: 1L.
+                                       .
+  Diligent Deckhand                    :   + Cantrip. Move the Bottom Card of Draw onto the Into-Into Hand mat.
+                                           & Move the Bottom Card of Draw onto the Into-Into Hand mat.
+                                       .
+  Bottle Caps                          :   (1Notnil x3); 
+                                           If Fatal or Broke a Band, Replace this with ^Broken Bottle^. 
+                                           Otherwise, Discard this.
+                                       .
+  Holy Shovel                          :   \ Temporary \ +1 Action. Discard your Hand, for +2 Cards.
+                                           |>| Entoken all Pocket Cards with <<feathery>>.
+                                       .
+  Attempt Appeasement                  :  { HH } +1 Action. 2B.
+                                           ~ When Looted, Bottom-Text Upgrade this Card's Play Text with either: 
+                                           (1) +2 Cards. 
+                                           (2) +1 Action.
+                                       .
+  Spare Spade                          :  [ iPocket ] +1 Action. Discard your Hand, for +2 Cards.
+                                       .
+  Fight or Flight                      :   1G-notick / 1B-notick / 1G / 1B.
+                                           |>| Entoken the top Card of Draw with <<feathery>>.
+                                       .
+  Shipping Tape                        :   2R.
+                                       .
+  Rowers                               :  { 2H } 3Notnil. Next Turn, and Next Next Turn: +1 Card.
+                                       .
+  Hibernation                          :  [ iTop ], < iTop > To each Enemy that has yet to take a Turn: 
+                                           (1) Discard their Hand. 
+                                           Discard your Hand.
+                                       .
+  Missionary                           :  { 2H } +1 Action. 3R. 
+                                           Next Next Turn, + Cantrip.
+                                       .
+  Chase Until Exhaustion               :  [ iTop ], < iTop > +1 Action. 1Notnil. Discard your Draw. 
+                                           0.67 Chance for: { HH } Next Turn, -1 Action.
+                                       .
+  Flickering Lantern                   :   +1 Action. 1R-notick.
+                                       .
+  Castaway                             :   6R.
+                                           |>| Move a Card from Hand onto Draw.
+                                       .
+  New Fresh Air                        :   +1 Action. 1G-notick.
+                                           |>| 1G-notick.
+                                       .
+  Cowboys In Exile <<alliance>>        :  [ iMuck ] +2 Actions.
+                                           |>| Entoken all Cards in Play with <<feathery>>.
+                                       .
+  Shovel                               :   \ Temporary \ +1 Action. Discard your Hand for +2 Cards. 
+                                           Destroy this.
+                                       .
+  Stamp Gun                            :   1G-notick / 1B-notick.
+                                           |>| Draw a Card to the Into-Hand mat.
+                                       .
+  Will-o-Wisps                         :   2x, to an Arbitrary Enemy: 1L.
+                                           ~ When Replaced with Loot: Change Replacement Card with [ iTop ].
+                                       .
+  Friendly Bark                        :   \ Temporary \ +1 Card. Destroy this.
+                                       .
+  Getaway Horse <<alliance>>           :  [ iMuck ] Discard all ^Junk^ in Hand. +4 Cards.
+                                       .
+  Trot Trot <<feathery>>               :   +1 Action. 1R-notick / 1R. +1 Card. 
+                                           Replace this with ^Broken Bottle^.
+                                       .
+  Car Casing                           :  { HH } 0.67 Chance for: 2R-notick / 2G-notick / 2B-notick / 2M. 
+                                           Otherwise: Pocket this.
+                                       .
+  Failed Peace Treaty                  :   +2 Actions.
+                                           |>| { HH } To every Enemy: 2Random.
+                                       .
+  Broken Bottle                        :   \ Temporary \ +1 Action. 0.5Chance for: +1 Card.
+                                       .
+  Trip                                 :   \ Temporary \ + Cantrip.
+                                       .
+  Dead Harvested Grass                 :   3G. Then: 1L.
+                                       .
+  Twig-Rock Scarecrow                  :   -1 Action. 
+                                           Plus 1 Action and Draw 1 more Card for your Next Turn.
+                                           |>| 1Random / 1Random.
+                                       .
+  Torch Bearing                        :  [ iTop ], < iTop > +2 Actions.
+                                       .
+  Bone-Gnaw                            :   +1 Card. (1M x4).
+                                           & Arbitrarily Discard 4 Cards of Draw.
+                                       .
+  Brake Cutters                        :   1M / 1M / 1M. 
+                                           Gain a ^Rubbish^.
+                                       .
+  Infiltrator Interrogators            :  { HH } +2 Actions. 2x, Draw a Card to the Pocket Mat. 
+                                           Discard your Hand.
+                                           & Pocket a ^Rubbish^ Card.
+                                       .
+  Draw All                             :  [ iTop ] +20 Cards.
+                                       .
+  Collective Bargaining                :   +1 Action. 2G. 
+                                           Once WTIP, if you have 1+ Actions at the End of Turn, you may: 
+                                           (1) { HH } Plus 1 Action for your Next Turn.
+                                       .
+  Hatching Coup                        :  { HH } 4R-notick / 4B-notick / 2M. 
+                                           WTIP, if you have 1+ Actions at the End of Turn, you may: 
+                                           (1) Move this onto Draw.
+                                           & -1 Action.
+                                       .
+  Shoulder Hump                        :   4Notnil / 3Notnil.
+                                           |>| Move this into Play. If you did: { 1H } Next Turn, +1 Action.
+                                       .
+  Mangled Shrew                        :   2R-notick / 1Notnil / 1Notnil / 1Notnil.
+                                       .
+  Icelandic Horse                      :   +1 Action. Mill, Unless a Card with '+1 Card', '+X Cards' or '+ Cantrip' 
+                                           in body-text is found; Move such a Card into Hand. Then, Immill, and +1 
+                                           Card.
+                                           |>| 1B / 1M.
+                                       .
+  Honey Pot                            :  { 1H }, [ iTop ], < iTop > Discard your Hand. 
+                                           Next Turn, +2 Actions.
+                                       .
+  Anchorman                            :   3M. From Hand, Pick a Card to Save, Discarding all others.
+                                       .
+  Expired Milk <<alliance>>            :   +1 Action. Pick an Enemy. To it: 
+                                           (1) 1G-notick / 1M. 
+                                           (2) Replace an Arbitrary Card in Hand with ^Broken Bottle^.
+                                       .
+  Cowboy Duel Mantra                   :   Pick an Enemy. 3x, to it: 
+                                           (1) If it has any Cards in Hand, Discard a Card; Otherwise 1Notnil. 
+                                           Replace this with ^Broken Bottle^.
+                                       .
+  Action Overthrow                     :   2R. Then: 2R.
+                                           & +1 Action.
+                                       .
+  Empty Mantle                         :  [ iDiscard ] Does Nothing.
+                                           ~ When Replaced with Loot: Change Replacement Card with [ iDiscard ].
+                                       .
+  New Farm Leader                      :   + Cantrip. Move a Card from Hand onto Draw.
+                                           |>| { HH } 1G.
+                                           ~ When Looted, Change a Card in Deck's Initialization Zone to [ iTop ].
+                                       .
+  Rubbish                              :   \ Temporary \ { 3H } Does Nothing.
+                                       .
+  Card Overthrow                       :  { HH } Pick an Enemy. To it: 4Notnil; Discard their Hand.
+                                           & +1 Card.
+                                       .
+  Grasshopper Cache                    :   + Cantrip.
+                                           |>| 2G / 2M. Move this onto Draw.
+                                       .
+  Faithful Hound                       :   1Notnil / 1Notnil.
+                                           & Pocket a ^Friendly Bark^ Card.
+                                       .
+  Dethronement                         :   -1 Action. 4M / 2G. 
+                                           Discard the Top Card of Draw. 
+                                           Discard the Bottom Card of Draw.
+                                       .
+  Back Scratcher                       :  [ iDiscard ], < iTop > + Cantrip. (1L x6).
+                                       .
+  Sham Speed Sign                      :   2B. +3 Cards.
+                                           |>| Pocket this.
+                                       .
+  Miscellany                           :  { 3H }, [ iPocket ] Does Nothing.
+                                       .
+  Coercion Cultivator                  :  { HH } Pick an Enemy. To it: 1L. 
+                                           If it is still alive, Pocket a ^Shovel^ Card, and Discard this.
+                                       .
+  \\SHELL\\ Sheriff's Badge            :   > Entoken this with: <<feathery>>, <<alliance>>.
+                                       .
+  Navigator                            :   3G. Look at the top 3 Card of Draw; you may Discard them.
+                                           |>| { 2H } Play this.
+                                       .
+  Gnawed Cable Cord                    :   +1 Action. 2B-notick. Move this onto Draw.
+                                           |>| Draw a Card to the Into-Hand mat.
+                                       .
+  Heirloom                             :  [ iTop ] 2M.
+                                           ~ When Replaced with Loot: Change Replacement Card with [ iTop ].
+                                       .
+  Cultivator                           :   2M. Move this onto Draw.
+                                           |>| Draw a Card to the Into-Hand mat.
+                                       .
+  Warehouse Helmet                     :  { HH } +3 Cards.
+                                       .
+  Trough Boy                           :   +1 Action. 4B-notick.
+                                           |>| { HH } Pick an Enemy. To it: Destroy a Band.
+                                       .
+  Good Bad and Ugly <<alliance>>       :   1M / 1L / 1Random. +1 Card. 
+                                           Replace this with ^Broken Bottle^.
+                                       .
+
+ > Number of valid matches: 95

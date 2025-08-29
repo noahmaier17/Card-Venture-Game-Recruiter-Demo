@@ -715,10 +715,10 @@ class rescuedPlankwalker(DinoCard):
     def atTriggerTurnStart(self, caster, dino, enemies):
         if (self.turnsLingering == 2):
             ## h.splash("")
-            caster.discardMe(caster.play, self, dino, enemies, passedInVisuals)
+            caster.discardMe(caster.play, self, dino, enemies, vis.prefabEmpty)
 
             while caster.draw.length() > 0:
-                caster.discardCard(caster.draw, 0, dino, enemies, passedInVisuals)
+                caster.discardCard(caster.draw, 0, dino, enemies, vis.prefabEmpty)
 
 class anchorperson(DinoCard):
     def __init__(self):
@@ -3790,7 +3790,7 @@ class rubbleReorganizers(DinoCard):
 
     def onLooted(self, dino):
         for i in range(2):
-            dino.gainCard(dc.rubble())
+            dino.gainCard(rubble())
 
 class rubbleReclaimers(DinoCard):
     def __init__(self):
@@ -3837,7 +3837,7 @@ class rubbleReclaimers(DinoCard):
 
     def onLooted(self, dino):
         for i in range(1):
-            dino.gainCard(dc.rubble())
+            dino.gainCard(rubble())
 
 class rubbleRequesters(DinoCard):
     def __init__(self):
@@ -3885,7 +3885,7 @@ class rubbleRequesters(DinoCard):
 
     def onLooted(self, dino):
         for i in range(1):
-            dino.gainCard(dc.rubble())
+            dino.gainCard(rubble())
 
 '''
     Cattle Caste System

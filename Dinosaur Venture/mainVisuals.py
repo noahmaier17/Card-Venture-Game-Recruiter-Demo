@@ -294,7 +294,7 @@ def printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedType
         + dino.hp.displayHealth(23) + " | " 
         + rainbowNormalize(dino.actions, 1) + "->" + rainbowNormalize(dino.nextTurnActionCount(simplyObserve = True), 1) + " | " + niceFourMats(dino))
 
-    printNiceLingering(dino, Back.CYAN + Style.BRIGHT, Back.BLACK + Style.NORMAL)
+    printNiceLingering(dino, Back.CYAN + Style.BRIGHT, Back.RESET + Style.NORMAL)
 
     ## print(h.normalize(" | ` ` [ In Between Phases ] ` ` | ` ` ` ` ` ` ` ` ` ` ` ` | ` ` | ` ", WIDTH + 2, separator = "` "))
     index = 1
@@ -304,7 +304,7 @@ def printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedType
                 + enemy.hp.displayHealth(23) + " | " 
                 + rainbowNormalize(enemy.actions, 1) + "->" + rainbowNormalize(enemy.nextTurnActionCount(simplyObserve = True), 1) + " | " + niceFourMats(enemy))
             
-            printNiceLingering(enemy, Fore.BLACK + Back.RED, Fore.WHITE + Back.BLACK)
+            printNiceLingering(enemy, Fore.BLACK + Back.RED, Fore.WHITE +  Back.RESET)
         
         else:
             print(" | " + str(index) + ". Carcass                                              | null | null")
@@ -447,7 +447,7 @@ def printLocation(location, index, color, supressedTypes, event, nameFore = Fore
 
             if arrayIndex == 0:                         ## First row
                 print(eventText(event) + " " + Style.BRIGHT + h.normalize("", max(28 - len(nameTokensTextArray[arrayIndex]), 0))
-                    + color + nameFore + nameTokensTextArray[arrayIndex] + Back.BLACK + Fore.WHITE + Style.NORMAL + " "
+                    + color + nameFore + nameTokensTextArray[arrayIndex] + Back.RESET + Fore.WHITE + Style.NORMAL + " "
                     + " < " + str(index + 1) + " >" + (3 - len(str(index + 1))) * " "
                     + bodyTextArray[arrayIndex])
             else:
@@ -456,7 +456,7 @@ def printLocation(location, index, color, supressedTypes, event, nameFore = Fore
                 if not card.isShellCard:
                     indentation += " "
                 print(eventText(event) + " " + Style.BRIGHT + h.normalize("", max(28 - len(nameTokensTextArray[arrayIndex]), 0))
-                    + color + nameFore + nameTokensTextArray[arrayIndex] + Back.BLACK + Fore.WHITE + Style.NORMAL + indentation
+                    + color + nameFore + nameTokensTextArray[arrayIndex] + Back.RESET + Fore.WHITE + Style.NORMAL + indentation
                     + bodyTextArray[arrayIndex])
 
             arrayIndex += 1
@@ -478,7 +478,7 @@ def printEnemyTurn(enemy, dino, enemies, roundCount, clearing, enemyIndex, event
         + dino.hp.displayHealth(23) + " | " 
         + rainbowNormalize(dino.actions, 1) + "->" + rainbowNormalize(dino.nextTurnActionCount(simplyObserve = True), 1) + " | " + niceFourMats(dino))
 
-    printNiceLingering(dino, Back.CYAN + Style.BRIGHT, Back.BLACK + Style.NORMAL)
+    printNiceLingering(dino, Back.CYAN + Style.BRIGHT, Back.RESET + Style.NORMAL)
 
     ## print(h.normalize(" | ` ` [ In Between Phases ] ` ` | ` ` ` ` ` ` ` ` ` ` ` ` | ` ` | ` ", WIDTH + 2, separator = "` "))
     index = 0
@@ -495,7 +495,7 @@ def printEnemyTurn(enemy, dino, enemies, roundCount, clearing, enemyIndex, event
                 + subEnemy.hp.displayHealth(23) + " | " 
                 + rainbowNormalize(subEnemy.actions, 1) + "->" + rainbowNormalize(subEnemy.nextTurnActionCount(simplyObserve = True), 1) + " | " + niceFourMats(subEnemy))
             
-            printNiceLingering(subEnemy, Fore.BLACK + Back.RED, Fore.WHITE + Back.BLACK)
+            printNiceLingering(subEnemy, Fore.BLACK + Back.RED, Fore.WHITE + Back.RESET)
 
         else:
             print(barOrArrow + str(index + 1) + ". " + greenOrWhite + "Carcass" + Fore.WHITE +"                                              | null | null")

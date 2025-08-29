@@ -544,7 +544,7 @@ class Entity():
                 picks.append(draftPoolCopy.pop(random.randint(0, draftPoolCopy.length() -1)))
                 print(" " + str(i + 1) + ". " 
                         + Back.CYAN + Style.BRIGHT + " " + picks.at(i).name + " "
-                        + Back.BLACK + Style.NORMAL 
+                        + Back.RESET + Style.NORMAL 
                         + h.normalize("", 41 - 5 - len(str(i+1)) - len(picks.at(i).name) - 3) + ":  "
                         + picks.at(i).niceBodyText(41, h.WIDTH, supressedTypes))
                 ## print(h.normalize("", 41 - 3) + ".")
@@ -1010,7 +1010,7 @@ class Shepherd(Dinosaur):
         self.name = "Shepherd"
 
         cards = gcbt.getCardsByTable(["Shepherd"])
-        for cards in cards.getArray():
+        for card in cards.getArray():
             self.deck.append(card)
         for i in range(3):
             self.deck.append(dc.junk())
@@ -1514,7 +1514,7 @@ class Shrew(Enemy):
         if (chance <= 0.1 and not self.dead):
             h.splash("Triggered Gimmick: [ 0.1 Chance when Targeted to Take Damage ] ARR [ Discard Hand ].")
             while (self.hand.length() > 0):
-                self.discardCard(self.hand, 0, dino, enemies, passedInVisuals)
+                self.discardCard(self.hand, 0, dino, enemies, vis.prefabEmpty)
 
 ## Torch Bear -- It calls to the wild for apostles of the new order. 
 class CinnamonBear(Enemy):

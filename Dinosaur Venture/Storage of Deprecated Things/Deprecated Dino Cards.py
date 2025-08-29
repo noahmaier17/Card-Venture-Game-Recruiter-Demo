@@ -96,7 +96,7 @@ class redCardboardBox(DinoCard):
                 print(" | Already have a non-'Draw' initialization Location:")
                 for card  in otherCards:
                     print(" |  " + ALPHABET[index] + ". " + Back.CYAN + Style.BRIGHT 
-                    + " " + card.name + " " + Back.BLACK + Style.NORMAL 
+                    + " " + card.name + " " + Back.RESET + Style.NORMAL 
                     + h.normalize("", 30 - len(card.name)) + "> " 
                     + card.niceBodyText(41, 100, supressedTypes = []))
                     index += 1
@@ -105,7 +105,7 @@ class redCardboardBox(DinoCard):
             index = 0
             for card in upgradeCandidates:
                 print(" |  " + str(index + 1) + ". " + Back.CYAN + Style.BRIGHT 
-                + " " + card.name + " " + Back.BLACK + Style.NORMAL 
+                + " " + card.name + " " + Back.RESET + Style.NORMAL 
                 + h.normalize("", 30 - len(card.name)) + "> " 
                 + card.niceBodyText(41, 100, supressedTypes = []))
                 index += 1
