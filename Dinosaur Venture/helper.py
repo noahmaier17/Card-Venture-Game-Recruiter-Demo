@@ -9,6 +9,7 @@ WIDTH = 117 - 2
 ## Types of punctuation we splinterize, and that we do not want a new indent line to begin with
 PUNCTUATION_TYPES = [' ', ',', '!', '.', '-', ':', ';', '?', '{', '}', '[', ']', '(', ')', '*', '`']
 MULTIPLICATIVE_NUMERAL_TYPES = ["Nonce", "Once", "Twice", "Thrice", "Quarce", "Quince", "Sextce", "Spece", "Octce", "Nince", "Tence"]
+ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 ## Overhead for drafting a Card from a loot table
 def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuously = False, canPass = False, activateAbilityOnPass = False):

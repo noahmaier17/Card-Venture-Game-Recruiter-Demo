@@ -3,10 +3,9 @@
 import os, random, re
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
-import dinoCards as dc
-import enemyCards as ec
 import helper as h
 import mainVisuals as vis
+import getCardsByTable as gcbt
 
 def code():
     PAD = 37
@@ -102,9 +101,9 @@ def code():
     
     string += "  " + h.normalize(" -- CARD NAME -- ", PAD - 3) + "|     -- TEXT --\n"
     
-    dinoCards = dc.DinoCard.__subclasses__()
-    dinoShellCards = dc.DinoShellCard.__subclasses__()
-    enemyCards = ec.EnemyCard.__subclasses__()
+    dinoCards = gcbt.getDinoCards()
+    dinoShellCards = gcbt.getDinoShellCards()
+    enemyCards = gcbt.getEnemyCards()
 
     if ONLY_SHELLS:
         dinoCards = []

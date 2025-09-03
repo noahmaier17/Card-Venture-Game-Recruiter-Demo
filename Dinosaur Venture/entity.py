@@ -1,14 +1,11 @@
 import math, random, os, copy
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
-import card as c
-import enemyCards as ec
-import dinoCards as dc
 import helper as h
-import getCardsByTable as gcbt
 import cardTokens as tk
 import react as r
 import mainVisuals as vis
+import getCardsByTable as gcbt
 
 class Entity():
     def __init__(self):
@@ -982,7 +979,7 @@ class Rover(Dinosaur):
         for card in cards.getArray():
             self.deck.append(card)
         for i in range(4):
-            self.deck.append(dc.junk())
+            self.deck.append(gcbt.getCardByName("Junk"))
 
 class Graverobber(Dinosaur):
     def __init__(self):
@@ -994,9 +991,9 @@ class Graverobber(Dinosaur):
         for card in cards.getArray():
             self.deck.append(card)
         for i in range(2):
-            self.deck.append(dc.junk())
+            self.deck.append(gcbt.getCardByName("Junk"))
         self.deckDraw = 0
-        ## self.deck.append(dc.miscellany())
+        ## self.deck.append(gcbt.getCardByName("miscellany"))
 
     def turnEndTidying(self, dino, enemies, passedInVisuals):
         for i in range(24):
@@ -1013,7 +1010,7 @@ class Shepherd(Dinosaur):
         for card in cards.getArray():
             self.deck.append(card)
         for i in range(3):
-            self.deck.append(dc.junk())
+            self.deck.append(gcbt.getCardByName("Junk"))
 
 '''
 class HungryWolf(Dinosaur):
@@ -1052,7 +1049,7 @@ class Enemy(Entity):
         EFD = h.cardLocation("EFD")
 
         ## Pre-processing, finding all cards that are reasonable-enough matches
-        for Card in ec.ENEMY_CARD_POOL_UNINIT:
+        for Card in gcbt.ENEMY_CARD_POOL_UNINIT:
             card = Card(targetDamage = self.damageDist, targetSift = self.siftDist)
             deltaDamage = (card.damageDist - self.damageDist)
             deltaSift = (card.siftDist - self.siftDist)
@@ -1067,7 +1064,7 @@ class Enemy(Entity):
         while (self.deck.length() < 6):
             if EFD.length() == 0:
                 # Case where we cannot add any more Cards
-                self.deck.append(ec.nothing())
+                self.deck.append(gcbt.getCardByName("Nothing"))
             else:
                 card = EFD.pop(random.randint(0, EFD.length() - 1))
 
@@ -1262,7 +1259,7 @@ class Fisherman(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(ec.craveFishMantra())
+        self.deck.append(gcbt.getCardByName("Crave Fish Mantra"))
         self.damageDist = 1.8
         self.siftDist = 0.75
         super().fillDeck()
@@ -1282,11 +1279,11 @@ class FishingCaravan(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(ec.fishFrenzy())
+        self.deck.append(gcbt.getCardByName("Fish Frenzy"))
         if random.random() < 0.25:
-            self.deck.append(ec.fishFrenzy())
+            self.deck.append(gcbt.getCardByName("Fish Frenzy"))
             if random.random() < 0.1:
-                self.deck.append(ec.fishFrenzy())
+                self.deck.append(gcbt.getCardByName("Fish Frenzy"))
         self.damageDist = 1.35
         self.siftDist = 1.25
         super().fillDeck()
@@ -1308,7 +1305,7 @@ class FlyingSquirrel(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(ec.prepareToFly())
+        self.deck.append(gcbt.getCardByName("Prepare To Fly"))
         self.damageDist = 0.8
         self.siftDist = 1.2
         super().fillDeck()
@@ -1329,7 +1326,7 @@ class MalabarGiantSquirrel(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(ec.goingNuts())
+        self.deck.append(gcbt.getCardByName("Going Nuts"))
         self.damageDist = 1
         self.siftDist = 1
         super().fillDeck()
@@ -1526,7 +1523,7 @@ class CinnamonBear(Enemy):
         self.hp = self.__healthInit()
         self.publishBandBreak(1, discardHand = True)
 
-        self.deck.append(ec.soapboxStump())
+        self.deck.append(gcbt.getCardByName("Soapbox Stump"))
         self.damageDist = 1.1
         self.siftDist = 1.1
         super().fillDeck()
@@ -1554,7 +1551,7 @@ class Babybear(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
         
-        self.deck.append(ec.demandingInheritance())
+        self.deck.append(gcbt.getCardByName("Demanding Inheritance"))
         self.damageDist = 1
         self.siftDist = 1
         super().fillDeck()
@@ -1632,7 +1629,7 @@ class DiscardedPlastic(Enemy):
         if len(dino.play) > 1 and self.didOnceARoundAtTriggerDinoPlayedCard == False and self.dead == False:
             self.didOnceARoundAtTriggerDinoPlayedCard = True
             h.splash("Triggered Special Gimmick: Once a Round, while 'Discarded Plastic' is Alive: if '" + str(dino.name) + "' has more than 1 Card in play: Dino gains 'To-Toss Plastic,' and draws 1 additional Card next Turn.")
-            dino.discard.append(dc.toTossPlastic())
+            dino.discard.append(gcbt.getCardByName("To-Toss Plastic"))
             dino.plusUpcomingPlusCard(0, 1)
 
 ## Grizzly -- More than any other bear does it despise what has come of the species. 

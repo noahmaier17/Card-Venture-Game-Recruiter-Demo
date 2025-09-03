@@ -1,22 +1,17 @@
 import math, random, os, webbrowser
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
-import card as c
-import enemyCards as ec
-import dinoCards as dc
 import entity as e
 import helper as h
 import mainVisuals as vis
 import clearing as clr
-import cardFunctions as cf
 import getCardsByTable as gcbt
-import cardTokens as tk
 import react as r
+## from Dino_Cards_Depot import GeneralDinoCards as gdc
 
 ## STARTING VARIABLES FOR NEW GAME
 event = "Initialize Round"
 skipRoundZeroRestStop = True
-ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 roundCount = -1
 enemies = []
 possibleClearings = []
@@ -81,17 +76,17 @@ DEBUG_FALSE = False
 ## ----- DEBUGGING -----
 DO_ROUND_1_LOOTING = False
 NUKE_DINO_DECK = False
-DEBUG_DINO_DECK = True
+DEBUG_DINO_DECK = False
 ##              --> Nukes Dino Deck anyways
 SKIP_SHOP_DEBUG = False
 LOOT_SHELLS_ONLY = False
 
-SKIP_PICKING_CLEARINGS = True
+SKIP_PICKING_CLEARINGS = False
 #DIFFICULTY_DEBUG_BONUS = -1000
 #NUMBER_OF_CARDS_TO_LOOT = 999
 #setOfAllWoods = [clr.ThePier()]
-shopLocation = h.cardLocation("")
-for card in [dc.bolster()]: shopLocation.append(card)
+#shopLocation = h.cardLocation("")
+#for card in [gcbt.getCardByName("Bolster")]: shopLocation.append(card)
 
 possible_heirlooms = ["Shop"]
 
@@ -102,34 +97,12 @@ if NUKE_DINO_DECK or DEBUG_DINO_DECK:
     dino.deck = h.cardLocation("deck")
 if DEBUG_DINO_DECK:
     '''
-    testCard = dc.forkliftCertificate()
+    testCard = gcbt.getCardByName("Forklift Certificate")
     testCard.publishShell(aboveThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)),
                           belowThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)))
     dino.deck.append(testCard)
     '''
-    dino.deck.append(dc.infiltratorInterrogators())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
-    dino.deck.append(dc.junk())
+    dino.deck.append(gcbt.getCardByName("Junk"))
 
 difficulty += DIFFICULTY_DEBUG_BONUS
 if difficulty <= 0:
@@ -229,9 +202,9 @@ while True:
             lootTable = h.cardLocation("loot table")
             setOfCards = []
             if LOOT_SHELLS_ONLY:
-                setOfCards = dc.DinoShellCard.__subclasses__()
+                setOfCards = gcbt.getDinoShellCards()
             else:
-                setOfCards = dc.DinoCard.__subclasses__() + dc.DinoShellCard.__subclasses__()
+                setOfCards = gcbt.getDinoCards() + gcbt.getDinoShellCards()
             for card in setOfCards:
                 if neckOfTheWoods.name in card().table:
                     lootTable.append(card())

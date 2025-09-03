@@ -1,13 +1,13 @@
 ## SERVER
 from flask import Flask, request, jsonify
-import dinoCards as dc
 import enemyCards as ec
+import getCardsByTable as gcbt
 
 app = Flask(__name__)
 
 max_id = 1
 cards = []
-for child in dc.DinoCard.__subclasses__() + dc.DinoShellCard.__subclasses__() + ec.EnemyCard.__subclasses__():
+for child in gcbt.getDinoCards() + gcbt.getDinoShellCards() + gcbt.getEnemyCards():
     name = child().nameWithTokens()
     text = child().niceBodyText(0, 99999, supressedTypes = [], noColor = True)
 
@@ -19,7 +19,7 @@ for child in dc.DinoCard.__subclasses__() + dc.DinoShellCard.__subclasses__() + 
     max_id += 1
 
 dino_cards = []
-for child in dc.DinoCard.__subclasses__():
+for child in gcbt.getDinoCards():
     name = child().nameWithTokens()
     text = child().niceBodyText(0, 99999, supressedTypes = [], noColor = True)
 

@@ -3,8 +3,8 @@ from colorama import init, Fore, Back, Style
 init(autoreset=True)
 import card as c
 import enemyCards as ec
-import dinoCards as dc
 import helper as h
+import getCardsByTable as gcbt
 
 ## Simulates card pulls, showing what can be expected from different sets
 
@@ -17,7 +17,7 @@ PULL_TABLE.append("Apple Orchard Hollow")
 PULLS = 4
 
 tabulizedCards = []
-for Card in dc.DinoCard.__subclasses__() + dc.DinoShellCard.__subclasses__() + ec.EnemyCard.__subclasses__():
+for Card in gcbt.getDinoCards() + gcbt.getDinoShellCards() + gcbt.getEnemyCards():
     if any(i in Card().table for i in PULL_TABLE):
         tabulizedCards.append(Card())
 

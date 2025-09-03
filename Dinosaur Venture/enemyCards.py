@@ -2,8 +2,8 @@ import math, random, os
 import card as c
 import helper as h
 import entity as e
+import getCardsByTable as gcbt
 import cardFunctions as cf
-import dinoCards as dc
 
 ## Initiates all enemy cards
 class EnemyCard(c.Card):
@@ -693,14 +693,6 @@ class rockyVase(EnemyCard):
             for i in range(2):
                 caster.drawCard(caster.discard, shuffleLocation = 'NONE')
 
-## Pools all the enemy cards into an uninitialized list
-ENEMY_CARD_POOL_UNINIT = []
-for Card in EnemyCard.__subclasses__():
-    if any(i in Card().table for i in ["Enemy Card Pool"]):
-        ## We add it 2x
-        ENEMY_CARD_POOL_UNINIT.append(Card)
-        ENEMY_CARD_POOL_UNINIT.append(Card)
-
 ## +1 Action. Heal 1L.
 class craveFishMantra(EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
@@ -727,9 +719,9 @@ class fishFrenzy(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            dino.gainCard(dc.fish(), dino.draw)
+            dino.gainCard(gcbt.getCardByName("Fish"), dino.draw)
             for enemy in enemies:
-                enemy.gainCard(dc.fish(), enemy.draw)
+                enemy.gainCard(gcbt.getCardByName("Fish"), enemy.draw)
 
 ## + Cantrip. Top-Text Upgrade the Top Card of Draw with: //> +1 Action.
 class prepareToFly(EnemyCard):
