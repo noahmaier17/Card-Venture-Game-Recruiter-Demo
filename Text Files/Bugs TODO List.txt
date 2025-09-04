@@ -1,6 +1,9 @@
  == TODO BUGS ==
 
-Does Purge correctly remove triggers?
+Should Fish Frenzy give Fish to dead Entities? What do we define as an Entity / is there a distinction to a living Entity.
+ - Mostly an English-language question VS a programming problem. 
+
+Does Purge correctly remove triggers? (Answer is no, so fix it)
 
 Add text for when a looting instance is skipped
  - Text apparently exists for shops already
