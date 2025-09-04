@@ -6,6 +6,7 @@ import cardTokens as tk
 import react as r
 import mainVisuals as vis
 import getCardsByTable as gcbt
+import gameplayLogging as log
 
 class Entity():
     def __init__(self):
@@ -269,6 +270,9 @@ class Entity():
             
         ## Resets variables
         self.turn = 0
+
+        ## Logs
+        log.roundStartEntityLog(self)
     
     def roundEndTidying(self):
         pass
@@ -367,6 +371,9 @@ class Entity():
 
     ## Given a selected index, plays that Card. 
     def playCard(self, fromLocation, cardIndex, caster, dino, enemies, passedInVisuals, overrideToLocation = "null"):
+        ## Logging
+        log.playCardLog(self, fromLocation, cardIndex, caster, dino, enemies)
+
         ## Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
             if fromLocation.name == "hand" or fromLocation.name == "pocket":

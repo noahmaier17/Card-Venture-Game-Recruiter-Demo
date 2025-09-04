@@ -7,6 +7,7 @@ import mainVisuals as vis
 import clearing as clr
 import getCardsByTable as gcbt
 import react as r
+import gameplayLogging as log
 ## from Dino_Cards_Depot import GeneralDinoCards as gdc
 
 ## STARTING VARIABLES FOR NEW GAME
@@ -127,7 +128,12 @@ if not SKIP_PICKING_CLEARINGS:
     guarenteedClearingIndex = h.pickValue("Pick a guarenteed Neck of the Woods", range(1, len(setOfAllWoods) + 1), preamble = woodsPreamble) - 1
     guarenteedClearing = setOfAllWoods.pop(guarenteedClearingIndex)
 
+## Creates a new log file instance
+log.newLogFile()
+
 while True:
+    log.currentEventLog(event)
+
     if event == "Initialize Round":
         ## Uptick difficulty 
         difficulty += roundDifficultyCreep
@@ -215,12 +221,12 @@ while True:
 
         event = "Populate Clearing"
 
-    if event == "Populate Clearing":
+    elif event == "Populate Clearing":
         clearing.populate(difficulty)
         enemies = clearing.enemies
         event = "Start Round"
 
-    if event == "Start Round":
+    elif event == "Start Round":
         os.system('cls')
         dino.roundStart()
 
@@ -237,7 +243,7 @@ while True:
                 card.atTriggerRoundStart(enemies[i], dino, enemies, vis.prefabEmpty())
         event = "Dino Turn Start"
 
-    if event == "Dino Turn Start":
+    elif event == "Dino Turn Start":
         os.system('cls')
         dino.turnStart()
 
@@ -263,7 +269,7 @@ while True:
 
         event = "Dino Play Card"
 
-    if event == "Dino Play Card":   
+    elif event == "Dino Play Card":   
         ## ----- Checks if Dino may still play cards, otherwise becomes enemy turns -----
         if dino.actions == 0:
             event = "Dino Turn End"
@@ -311,8 +317,7 @@ while True:
             else:
                 event = "Dino Turn End"
 
-    ## TODO NEED TO RESET ALL OF THE THINGIES
-    if event == "Dino Turn End":
+    elif event == "Dino Turn End":
         ## -- PACKING ABILITIES -- 
         while True:
             hasPackingCard = False
@@ -404,7 +409,7 @@ while True:
             else:
                 event = "Enemy Turn"
     
-    if event == "Enemy Turn":
+    elif event == "Enemy Turn":
         enemyIndex = 0
         while enemyIndex < len(enemies):
             enemy = enemies[enemyIndex]
@@ -468,7 +473,7 @@ while True:
 
         event = "Turn End"
     
-    if event == "Turn End":
+    elif event == "Turn End":
         ## ----- Check for Unlocks [[ by turn ]] -----
         '''
         updateMap = {}
@@ -486,7 +491,7 @@ while True:
         
         event = "Dino Turn Start"
 
-    if event == "Round End":
+    elif event == "Round End":
         ## ----- Check for Unlocks [[ BY ROUND BY ROUND BY ROUND ]] -----
 
 
