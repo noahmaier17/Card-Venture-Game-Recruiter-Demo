@@ -57,13 +57,13 @@ for Card in ec_ec.EnemyCard.__subclasses__():
         ENEMY_CARD_POOL_UNINIT.append(Card)
         ENEMY_CARD_POOL_UNINIT.append(Card)
 
-
 ## Gets a card based on its name. Assumes all cards have unique names.
 def getCardByName(name):
     for card in ALL_CARDS.getArray():
         if card.name.lower() == name.lower():
             return copy.deepcopy(card)
-    h.splash("FAILURE Cannot getCardByName with a name of: " + name)
+    h.splash("FAILURE Cannot getCardByName with a name of: '" + name + "'; Returning 'Nothing'.")
+    return getCardByName("Nothing")
 
 ## Gathers into a list all cards that contain at least 1 matching location
 ##  Performs a deep copy of the cards.
