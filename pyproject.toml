@@ -7,5 +7,6 @@ name = "Dinosaur_Venture"
 version = "0.1.0"
 description = "Journey through several places, gathering new cards and meeting new enemies all throughout"
 dependencies = [
-    "colorama>=0.4.6"
+    "colorama>=0.4.6",
+    "send2trash>=1.8.3"
 ]
