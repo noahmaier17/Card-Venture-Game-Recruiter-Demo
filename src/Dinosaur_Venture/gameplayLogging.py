@@ -1,15 +1,20 @@
 from datetime import datetime
 
+## Global boolean that will force logging to be ignored 
+IGNORE_GAMEPLAY_LOGGING = True
+
 LOG_FILE_NAME = "Logs/" + str(datetime.now())
 LOG_FILE_NAME = LOG_FILE_NAME.replace(":", ".")
 
 def newLogFile():
-    file = open(LOG_FILE_NAME, 'x')
+    if not IGNORE_GAMEPLAY_LOGGING:
+        open(LOG_FILE_NAME, 'x')
 
 ## General function for writing text
 def writeToLog(text):
-    with open(LOG_FILE_NAME, "a") as file:
-        file.write(text + "\n")
+    if not IGNORE_GAMEPLAY_LOGGING:
+        with open(LOG_FILE_NAME, "a") as file:
+            file.write(text + "\n")
 
 ## Logs playing a card
 def playCardLog(entity, fromLocation, cardIndex, caster, dino, enemies):
