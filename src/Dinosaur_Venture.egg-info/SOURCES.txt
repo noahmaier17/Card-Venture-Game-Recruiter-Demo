@@ -22,6 +22,7 @@ src/Dinosaur_Venture/simulatePulls.py
 src/Dinosaur_Venture.egg-info/PKG-INFO
 src/Dinosaur_Venture.egg-info/SOURCES.txt
 src/Dinosaur_Venture.egg-info/dependency_links.txt
+src/Dinosaur_Venture.egg-info/requires.txt
 src/Dinosaur_Venture.egg-info/top_level.txt
 src/Dinosaur_Venture/Dino_Cards_Depot/DebugCards.py
 src/Dinosaur_Venture/Dino_Cards_Depot/FundamentalCards.py
