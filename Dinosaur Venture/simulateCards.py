@@ -114,25 +114,25 @@ def code():
 
     matchingCardsArray = []
     for child in allCards:
-        if (any(i in child().table for i in TABLES) and not(any(i in child().table for i in EXCLUDE_TABLES))) or (not(ONLY_SPECIFIC_TABLES) and not(any(i in child().table for i in EXCLUDE_TABLES))):
+        if (any(i in child.table for i in TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))) or (not(ONLY_SPECIFIC_TABLES) and not(any(i in child().table for i in EXCLUDE_TABLES))):
             matchAllConditions = True
             for condition in textConditions:
-                colorlessBodyText = child().niceBodyText(0, 99999, supressedTypes = [], noColor = True)
+                colorlessBodyText = child.niceBodyText(0, 99999, supressedTypes = [], noColor = True)
                 if not re.search(condition, colorlessBodyText):
                     matchAllConditions = False
             for condition in nameConditions:
-                if not re.search(condition, child().name):
+                if not re.search(condition, child.name):
                     matchAllConditions = False
 
             if not matchAllConditions:
                 continue
 
-            matchingCardsArray.append(child())
+            matchingCardsArray.append(child)
             '''
             print("  " + h.normalize(child().nameWithTokens(), PAD) + ":  " + child().niceBodyText(PAD + 5, h.WIDTH, supressedTypes = []))
             '''
 
-            string += "  " + h.normalize(child().nameWithTokens(), PAD) + ":  " + child().niceBodyText(PAD + 5, h.WIDTH, supressedTypes = [], noColor = True) + "\n"
+            string += "  " + h.normalize(child.nameWithTokens(), PAD) + ":  " + child.niceBodyText(PAD + 5, h.WIDTH, supressedTypes = [], noColor = True) + "\n"
             
             count += 1
             
@@ -142,9 +142,9 @@ def code():
             '''
             string += text + "\n"
             
-            csv += (child().name + ";;; " 
-                    + child().niceBodyText(0, 99999, supressedTypes = [], noColor = True).replace("\n", "\n ;;; ") + ";;; "
-                    + str(child().table)
+            csv += (child.name + ";;; " 
+                    + child.niceBodyText(0, 99999, supressedTypes = [], noColor = True).replace("\n", "\n ;;; ") + ";;; "
+                    + str(child.table)
                     + "\n")
 
     vis.printLocation(matchingCardsArray, 0, Back.CYAN, [], "None")
@@ -160,6 +160,5 @@ def code():
     # f.write(csv)
     # f.close()
 
-code()
-
-
+if __name__ == '__main__':
+    code()
