@@ -192,7 +192,7 @@ class gainACard(cardFunctions):
     def func(self, card, caster, dino, enemies, passedInVisuals):
         if self.toLocation == "DEFAULT TO LOCATION":
             self.toLocation = caster.discard
-        caster.gainCard(self.cardToGain(), self.toLocation,
+        caster.gainCard(self.cardToGain, self.toLocation,
                         position = self.position,
                         printCard = self.printCard,
                         inputCard = self.inputCard)

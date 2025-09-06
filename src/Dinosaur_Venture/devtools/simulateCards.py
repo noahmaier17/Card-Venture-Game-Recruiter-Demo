@@ -12,7 +12,7 @@ def code():
     RANDOM_ORDERING = False
     ALL_TABLES = True           ## Overwrite on TABLES, but observes EXCLUDE_TABLE
     ONLY_SHELLS = False
-    INCLUDE_CONDITIONS = True
+    INCLUDE_CONDITIONS = False
 
     TABLES = []
     #TABLES.append("Fundamental")
@@ -23,10 +23,10 @@ def code():
     #TABLES.append("Bandits of the Highway")
     #TABLES.append("Copper Croppers")
     #TABLES.append("Horse Hostelry")
-    #TABLES.append("Apple Orchard Hollow")
+    TABLES.append("Apple Orchard Hollow")
     #TABLES.append("Rubble-Dwellers")
-    TABLES.append("The Pier")
-    TABLES.append("Cattle Caste System")
+    #TABLES.append("The Pier")
+    #TABLES.append("Cattle Caste System")
     #TABLES.append("Shop")
 
     #TABLES.append("Packing Bot")
@@ -99,20 +99,18 @@ def code():
     
     string += "  " + h.normalize(" -- CARD NAME -- ", PAD - 3) + "|     -- TEXT --\n"
     
-    dinoCards = gcbt.getDinoCards()
-    dinoShellCards = gcbt.getDinoShellCards()
-    enemyCards = gcbt.getEnemyCards()
-
+    allCards = []
     if ONLY_SHELLS:
-        dinoCards = []
-        enemyCards = []
-    allCards = dinoCards + dinoShellCards + enemyCards
+        allCards = gcbt.getAllCards_includingWIP(excludeNonShells=True)
+    else:
+        allCards = gcbt.getAllCards_includingWIP()
+
     if RANDOM_ORDERING:
         random.shuffle(allCards)
 
     matchingCardsArray = []
     for child in allCards:
-        if (any(i in child.table for i in TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))) or (not(ONLY_SPECIFIC_TABLES) and not(any(i in child().table for i in EXCLUDE_TABLES))):
+        if (any(i in child.table for i in TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))) or (not(ONLY_SPECIFIC_TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))):
             matchAllConditions = True
             for condition in textConditions:
                 colorlessBodyText = child.niceBodyText(0, 99999, supressedTypes = [], noColor = True)

@@ -1,7 +1,4 @@
-import math, random, os, copy, re
-from colorama import init, Fore, Back, Style
-init(autoreset=True)
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardModFunctions as cmf, cardTokens as tk, getCardsByTable as gcbt, mainVisuals as vis, react as r
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -86,3 +83,70 @@ class twigExclamation(gdc.DinoCard):
             caster.plusActions(1)
             for i in range(2):
                 caster.drawCard()
+
+class brokenBottle(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Broken Bottle"
+        self.bodyText = c.bb("||Temporary|| +1 Action. 0.5 Chance for: +1 Card.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            if cf.chance(0.5).func(card, caster, dino, enemies, passedInVisuals):
+                caster.drawCard(inputCard = True)
+
+class plastic(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Plastic"
+        self.bodyText = c.bb("Destroy this.")
+        self.publishPacking("0.25 Chance: Destroy this.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals)
+
+    class duringPacking(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            if cf.chance(0.25).func(card, caster, dino, enemies, passedInVisuals):
+                success = cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals, location = caster.pocket, suppressErrorText = True)
+                if not success:
+                    success = cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals, location = caster.hand)
+
+class fish(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Fish"
+        self.bodyText = c.bb("+1 Action. 1L. +1 Card. Destroy this.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+        ## For enemy uses
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'L'],
+                                                                               'nil'))
+            caster.drawCard()
+            cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals)
+
+class rubble(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Rubble"
+        self.bodyText = c.bb("+ Cantrip. To an Arbitrary Enemy: Discard a Card.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            caster.drawCard()
+            attackedEnemy = cf.toBlankEnemy_DiscardBlank_fromHand(numberOfCardsToDiscard = 1,
+                                                                  toArbitraryEnemy = 1).func(card, caster, dino, enemies, passedInVisuals)

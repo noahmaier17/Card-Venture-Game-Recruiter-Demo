@@ -1,5 +1,6 @@
 import copy
-from Dinosaur_Venture.Dino_Cards_Depot import DebugCards, FundamentalCards, PackingBotCards, GeneralDinoCards as gdc
+from Dinosaur_Venture.Dino_Cards_Depot import DebuffsCards, CattleCasteSystemCards, RubbleDwellersCards, ThePierCards, FastFoodMascotsCards, AppleOrchardHollowCards, ShopCards, FallowFarmlandCards, HorseHostelryCards, GraverobberCards, NewBearOrderCards, BanditsOfTheHighwayCards, FruitbearingMonksCards, CopperCroppersCards, DebugCards, FundamentalCards, PackingBotCards, GeneralDinoCards as gdc
+## from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 from Dinosaur_Venture import enemyCards as ec_ec, helper as h
 
 ## Tier 1 Tables
@@ -12,8 +13,14 @@ TIER_1_TABLES = [
     "The Pier"
 ]
 
+## Character Tables
+CHARACTER_TABLES = [
+    "Packing Bot",
+    "Graverobber"
+]
+
 ## All Dino Cards (so TIER 1, 2, 3, and 4)
-ALL_DINO_CARDS = [] + TIER_1_TABLES
+ALL_DINO_CARDS = [] + CHARACTER_TABLES + TIER_1_TABLES
 
 ## Tables that are implememented but their cards are not in the game currently
 WIP_TABLES = [
@@ -34,9 +41,8 @@ ALL_TABLES = [
     "Debug",
     "Fundamental",
     "Shop",
-    "Packing Bot",
-    "Graverobber"
-] + TIER_1_TABLES + WIP_TABLES + ENEMY_TABLES
+    "Debuffs"
+] + ALL_DINO_CARDS + WIP_TABLES + ENEMY_TABLES
 
 ## Gets a list of all the cards.
 def getAllCards():
@@ -92,6 +98,10 @@ def getDinoShellCards():
 ## Gets all Enemy Cards as an Array
 def getEnemyCards():
     return getCardsByTable(["Enemy Card Pool"]).getArray()
+
+## Gets all Dino Cards including those of which that are in process of being created as an Array
+def getAllCards_includingWIP(excludeShells = False, excludeNonShells = False):
+    return getCardsByTable(ALL_TABLES, excludeShells=excludeShells, excludeNonShells=excludeNonShells).getArray()
 
 ## Gets Cards by Name
 def getMapOfCardNames():

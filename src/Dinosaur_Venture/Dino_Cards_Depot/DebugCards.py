@@ -1,7 +1,4 @@
-import math, random, os, copy, re
-from colorama import init, Fore, Back, Style
-init(autoreset=True)
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardModFunctions as cmf, cardTokens as tk, getCardsByTable as gcbt, mainVisuals as vis, react as r
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 ''' 
