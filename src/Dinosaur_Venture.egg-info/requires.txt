@@ -1,1 +1,2 @@
 colorama>=0.4.6
+send2trash>=1.8.3

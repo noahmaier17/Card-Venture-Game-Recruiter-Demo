@@ -1,7 +1,7 @@
 from datetime import datetime
 
 ## Global boolean that will force logging to be ignored 
-IGNORE_GAMEPLAY_LOGGING = True
+IGNORE_GAMEPLAY_LOGGING = False
 
 LOG_FILE_NAME = "Logs/" + str(datetime.now())
 LOG_FILE_NAME = LOG_FILE_NAME.replace(":", ".")
