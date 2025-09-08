@@ -12,7 +12,7 @@ ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 
 ## Overhead for drafting a Card from a loot table
 def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuously = False, canPass = False, activateAbilityOnPass = False):
-    from mainVisuals import printLocation
+    from Dinosaur_Venture.mainVisuals import printLocation
 
     ## Currently not used; if we want to loot without seeing all card text
     supressedTypes = []
