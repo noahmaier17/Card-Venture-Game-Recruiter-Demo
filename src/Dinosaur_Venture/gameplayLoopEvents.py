@@ -46,7 +46,7 @@ def dinoTurnStart(dino, enemies):
 
 ## Handles when dino plays a card.
 ## Returns (event)
-def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames):
+def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames, scriptedInput=None):
     ## ----- Checks if Dino may still play cards, otherwise becomes enemy turns -----
     if dino.actions == 0:
         event = "Dino Turn End"
@@ -56,10 +56,20 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
         
         ## ----- Actionable Code -----
         while True:
-            pick = input(vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Play a " 
-                + Fore.GREEN + "Card" + Fore.WHITE 
-                + " [" + Fore.CYAN + "Actions" + Fore.WHITE + ": " 
-                + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
+            ## Input text string
+            inputText = (vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Play a " 
+                    + Fore.GREEN + "Card" + Fore.WHITE 
+                    + " [" + Fore.CYAN + "Actions" + Fore.WHITE + ": " 
+                    + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
+
+            if scriptedInput != None:
+                pick = scriptedInput.getNextValue()
+                print(inputText) ## We still want to ensure the inputText string is valid
+
+            else:
+                pick = input(inputText)
+
+            ## Handles whatever that pick value equals
             try:
                 pick = int(pick)
                 if (pick <= 0 or pick > dino.hand.length() + dino.pocket.length()):

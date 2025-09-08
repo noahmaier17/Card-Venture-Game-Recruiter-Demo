@@ -1,6 +1,4 @@
-import math, random, os
-from colorama import init, Fore, Back, Style
-init(autoreset=True)
+import uuid
 from Dinosaur_Venture import cardTokens as tk, helper as h, gameplayLogging as log
 
 INITIALIZATION_ZONES = {
@@ -260,6 +258,9 @@ class Card():
         ## Arrays for cardFunctions
         self.throwTextCardFunctions = []
         self.packingTextCardFunctions = []
+
+        ## Creates a copy-resistant identifier of this card using uuid
+        self.uniqueID = uuid.uuid4()
 
     def bundle(self, throwCardFunction = None, packingCardFunction = None):
         ## Sets the unmodified card name
