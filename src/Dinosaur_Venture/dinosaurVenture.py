@@ -55,11 +55,7 @@ for card in randomTier1Location.getArray():
             debuff = allDebuffs.at(random.randint(0, allDebuffs.length() - 1))
             debuff.onLootedEnshelling(dino, card)
 
-cardNames = gcbt.getMapOfCardNames()
-entityNames = {}
-for child in e.Entity.__subclasses__():
-    for subChild in child.__subclasses__():
-        entityNames.update({subChild().name.lower(): subChild().text})
+entityNames, cardNames = gameEvent.setupEntityAndCardNames()
 
 
 

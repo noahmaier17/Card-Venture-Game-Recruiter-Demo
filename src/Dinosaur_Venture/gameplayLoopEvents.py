@@ -2,6 +2,15 @@ from colorama import init, Fore, Back, Style
 init(autoreset=True)
 from Dinosaur_Venture import mainVisuals as vis, helper as h
 
+def setupEntityAndCardNames():
+    from Dinosaur_Venture import getCardsByTable as gcbt, entity as e
+    cardNames = gcbt.getMapOfCardNames()
+    entityNames = {}
+    for child in e.Entity.__subclasses__():
+        for subChild in child.__subclasses__():
+            entityNames.update({subChild().name.lower(): subChild().text})
+    return (entityNames, cardNames)
+
 ## Starts a round against some enemies.
 ## Returns NOTHING.
 def startRound(dino, enemies):
