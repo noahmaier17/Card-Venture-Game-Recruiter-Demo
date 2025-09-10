@@ -1,9 +1,9 @@
 import os
 from send2trash import send2trash
 
-directory_path = "Logs/"
-
 def code():
+    directory_path = "Logs/"
+
     ## Gets all the files
     files = []
     for entry in os.listdir(directory_path):
