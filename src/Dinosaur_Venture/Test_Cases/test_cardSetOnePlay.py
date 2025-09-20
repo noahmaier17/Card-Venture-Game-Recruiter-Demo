@@ -1,5 +1,5 @@
 import pytest, pytest_timeout, copy
-from Dinosaur_Venture import gameplayLoopEvents as gameEvents, gameplayScriptedInput as scriptInput
+from Dinosaur_Venture import gameplayLoopEvents as gameEvents, gameplayScriptedInput as scriptInput, gameplayLogging as log
 from Dinosaur_Venture.Test_Cases.Test_Utils.gameSetups import setup_getDinoEnemiesClearing, setup_getCardSetOne
 from Dinosaur_Venture.Test_Cases.Test_Utils.validateGameState import isCardAtIndexInLocation
 
