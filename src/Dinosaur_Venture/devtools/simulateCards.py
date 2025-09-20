@@ -11,7 +11,7 @@ def code():
 
     RANDOM_ORDERING = False
     ALL_TABLES = True           ## Overwrite on TABLES, but observes EXCLUDE_TABLE
-    ONLY_SHELLS = False
+    ONLY_SHELLS = True
     INCLUDE_CONDITIONS = False
 
     TABLES = []
