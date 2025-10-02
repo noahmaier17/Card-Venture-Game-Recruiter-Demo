@@ -1,23 +1,18 @@
-import pytest, pytest_timeout, copy
+import pytest, pytest_timeout
 from Dinosaur_Venture import gameplayLoopEvents as gameEvents, gameplayScriptedInput as scriptInput, gameplayLogging as log
-from Dinosaur_Venture.Test_Cases.Test_Utils.gameSetups import setup_getDinoEnemiesClearing, setup_getCardSetOne
-from Dinosaur_Venture.Test_Cases.Test_Utils.validateGameState import isCardAtIndexInLocation
+from Dinosaur_Venture.Test_Cases.Test_Utils.gameSetups import setup_getDinoEnemiesClearing, setup_getCardSetOne, getCartesianProduct_dinoEnemiesClearingCards
+from Dinosaur_Venture.Test_Cases.Test_Utils import simulateGameplay
+from Dinosaur_Venture.Test_Cases.Test_Utils.validateGameState import isCardExclusivelyAtIndexInLocation
 
-def getCartesianProduct_dinoEnemiesClearingCards(dinoes, enemieses, clearingses, cardses):
-    masterSet = []
-    for dinoCopy in dinoes:
-        for enemiesCopy in enemieses:
-            for clearingCopy in clearingses:
-                for cardCopy in cardses:
-                    ## Gets copies of all these items
-                    dino = copy.deepcopy(dinoCopy)
-                    enemies = copy.deepcopy(enemiesCopy)
-                    clearing = copy.deepcopy(clearingCopy)
-                    cards = copy.deepcopy(cardCopy)
+'''
+    Tests the case where dinosaur has only one card in deck, and if the game can successfully:
+    (1) Play the card
+    (2) Not play the card with "pass" input
+    (3) Handle gibberish input
+    (4) Handle gibberish input, then handle playing the card
 
-                    masterSet.append((dino, enemies, clearing, cards))
-
-    return masterSet
+    Uses cardSetOne; see setup_getCardSetOne for information.
+'''
 
 class TestSuite():
     @pytest.mark.timeout(5)
@@ -27,21 +22,22 @@ class TestSuite():
         cardses = setup_getCardSetOne
 
         for set in getCartesianProduct_dinoEnemiesClearingCards(dinoes, enemieses, clearingses, cardses):
-            dino, enemies, clearing, card = set
+            dino, enemies, clearing, testCard = set
 
             ## Adds a card into dino's deck
-            dino.gainCard(card, dino.deck)
+            dino.gainCard(testCard, dino.deck)
 
-            ## --- Runs the gameplay ---
-            entityNames, cardNames = gameEvents.setupEntityAndCardNames()
-            gameEvents.startRound(dino, enemies)
-            gameEvents.dinoTurnStart(dino, enemies)
-            gameEvents.dinoPlayCard(dino, enemies, 0, clearing, "Dino Play Card", entityNames, cardNames,
-                                    scriptedInput=scriptInput.script_DinoPlayCard([1]))
+            ## Run through play card
+            simulateGameplay.simulate(
+                dino, enemies, clearing, 
+                [
+                    simulateGameplay.startRound(),
+                    simulateGameplay.dinoTurnStart(),
+                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard([1]))
+                ])
 
             ## Checks if the card is in play
-            assert isCardAtIndexInLocation(card, 0, dino.play)
-            assert not isCardAtIndexInLocation(card, 0, dino.hand)
+            assert isCardExclusivelyAtIndexInLocation(testCard, 0, dino.play, dino, enemies)
 
     @pytest.mark.timeout(5)
     def test_cardSetOne_onlyCard_handlePassing(self, setup_getDinoEnemiesClearing, setup_getCardSetOne):
@@ -50,21 +46,22 @@ class TestSuite():
         cardses = setup_getCardSetOne
 
         for set in getCartesianProduct_dinoEnemiesClearingCards(dinoes, enemieses, clearingses, cardses):
-            dino, enemies, clearing, card = set
+            dino, enemies, clearing, testCard = set
 
             ## Adds a card into dino's deck
-            dino.gainCard(card, dino.deck)
+            dino.gainCard(testCard, dino.deck)
 
-            ## --- Runs the gameplay ---
-            entityNames, cardNames = gameEvents.setupEntityAndCardNames()
-            gameEvents.startRound(dino, enemies)
-            gameEvents.dinoTurnStart(dino, enemies)
-            gameEvents.dinoPlayCard(dino, enemies, 0, clearing, "Dino Play Card", entityNames, cardNames,
-                                    scriptedInput = scriptInput.script_DinoPlayCard(["pass"]))
+            ## Run through play card
+            simulateGameplay.simulate(
+                dino, enemies, clearing, 
+                [
+                    simulateGameplay.startRound(),
+                    simulateGameplay.dinoTurnStart(),
+                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["pass"]))
+                ])
 
             ## Checks if the card is in play
-            assert not isCardAtIndexInLocation(card, 0, dino.play)
-            assert isCardAtIndexInLocation(card, 0, dino.hand)
+            assert not isCardExclusivelyAtIndexInLocation(testCard, 0, dino.play, dino, enemies)
 
     @pytest.mark.timeout(5)
     def test_cardSetOne_onlyCard_handleGibberishInput_intoPass(self, setup_getDinoEnemiesClearing, setup_getCardSetOne):
@@ -73,21 +70,22 @@ class TestSuite():
         cardses = setup_getCardSetOne
 
         for set in getCartesianProduct_dinoEnemiesClearingCards(dinoes, enemieses, clearingses, cardses):
-            dino, enemies, clearing, card = set
+            dino, enemies, clearing, testCard = set
 
             ## Adds a card into dino's deck
-            dino.gainCard(card, dino.deck)
+            dino.gainCard(testCard, dino.deck)
 
-            ## --- Runs the gameplay ---
-            entityNames, cardNames = gameEvents.setupEntityAndCardNames()
-            gameEvents.startRound(dino, enemies)
-            gameEvents.dinoTurnStart(dino, enemies)
-            gameEvents.dinoPlayCard(dino, enemies, 0, clearing, "Dino Play Card", entityNames, cardNames,
-                                    scriptedInput = scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "pass"]))
+            ## Run through play card
+            simulateGameplay.simulate(
+                dino, enemies, clearing, 
+                [
+                    simulateGameplay.startRound(),
+                    simulateGameplay.dinoTurnStart(),
+                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "pass"]))
+                ])
 
-            ## Checks if the card is in play
-            assert not isCardAtIndexInLocation(card, 0, dino.play)
-            assert isCardAtIndexInLocation(card, 0, dino.hand)
+            ## Checks if the card is in play exclusively
+            assert not isCardExclusivelyAtIndexInLocation(testCard, 0, dino.play, dino, enemies)
     
     @pytest.mark.timeout(5)
     def test_cardSetOne_onlyCard_handleGibberishInput_intoPlayCard(self, setup_getDinoEnemiesClearing, setup_getCardSetOne):
@@ -96,21 +94,22 @@ class TestSuite():
         cardses = setup_getCardSetOne
 
         for set in getCartesianProduct_dinoEnemiesClearingCards(dinoes, enemieses, clearingses, cardses):
-            dino, enemies, clearing, card = set
+            dino, enemies, clearing, testCard = set
 
             ## Adds a card into dino's deck
-            dino.gainCard(card, dino.deck)
+            dino.gainCard(testCard, dino.deck)
 
-            ## --- Runs the gameplay ---
-            entityNames, cardNames = gameEvents.setupEntityAndCardNames()
-            gameEvents.startRound(dino, enemies)
-            gameEvents.dinoTurnStart(dino, enemies)
-            gameEvents.dinoPlayCard(dino, enemies, 0, clearing, "Dino Play Card", entityNames, cardNames,
-                                    scriptedInput = scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "1"]))
+            ## Run through play card
+            simulateGameplay.simulate(
+                dino, enemies, clearing, 
+                [
+                    simulateGameplay.startRound(),
+                    simulateGameplay.dinoTurnStart(),
+                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "1"]))
+                ])
 
             ## Checks if the card is in play
-            assert isCardAtIndexInLocation(card, 0, dino.play)
-            assert not isCardAtIndexInLocation(card, 0, dino.hand)
+            assert isCardExclusivelyAtIndexInLocation(testCard, 0, dino.play, dino, enemies)
 
 '''
     NOTES:

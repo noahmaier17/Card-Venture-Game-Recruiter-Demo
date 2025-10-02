@@ -70,3 +70,16 @@ class megaDamage(gdc.DinoCard):
                                                                  h.acons([10, 'B'],
                                                                  'nil'))))
             caster.moveMe(caster.play, card, caster.pocket)
+
+class cantrip(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Cantrip"
+        self.bodyText = c.bb("+ Cantrip.")
+        self.table = ["Debug"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            caster.drawCard()

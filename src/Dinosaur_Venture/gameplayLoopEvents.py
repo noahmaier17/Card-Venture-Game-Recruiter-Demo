@@ -55,7 +55,7 @@ def dinoTurnStart(dino, enemies):
 
 ## Handles when dino plays a card.
 ## Returns (event)
-def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames, scriptedInput=None):
+def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames, scriptedInput_dinoPlayCard=None):
     ## ----- Checks if Dino may still play cards, otherwise becomes enemy turns -----
     if dino.actions == 0:
         event = "Dino Turn End"
@@ -71,8 +71,8 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
                     + " [" + Fore.CYAN + "Actions" + Fore.WHITE + ": " 
                     + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
 
-            if scriptedInput != None:
-                pick = scriptedInput.getNextValue()
+            if scriptedInput_dinoPlayCard != None:
+                pick = scriptedInput_dinoPlayCard.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
                 print(inputText) ## We still want to ensure the inputText string is valid
 
             else:

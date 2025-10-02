@@ -1,4 +1,4 @@
-import pytest, pytest_timeout, random
+import pytest, random, copy, itertools
 from Dinosaur_Venture import entity as e, getCardsByTable as gcbt, clearing as clr
 
 ## Sets up dino, enemies, and the clearing.
@@ -27,6 +27,39 @@ def setup_getDinoEnemiesClearing():
 
     return (dinoes, enemieses, clearinges)
 
+## Gets the cartesian product of the given dinoes, enemieses, clearingses, and cardses
+def getCartesianProduct_dinoEnemiesClearingCards(dinoes, enemieses, clearingses, cardses):
+    masterSet = []
+    for dinoCopy in dinoes:
+        for enemiesCopy in enemieses:
+            for clearingCopy in clearingses:
+                for cardCopy in cardses:
+                    ## Gets copies of all these items
+                    dino = copy.deepcopy(dinoCopy)
+                    enemies = copy.deepcopy(enemiesCopy)
+                    clearing = copy.deepcopy(clearingCopy)
+                    cards = copy.deepcopy(cardCopy)
+
+                    masterSet.append((dino, enemies, clearing, cards))
+
+    return masterSet
+
+## More customized cartesian product.
+## An array within this array within this array is not unpacked. Meaning, if you have an input like:
+##      [ ..., [["first", "second"], [1, 2]], ... ]
+## Those nested nested arrays stay paired.
+def getCartesianProduct_anyInput(arrays):
+    uncopiedReturnArray = list(itertools.product(*arrays))
+
+    masterSet = []
+    for uncopiedSubArray in uncopiedReturnArray:
+        newSubArray = []
+        for element in uncopiedSubArray:
+            newSubArray.append(copy.deepcopy(element))
+        masterSet.append(newSubArray)
+
+    return masterSet
+
 ## Gets card set 1, defined as cards that are:
 ## (1) Dino's and Vanilla
 ## (2) { 0H }
@@ -35,7 +68,7 @@ def setup_getDinoEnemiesClearing():
 ## There are no guarentees about:
 ## (1) [ Text ] nor < Text >            - Although they will be vanilla
 ## (2) Tokens                           - Although they will be vanilla
-@ pytest.fixture
+@pytest.fixture
 def setup_getCardSetOne():
     cardses = []
     cardses.append(gcbt.getCardByName("Twig!"))
@@ -43,3 +76,30 @@ def setup_getCardSetOne():
     cardses.append(gcbt.getCardByName("Grasshopper Cache"))
     cardses.append(gcbt.getCardByName("Torch Bearing"))
     return cardses
+
+## Gets card set 2, which are cards that reappear in some location.
+## These cards are returned 2 lists, cardses and toLocations. Equal index means same referent.
+## Constraints:
+## (1) Must give 0+ Actions
+@pytest.fixture
+def setup_getCardSetTwoWithToLocations():
+    cardses = []
+    toLocations = []
+    '''
+    cardses.append(gcbt.getCardByName("Orchard Tree"))
+    toLocations.append("hand")
+    cardses.append(gcbt.getCardByName("Cultivator"))
+    toLocations.append("draw")
+    cardses.append(gcbt.getCardByName("Gnawed Cable Cord"))
+    toLocations.append("draw")
+    '''
+    cardses.append(gcbt.getCardByName("Twig-Rock Scarecrow"))
+    toLocations.append("draw")
+
+    '''
+    cardsesWithToLocations = []
+    for index in range(len(cardses)):
+        cardsesWithToLocations.append((cardses[index], toLocations))
+    '''
+    
+    return zip(cardses, toLocations)

@@ -11,8 +11,8 @@ def code():
 
     RANDOM_ORDERING = False
     ALL_TABLES = True           ## Overwrite on TABLES, but observes EXCLUDE_TABLE
-    ONLY_SHELLS = True
-    INCLUDE_CONDITIONS = False
+    ONLY_SHELLS = False
+    INCLUDE_CONDITIONS = True
 
     TABLES = []
     #TABLES.append("Fundamental")
@@ -62,7 +62,8 @@ def code():
     #textConditions.append(anycase("Break a Band"))
     #textConditions.append("~")
     #textConditions.append("1\+ Action")
-    textConditions.append("([0-9]+x)|(x[0-9]+)")
+    #textConditions.append("([0-9]+x)|(x[0-9]+)")
+    textConditions.append(anycase("Move this"))
 
     nameConditions = []
     #nameConditions.append("In-Ruins")
