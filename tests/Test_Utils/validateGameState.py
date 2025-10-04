@@ -1,3 +1,7 @@
+'''
+    Function calls that test for state correctness.
+'''
+
 ## Checks if two cards are equivalent
 def isCardEquivalent(card, otherCard):
     return (card.uniqueID == otherCard.uniqueID)
