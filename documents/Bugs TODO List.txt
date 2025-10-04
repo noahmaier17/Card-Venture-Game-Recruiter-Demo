@@ -1,0 +1,64 @@
+ == TODO BUGS ==
+
+Should Fish Frenzy give Fish to dead Entities? What do we define as an Entity / is there a distinction to a living Entity.
+ - Mostly an English-language question VS a programming problem. 
+
+Does Purge correctly remove triggers? (Answer is no, so fix it)
+
+Add text for when a looting instance is skipped
+ - Text apparently exists for shops already
+
+Add signifier to the number for selecting a card if <<inoperable>> (like BLACK)
+
+Add more Karkit Cards
+
+Change shell text to clearly be shell text
+ - EG: use a > for when text of a card has been modified
+
+Implement handleDuplicateCMF
+
+Magical Counter Weight Bugs
+ - Need to be able to modify the chance value of the trigger
+
+Broken static trigger texts
+ - These need to be able to be mutated, otherwise they do not work
+ - EG: If you shell a card with a trigger, the card name shown by that trigger is not updated.
+
+Chance #x or x# implementation
+ - Infiltrator Interrogators
+ - Revered Bear Skull
+ - Back Scratcher
+ - Bees Nest
+ - Will-o-Wisps
+ - Bottle Caps
+ - Cowboy Duel Mantra
+ - Orchard Tree
+ - Ripe Mantra
+ - Bobbing For Apples
+ - Cornucopia
+ - Straws
+ - Rubble-Reorganizers
+ - In-Waiting Counter-Revolt
+ - Surveillance State
+ - Rocky Vase
+ - cardFunctions!
+   - numberX_toArbitraryEnemy_dealDamage
+
+
+
+
+
+
+
+Implement Functional "+ Cantrip. For This Turn, all Chance Values are 0.8."
+ - I can have a duringPlay call that changes all cards in Deck and the way in which onGain works to be with chance_modifyChance. At LAST of Turn End, invisibly undo this chance_modifyChance.
+ - I could reword the effect: 
+	+ Cantrip. This Turn, when you Play a Card: 
+	(1) Before Resolution, change its Chance values to 0.85.
+	(2) After Resolution, undo that change.
+ - --> This can have a problem with already-existing chance_modifyChance instances. Instead of having a global handleDuplicateCMF, I can have a case-wise duplicate handler.
+
+ - Additional but same-functionality reword:
+	+ Cantrip. This Turn, when you Play a Card, for the Duration of its Resolution, change its Chance values to 0.85.
+ - If something else changes this' Chance values during this trigger, we need to manually assign its resolution. We can handle that with a After Resolution trigger! 
+ - - - - If we are going to go this route, I think it would be nice to have an automatic trigger resolver for things that do not need resolving otherwise (like with Dominion). A Card like this does not need to create a window unless there are other triggers. I could do this the simplest route, where upon 2+ triggers they are ordered per the player's discretion. 
