@@ -1,0 +1,3 @@
+# Looked up .gitignore file extentions for the purpose of my program
+__pycache__/
+*.py[cod]
