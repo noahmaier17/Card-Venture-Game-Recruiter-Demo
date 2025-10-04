@@ -25,8 +25,6 @@ class TestSuite():
         cantripses = [gcbt.getCardByName("Cantrip")]
 
         for set in getCartesianProduct_anyInput([dinoes, enemieses, clearingses, cardsesWithToLocations, cantripses]):
-            print(set)
-            print("SDJFKSDJFKSDJFKSDJFKLSDJFLKSDJFLDSKFJSDLKFJL")
             dino, enemies, clearing, cardsesWithToLocations, cantrip = set
             testCard, testCardToLocation = cardsesWithToLocations
 
