@@ -96,7 +96,7 @@ if DEBUG_DINO_DECK:
     dino.deck.append(card)
     '''
 
-    dino.deck.append(gcbt.getCardByName("Prepare To Harvest Apples"))
+    dino.deck.append(gcbt.getCardByName("Plant Apple Seeds"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
     dino.deck.append(gcbt.getCardByName("Twig!"))

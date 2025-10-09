@@ -154,10 +154,10 @@ class bobbingForApples(gdc.DinoCard):
                     card.publishToken(tk.prepare())
                     caster.moveMe(caster.draw, card, caster.hand, position = caster.hand.length())
 
-class prepareToHarvestApples(gdc.DinoCard):
+class plantAppleSeeds(gdc.DinoCard):
     def __init__(self):
         super().__init__()
-        self.name = "Prepare To Harvest Apples"
+        self.name = "Plant Apple Seeds"
         ## self.bodyText = c.bb("1R-notick / 1G-notick. //Next Turn, to Cards you Play, After Resolution: //(1) If in Play, Entoken it with <<prepared>>.")
         ## self.bodyText = c.bb("Next Turn, to Cards you Play, After Resolution: //(1) If in Play, Entoken it with <<prepared>>.")
         self.bodyText = c.bb("At the End of Next Turn, to all Cards in Play: //(1) Entoken it with <<prepared>>.")
