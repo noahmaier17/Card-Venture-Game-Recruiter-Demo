@@ -89,11 +89,17 @@ if DEBUG_DINO_DECK:
     testCard.publishShell(aboveThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)),
                           belowThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)))
     dino.deck.append(testCard)
-    '''
+
     dino.deck.append(gcbt.getCardByName("Time in a Bottle"))
     card = gcbt.getCardByName("Fish Fry")
     gcbt.getCardByName("//shell// In-Ruins").onLootedEnshelling(dino, card)
     dino.deck.append(card)
+    '''
+
+    dino.deck.append(gcbt.getCardByName("Prepare To Harvest Apples"))
+    dino.deck.append(gcbt.getCardByName("Twig!"))
+    dino.deck.append(gcbt.getCardByName("Twig!"))
+    dino.deck.append(gcbt.getCardByName("Twig!"))
 
 difficulty += DIFFICULTY_DEBUG_BONUS
 if difficulty <= 0:

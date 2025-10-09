@@ -63,7 +63,7 @@ def code():
     #textConditions.append("~")
     #textConditions.append("1\+ Action")
     #textConditions.append("([0-9]+x)|(x[0-9]+)")
-    textConditions.append(anycase("Move this"))
+    textConditions.append(anycase("At Turn End"))
 
     nameConditions = []
     #nameConditions.append("In-Ruins")

@@ -159,7 +159,8 @@ class prepareToHarvestApples(gdc.DinoCard):
         super().__init__()
         self.name = "Prepare To Harvest Apples"
         ## self.bodyText = c.bb("1R-notick / 1G-notick. //Next Turn, to Cards you Play, After Resolution: //(1) If in Play, Entoken it with <<prepared>>.")
-        self.bodyText = c.bb("Next Turn, to Cards you Play, After Resolution: //(1) If in Play, Entoken it with <<prepared>>.")
+        ## self.bodyText = c.bb("Next Turn, to Cards you Play, After Resolution: //(1) If in Play, Entoken it with <<prepared>>.")
+        self.bodyText = c.bb("At the End of Next Turn, to all Cards in Play: //(1) Entoken it with <<prepared>>.")
         self.bodyText.heavinessText("{ HH }")
         self.table = ["Apple Orchard Hollow"]
         self.bundle(throwCardFunction = self.duringPlay())
@@ -173,6 +174,33 @@ class prepareToHarvestApples(gdc.DinoCard):
             ##                                                                    h.acons([1, 'G-notick'],
             ##                                                                    'nil')))
 
+    class trigger_1(r.card_responseAndTrigger):
+        def __init__(self, card):
+            super().__init__()
+            self.END_OF_DINO_TURN_RT = r.rt(False,
+                                "^" + card.name + "^", "End of the Next Turn",
+                                "<<prepared>> all Cards in Play")
+
+        def response(self, card, caster, dino, enemies, moments):
+            ## Checks for correct trigger time
+            if (not r.moments_isLeftInRight([r.AtTurnEnd, r.DinoTurn], moments)
+                or card.turnsLingering != 1):
+                return (False, r.EMPTY_RT)
+
+            ## Is this Card in Play?
+            return (h.locateCardIndex(caster.play, card) >= 0 
+                and self.reacted_1 == False,
+                    self.END_OF_DINO_TURN_RT)
+
+        def trigger(self, card, caster, dino, enemies):
+            self.reacted_1 = True
+            for card in caster.play.getArray():
+                card.publishToken(tk.prepare())
+
+        def resetState_TurnEnd(self):
+            self.reacted_1 = False
+
+    '''
     class trigger_1(r.card_responseAndTrigger):
         def __init__(self, card):
             super().__init__()
@@ -209,6 +237,7 @@ class prepareToHarvestApples(gdc.DinoCard):
 
         def resetState_AfterAnyCardResolves(self):
             self.reacted_1 = False
+    '''
 
 class cornucopia(gdc.DinoCard):
     def __init__(self):
