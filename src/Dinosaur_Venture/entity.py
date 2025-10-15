@@ -25,6 +25,9 @@ class Entity():
         ## Enemy and isDinosaur are exclusive; do not change this value by other commands
         self.enemy = True
 
+        ## The health of the enemy; should be overriden in inheritance
+        self.hp = h.deadHealthcons()
+
         ## The deck zones
         ## Do not change these names! Functionality depends on reading the names of these locations
         self.deck = h.cardLocation('deck')
@@ -646,7 +649,7 @@ class Entity():
     ## Stores information about damage dealt, returned byt damage
     ## Static class
     class damageData():
-        def __init__(self, target):
+        def __init__(self):
             ## Stores attributes to cross-compare after damage is dealt
             self.fatalDamage = False
             self.brokeABand = False
@@ -740,6 +743,10 @@ class Entity():
         ## In the case we have R, R-notick, G, G-notick, B, or B-notick,
         ##  the chl is already the correct core-6 channel type!
         return chl
+
+    ## Sets the health of the entity to a new value
+    def setHP(self, newHealthcons):
+        self.hp = newHealthcons
 
     ## Heals!
     def heal(self, caster, dino, enemies, AttackData):
