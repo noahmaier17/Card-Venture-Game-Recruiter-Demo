@@ -199,6 +199,7 @@ def locateCardIndex(array, card):
     return -1
 
 ## Allows user to pick a living enemy.
+## If there is no possible target, returns -1.
 def pickLivingEnemy(text, enemies, preamble=[], passedInVisuals="null", scriptedInput=None):
     excludingValues = []
     allDead = True
@@ -757,7 +758,7 @@ def cardsToCardNames(array):
     return returnArray
 
 ## Inputs, then colorizes the text. 
-def splash(text, printInsteadOfInput = False, removePreline = False):
+def splash(text, printInsteadOfInput=False, removePreline=False, scriptedInput=None):
     ## Special key phrases 
     if text == 'FAIL_MOVE':
         text = "FAILURE Could not Move some Card; there exists no available Card in that expected place."
@@ -780,7 +781,8 @@ def splash(text, printInsteadOfInput = False, removePreline = False):
     if removePreline == False:
         text = " | " + text
     
-    if printInsteadOfInput:
+    ## Does not do input if we want to print OR if we have scripted input
+    if printInsteadOfInput or (scriptedInput != None and scriptedInput.splashOverride_printInsteadOfInput):
         print(colorize(trueIndent(text + " ", 3, WIDTH)))
     else:
         input(colorize(trueIndent(text + " ", 3, WIDTH)))
