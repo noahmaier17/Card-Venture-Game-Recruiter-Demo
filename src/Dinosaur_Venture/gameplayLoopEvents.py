@@ -72,8 +72,8 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
                     + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
 
             if scriptedInput_dinoPlayCard != None:
+                print(inputText) ## We still want to ensure the inputText string is valid, even though it is not useful to print it
                 pick = scriptedInput_dinoPlayCard.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
-                print(inputText) ## We still want to ensure the inputText string is valid
 
             else:
                 pick = input(inputText)
