@@ -199,7 +199,7 @@ def locateCardIndex(array, card):
     return -1
 
 ## Allows user to pick a living enemy.
-def pickLivingEnemy(text, enemies, preamble = [], passedInVisuals = "null"):
+def pickLivingEnemy(text, enemies, preamble=[], passedInVisuals="null", scriptedInput=None):
     excludingValues = []
     allDead = True
     for i in range(len(enemies)):
@@ -211,7 +211,11 @@ def pickLivingEnemy(text, enemies, preamble = [], passedInVisuals = "null"):
     if allDead == True:
         return -1
     
-    return pickValue(text, range(1, len(enemies) + 1), preamble = preamble, passedInVisuals = passedInVisuals, excludingValues = excludingValues) - 1
+    return pickValue(text, range(1, len(enemies) + 1), 
+                     preamble=preamble,
+                     passedInVisuals=passedInVisuals,
+                     excludingValues=excludingValues,
+                     scriptedInput=scriptedInput) - 1
 
 ## Gets index of the front-est living Enemy. Returns -1 if no enemy matches that criteria. 
 def getFrontLivingEnemyIndex(enemies):
@@ -301,11 +305,11 @@ def fetchCardFromLocation(text, location):
 ##  If user inputs 'pass' and canPass = True, returns -1.
 ## TIP for picking a value from an array: ' range(1, len(LIST) + 1) '
 ## TIP for picking a card index: pickValue("TEXT", range(1, len(LIST) + 1)) - 1
-def pickValue(text, setOfValues, excludingValues = [], preamble = [], passedInVisuals = "null", canPass = False, intType = True):
+def pickValue(text, setOfValues, excludingValues=[], preamble=[], passedInVisuals="null", canPass=False, intType=True, scriptedInput=None):
     ## OBSERVE: Copy and pasted code from here into pickNonNegativeNumber
 
+    ## Prepares UI for pickValue
     passText = ""
-
     if passedInVisuals != "null":
         if canPass:
             passText += "(Pass), "
@@ -315,11 +319,18 @@ def pickValue(text, setOfValues, excludingValues = [], preamble = [], passedInVi
             passText += "(Pass) or "
         text = " > " + passText + text + ": "
 
+    ## Prints preamble
     for row in preamble:
         splash(row, printInsteadOfInput = True)
 
+    ## Continuously asks for a value
     while True:
-        pick = input(colorize(text))
+        ## If we have scriptedInput, uses that instead
+        if scriptedInput != None:
+            pick = scriptedInput.getNextValue()
+        else:
+            pick = input(colorize(text))
+
         try:
             if intType:
                 pick = int(pick.strip())
