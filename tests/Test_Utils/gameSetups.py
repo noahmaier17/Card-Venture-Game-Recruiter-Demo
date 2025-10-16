@@ -1,7 +1,9 @@
 import pytest, random, copy, itertools
 from Dinosaur_Venture import entity as e, getCardsByTable as gcbt, clearing as clr
 
-## Sets up dino, enemies, and the clearing.
+## Sets up dino, enemies, and the clearing. 
+## All of the returned values have no unique/atypical mechanics
+##  (as in, using the default dino, enemy, and clearing values give the same behavior).
 ## Clearing is randomly assigned.
 @pytest.fixture
 def setup_getDinoEnemiesClearing():
