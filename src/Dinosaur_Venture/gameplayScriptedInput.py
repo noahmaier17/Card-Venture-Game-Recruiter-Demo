@@ -8,6 +8,10 @@
 class gameplayScriptInput():
     def __init__(self, input):
         self.input = input
+
+        ## For the common general case of entering a helper.splash instance,
+        ##  if the following boolean is true, we skip inputting that text. 
+        self.splashOverride_printInsteadOfInput = True
     
     def getNextValue(self):
         if len(self.input) > 0:
@@ -15,6 +19,8 @@ class gameplayScriptInput():
         else:
             raise Exception("gameplayScriptInput does not have enough values")
 
+    def getNextSplashValue(self):
+        return ""
 
 ## Script for gameplayLoopEvents.dinoPlayCard
 ## The getNextValue call asks for all the input values of gameplayLoopEvents.dinoPlayCard to enable other functionality
@@ -42,3 +48,8 @@ class script_DinoPlayCard_attemptPlayCardByName(script_DinoPlayCard):
             self.input.insert(0, nextValue)
         
         return super.getNextValue()
+    
+## Script for cardFunctions.dealDamage
+## The getNextValue call asks for no special values; it is used in helper.pickValue
+class script_cardFunctions_dealDamage(gameplayScriptInput):
+    pass
