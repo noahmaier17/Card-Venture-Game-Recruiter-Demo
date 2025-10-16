@@ -659,7 +659,7 @@ class Entity():
         caster.dealtDamageThisTurn = True
 
         ## Creates a new damageData, and creates variables used to populate it
-        DamageData = self.damageData(self)
+        DamageData = self.damageData()
         alreadyDead = False
         beforeBandCount = self.getBands()
 
@@ -669,6 +669,9 @@ class Entity():
             self.hp.r = h.roundThird(self.hp.r) 
             self.hp.g = h.roundThird(self.hp.g) 
             self.hp.b = h.roundThird(self.hp.b) 
+
+        ## Performs upkeep
+        self.upkeepHealth(dino, enemies)
 
         ## Compares the stored attributes against what occurred, populating DamageData
         if not alreadyDead:
@@ -855,6 +858,7 @@ class Entity():
             self.dead = True
             self.diedThisTurn = True
             self.nonfatalDamageTaken = False
+            self.hp = h.deadHealthcons()
             return True
         elif self.hp.r == 0 and self.hp.g == 0 and self.hp.b == 0:
             self.hp = self.hp.tail
