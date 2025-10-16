@@ -95,41 +95,33 @@ class breakABand(cardFunctions):
 ## [ damageArray ].
 ## Returns information about the nature of that damage dealt (see entity.DamageData).
 class dealDamage(cardFunctions):
-    ## def init(self):
-    ##     self.fatalDamage = False
-    ##     self.brokeABand = False
-
-    def func(self, card, caster, dino, enemies, passedInVisuals, damageArray):
+    def func(self, card, caster, dino, enemies, passedInVisuals, damageArray, scriptedInput_cardFunctions_dealDamage=None):
         ## CMF CASE: Check for dealDamage_dropNotick. If we have that modifer, changes the damageArray accordingly.
         if cmf.cmf_isLeftInRight([cmf.dealDamage_dropNotick], card.cmfDepot + caster.cmfDepot):
-            h.splash("Card Modifier: Dealing Damage while ignoring -notick.")
+            h.splash("Card Modifier: Dealing Damage while ignoring -notick.", scriptedInput=scriptedInput_cardFunctions_dealDamage)
             damageArray.stripNotick()
 
+        ## If we are an enemy, we will damage dino
         if caster.enemy:
             dino.damage(caster, dino, enemies, damageArray)
+
+        ## Otherwise, dino picks the damage taker
         else:
             preamble = ["Dealing: " + str(damageArray) + "."]
+            pick = h.pickLivingEnemy("Pick an Enemy to Attack", 
+                                     enemies,
+                                     preamble=preamble,
+                                     passedInVisuals=passedInVisuals,
+                                     scriptedInput=scriptedInput_cardFunctions_dealDamage)
 
-            pick = h.pickLivingEnemy("Pick an Enemy to Attack", enemies, preamble = preamble, passedInVisuals = passedInVisuals)
             if pick == -1:
-                h.splash(" No Enemies can be targeted!")
+                h.splash(" No Enemies can be targeted!", scriptedInput=scriptedInput_cardFunctions_dealDamage)
                 return
             else:
                 enemy = enemies[pick]
 
-                ## Stores attributes to cross-compare after damage is dealt
-                # alreadyDead = False
-                # beforeBandCount = enemy.getBands()
-
-                ## Deals Damage
+                ## Deals Damage, and returns an entity.damageData object detailing what occured
                 damageData = enemy.damage(caster, dino, enemies, damageArray)
-
-                ## Compares the stored attributes against what occurred
-                # if not alreadyDead:
-                #     self.fatalDamage = enemies[pick].dead
-                # if beforeBandCount > enemy.getBands():
-                #     self.brokeABand = True
-
                 return damageData
 
 '''
