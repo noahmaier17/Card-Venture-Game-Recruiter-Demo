@@ -875,6 +875,34 @@ class healthcons():
         self.onBreakSpecial = False
         ## RI: getBands = number of bands this health entity has
 
+    ## Places at the tail-end of a healthcons the other healthcons
+    def append(self, otherHealthcons):
+        if self.tail == "nil":
+            self.tail = otherHealthcons
+        else:
+            self.tail.append(otherHealthcons)
+
+    ## Checks if two healthcons are equivalent
+    def equals(self, otherHealthcons):
+        ## Are both dead?
+        if self.isDeathHealthcons != otherHealthcons.isDeathHealthcons:
+            return False
+
+        ## Do both have equal r, g, and b values for this band?
+        if self.r != otherHealthcons.r or self.g != otherHealthcons.g or self.b != otherHealthcons.b:
+            return False
+
+        ## Do we both have tails?
+        if (self.tail == "nil") != (otherHealthcons.tail == "nil"):
+            return False
+
+        ## Recurses if we have tails
+        if (self.tail != "nil") and (otherHealthcons.tail != "nil"):
+            return self.tail.equals(otherHealthcons.tail)
+        
+        ## Otherwise, return True
+        return True
+
     ## Returns the count of bands
     def getBands(self):
         if self.tail == "nil":
