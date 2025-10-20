@@ -5,9 +5,11 @@ Implements damage and HP objects that store health.
 Additionally includes the hard-coded values for different types of damage. 
 """
 
-from colorama import init, Fore, Back, Style
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
 from Dinosaur_Venture import helper as h
+
 
 class Attackcons():
     """

@@ -1,6 +1,7 @@
 import pyglet
 from pyglet import shapes
 
+
 def trd(value: int) -> int:
     return round(value / 3)
 

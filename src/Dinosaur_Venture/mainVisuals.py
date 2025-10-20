@@ -1,5 +1,9 @@
-import math, random, os
-from colorama import init, Fore, Back, Style
+import math
+import os
+import random
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
 from Dinosaur_Venture import helper as h
 

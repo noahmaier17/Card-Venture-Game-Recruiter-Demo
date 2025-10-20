@@ -1,7 +1,12 @@
-import math, random, os
-from colorama import init, Fore, Back, Style
+import math
+import os
+import random
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
-from Dinosaur_Venture import helper as h, getCardsByTable as gcbt
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
 
 ## Simulates card pulls, showing what can be expected from different sets
 

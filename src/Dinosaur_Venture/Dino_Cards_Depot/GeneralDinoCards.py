@@ -1,5 +1,6 @@
 from Dinosaur_Venture import card as c
 
+
 ## Dino Cards
 class DinoCard(c.Card):
     def __init__(self):

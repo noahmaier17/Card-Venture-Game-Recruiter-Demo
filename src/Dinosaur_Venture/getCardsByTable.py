@@ -1,7 +1,24 @@
 import copy
-from Dinosaur_Venture.Dino_Cards_Depot import DebuffsCards, CattleCasteSystemCards, RubbleDwellersCards, ThePierCards, FastFoodMascotsCards, AppleOrchardHollowCards, ShopCards, FallowFarmlandCards, HorseHostelryCards, GraverobberCards, NewBearOrderCards, BanditsOfTheHighwayCards, FruitbearingMonksCards, CopperCroppersCards, DebugCards, FundamentalCards, PackingBotCards, GeneralDinoCards as gdc
+
 ## from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
-from Dinosaur_Venture import enemyCards as ec_ec, helper as h
+from Dinosaur_Venture import enemyCards as ec_ec
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.Dino_Cards_Depot import (AppleOrchardHollowCards,
+                                               BanditsOfTheHighwayCards,
+                                               CattleCasteSystemCards,
+                                               CopperCroppersCards,
+                                               DebuffsCards, DebugCards,
+                                               FallowFarmlandCards,
+                                               FastFoodMascotsCards,
+                                               FruitbearingMonksCards,
+                                               FundamentalCards)
+from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.Dino_Cards_Depot import (GraverobberCards,
+                                               HorseHostelryCards,
+                                               NewBearOrderCards,
+                                               PackingBotCards,
+                                               RubbleDwellersCards, ShopCards,
+                                               ThePierCards)
 
 ## Tier 1 Tables
 TIER_1_TABLES = [

@@ -1,4 +1,6 @@
-import webbrowser, os
+import os
+import webbrowser
+
 ## DIRECTORY = "C:/Users/light/OneDrive/Desktop/Dinosaur Venture/"
 DIRECTORY = "src\\Dinosaur_Venture\\"
 

@@ -1,4 +1,6 @@
-from Dinosaur_Venture import card as c, cardTokens as tk, helper as h
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import helper as h
 
 ## The reaction stack
 reactionStack = []

@@ -1,8 +1,14 @@
-import pytest, pytest_timeout
-from Dinosaur_Venture import gameplayLoopEvents as gameEvents, gameplayScriptedInput as scriptInput, getCardsByTable as gcbt
-from Test_Utils.gameSetups import setup_getDinoEnemiesClearing, setup_getCardSetTwoWithToLocations, getCartesianProduct_anyInput
+import pytest
+import pytest_timeout
 from Test_Utils import simulateGameplay
+from Test_Utils.gameSetups import (getCartesianProduct_anyInput,
+                                   setup_getCardSetTwoWithToLocations,
+                                   setup_getDinoEnemiesClearing)
 from Test_Utils.validateGameState import isCardExclusivelyAtIndexInLocation
+
+from Dinosaur_Venture import gameplayLoopEvents as gameEvents
+from Dinosaur_Venture import gameplayScriptedInput as scriptInput
+from Dinosaur_Venture import getCardsByTable as gcbt
 
 '''
     Tests the case where dinosaur has a card that leaves play.

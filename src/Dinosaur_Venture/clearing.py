@@ -1,5 +1,8 @@
-import math, random, os
-from Dinosaur_Venture import entity as e, helper as h
+import random
+
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.entities import enemieses
+
 
 ## The Neck of the Woods
 class NeckOfTheWoods():
@@ -150,8 +153,8 @@ class ThePier(NeckOfTheWoods):
             self.table = ["The Pier"]
 
             self.enemiesToLikelihood = {
-                e.Fisherman: 1,
-                e.FishingCaravan: 0.25
+                enemieses.Fisherman: 1,
+                enemieses.FishingCaravan: 0.25
             }
 
 ## Apple Orchard Hollow
@@ -185,8 +188,8 @@ class AppleOrchardHollow(NeckOfTheWoods):
             self.table = ["Apple Orchard Hollow"]
 
             self.enemiesToLikelihood = {
-                e.MalabarGiantSquirrel: 1,
-                e.FlyingSquirrel: 1
+                enemieses.MalabarGiantSquirrel: 1,
+                enemieses.FlyingSquirrel: 1
             }
 
 ## Bandits of the Highway
@@ -222,9 +225,9 @@ class BanditsOfTheHighway(NeckOfTheWoods):
             self.table = ["Bandits of the Highway"]
 
             self.enemiesToLikelihood = {
-                e.RaccoonBandit: 1,
-                e.Skunk: 1,
-                e.Karkit: 0.2
+               enemieses.RaccoonBandit: 1,
+               enemieses.Skunk: 1,
+               enemieses.Karkit: 0.2
             }
 
 ## Copper Croppers
@@ -261,8 +264,8 @@ class CopperCroppers(NeckOfTheWoods):
             self.table = ["Copper Croppers"]
 
             self.enemiesToLikelihood = {
-                e.Copperals: 1,
-                e.Rusterials: 1
+               enemieses.Copperals: 1,
+               enemieses.Rusterials: 1
             }
 
 ## New Bear Order
@@ -298,8 +301,8 @@ class NewBearOrder(NeckOfTheWoods):
             self.table = ["New Bear Order"]
 
             self.enemiesToLikelihood = {
-                e.CinnamonBear: 1,
-                e.Babybear: 1
+               enemieses.CinnamonBear: 1,
+               enemieses.Babybear: 1
             }
 
 
@@ -337,8 +340,8 @@ class FallowFarmland(NeckOfTheWoods):
             self.table = ["Fallow Farmland"]
 
             self.enemiesToLikelihood = {
-                e.Shrew: 1,
-                e.HoardOfShrews: 0.75
+               enemieses.Shrew: 1,
+               enemieses.HoardOfShrews: 0.75
             }
 
 ## Prints the clearings, showing comparisons / contrasting
@@ -496,9 +499,9 @@ class westernTown(Clearing):
         self.table = ["Horse Hostelry"]
 
         self.enemiesToLikelihood = {
-            e.RaccoonBandit: 1,
-            e.Skunk: 1,
-            e.Karkit: 0.2
+           enemieses.RaccoonBandit: 1,
+           enemieses.Skunk: 1,
+           enemieses.Karkit: 0.2
         }
 
 """
@@ -510,9 +513,9 @@ class PopulatedFieldlandKnights(Clearing):
         self.table = ["Humming Mech Field"]
         
         self.enemiesToLikelihood = {
-            e.EnshrinedCapybara: 0.6,
-            e.Shrew: 0.6,
-            e.PrairieWatchDog: 0.6
+           enemieses.EnshrinedCapybara: 0.6,
+           enemieses.Shrew: 0.6,
+           enemieses.PrairieWatchDog: 0.6
         }
 
 """

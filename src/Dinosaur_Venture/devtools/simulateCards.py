@@ -1,9 +1,16 @@
 ## Allows for a nice way to display Cards
 
-import os, random, re
-from colorama import init, Fore, Back, Style
+import os
+import random
+import re
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
-from Dinosaur_Venture import helper as h, mainVisuals as vis, getCardsByTable as gcbt
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+
 
 def code():
     PAD = 37

@@ -1,5 +1,13 @@
-import pytest, random, copy, itertools
-from Dinosaur_Venture import entity as e, getCardsByTable as gcbt, clearing as clr
+import copy
+import itertools
+import random
+
+import pytest
+
+from Dinosaur_Venture import clearing as clr
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture.entities import dinoes as dinoes_import, enemieses as enemieses_import
+
 
 ## Sets up dino, enemies, and the clearing. 
 ## All of the returned values have no unique/atypical mechanics
@@ -10,11 +18,11 @@ def setup_getDinoEnemiesClearing():
     ## We want all the casters, dino, enemies, clearing, etc.
 
     ## (1 and 2) Caster and dino
-    dinoes = [e.Dinosaur()] ## Empty Player Character
+    dinoes = [dinoes_import.Dinosaur()] ## Empty Player Character
 
     ## (3) Enemies
     enemieses = []
-    enemieses.append([e.Copperals()])
+    enemieses.append([enemieses_import.Copperals()])
 
     ## (4) Gets 5 clearings (randomly, allowing duplicates)
     clearinges = []

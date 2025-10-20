@@ -1,5 +1,6 @@
 ## SERVER
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request
+
 from Dinosaur_Venture import getCardsByTable as gcbt
 
 app = Flask(__name__)

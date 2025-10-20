@@ -101,7 +101,7 @@ class shearedCreature(EnemyCard):
     def onPlay(self, caster, dino, enemies, passedInVisuals):
         super().onPlay(caster, dino, enemies, passedInVisuals)
         caster.plusActions(1)
-        summonedEnemy = e.Shrew()
+        summonedEnemy =enemieses.Shrew()
         summonedEnemy.roundStart()
         enemies.append(summonedEnemy)
         for enemy in enemies:

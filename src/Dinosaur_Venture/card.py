@@ -1,5 +1,8 @@
 import uuid
-from Dinosaur_Venture import cardTokens as tk, helper as h, gameplayLogging as log
+
+from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import gameplayLogging as log
+from Dinosaur_Venture import helper as h
 
 INITIALIZATION_ZONES = {
     "iBottom": "Bottom",

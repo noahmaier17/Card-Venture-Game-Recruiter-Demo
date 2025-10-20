@@ -1,7 +1,13 @@
-import math, random, os, copy
-from colorama import init, Fore, Back, Style
+import copy
+import math
+import os
+import random
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
-from Dinosaur_Venture import card as c, cardTokens as tk
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardTokens as tk
 
 WIDTH = 117 - 2
 

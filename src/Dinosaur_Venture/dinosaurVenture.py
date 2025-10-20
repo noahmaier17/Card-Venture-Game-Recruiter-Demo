@@ -1,17 +1,20 @@
-import math, random, os, webbrowser
-from colorama import init, Fore, Back, Style
+import os
+import random
+import webbrowser
+
+from colorama import Back, Fore, Style, init
+
+from Dinosaur_Venture.entities import dinoes
+
 init(autoreset=True)
-from Dinosaur_Venture import (
-    entity as e,
-    helper as h,
-    mainVisuals as vis,
-    clearing as clr,
-    getCardsByTable as gcbt,
-    react as r,
-    gameplayLogging as log,
-    gameplayLoopEvents as gameEvent,
-    channel_linked_lists as cll
-)
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import clearing as clr
+from Dinosaur_Venture import gameplayLogging as log
+from Dinosaur_Venture import gameplayLoopEvents as gameEvent
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import react as r
 
 ## STARTING VARIABLES FOR NEW GAME
 event = "Initialize Round"
@@ -39,8 +42,8 @@ clearingsAvailable = []
 
 ## ----- PICK PLAYER -----
 characters = [
-    e.Rover(),
-    e.Graverobber()
+    dinoes.Rover(),
+    dinoes.Graverobber()
 ]
 
 preamble = []
