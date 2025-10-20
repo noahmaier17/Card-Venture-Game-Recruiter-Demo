@@ -636,7 +636,7 @@ class Entity():
         return self.hp.b
     
     def getBands(self):
-        if self.hp == 'nil':
+        if self.hp == 'nil' or self.hp.isDeathHealthcons:
             return 0
         else:
             return self.hp.getBands()

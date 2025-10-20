@@ -79,7 +79,7 @@ class Healthcons():
         """Places at the tail-end of this healthcons the other healthcons."""
         if self.tail == "nil":
             self.tail = otherHealthcons
-
+        else:
             self.tail.append(otherHealthcons)
 
     def equals(self, otherHealthcons: "Healthcons") -> bool:
@@ -105,7 +105,9 @@ class Healthcons():
 
     def getBands(self) -> int:
         """Returns the number of bands of this healthcons."""
-        if self.tail == "nil":
+        if self.isDeathHealthcons:
+            return 0
+        elif self.tail == "nil":
             return 1
         else:
             return 1 + self.tail.getBands()

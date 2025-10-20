@@ -119,7 +119,7 @@ class TestSuite():
 
         ## For the purpose of having fewer hard-coded values, we will append to every inputsToExpected sets of bands
 
-        ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, remaining enemy health)
+        ## Maps inputs (damage dealt, enemy HP) to expected behavior (fatal damage, broke a band, remaining enemy health)
         rootInputsToExpected = [
             ## Tests damaging very healthy enemy with 1 point of damage
             (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
@@ -146,52 +146,73 @@ class TestSuite():
             (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
         ]
 
-        ## For all of these inputted values, we will append the following bands:
-        ##  [1, 0, 0]  [0, 1, 0]  [0, 0, 1]  [1, 1, 1]  [9, 9, 9]
-        followingBandsOneInstance = [
-            cll.Healthcons(1, 0, 0, 'nil'), 
-            cll.Healthcons(0, 1, 0, 'nil'), 
-            cll.Healthcons(0, 0, 1, 'nil'), 
-            cll.Healthcons(1, 1, 1, 'nil'), 
-            cll.Healthcons(9, 9, 9, 'nil'), 
+        # For all of these inputted values, we will append the following bands:
+        #   [1, 0, 0]  [0, 1, 0]  [0, 0, 1]  [1, 1, 1]  [9, 9, 9]
+        arrayBands = [
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+            [1, 1, 1],
+            [9, 9, 9]
         ]
 
-        ## Then, we will also append the Cartesian Product of the following bands:
-        ##  [1, 0, 0]  [0, 1, 0]  [0, 0, 1]  [1, 1, 1]  [9, 9, 9]
-        ## The code is a bit confusing, the more important part is that appending these 2 bands gives us 3 total bands to test against. 
-        followingBandsTwoInstances = []
-        for healthcon in followingBandsOneInstance:
-            healthcon = copy.deepcopy(healthcon)
-
-            for anotherHealthcon in followingBandsOneInstance:
-                anotherHealthcon = copy.deepcopy(anotherHealthcon)
-                newHealthcon = copy.deepcopy(healthcon)
-
-                newHealthcon.append(anotherHealthcon)
-                followingBandsTwoInstances.append(newHealthcon)
-
         inputsToExpected = []
-        for followingBands in followingBandsOneInstance + followingBandsTwoInstances:
-            followingBands = copy.deepcopy(followingBands)
-            
-            for instance in rootInputsToExpected:
-                value0 = copy.deepcopy(instance[0])
-                startingHealthcons = copy.deepcopy(instance[1])
-                value2 = copy.deepcopy(instance[2])
-                value3 = copy.deepcopy(instance[3])
-                expectedHealthcons = copy.deepcopy(instance[4])
-
-                startingHealthcons.append(followingBands)
-
-                if expectedHealthcons == None:
-                    inputsToExpected.append(
-                        (value0, startingHealthcons, value2, value3, followingBands)
-                    )
+        # Adds to our test pool 2-length bands
+        for firstArray in arrayBands:
+            tailHealthcons = cll.Healthcons(
+                    firstArray[0], firstArray[1], firstArray[2],
+                    'nil'
+                )
+                
+            # Does the adding
+            for root in rootInputsToExpected:
+                newStartingHealth = copy.deepcopy(root[1])
+                newStartingHealth.append(tailHealthcons)
+                
+                newExpectedHealth = copy.deepcopy(root[4])
+                if newExpectedHealth == None:
+                    newExpectedHealth = copy.deepcopy(tailHealthcons)
                 else:
-                    expectedHealthcons.append(followingBands)
-                    inputsToExpected.append(
-                        (value0, startingHealthcons, value2, value3, expectedHealthcons)
+                    newExpectedHealth.append(tailHealthcons)
+
+                inputsToExpected.append((
+                    copy.deepcopy(root[0]),
+                    newStartingHealth,
+                    copy.deepcopy(root[2]),
+                    copy.deepcopy(root[3]),
+                    newExpectedHealth
+                ))
+
+        # Then, adds to our pool 3-length bands through the cartesian product of
+        #   the 1-length bands.
+        for firstArray in arrayBands:
+            for secondArray in arrayBands:
+                tailHealthcons = cll.Healthcons(
+                    firstArray[0], firstArray[1], firstArray[2],
+                    cll.Healthcons(
+                        secondArray[0], secondArray[1], secondArray[2], 
+                        'nil'
+                        )
                     )
+
+                # Does the adding
+                for root in rootInputsToExpected:
+                    newStartingHealth = copy.deepcopy(root[1])
+                    newStartingHealth.append(tailHealthcons)
+                    
+                    newExpectedHealth = copy.deepcopy(root[4])
+                    if newExpectedHealth == None:
+                        newExpectedHealth = copy.deepcopy(tailHealthcons)
+                    else:
+                        newExpectedHealth.append(tailHealthcons)
+
+                    inputsToExpected.append((
+                        copy.deepcopy(root[0]),
+                        newStartingHealth,
+                        copy.deepcopy(root[2]),
+                        copy.deepcopy(root[3]),
+                        newExpectedHealth
+                    ))
 
         runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
 
