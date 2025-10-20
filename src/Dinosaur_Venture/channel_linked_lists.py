@@ -64,7 +64,7 @@ class Healthcons():
             if the entity will have some special mechanic once that happens.
 
     Notes:
-        If onBreakDiscardHand == True, onBreakSpecial can be True or False.
+        If onBreakDiscardHand == True, onBreakSpecial is expected to be False.
     """
     def __init__(self, r: int, g: int, b: int, tail: "Healthcons | str") -> None:
         self.r = r

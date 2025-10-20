@@ -150,7 +150,8 @@ class Entity():
             print("Cards in deck:")
             for card in self.deck.getArray():
                 print(" | " + Back.CYAN + Style.BRIGHT + card.name)
-            print(0/0)
+
+            raise RuntimeError("Game over!")
     
     def nextHandDrawCount(self, simplyObserve = False):
         totalDeckDraw = self.deckDraw
@@ -512,12 +513,11 @@ class Entity():
             return movingCard
 
         else:
-            print(" FATAL ERROR!!! moveCard did not succeed. ")
-            print("  Card Index: ", cardIndex)
-            print("  From Location: ", fromLocation.name)
-            print("  Boolean if position <= len(toLocation): ", str(position <= toLocation.length()))
-            input(" ... ")
-            print(0/0)
+            raise RuntimeError(
+                "moveCard did not succeed;" +
+                " Card Index: " + str(cardIndex) +
+                " From Location: " + fromLocation.name + 
+                " Boolean if position <= len(toLocation): ", str(position <= toLocation.length()))
     
     ## Moves a card from one location to another, but specifically discards it 
     ##  (meaning it goes into the discard). 
@@ -884,8 +884,8 @@ class Entity():
         if (special):
             count += 1
         if count > 1:
-            print("ERROR!!! Tried to add a band break, but attempted to add multiple!")
-            print(0/0)
+            raise RuntimeError("Tried to add a band break," +
+                               "but multiple band break types were expected!")
         
         self.hp.publishBandBreak(number, discardHand, special)
 

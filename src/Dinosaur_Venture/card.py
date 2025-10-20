@@ -369,9 +369,7 @@ class Card():
             location = "Pocket"
 
         if (trueCount != 1):
-            input("BUG! ...")
-            input("BUG! trueCount equals " + str(trueCount) + " for card: " + self.name)
-            print(0/0)
+            input("ERROR! __publishedLocationFetcher has multiple parameters for card: " + self.name)
         return location
 
     def publishDollarTrigger(self, text):
