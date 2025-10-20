@@ -145,7 +145,7 @@ class flickeringLantern(gdc.DinoCard):
         super().onPacking(caster, dino, enemies, passedInVisuals)
         cf.discardBottomCardOfDraw().func(self, caster, dino, enemies, passedInVisuals)
 
-        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.draw, position = caster.draw.length())
     '''

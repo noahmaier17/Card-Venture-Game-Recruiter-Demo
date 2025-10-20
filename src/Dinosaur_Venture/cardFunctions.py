@@ -594,7 +594,7 @@ class getter_toSubsequentCardInPlay(cardFunctions):
 ## |>| Pocket this.
 class packingText_PocketThis(cardFunctions):
     def func(self, card, caster, dino, enemies, passedInVisuals):
-        success = caster.moveMe(caster.hand, card, caster.pocket, supressFailText = True)
+        success = caster.moveMe(caster.hand, card, caster.pocket, suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, card, caster.pocket)
 

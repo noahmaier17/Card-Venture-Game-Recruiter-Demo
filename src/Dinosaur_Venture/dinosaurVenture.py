@@ -106,9 +106,9 @@ if DEBUG_DINO_DECK:
     dino.deck.append(card)
     '''
 
-    dino.deck.append(gcbt.getCardByName("Fish"))
-    dino.deck.append(gcbt.getCardByName("Fish"))
-    dino.deck.append(gcbt.getCardByName("Fish"))
+    dino.deck.append(gcbt.getCardByName("MEGA Damage"))
+    dino.deck.append(gcbt.getCardByName("MEGA Damage"))
+    dino.deck.append(gcbt.getCardByName("MEGA Damage"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
@@ -395,7 +395,7 @@ while True:
             
                 enemy.turnEndTidying(dino, enemies, passedInVisuals)
                 
-                dino.enemyTurnDinoDeathCheck(roundCount)
+                dino.enemyTurnDinoDeathCheck()
 
             if enemy.takeAnotherTurnQuery():
                 pass

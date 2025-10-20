@@ -1029,7 +1029,7 @@ class scurrying(DinoCard):
     def onPacking(self, caster, dino, enemies, passedInVisuals):
         super().onPacking(caster, dino, enemies, passedInVisuals)
         
-        success = caster.moveMe(caster.hand, self, caster.intoHand, supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.intoHand, suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.intoHand)
         
@@ -1063,7 +1063,7 @@ class cultivator(DinoCard):
     def duringPlay(self, caster, dino, enemies, passedInVisuals):
         super().duringPlay(caster, dino, enemies, passedInVisuals)
         c.dealDamage(caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'M'], 'nil'))
-        caster.moveMe(caster.play, self, caster.draw, position = 0, supressFailText = True)
+        caster.moveMe(caster.play, self, caster.draw, position = 0, suppressFailText = True)
 
 class brassMuzzle(DinoCard):
     def __init__(self):
@@ -1142,7 +1142,7 @@ class grasshopperCache(DinoCard):
         super().onPacking(caster, dino, enemies, passedInVisuals)
         c.dealDamage(caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'G'], 'nil'))
         
-        success = caster.moveMe(caster.hand, self, caster.draw, position = 0, supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.draw, position = 0, suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.draw, position = 0)
         
@@ -1353,7 +1353,7 @@ class shamSpeedSign(DinoCard):
     
     def onPacking(self, caster, dino, enemies, passedInVisuals):
         super().onPacking(caster, dino, enemies, passedInVisuals)
-        success = caster.moveMe(caster.hand, self, caster.pocket, supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.pocket, suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.pocket)
 
@@ -1464,7 +1464,7 @@ class carFeigning(DinoCard):
     
     def onPacking(self, caster, dino, enemies, passedInVisuals):
         super().onPacking(caster, dino, enemies, passedInVisuals)
-        success = caster.moveMe(caster.hand, self, caster.pocket, supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.pocket, suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.pocket)
 
@@ -1540,7 +1540,7 @@ class shoulderHump(DinoCard):
     def onPacking(self, caster, dino, enemies, passedInVisuals):
         super().onPacking(caster, dino, enemies, passedInVisuals)
         self.monotonicLingering(1)
-        success = caster.moveMe(caster.hand, self, caster.play, supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.play, suppressFailText = True)
         if not success:
             success = caster.moveMe(caster.pocket, self, caster.play)
         

@@ -189,7 +189,7 @@ class shoulderHump(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
 
-            success = caster.moveMe(caster.hand, card, caster.play, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.play, suppressFailText = True)
             if not success:
                 success = caster.moveMe(caster.pocket, card, caster.play)
 

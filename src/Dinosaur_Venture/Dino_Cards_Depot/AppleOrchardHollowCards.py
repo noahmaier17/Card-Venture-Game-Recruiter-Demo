@@ -18,7 +18,7 @@ class orchardTree(gdc.DinoCard):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([6, 'G-notick'],
                                                                                cll.Attackcons([1, 'Random-notick'],
                                                                                'nil')))
-            success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), supressFailText = True)
+            success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), suppressFailText = True)
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -41,7 +41,7 @@ class barnWood(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.playMe(caster.hand, card, caster, dino, enemies, passedInVisuals, supressFailText = False)
+            success = caster.playMe(caster.hand, card, caster, dino, enemies, passedInVisuals, suppressFailText = False)
             if not success:
                 caster.playMe(caster.pocket, card, caster, dino, enemies, passedInVisuals)
 

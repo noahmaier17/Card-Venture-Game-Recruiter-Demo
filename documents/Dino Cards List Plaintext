@@ -1361,7 +1361,7 @@ class shoulderHump(DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
 
-            success = caster.moveMe(caster.hand, card, caster.play, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.play, suppressFailText = True)
             if not success:
                 success = caster.moveMe(caster.pocket, card, caster.play)
 
@@ -1664,7 +1664,7 @@ class flickeringLantern(DinoCard):
         super().onPacking(caster, dino, enemies, passedInVisuals)
         cf.discardBottomCardOfDraw().func(self, caster, dino, enemies, passedInVisuals)
 
-        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.draw, position = caster.draw.length())
     '''
@@ -2651,7 +2651,7 @@ class orchardTree(DinoCard):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([6, 'G-notick'],
                                                                                cll.Attackcons([1, 'Random-notick'],
                                                                                'nil')))
-            success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), supressFailText = True)
+            success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), suppressFailText = True)
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -2674,7 +2674,7 @@ class barnWood(DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.playMe(caster.hand, card, caster, dino, enemies, passedInVisuals, supressFailText = False)
+            success = caster.playMe(caster.hand, card, caster, dino, enemies, passedInVisuals, suppressFailText = False)
             if not success:
                 caster.playMe(caster.pocket, card, caster, dino, enemies, passedInVisuals)
 
@@ -3208,7 +3208,7 @@ class fishFry(DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.moveMe(caster.hand, card, caster.draw, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.draw, suppressFailText = True)
             if not success:
                 caster.moveMe(caster.pocket, card, caster.draw)
 
@@ -3237,7 +3237,7 @@ class sleepingWithTheFishes(DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.moveMe(caster.hand, card, caster.draw, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.draw, suppressFailText = True)
             if not success:
                 caster.moveMe(caster.pocket, card, caster.draw)
 
@@ -3490,7 +3490,7 @@ class tangledFishLine(DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(5)
 
-            success = caster.moveMe(caster.hand, card, caster.play, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.play, suppressFailText = True)
             if not success:
                 success = caster.moveMe(caster.pocket, card, caster.play)
 
@@ -3947,7 +3947,7 @@ class cardOverlord(DinoCard):
                                                                                'nil'))
             caster.drawCard()
             caster.plusUpcomingPlusCard(0, 1)
-            ## caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), supressFailText = True)
+            ## caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), suppressFailText = True)
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):

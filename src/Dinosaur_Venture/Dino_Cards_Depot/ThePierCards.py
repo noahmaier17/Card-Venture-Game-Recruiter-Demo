@@ -34,7 +34,7 @@ class fishFry(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.moveMe(caster.hand, card, caster.draw, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.draw, suppressFailText = True)
             if not success:
                 caster.moveMe(caster.pocket, card, caster.draw)
 
@@ -63,7 +63,7 @@ class sleepingWithTheFishes(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.moveMe(caster.hand, card, caster.draw, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.draw, suppressFailText = True)
             if not success:
                 caster.moveMe(caster.pocket, card, caster.draw)
 
@@ -316,7 +316,7 @@ class tangledFishLine(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(5)
 
-            success = caster.moveMe(caster.hand, card, caster.play, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.play, suppressFailText = True)
             if not success:
                 success = caster.moveMe(caster.pocket, card, caster.play)
 

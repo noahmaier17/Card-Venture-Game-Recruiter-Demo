@@ -151,7 +151,7 @@ class cardOverlord(gdc.DinoCard):
                                                                                'nil'))
             caster.drawCard()
             caster.plusUpcomingPlusCard(0, 1)
-            ## caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), supressFailText = True)
+            ## caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), suppressFailText = True)
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
