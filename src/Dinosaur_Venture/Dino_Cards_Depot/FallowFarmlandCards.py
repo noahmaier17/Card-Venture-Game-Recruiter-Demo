@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -33,7 +33,7 @@ class rustedScythe(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R-notick'], h.acons([2, 'M'], 'nil')))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R-notick'], cll.Attackcons([2, 'M'], 'nil')))
             query = h.yesOrNo("Discard your Hand for +2 Cards?", passedInVisuals = passedInVisuals)
             if query:
                 while caster.hand.length() > 0:
@@ -53,8 +53,8 @@ class cultivator(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'M'],
-                                                                               h.acons([1, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'M'],
+                                                                               cll.Attackcons([1, 'M'],
                                                                                'nil')))
             caster.moveMe(caster.play, card, caster.draw, position = 0)
 
@@ -75,7 +75,7 @@ class brassMuzzle(gdc.DinoCard):
             caster.plusActions(1)
             index = h.pickLivingEnemy("Pick Enemy", enemies, passedInVisuals = passedInVisuals)
             if index != -1:
-                enemies[index].damage(caster, dino, enemies, h.acons([2, 'B'], h.acons([2, 'M'], 'nil')))
+                enemies[index].damage(caster, dino, enemies, cll.Attackcons([2, 'B'], cll.Attackcons([2, 'M'], 'nil')))
                 if enemies[index].hand.length() > 0:
                     enemies[index].discardCard(enemies[index].hand, 0, dino, enemies, passedInVisuals)
 
@@ -90,8 +90,8 @@ class deadHarvestedGrass(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'G'], 'nil'))
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'L'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'G'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'L'], 'nil'))
             priorLength = -1
             while caster.hand.lengthExcludingFeathery() < 1 and caster.hand.length() != priorLength:
                 priorLength = caster.hand.length()
@@ -109,7 +109,7 @@ class gnawedCableCord(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(2)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'B-notick'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'B-notick'], 'nil'))
             caster.moveMe(caster.play, card, caster.draw, position = 0)
 
     class duringPacking(cf.cardFunctions):
@@ -154,7 +154,7 @@ class grasshopperCache(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'G-notick'], h.acons([2, 'M'], 'nil')))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'G-notick'], cll.Attackcons([2, 'M'], 'nil')))
 
 class trampledRodent(gdc.DinoCard):
     def __init__(self):
@@ -167,10 +167,10 @@ class trampledRodent(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'R-notick'],
-                                                                 h.acons([1, 'G-notick'],
-                                                                 h.acons([1, 'B-notick'],
-                                                                 h.acons([1, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
+                                                                 cll.Attackcons([1, 'G-notick'],
+                                                                 cll.Attackcons([1, 'B-notick'],
+                                                                 cll.Attackcons([1, 'M'],
                                                                  'nil')))))
             cf.arbitrarilyDiscardCardFrom_Location(caster.hand, inputCard = True).func(card, caster, dino, enemies, passedInVisuals)
 
@@ -191,8 +191,8 @@ class twigRockScarecrow(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'Random'],
-                                                                               h.acons([1, 'Random'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Random'],
+                                                                               cll.Attackcons([1, 'Random'],
                                                                                'nil')))
 
 class mangledShrew(gdc.DinoCard):
@@ -205,10 +205,10 @@ class mangledShrew(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R-notick'],
-                                                                 h.acons([1, 'Notnil'],
-                                                                 h.acons([1, 'Notnil'],
-                                                                 h.acons([1, 'Notnil'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R-notick'],
+                                                                 cll.Attackcons([1, 'Notnil'],
+                                                                 cll.Attackcons([1, 'Notnil'],
+                                                                 cll.Attackcons([1, 'Notnil'],
                                                                  'nil')))))
 
 class lastSeeds(gdc.DinoCard):
@@ -224,7 +224,7 @@ class lastSeeds(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([9, 'L'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([9, 'L'], 'nil'))
             caster.drawCard()
 
     def onLooted(self, dino):

@@ -1,5 +1,15 @@
 import random, copy
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardModFunctions as cmf, cardTokens as tk, getCardsByTable as gcbt, mainVisuals as vis, react as r
+from Dinosaur_Venture import (
+    card as c,
+    helper as h,
+    cardFunctions as cf,
+    cardModFunctions as cmf,
+    cardTokens as tk,
+    getCardsByTable as gcbt,
+    mainVisuals as vis,
+    react as r,
+    channel_linked_lists as cll
+)
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -279,7 +289,7 @@ class muscles(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'Random'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Random'], 'nil'))
             caster.drawCard()
 
 class magicalFeather(gdc.DinoShellCard):

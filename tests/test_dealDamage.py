@@ -1,5 +1,5 @@
 import pytest, pytest_timeout, random, copy
-from Dinosaur_Venture import cardFunctions as cf, helper as h, mainVisuals as vis, gameplayScriptedInput as scriptInput
+from Dinosaur_Venture import cardFunctions as cf, helper as h, mainVisuals as vis, gameplayScriptedInput as scriptInput, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as generalDinoCards
 from Test_Utils.gameSetups import setup_getDinoEnemiesClearing
 
@@ -66,7 +66,7 @@ def runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpect
             assert success, str(i) + " did not have matching health values."
 
             ## For regression, are our HP values healthcons?
-            assert isinstance(enemy.hp, h.healthcons), str(i) + " failed."
+            assert isinstance(enemy.hp, cll.Healthcons), str(i) + " failed."
 
 class TestSuite():
     '''
@@ -82,28 +82,28 @@ class TestSuite():
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, remaining enemy health)
         inputsToExpected = [
             ## Tests damaging very healthy enemy with 1 point of damage
-            (h.acons([1, 'R'], 'nil'), h.healthcons(9, 9, 9, 'nil'), False, False, h.healthcons(8, 9, 9, 'nil')),
-            (h.acons([1, 'G'], 'nil'), h.healthcons(9, 9, 9, 'nil'), False, False, h.healthcons(9, 8, 9, 'nil')),
-            (h.acons([1, 'B'], 'nil'), h.healthcons(9, 9, 9, 'nil'), False, False, h.healthcons(9, 9, 8, 'nil')),
+            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
+            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 8, 9, 'nil')),
+            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 9, 8, 'nil')),
 
             ## Tests damaging very weak enemy with 9 points of damage
-            (h.acons([9, 'R'], 'nil'), h.healthcons(1, 1, 1, 'nil'), False, False, h.healthcons(0, 1, 1, 'nil')),
-            (h.acons([9, 'G'], 'nil'), h.healthcons(1, 1, 1, 'nil'), False, False, h.healthcons(1, 0, 1, 'nil')),
-            (h.acons([9, 'B'], 'nil'), h.healthcons(1, 1, 1, 'nil'), False, False, h.healthcons(1, 1, 0, 'nil')),
+            (cll.Attackcons([9, 'R'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(0, 1, 1, 'nil')),
+            (cll.Attackcons([9, 'G'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 0, 1, 'nil')),
+            (cll.Attackcons([9, 'B'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 1, 0, 'nil')),
 
             ## Checks for rollover damage (of which is and is not fatal)
-            (h.acons([5, 'R'], 'nil'), h.healthcons(0, 1, 1, 'nil'), False, False, h.healthcons(0, 0, 1, 'nil')),
-            (h.acons([5, 'G'], 'nil'), h.healthcons(1, 0, 1, 'nil'), False, False, h.healthcons(1, 0, 0, 'nil')),
-            (h.acons([5, 'B'], 'nil'), h.healthcons(1, 1, 0, 'nil'), False, False, h.healthcons(0, 1, 0, 'nil')),
+            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 1, 1, 'nil'), False, False, cll.Healthcons(0, 0, 1, 'nil')),
+            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 1, 'nil'), False, False, cll.Healthcons(1, 0, 0, 'nil')),
+            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(1, 1, 0, 'nil'), False, False, cll.Healthcons(0, 1, 0, 'nil')),
 
-            (h.acons([5, 'R'], 'nil'), h.healthcons(0, 0, 1, 'nil'), True, True, h.deadHealthcons()),
-            (h.acons([5, 'G'], 'nil'), h.healthcons(1, 0, 0, 'nil'), True, True, h.deadHealthcons()),
-            (h.acons([5, 'B'], 'nil'), h.healthcons(0, 1, 0, 'nil'), True, True, h.deadHealthcons()),
+            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), True, True, cll.DeadHealthcons()),
 
             ## Checks for fatal damage
-            (h.acons([1, 'R'], 'nil'), h.healthcons(1, 0, 0, 'nil'), True, True, h.deadHealthcons()),
-            (h.acons([1, 'G'], 'nil'), h.healthcons(0, 1, 0, 'nil'), True, True, h.deadHealthcons()),
-            (h.acons([1, 'B'], 'nil'), h.healthcons(0, 0, 1, 'nil'), True, True, h.deadHealthcons()),
+            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
         ]
 
         runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
@@ -119,76 +119,100 @@ class TestSuite():
 
         ## For the purpose of having fewer hard-coded values, we will append to every inputsToExpected sets of bands
 
-        ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, remaining enemy health)
+        ## Maps inputs (damage dealt, enemy HP) to expected behavior (fatal damage, broke a band, remaining enemy health)
         rootInputsToExpected = [
             ## Tests damaging very healthy enemy with 1 point of damage
-            (h.acons([1, 'R'], 'nil'), h.healthcons(9, 9, 9, 'nil'), False, False, h.healthcons(8, 9, 9, 'nil')),
-            (h.acons([1, 'G'], 'nil'), h.healthcons(9, 9, 9, 'nil'), False, False, h.healthcons(9, 8, 9, 'nil')),
-            (h.acons([1, 'B'], 'nil'), h.healthcons(9, 9, 9, 'nil'), False, False, h.healthcons(9, 9, 8, 'nil')),
+            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
+            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 8, 9, 'nil')),
+            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 9, 8, 'nil')),
 
             ## Tests damaging very weak enemy with 9 points of damage
-            (h.acons([9, 'R'], 'nil'), h.healthcons(1, 1, 1, 'nil'), False, False, h.healthcons(0, 1, 1, 'nil')),
-            (h.acons([9, 'G'], 'nil'), h.healthcons(1, 1, 1, 'nil'), False, False, h.healthcons(1, 0, 1, 'nil')),
-            (h.acons([9, 'B'], 'nil'), h.healthcons(1, 1, 1, 'nil'), False, False, h.healthcons(1, 1, 0, 'nil')),
+            (cll.Attackcons([9, 'R'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(0, 1, 1, 'nil')),
+            (cll.Attackcons([9, 'G'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 0, 1, 'nil')),
+            (cll.Attackcons([9, 'B'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 1, 0, 'nil')),
 
             ## Checks for rollover damage (of which is breaks and does not break bands)
-            (h.acons([5, 'R'], 'nil'), h.healthcons(0, 1, 1, 'nil'), False, False, h.healthcons(0, 0, 1, 'nil')),
-            (h.acons([5, 'G'], 'nil'), h.healthcons(1, 0, 1, 'nil'), False, False, h.healthcons(1, 0, 0, 'nil')),
-            (h.acons([5, 'B'], 'nil'), h.healthcons(1, 1, 0, 'nil'), False, False, h.healthcons(0, 1, 0, 'nil')),
+            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 1, 1, 'nil'), False, False, cll.Healthcons(0, 0, 1, 'nil')),
+            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 1, 'nil'), False, False, cll.Healthcons(1, 0, 0, 'nil')),
+            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(1, 1, 0, 'nil'), False, False, cll.Healthcons(0, 1, 0, 'nil')),
 
-            (h.acons([5, 'R'], 'nil'), h.healthcons(0, 0, 1, 'nil'), False, True, None),
-            (h.acons([5, 'G'], 'nil'), h.healthcons(1, 0, 0, 'nil'), False, True, None),
-            (h.acons([5, 'B'], 'nil'), h.healthcons(0, 1, 0, 'nil'), False, True, None),
+            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
+            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), False, True, None),
+            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), False, True, None),
 
             ## Checks for band-breaking damage
-            (h.acons([1, 'R'], 'nil'), h.healthcons(1, 0, 0, 'nil'), False, True, None),
-            (h.acons([1, 'G'], 'nil'), h.healthcons(0, 1, 0, 'nil'), False, True, None),
-            (h.acons([1, 'B'], 'nil'), h.healthcons(0, 0, 1, 'nil'), False, True, None),
+            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), False, True, None),
+            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), False, True, None),
+            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
         ]
 
-        ## For all of these inputted values, we will append the following bands:
-        ##  [1, 0, 0]  [0, 1, 0]  [0, 0, 1]  [1, 1, 1]  [9, 9, 9]
-        followingBandsOneInstance = [
-            h.healthcons(1, 0, 0, 'nil'), 
-            h.healthcons(0, 1, 0, 'nil'), 
-            h.healthcons(0, 0, 1, 'nil'), 
-            h.healthcons(1, 1, 1, 'nil'), 
-            h.healthcons(9, 9, 9, 'nil'), 
+        # For all of these inputted values, we will append the following bands:
+        #   [1, 0, 0]  [0, 1, 0]  [0, 0, 1]  [1, 1, 1]  [9, 9, 9]
+        arrayBands = [
+            [1, 0, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+            [1, 1, 1],
+            [9, 9, 9]
         ]
-
-        ## Then, we will also append the Cartesian Product of the following bands:
-        ##  [1, 0, 0]  [0, 1, 0]  [0, 0, 1]  [1, 1, 1]  [9, 9, 9]
-        ## The code is a bit confusing, the more important part is that appending these 2 bands gives us 3 total bands to test against. 
-        followingBandsTwoInstances = []
-        for healthcon in followingBandsOneInstance:
-            healthcon = copy.deepcopy(healthcon)
-            for anotherHealthcon in followingBandsOneInstance:
-                anotherHealthcon = copy.deepcopy(anotherHealthcon)
-                newHealthcon = copy.deepcopy(healthcon)
-                newHealthcon.append(anotherHealthcon)
-                followingBandsTwoInstances.append(newHealthcon)
 
         inputsToExpected = []
-        for followingBands in followingBandsOneInstance + followingBandsTwoInstances:
-            followingBands = copy.deepcopy(followingBands)
-            for instance in rootInputsToExpected:
-                value0 = copy.deepcopy(instance[0])
-                startingHealthcons = copy.deepcopy(instance[1])
-                value2 = copy.deepcopy(instance[2])
-                value3 = copy.deepcopy(instance[3])
-                expectedHealthcons = copy.deepcopy(instance[4])
-
-                startingHealthcons.append(followingBands)
-
-                if expectedHealthcons == None:
-                    inputsToExpected.append(
-                        (value0, startingHealthcons, value2, value3, followingBands)
-                    )
+        # Adds to our test pool 2-length bands
+        for firstArray in arrayBands:
+            tailHealthcons = cll.Healthcons(
+                    firstArray[0], firstArray[1], firstArray[2],
+                    'nil'
+                )
+                
+            # Does the adding
+            for root in rootInputsToExpected:
+                newStartingHealth = copy.deepcopy(root[1])
+                newStartingHealth.append(tailHealthcons)
+                
+                newExpectedHealth = copy.deepcopy(root[4])
+                if newExpectedHealth == None:
+                    newExpectedHealth = copy.deepcopy(tailHealthcons)
                 else:
-                    expectedHealthcons.append(followingBands)
-                    inputsToExpected.append(
-                        (value0, startingHealthcons, value2, value3, expectedHealthcons)
+                    newExpectedHealth.append(tailHealthcons)
+
+                inputsToExpected.append((
+                    copy.deepcopy(root[0]),
+                    newStartingHealth,
+                    copy.deepcopy(root[2]),
+                    copy.deepcopy(root[3]),
+                    newExpectedHealth
+                ))
+
+        # Then, adds to our pool 3-length bands through the cartesian product of
+        #   the 1-length bands.
+        for firstArray in arrayBands:
+            for secondArray in arrayBands:
+                tailHealthcons = cll.Healthcons(
+                    firstArray[0], firstArray[1], firstArray[2],
+                    cll.Healthcons(
+                        secondArray[0], secondArray[1], secondArray[2], 
+                        'nil'
+                        )
                     )
+
+                # Does the adding
+                for root in rootInputsToExpected:
+                    newStartingHealth = copy.deepcopy(root[1])
+                    newStartingHealth.append(tailHealthcons)
+                    
+                    newExpectedHealth = copy.deepcopy(root[4])
+                    if newExpectedHealth == None:
+                        newExpectedHealth = copy.deepcopy(tailHealthcons)
+                    else:
+                        newExpectedHealth.append(tailHealthcons)
+
+                    inputsToExpected.append((
+                        copy.deepcopy(root[0]),
+                        newStartingHealth,
+                        copy.deepcopy(root[2]),
+                        copy.deepcopy(root[3]),
+                        newExpectedHealth
+                    ))
 
         runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
 
@@ -208,50 +232,50 @@ class TestSuite():
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, (possible remaining enemy healths,))
         inputsToExpected = [
             ## Tests 1M damage against [9, 1, 0]
-            (h.acons([1, 'M'], 'nil'), h.healthcons(9, 1, 0, 'nil'), False, False, (
-                h.healthcons(8, 1, 0, 'nil'),
+            (cll.Attackcons([1, 'M'], 'nil'), cll.Healthcons(9, 1, 0, 'nil'), False, False, (
+                cll.Healthcons(8, 1, 0, 'nil'),
             )),
-            (h.acons([1, 'M'], 'nil'), h.healthcons(0, 9, 1, 'nil'), False, False, (
-                h.healthcons(0, 8, 1, 'nil'),
+            (cll.Attackcons([1, 'M'], 'nil'), cll.Healthcons(0, 9, 1, 'nil'), False, False, (
+                cll.Healthcons(0, 8, 1, 'nil'),
             )),            
-            (h.acons([1, 'M'], 'nil'), h.healthcons(1, 0, 9, 'nil'), False, False, (
-                h.healthcons(1, 0, 8, 'nil'),
+            (cll.Attackcons([1, 'M'], 'nil'), cll.Healthcons(1, 0, 9, 'nil'), False, False, (
+                cll.Healthcons(1, 0, 8, 'nil'),
             )),
 
             ## Tests fatal 2M damage
-            (h.acons([2, 'M'], 'nil'), h.healthcons(2, 0, 0, 'nil'), True, True, (
-                h.deadHealthcons(),
+            (cll.Attackcons([2, 'M'], 'nil'), cll.Healthcons(2, 0, 0, 'nil'), True, True, (
+                cll.DeadHealthcons(),
             )),
-            (h.acons([2, 'M'], 'nil'), h.healthcons(0, 2, 0, 'nil'), True, True, (
-                h.deadHealthcons(),
+            (cll.Attackcons([2, 'M'], 'nil'), cll.Healthcons(0, 2, 0, 'nil'), True, True, (
+                cll.DeadHealthcons(),
             )),            
-            (h.acons([2, 'M'], 'nil'), h.healthcons(0, 0, 2, 'nil'), True, True, (
-                h.deadHealthcons(),
+            (cll.Attackcons([2, 'M'], 'nil'), cll.Healthcons(0, 0, 2, 'nil'), True, True, (
+                cll.DeadHealthcons(),
             )),
 
             ## Tests accurate 9M tie resolutions
-            (h.acons([9, 'M'], 'nil'), h.healthcons(5, 5, 0, 'nil'), False, False, (
-                h.healthcons(0, 5, 0, 'nil'), h.healthcons(5, 0, 0, 'nil'),
+            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+                cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(5, 0, 0, 'nil'),
             )),
-            (h.acons([9, 'M'], 'nil'), h.healthcons(0, 5, 5, 'nil'), False, False, (
-                h.healthcons(0, 5, 0, 'nil'), h.healthcons(0, 0, 5, 'nil'),
+            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),            
-            (h.acons([9, 'M'], 'nil'), h.healthcons(5, 0, 5, 'nil'), False, False, (
-                h.healthcons(5, 0, 0, 'nil'), h.healthcons(0, 0, 5, 'nil'),
+            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+                cll.Healthcons(5, 0, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),
-            (h.acons([9, 'M'], 'nil'), h.healthcons(5, 5, 5, 'nil'), False, False, (
-                h.healthcons(5, 5, 0, 'nil'), h.healthcons(0, 5, 5, 'nil'), h.healthcons(5, 0, 5, 'nil'),
+            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(5, 5, 0, 'nil'), cll.Healthcons(0, 5, 5, 'nil'), cll.Healthcons(5, 0, 5, 'nil'),
             )),
 
             ## Tests accurate 1M-1M tie resolutions
-            (h.acons([1, 'M'], h.acons([1, 'M'], 'nil')), h.healthcons(5, 5, 0, 'nil'), False, False, (
-                h.healthcons(4, 4, 0, 'nil'),
+            (cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+                cll.Healthcons(4, 4, 0, 'nil'),
             )),
-            (h.acons([1, 'M'], h.acons([1, 'M'], 'nil')), h.healthcons(0, 5, 5, 'nil'), False, False, (
-                h.healthcons(0, 4, 4, 'nil'),
+            (cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(0, 4, 4, 'nil'),
             )),            
-            (h.acons([1, 'M'], h.acons([1, 'M'], 'nil')), h.healthcons(5, 0, 5, 'nil'), False, False, (
-                h.healthcons(4, 0, 4, 'nil'),
+            (cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+                cll.Healthcons(4, 0, 4, 'nil'),
             )),
         ]
 
@@ -273,53 +297,53 @@ class TestSuite():
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, (possible remaining enemy healths,))
         inputsToExpected = [
             ## Tests 1L damage against [9, 1, 0]
-            (h.acons([1, 'L'], 'nil'), h.healthcons(9, 1, 0, 'nil'), False, False, (
-                h.healthcons(9, 0, 0, 'nil'),
+            (cll.Attackcons([1, 'L'], 'nil'), cll.Healthcons(9, 1, 0, 'nil'), False, False, (
+                cll.Healthcons(9, 0, 0, 'nil'),
             )),
-            (h.acons([1, 'L'], 'nil'), h.healthcons(0, 9, 1, 'nil'), False, False, (
-                h.healthcons(0, 9, 0, 'nil'),
+            (cll.Attackcons([1, 'L'], 'nil'), cll.Healthcons(0, 9, 1, 'nil'), False, False, (
+                cll.Healthcons(0, 9, 0, 'nil'),
             )),            
-            (h.acons([1, 'L'], 'nil'), h.healthcons(1, 0, 9, 'nil'), False, False, (
-                h.healthcons(0, 0, 9, 'nil'),
+            (cll.Attackcons([1, 'L'], 'nil'), cll.Healthcons(1, 0, 9, 'nil'), False, False, (
+                cll.Healthcons(0, 0, 9, 'nil'),
             )),
 
             ## Tests fatal 2M damage
-            (h.acons([2, 'L'], 'nil'), h.healthcons(2, 0, 0, 'nil'), True, True, (
-                h.deadHealthcons(),
+            (cll.Attackcons([2, 'L'], 'nil'), cll.Healthcons(2, 0, 0, 'nil'), True, True, (
+                cll.DeadHealthcons(),
             )),
-            (h.acons([2, 'L'], 'nil'), h.healthcons(0, 2, 0, 'nil'), True, True, (
-                h.deadHealthcons(),
+            (cll.Attackcons([2, 'L'], 'nil'), cll.Healthcons(0, 2, 0, 'nil'), True, True, (
+                cll.DeadHealthcons(),
             )),            
-            (h.acons([2, 'L'], 'nil'), h.healthcons(0, 0, 2, 'nil'), True, True, (
-                h.deadHealthcons(),
+            (cll.Attackcons([2, 'L'], 'nil'), cll.Healthcons(0, 0, 2, 'nil'), True, True, (
+                cll.DeadHealthcons(),
             )),
 
             ## Tests accurate LM tie resolutions
-            (h.acons([9, 'L'], 'nil'), h.healthcons(5, 5, 0, 'nil'), False, False, (
-                h.healthcons(0, 5, 0, 'nil'), h.healthcons(5, 0, 0, 'nil'),
+            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+                cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(5, 0, 0, 'nil'),
             )),
-            (h.acons([9, 'L'], 'nil'), h.healthcons(0, 5, 5, 'nil'), False, False, (
-                h.healthcons(0, 5, 0, 'nil'), h.healthcons(0, 0, 5, 'nil'),
-            )),            
-            (h.acons([9, 'L'], 'nil'), h.healthcons(5, 0, 5, 'nil'), False, False, (
-                h.healthcons(5, 0, 0, 'nil'), h.healthcons(0, 0, 5, 'nil'),
+            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),
-            (h.acons([9, 'L'], 'nil'), h.healthcons(5, 5, 5, 'nil'), False, False, (
-                h.healthcons(5, 5, 0, 'nil'), h.healthcons(0, 5, 5, 'nil'), h.healthcons(5, 0, 5, 'nil'),
+            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+                cll.Healthcons(5, 0, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
+            )),
+            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(5, 5, 0, 'nil'), cll.Healthcons(0, 5, 5, 'nil'), cll.Healthcons(5, 0, 5, 'nil'),
             )),
 
             ## Tests accurate 1L-1L NON-tie resolutions
-            (h.acons([1, 'L'], h.acons([1, 'L'], 'nil')), h.healthcons(5, 5, 0, 'nil'), False, False, (
-                h.healthcons(5, 3, 0, 'nil'), h.healthcons(3, 5, 0, 'nil')
+            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+                cll.Healthcons(5, 3, 0, 'nil'), cll.Healthcons(3, 5, 0, 'nil')
             )),
-            (h.acons([1, 'L'], h.acons([1, 'L'], 'nil')), h.healthcons(0, 5, 5, 'nil'), False, False, (
-                h.healthcons(0, 3, 5, 'nil'), h.healthcons(0, 5, 3, 'nil')
+            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(0, 3, 5, 'nil'), cll.Healthcons(0, 5, 3, 'nil')
             )),            
-            (h.acons([1, 'L'], h.acons([1, 'L'], 'nil')), h.healthcons(5, 0, 5, 'nil'), False, False, (
-                h.healthcons(3, 0, 5, 'nil'), h.healthcons(5, 0, 3, 'nil')
+            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+                cll.Healthcons(3, 0, 5, 'nil'), cll.Healthcons(5, 0, 3, 'nil')
             )),
-            (h.acons([1, 'L'], h.acons([1, 'L'], 'nil')), h.healthcons(5, 5, 5, 'nil'), False, False, (
-                h.healthcons(3, 5, 5, 'nil'), h.healthcons(5, 3, 5, 'nil'), h.healthcons(5, 5, 3, 'nil')
+            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
+                cll.Healthcons(3, 5, 5, 'nil'), cll.Healthcons(5, 3, 5, 'nil'), cll.Healthcons(5, 5, 3, 'nil')
             )),
         ]
 

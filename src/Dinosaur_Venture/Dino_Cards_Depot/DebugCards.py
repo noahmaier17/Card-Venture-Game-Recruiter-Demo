@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 ''' 
@@ -52,7 +52,7 @@ class pocketTest(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([999, 'M'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([999, 'M'], 'nil'))
 
 class megaDamage(gdc.DinoCard):
     def __init__(self):
@@ -65,9 +65,9 @@ class megaDamage(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([10, 'R'],
-                                                                 h.acons([10, 'G'],
-                                                                 h.acons([10, 'B'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([10, 'R'],
+                                                                 cll.Attackcons([10, 'G'],
+                                                                 cll.Attackcons([10, 'B'],
                                                                  'nil'))))
             caster.moveMe(caster.play, card, caster.pocket)
 

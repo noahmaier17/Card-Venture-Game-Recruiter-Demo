@@ -9,23 +9,23 @@ from colorama import init, Fore, Back, Style
 init(autoreset=True)
 from Dinosaur_Venture import helper as h
 
-class acons():
+class Attackcons():
     """
     Implementation of attack damage linked list chains.
 
     Attributes:
         damage (int): the amount of damage this deals.
         channel (str): the damage channel type (R, G, B, L, M, Notnil, Random).
-        tail (acons | 'nil'): the next attack node; 'nil' if none.
+        tail (Attackcons | 'nil'): the next attack node; 'nil' if none.
     """
 
-    def __init__(self, datum: tuple[int, str], tail: "acons | 'nil'") -> None:
+    def __init__(self, datum: tuple[int, str], tail: "Attackcons | str") -> None:
         """
         Initializer.
         
         Arguments:
             datum (damage: int, channel: channel_linked_lists.channel): damage and of what type.
-            tail (acons | channel_linked_lists.nilcons): represents the next element of damage.
+            tail (Attackcons | channel_linked_lists.nilcons): represents the next element of damage.
         """
         self.damage = datum[0]
         self.channel = datum[1]
@@ -48,7 +48,7 @@ class acons():
             return self.tail.stripNotick()
 
 
-class healthcons():
+class Healthcons():
     """
     Implementation of health strings for an entity.
 
@@ -66,7 +66,7 @@ class healthcons():
     Notes:
         If onBreakDiscardHand == True, onBreakSpecial can be True or False.
     """
-    def __init__(self, r: int, g: int, b: int, tail: "healthcons | 'nil'") -> None:
+    def __init__(self, r: int, g: int, b: int, tail: "Healthcons | str") -> None:
         self.r = r
         self.g = g
         self.b = b
@@ -75,14 +75,14 @@ class healthcons():
         self.onBreakDiscardHand = False
         self.onBreakSpecial = False
 
-    def append(self, otherHealthcons: "healthcons") -> None:
+    def append(self, otherHealthcons: "Healthcons") -> None:
         """Places at the tail-end of this healthcons the other healthcons."""
         if self.tail == "nil":
             self.tail = otherHealthcons
         else:
             self.tail.append(otherHealthcons)
 
-    def equals(self, otherHealthcons: "healthcons") -> bool:
+    def equals(self, otherHealthcons: "Healthcons") -> bool:
         """Checks if two healthcons are equivalent."""
         # Are both dead?
         if self.isDeathHealthcons != otherHealthcons.isDeathHealthcons:
@@ -105,9 +105,11 @@ class healthcons():
 
     def getBands(self) -> int:
         """Returns the number of bands of this healthcons."""
-        if self.tail == "nil":
+        if self.isDeathHealthcons:
+            return 0
+        elif self.tail == "nil":
             return 1
-        else:  
+        else:
             return 1 + self.tail.getBands()
     
     def publishBandBreak(self, number: int, discardHand: bool, special: bool) -> None:
@@ -200,7 +202,7 @@ class healthcons():
         else: 
             return "["+str(self.r)+", "+str(self.g)+", "+str(self.b)+"] - "+self.tail.__str__()
 
-class deadHealthcons(healthcons):
+class DeadHealthcons(Healthcons):
     """
     A special type of healthcons when the entity is dead and all HP values should be 0.
 

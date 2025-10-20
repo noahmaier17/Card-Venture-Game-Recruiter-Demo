@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, getCardsByTable as gcbt
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, getCardsByTable as gcbt, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -16,7 +16,7 @@ class coercionCultivator(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
 
-            damageData = cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'L'],
+            damageData = cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'L'],
                                                                                             'nil'))
             if not damageData.fatalDamage:
                 h.splash("Dealt non-Fatal Damage: Pocket a ^Shovel^ Card.")
@@ -33,10 +33,10 @@ class carCasing(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             if cf.chance(0.67, onSuccess_printInsteadOfInput = True).func(card, caster, dino, enemies, passedInVisuals):
-                cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R-notick'],
-                                                                     h.acons([2, 'G-notick'],
-                                                                     h.acons([2, 'B-notick'],
-                                                                     h.acons([2, 'M'],
+                cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R-notick'],
+                                                                     cll.Attackcons([2, 'G-notick'],
+                                                                     cll.Attackcons([2, 'B-notick'],
+                                                                     cll.Attackcons([2, 'M'],
                                                                      'nil')))))
             else:
                 caster.moveMe(caster.play, card, caster.pocket)
@@ -52,8 +52,8 @@ class highwayGrassMedian(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'G-notick'],
-                                                                 h.acons([2, 'B-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'G-notick'],
+                                                                 cll.Attackcons([2, 'B-notick'],
                                                                  'nil')))
 
             query = h.yesOrNo("Discard your Hand for: + Cantrip?", preamble = [], passedInVisuals = passedInVisuals)
@@ -78,10 +78,10 @@ class hunkOfJunk(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'G'],
-                                                                 h.acons([1, 'G-notick'],
-                                                                 h.acons([1, 'R'],
-                                                                 h.acons([1, 'R-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'G'],
+                                                                 cll.Attackcons([1, 'G-notick'],
+                                                                 cll.Attackcons([1, 'R'],
+                                                                 cll.Attackcons([1, 'R-notick'],
                                                                  'nil')))))
             query = h.yesOrNo("+1 Card and 0.5 Chance for: Pocket a Rubbish Card?", passedInVisuals = passedInVisuals)
             if query:
@@ -100,7 +100,7 @@ class brakeCutters(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'M'], h.acons([1, 'M'], h.acons([1, 'M'], 'nil'))))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil'))))
             caster.gainCard(gcbt.getCardByName("Rubbish"), dino.discard)
 
 class wheelShrapnel(gdc.DinoCard):
@@ -114,7 +114,7 @@ class wheelShrapnel(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R-notick'], h.acons([2, 'M'], 'nil')))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R-notick'], cll.Attackcons([2, 'M'], 'nil')))
             while caster.hand.length() > 0:
                 caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
 
@@ -129,7 +129,7 @@ class shamSpeedSign(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'B'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'B'], 'nil'))
             for i in range(3):
                 caster.drawCard()
 
@@ -192,8 +192,8 @@ class raccoonHeist(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'B'],
-                                                                               h.acons([1, 'B'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'B'],
+                                                                               cll.Attackcons([1, 'B'],
                                                                                'nil')))
 
 class roadSignAugers(gdc.DinoCard):
@@ -227,7 +227,7 @@ class carFeigning(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'G'], h.acons([1, 'R'], 'nil')))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'G'], cll.Attackcons([1, 'R'], 'nil')))
             if dino.hand.length() == 0:
                 h.splash("Hand is Empty, so: + Cantrip, + Cantrip.")
                 for i in range(2):

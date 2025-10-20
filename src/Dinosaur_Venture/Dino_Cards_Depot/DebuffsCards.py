@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, getCardsByTable as gcbt
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, getCardsByTable as gcbt, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -82,7 +82,7 @@ class undercover(gdc.DinoShellCard):
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "UNDERCOVER " + cardToEnshell.name
         cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("To an Arbitrary Enemy: Heal 1Random.",
-                                                                               cf.toBlankEnemy_Heal(h.acons([1, 'Random'], 'nil'),
+                                                                               cf.toBlankEnemy_Heal(cll.Attackcons([1, 'Random'], 'nil'),
                                                                                toArbitraryEnemy = True)))
 
 class doubleAgent(gdc.DinoShellCard):
@@ -95,7 +95,7 @@ class doubleAgent(gdc.DinoShellCard):
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "DOUBLE-AGENT " + cardToEnshell.name
         cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("To an Arbitrary Enemy: Heal 2M.",
-                                                                               cf.toBlankEnemy_Heal(h.acons([2, 'M'], 'nil'),
+                                                                               cf.toBlankEnemy_Heal(cll.Attackcons([2, 'M'], 'nil'),
                                                                                toArbitraryEnemy = True)))
 
 '''

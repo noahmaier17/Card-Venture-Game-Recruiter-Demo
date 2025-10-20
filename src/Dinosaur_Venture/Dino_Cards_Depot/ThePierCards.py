@@ -1,5 +1,15 @@
 import random, re
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardModFunctions as cmf, cardTokens as tk, getCardsByTable as gcbt, mainVisuals as vis, react as r
+from Dinosaur_Venture import (
+    card as c,
+    helper as h,
+    cardFunctions as cf,
+    cardModFunctions as cmf,
+    cardTokens as tk,
+    getCardsByTable as gcbt,
+    mainVisuals as vis,
+    react as r,
+    channel_linked_lists as cll
+)
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -205,8 +215,8 @@ class fishPot(gdc.DinoCard):
             return (LDamageMatchObject != None)
 
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R'],
-                                                                               h.acons([2, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R'],
+                                                                               cll.Attackcons([2, 'M'],
                                                                                'nil')))
 
             millCardFunction = cf.mill(usingCheckClause = True, checkClause = self.custom_checkClause)

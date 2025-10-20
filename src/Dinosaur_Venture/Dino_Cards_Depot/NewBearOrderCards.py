@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -60,7 +60,7 @@ class playDead(gdc.DinoCard):
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(4)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'B-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'B-notick'],
                                                                  'nil'))
 
 class reveredBearSkull(gdc.DinoCard):
@@ -74,14 +74,14 @@ class reveredBearSkull(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(self, caster, dino, enemies, passedInVisuals, h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
-                                                                h.acons([1, 'R-notick'],
+            cf.dealDamage().func(self, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
+                                                                cll.Attackcons([1, 'R-notick'],
                                                                 'nil')))))))))
 
     class duringPacking(cf.cardFunctions):
@@ -122,11 +122,11 @@ class recyclingBin(DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'B'],
-                                                                 h.acons([1, 'B'],
-                                                                 h.acons([1, 'B'],
-                                                                 h.acons([1, 'G'],
-                                                                 h.acons([1, 'G'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'B'],
+                                                                 cll.Attackcons([1, 'B'],
+                                                                 cll.Attackcons([1, 'B'],
+                                                                 cll.Attackcons([1, 'G'],
+                                                                 cll.Attackcons([1, 'G'],
                                                                  'nil'))))))
 
             caster.drawCard()
@@ -146,10 +146,10 @@ class boneGnaw(DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.drawCard(printCard = True)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'M'],
-                                                                 h.acons([1, 'M'],
-                                                                 h.acons([1, 'M'],
-                                                                 h.acons([1, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'M'],
+                                                                 cll.Attackcons([1, 'M'],
+                                                                 cll.Attackcons([1, 'M'],
+                                                                 cll.Attackcons([1, 'M'],
                                                                  'nil')))))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
@@ -181,8 +181,8 @@ class shoulderHump(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([5, 'Notnil'],
-                                                                 h.acons([4, 'Notnil'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([5, 'Notnil'],
+                                                                 cll.Attackcons([4, 'Notnil'],
                                                                  'nil')))
 
     class duringPacking(cf.cardFunctions):
@@ -255,9 +255,9 @@ class bearClaws(DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'R'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'R'],
                                                                  'nil'))
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'B'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'B'],
                                                                  'nil'))
 
     def onPacking(self, caster, dino, enemies, passedInVisuals):
@@ -278,12 +278,12 @@ class backScratcher(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'L'],
-                                                                 h.acons([1, 'L'],
-                                                                 h.acons([1, 'L'],
-                                                                 h.acons([1, 'L'],
-                                                                 h.acons([1, 'L'],
-                                                                 h.acons([1, 'L'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'L'],
+                                                                 cll.Attackcons([1, 'L'],
+                                                                 cll.Attackcons([1, 'L'],
+                                                                 cll.Attackcons([1, 'L'],
+                                                                 cll.Attackcons([1, 'L'],
+                                                                 cll.Attackcons([1, 'L'],
                                                                  'nil')))))))
             caster.drawCard()
 
@@ -299,7 +299,7 @@ class beesNest(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
-            cf.numberX_toArbitraryEnemy_dealDamage(3, h.acons([1, 'L'], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
+            cf.numberX_toArbitraryEnemy_dealDamage(3, cll.Attackcons([1, 'L'], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
 
     def atTriggerTurnStart(self, caster, dino, enemies):
         if self.turnsLingering == 1:
@@ -341,7 +341,7 @@ class chaseUntilExhaustion(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'Notnil'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Notnil'],
                                                                  'nil'))
             cf.discardYourDraw().func(card, caster, dino, enemies, passedInVisuals)
 
