@@ -1,8 +1,8 @@
 """
-    channel_linked_lists.py
+channel_linked_lists.py
 
-    Implements damage and HP objects that store health. 
-    Additionally includes the hard-coded values for different types of damage. 
+Implements damage and HP objects that store health. 
+Additionally includes the hard-coded values for different types of damage. 
 """
 
 from colorama import init, Fore, Back, Style
