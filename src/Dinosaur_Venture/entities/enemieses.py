@@ -14,16 +14,17 @@ from Dinosaur_Venture import mainVisuals as vis
 from Dinosaur_Venture.entities import entity as e
 
 
-## Creates the general Enemies
 class Enemy(e.Entity):
-    def __init__(self):
+    """General enemy class; works well for testing and inheritance"""
+    def __init__(self) -> None:
         super().__init__()
 
-    ## THE IMPLEMENTATION OF EXTRA DRAFTS ALSO NEEDS AN ODDS NUMBER OR SOMETHING
-    def fillDeck(self, extraDrafts = h.cardLocation("extra drafts")):
+    def fillDeck(self, extraDrafts: h.cardLocation = h.cardLocation("extra drafts")) -> None:
+        """Fills this enemy's deck based on its `damageDist` and `siftDist` values."""
+        # THE IMPLEMENTATION OF EXTRA DRAFTS ALSO NEEDS AN ODDS NUMBER OR SOMETHING
         EFD = h.cardLocation("EFD")
 
-        ## Pre-processing, finding all cards that are reasonable-enough matches
+        # Pre-processing, finding all cards that are reasonable-enough matches
         for Card in gcbt.ENEMY_CARD_POOL_UNINIT:
             card = Card(targetDamage = self.damageDist, targetSift = self.siftDist)
             deltaDamage = (card.damageDist - self.damageDist)
@@ -31,11 +32,11 @@ class Enemy(e.Entity):
             if (math.sqrt(deltaDamage ** 2 + deltaSift ** 2) <= 0.8):
                 EFD.append(card)
 
-        ## Adds extra drafts to the list too
+        # Adds extra drafts to the list too
         for card in extraDrafts.getArray():
             EFD.append(card)
 
-        ## Selects cards randomly, and if they pass a probability check, adds them
+        # Selects cards randomly, and if they pass a probability check, adds them
         while (self.deck.length() < 6):
             if EFD.length() == 0:
                 # Case where we cannot add any more Cards
@@ -52,44 +53,6 @@ class Enemy(e.Entity):
                 else:
                     # We failed the randomness check -- tries again
                     EFD.append(card)
-
-
-        '''
-        ## Fills the EFD with valid cards from the enemyFillDeck and all cards from extraDrafts
-        EFD = h.cardLocation("EFD")
-        for card in ec.enemyFillDeck.getArray():
-            deltaDamage = (card.damageDist - self.damageDist)
-            deltaSift = (card.siftDist - self.siftDist)
-            delta = math.sqrt(deltaDamage ** 2 + deltaSift ** 2)
-            if (delta <= 0.8):
-                EFD.append(card)
-        for card in extraDrafts.getArray():
-            EFD.append(card)
-
-        ## Picks those cards randomly, and makes them available for the enemies
-        while (self.deck.length() < 6):
-            if EFD.length() == 0: # Case where we have no more attacks to add
-                self.deck.append(ec.nothing())
-            else:
-                randomCard = EFD.pop(random.randint(0, EFD.length() - 1))
-
-                deltaDamage = (randomCard.damageDist - self.damageDist)
-                deltaSift = (randomCard.siftDist - self.siftDist)
-                delta = math.sqrt(deltaDamage ** 2 + deltaSift ** 2)
-
-                if (random.random() >= delta):
-                    self.deck.append(randomCard)
-                else:
-                    EFD.append(randomCard)
-
-        self.deck.shuffle()
-        '''
-
-
-
-
-
-
 
 '''
 class Litterbugs(Enemy):
@@ -115,6 +78,7 @@ class Litterbugs(Enemy):
 '''
 
 class plainEnemy(Enemy):
+    """Plain, bland enemy."""
     def __init__(self):
         super().__init__()
         self.text = "A plain Enemy."
