@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, react as r
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, react as r, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -48,7 +48,7 @@ class troughBoy(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([4, 'B-notick'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([4, 'B-notick'], 'nil'))
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -73,7 +73,7 @@ class collectiveBargaining(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'G'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'G'], 'nil'))
 
     class trigger_1(r.card_responseAndTrigger):
         def __init__(self, card):
@@ -113,7 +113,7 @@ class attemptAppeasement(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             self.foreverLinger = True
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'B'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'B'], 'nil'))
 
             if card.bool1:
                 ## h.splash("While Resolving: +1 Card.", printInsteadOfInput = True)
@@ -152,7 +152,7 @@ class cardOverthrow(gdc.DinoCard):
             caster.plusActions(1)
             index = h.pickLivingEnemy("Pick Enemy", enemies, passedInVisuals = passedInVisuals)
             if index != -1:
-                enemies[index].damage(caster, dino, enemies, h.acons([4, 'Notnil'], 'nil'))
+                enemies[index].damage(caster, dino, enemies, cll.Attackcons([4, 'Notnil'], 'nil'))
                 while enemies[index].hand.length() > 0:
                     enemies[index].discardCard(enemies[index].hand, 0, dino, enemies, passedInVisuals)
 
@@ -170,8 +170,8 @@ class dethronement(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.minusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([4, 'M'],
-                                                                 h.acons([2, 'G'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([4, 'M'],
+                                                                 cll.Attackcons([2, 'G'],
                                                                  'nil')))
             if caster.draw.length() > 0:
                 caster.discardCard(caster.draw, 0, dino, enemies, passedInVisuals, printCard = True)
@@ -204,7 +204,7 @@ class failedPeaceTreaty(gdc.DinoCard):
             if not success:
                 caster.moveMe(caster.pocket, card, caster.play)
 
-            cf.toEveryEnemy_dealDamage(h.acons([2, 'Random-notick'], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
+            cf.toEveryEnemy_dealDamage(cll.Attackcons([2, 'Random-notick'], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
 
 class actionOverthrow(gdc.DinoCard):
     def __init__(self):
@@ -217,8 +217,8 @@ class actionOverthrow(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R'], 'nil'))
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R'], 'nil'))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
         caster.plusActions(1)
@@ -255,7 +255,7 @@ class newFarmLeader(gdc.DinoCard):
             if not success:
                 caster.moveMe(caster.pocket, card, caster.play)
 
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'G'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'G'], 'nil'))
 
     def onLooted(self, dino):
         card = h.fetchCardFromLocation("Change a Card in Deck to: [ iTop ]", dino.deck)
@@ -273,9 +273,9 @@ class bayOfPigs(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'Random-notick'],
-                                                                 h.acons([2, 'Random-notick'],
-                                                                 h.acons([2, 'Random-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'Random-notick'],
+                                                                 cll.Attackcons([2, 'Random-notick'],
+                                                                 cll.Attackcons([2, 'Random-notick'],
                                                                  'nil'))))
 
     class duringPacking(cf.cardFunctions):
@@ -308,9 +308,9 @@ class hatchingCoup(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([4, 'R-notick'],
-                                                                 h.acons([4, 'B-notick'],
-                                                                 h.acons([2, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([4, 'R-notick'],
+                                                                 cll.Attackcons([4, 'B-notick'],
+                                                                 cll.Attackcons([2, 'M'],
                                                                  'nil'))))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
@@ -370,7 +370,7 @@ class organizedArmaments(gdc.DinoCard):
 
         def trigger(self, card, caster, dino, enemies):
             self.reacted_1 = True
-            cf.dealDamage().func(card, caster, dino, enemies, "null", h.acons([1, 'M'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, "null", cll.Attackcons([1, 'M'], 'nil'))
 
         def resetState_TurnEnd(self):
             self.reacted_1 = False

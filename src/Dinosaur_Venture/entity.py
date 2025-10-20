@@ -1,7 +1,15 @@
-import math, random, os, copy
+import math, random, copy
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
-from Dinosaur_Venture import helper as h, cardTokens as tk, react as r, mainVisuals as vis, getCardsByTable as gcbt, gameplayLogging as log
+from Dinosaur_Venture import (
+    helper as h,
+    cardTokens as tk,
+    react as r,
+    mainVisuals as vis,
+    getCardsByTable as gcbt,
+    gameplayLogging as log,
+    channel_linked_lists as cll
+)
 
 class Entity():
     def __init__(self):
@@ -26,7 +34,7 @@ class Entity():
         self.enemy = True
 
         ## The health of the enemy; should be overriden in inheritance
-        self.hp = h.deadHealthcons()
+        self.hp = cll.DeadHealthcons()
 
         ## The deck zones
         ## Do not change these names! Functionality depends on reading the names of these locations
@@ -132,7 +140,7 @@ class Entity():
     ## Checks if Dino is Dead
     def enemyTurnDinoDeathCheck(self, roundCount):
         if self.getBands() == 0:
-            self.hp = h.deadHealthcons()
+            self.hp = cll.DeadHealthcons()
     
     def dinoTurnDinoDeathCheck(self, roundCount):
         if self.getBands() == 0:
@@ -257,7 +265,7 @@ class Entity():
         ## Heals
         if self.hp.isDeathHealthcons == True:
             self.hp = ""
-            self.hp = h.healthcons(self.healR, self.healG, self.healB, 'nil')
+            self.hp = cll.Healthcons(self.healR, self.healG, self.healB, 'nil')
 
             self.dead = False
 
@@ -757,7 +765,7 @@ class Entity():
         if AttackData == 'nil':
             return
         if self.getBands() == 0:
-            self.hp = h.healthcons(0, 0, 0, 'nil')
+            self.hp = cll.Healthcons(0, 0, 0, 'nil')
 
         dmg = AttackData.damage
         chl = AttackData.channel
@@ -858,7 +866,7 @@ class Entity():
             self.dead = True
             self.diedThisTurn = True
             self.nonfatalDamageTaken = False
-            self.hp = h.deadHealthcons()
+            self.hp = cll.DeadHealthcons()
             return True
         elif self.hp.r == 0 and self.hp.g == 0 and self.hp.b == 0:
             self.hp = self.hp.tail
@@ -942,7 +950,7 @@ class Dinosaur(Entity):
     def __init__(self):
         super().__init__()
         self.name = "Dinosaur"
-        self.hp = h.healthcons(3, 3, 3, 'nil')
+        self.hp = cll.Healthcons(3, 3, 3, 'nil')
         self.enemy = False
         self.deckDraw = 4
         self.actions = 2
@@ -1149,7 +1157,7 @@ class Litterbugs(Enemy):
         random.shuffle(hpA)
         hpB = [2, 1, 0]
         random.shuffle(hpB)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
 '''
 
 class plainEnemy(Enemy):
@@ -1175,7 +1183,7 @@ class plainEnemy(Enemy):
         super().fillDeck()
 
         self.targetHealth = targetHealth
-        self.hp = h.healthcons(0, 0, 0, 'nil')
+        self.hp = cll.Healthcons(0, 0, 0, 'nil')
         self.plainEnemyHealthInit(self.hp, targetHealth)
 
         self.difficulty = difficulty
@@ -1261,7 +1269,7 @@ class plainEnemy(Enemy):
     def __hpBand(self, hp, target):
         ## input("B: " + str(target))
         target -= 1
-        hp.tail = h.healthcons(0, 0, 0, 'nil')
+        hp.tail = cll.Healthcons(0, 0, 0, 'nil')
         return self.__hpStart(hp.tail, target)
 
 class Fisherman(Enemy):
@@ -1282,7 +1290,7 @@ class Fisherman(Enemy):
     def __healthInit(self):
         hpA = [1, 1, 2]
         random.shuffle(hpA)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 'nil')
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 'nil')
 
 class FishingCaravan(Enemy):
     def __init__(self):
@@ -1308,7 +1316,7 @@ class FishingCaravan(Enemy):
         random.shuffle(hpA)
         hpB = [0, 2, 2]
         random.shuffle(hpB)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
 
 class FlyingSquirrel(Enemy):
     def __init__(self):
@@ -1328,7 +1336,7 @@ class FlyingSquirrel(Enemy):
     def __healthInit(self):
         hpA = [2, 2, 2]
         random.shuffle(hpA)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 'nil')
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 'nil')
 
 
 class MalabarGiantSquirrel(Enemy):
@@ -1349,7 +1357,7 @@ class MalabarGiantSquirrel(Enemy):
     def __healthInit(self):
         hpA = [5, 0, 0]
         random.shuffle(hpA)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 'nil')
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 'nil')
 
 class Copperals(Enemy):
     def __init__(self):
@@ -1368,7 +1376,7 @@ class Copperals(Enemy):
     def __healthInit(self):
         hpA = [2, 2, 0]
         random.shuffle(hpA)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 'nil')
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 'nil')
 
 class Rusterials(Enemy):
     def __init__(self):
@@ -1390,7 +1398,7 @@ class Rusterials(Enemy):
         hpB = [1, 0, 0]
         random.shuffle(hpA)
         random.shuffle(hpB)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
 
     def atTriggerLoseBand(self, dino, enemies):
         if self.getBands() == 1:
@@ -1416,7 +1424,7 @@ class Karkit(Enemy):
     def __healthInit(self):
         hpA = [2, 0, 0]
         random.shuffle(hpA)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 'nil')
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 'nil')
 
 class Skunk(Enemy):
     def __init__(self):
@@ -1437,7 +1445,7 @@ class Skunk(Enemy):
         random.shuffle(hpA)
         hpB = [2, 2, 0]
         random.shuffle(hpB)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
 
 class RaccoonBandit(Enemy):
     def __init__(self):
@@ -1459,7 +1467,7 @@ class RaccoonBandit(Enemy):
         random.shuffle(hpA)
         hpB = [2, 0, 0]
         random.shuffle(hpB)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
     
     ''' def atTriggerLoseBand(self, dino, enemies):
         if self.getBands() == 1:
@@ -1490,7 +1498,7 @@ class HoardOfShrews(Enemy):
         random.shuffle(hpA)
         hpB = [2, 1, 0]
         random.shuffle(hpB)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
     
     def atTriggerLoseBand(self, dino, enemies):
         if self.getBands() == 1:
@@ -1517,7 +1525,7 @@ class Shrew(Enemy):
     def __healthInit(self):
         hpA = [2, 1, 0]
         random.shuffle(hpA)
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 'nil')
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 'nil')
     
     def atTriggerTargetedToTakeDamage(self, dino, enemies):
         chance = random.random()
@@ -1546,7 +1554,7 @@ class CinnamonBear(Enemy):
     def __healthInit(self):
         hp = [0, 2, 3]
         random.shuffle(hp)
-        return h.healthcons(hp[0], hp[1], hp[2], h.healthcons(hp[2], hp[1], hp[0], 'nil'))
+        return cll.Healthcons(hp[0], hp[1], hp[2], cll.Healthcons(hp[2], hp[1], hp[0], 'nil'))
 
     def atTriggerLoseBand(self, dino, enemies):
         if self.getBands() == 1:
@@ -1574,7 +1582,7 @@ class Babybear(Enemy):
     def __healthInit(self):
         hp = [3, 0, 0]
         random.shuffle(hp)
-        return h.healthcons(hp[0], hp[1], hp[2], 'nil')
+        return cll.Healthcons(hp[0], hp[1], hp[2], 'nil')
 
 
 
@@ -1599,7 +1607,7 @@ class Torchbearer(Enemy):
         random.shuffle(hpA)
         hpB = [2, 2, 2]
         
-        return h.healthcons(hpA[0], hpA[1], hpA[2], h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
 
     def atTriggerLoseBand(self, dino, enemies):
         if self.getBands() == 1:
@@ -1610,7 +1618,7 @@ class Torchbearer(Enemy):
                 if enemy.dead == False:
                     count += 1
             for i in range(count):
-                self.damage(self, dino, enemies, h.acons([2, 'M'], 'nil'))
+                self.damage(self, dino, enemies, cll.Attackcons([2, 'M'], 'nil'))
     
     def atTriggerTurnEnd(self, dino, enemies):
         if self.getBands() == 2:
@@ -1636,7 +1644,7 @@ class DiscardedPlastic(Enemy):
         self.difficulty = 1
     
     def __healthInit(self):
-        return h.healthcons(0, 0, 0, 'nil')
+        return cll.Healthcons(0, 0, 0, 'nil')
     
     def atTriggerDinoPlayedCard(self, dino, enemies):
         if len(dino.play) > 1 and self.didOnceARoundAtTriggerDinoPlayedCard == False and self.dead == False:
@@ -1663,13 +1671,13 @@ class Grizzly(Enemy):
     def __healthInit(self):
         hp = [0, 2, 4]
         random.shuffle(hp)
-        return h.healthcons(hp[0], hp[1], hp[2], 'nil')
+        return cll.Healthcons(hp[0], hp[1], hp[2], 'nil')
     
     ''' def atTriggerTurnEnd(self, dino, enemies):
         if self.dead == False:
             # h.splash("Triggered Special Gimmick: While Alive, at Turn End, 'Grizzly' heals 1L and self-damages 1M.")
-            self.heal(self, dino, enemies, h.acons([1, 'L'], 'nil'))
-            self.damage(self, dino, enemies, h.acons([1, 'M'], 'nil')) '''
+            self.heal(self, dino, enemies, cll.Attackcons([1, 'L'], 'nil'))
+            self.damage(self, dino, enemies, cll.Attackcons([1, 'M'], 'nil')) '''
     
 ## Shrew -- A small, puny rodent, easily frightened. 
 class Shrew(Enemy):
@@ -1690,7 +1698,7 @@ class Shrew(Enemy):
     def __healthInit(self):
         hp = [0, 0, 0]
         hp[random.randint(0, 2)] = 1
-        return h.healthcons(hp[0], hp[1], hp[2], 'nil')
+        return cll.Healthcons(hp[0], hp[1], hp[2], 'nil')
 
 ## Belly-Filled Shrew -- That small, puny rodent, now full of grass in its stomach. 
 class BellyFilledShrew(Shrew):
@@ -1709,7 +1717,7 @@ class BellyFilledShrew(Shrew):
     def __healthInit(self):
         hp = [0, 0, 0]
         hp[random.randint(0, 2)] = 2
-        return h.healthcons(hp[0], hp[1], hp[2], 'nil')
+        return cll.Healthcons(hp[0], hp[1], hp[2], 'nil')
 
 ## Enshrined Capybara -- Enveloped in metal, with metal-sharpened teeth. 
 ##  Special Gimmick: When it loses a band and only has 1 remaining, it discards its hand. 
@@ -1735,8 +1743,8 @@ class EnshrinedCapybara(Enemy):
         
         hpB = [2, 2, 2]
         hpB[random.randint(0, 2)] = 0
-        return h.healthcons(hpA[0], hpA[1], hpA[2],
-            h.healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2],
+            cll.Healthcons(hpB[0], hpB[1], hpB[2], 'nil'))
 
     def atTriggerLoseBand(self, dino, enemies):
         if self.getBands() == 1:
@@ -1764,7 +1772,7 @@ class PrairieWatchDog(Enemy):
         hp = [1, 1, 1]
         hp[random.randint(0, 2)] = 0
         
-        return h.healthcons(hp[0], hp[1], hp[2], 'nil')
+        return cll.Healthcons(hp[0], hp[1], hp[2], 'nil')
 
     def atTriggerAnyEnemyNonfatallyDamaged(self, damageTaker, dino, enemies):
         if self.didOnceATurnAtTriggerNonfatalDamageTaken == False and self.dead == False:
@@ -1782,7 +1790,7 @@ class PrairieWatchDog(Enemy):
             else:
                 h.splash("It could not play any Cards.")
         
-            self.damage(self, dino, enemies, h.acons([1, 'M'], 'nil'))
+            self.damage(self, dino, enemies, cll.Attackcons([1, 'M'], 'nil'))
 
 ## Squirrel Researcher -- Trying to better understand this forsaken place. 
 class SquirrelResearcher(Enemy):
@@ -1805,7 +1813,7 @@ class SquirrelResearcher(Enemy):
         hp = [1, 1, 1]
         hp[random.randint(0, 2)] = 2
         
-        return h.healthcons(hp[0], hp[1], hp[2], 'nil')
+        return cll.Healthcons(hp[0], hp[1], hp[2], 'nil')
 
 class BossEnemy(Enemy):
     def __init__(self):
@@ -1834,9 +1842,9 @@ class TheMoltOfHundreds(BossEnemy):
         hpC = [0, 0, 0]
         hpC[random.randint(0, 2)] = 2
         
-        return h.healthcons(hpA[0], hpA[1], hpA[2], 
-            h.healthcons(hpB[0], hpB[1], hpB[2], 
-                h.healthcons(hpC[0], hpC[1], hpC[2], 'nil')))
+        return cll.Healthcons(hpA[0], hpA[1], hpA[2], 
+            cll.Healthcons(hpB[0], hpB[1], hpB[2], 
+                cll.Healthcons(hpC[0], hpC[1], hpC[2], 'nil')))
 
     def atTriggerLoseBand(self, dino, enemies):
         h.splash("Triggered Special Gimmick: Lost a Band, so: Summoning a 'Shrew.'")

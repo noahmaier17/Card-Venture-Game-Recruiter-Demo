@@ -1,7 +1,17 @@
 import math, random, os, webbrowser
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
-from Dinosaur_Venture import entity as e, helper as h, mainVisuals as vis, clearing as clr, getCardsByTable as gcbt, react as r, gameplayLogging as log, gameplayLoopEvents as gameEvent
+from Dinosaur_Venture import (
+    entity as e,
+    helper as h,
+    mainVisuals as vis,
+    clearing as clr,
+    getCardsByTable as gcbt,
+    react as r,
+    gameplayLogging as log,
+    gameplayLoopEvents as gameEvent,
+    channel_linked_lists as cll
+)
 
 ## STARTING VARIABLES FOR NEW GAME
 event = "Initialize Round"
@@ -150,7 +160,7 @@ while True:
             ## Heals back to values
             if dino.hp.isDeathHealthcons == True:
                 dino.hp = ""
-                dino.hp = h.healthcons(dino.healR, dino.healG, dino.healB, 'nil')
+                dino.hp = cll.Healthcons(dino.healR, dino.healG, dino.healB, 'nil')
                 dino.dead = False
             
             dino.hp.r = dino.resetR

@@ -33,10 +33,10 @@ class twoMetalTeeth(EnemyCard):
     def onPlay(self, caster, dino, enemies, passedInVisuals):
         super().onPlay(caster, dino, enemies, passedInVisuals)
         caster.plusActions(1)
-        dino.damage(caster, dino, enemies, h.acons([1, 'M'], 'nil'))
+        dino.damage(caster, dino, enemies, cll.Attackcons([1, 'M'], 'nil'))
         if random.random() < 0.45:
             h.splash("Succeeded 0.45Chance, so 1M.")
-            dino.damage(caster, dino, enemies, h.acons([1, 'M'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'M'], 'nil'))
 
 ## If caster has only 1 Band left: 1Random / 1Random. 
 ##  Otherwise, +1 Action. 
@@ -51,8 +51,8 @@ class frightened1(EnemyCard):
         super().onPlay(caster, dino, enemies, passedInVisuals)
         if caster.getBands() == 1:
             h.splash("Caster had 1 Band, so: 1Random / 1Random.")
-            dino.damage(caster, dino, enemies, h.acons([1, 'Random'], 
-                    h.acons([1, 'Random'], 'nil')))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'Random'], 
+                    cll.Attackcons([1, 'Random'], 'nil')))
         else:
             h.splash("Caster does not have 1 Band, so: +1 Action.")
             caster.plusActions(1)
@@ -70,7 +70,7 @@ class yellowPadResearch(EnemyCard):
         numberOfTurns = caster.turn
         h.splash(str(numberOfTurns) + " times over: 1L.")
         for i in range(numberOfTurns):
-            dino.damage(caster, dino, enemies, h.acons([1, 'L'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'L'], 'nil'))
 
 ## +1 Action. 
 ##  To the next positioned living Enemy: +1 Card. 

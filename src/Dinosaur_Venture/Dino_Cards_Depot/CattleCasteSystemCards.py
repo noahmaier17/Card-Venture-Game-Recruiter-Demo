@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardTokens as tk, mainVisuals as vis, react as r
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardTokens as tk, mainVisuals as vis, react as r, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -22,10 +22,10 @@ class inWaitingCounterRevolt(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'M'],
-                                                                 h.acons([2, 'M'],
-                                                                 h.acons([2, 'M'],
-                                                                 h.acons([2, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'M'],
+                                                                 cll.Attackcons([2, 'M'],
+                                                                 cll.Attackcons([2, 'M'],
+                                                                 cll.Attackcons([2, 'M'],
                                                                  'nil')))))
             caster.drawCard()
 
@@ -147,7 +147,7 @@ class cardOverlord(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([9, 'G-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([9, 'G-notick'],
                                                                                'nil'))
             caster.drawCard()
             caster.plusUpcomingPlusCard(0, 1)
@@ -220,7 +220,7 @@ class autocratCapitulation(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'Row'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Row'], 'nil'))
 
     class trigger_1(r.card_responseAndTrigger):
         def __init__(self, card):

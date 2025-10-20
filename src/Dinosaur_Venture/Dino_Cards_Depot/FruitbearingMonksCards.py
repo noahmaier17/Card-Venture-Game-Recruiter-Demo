@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, mainVisuals as vis
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, mainVisuals as vis, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -19,7 +19,7 @@ class missionary(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(2)
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'R'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'R'], 'nil'))
     
     def atTriggerTurnStart(self, caster, dino, enemies):
         if (self.turnsLingering == 2):
@@ -88,7 +88,7 @@ class rowers(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(2)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'Notnil'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'Notnil'], 'nil'))
 
     def atTriggerTurnStart(self, caster, dino, enemies):
         if (self.turnsLingering == 1 or self.turnsLingering == 2):
@@ -130,7 +130,7 @@ class castaway(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([6, 'R'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([6, 'R'], 'nil'))
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -149,7 +149,7 @@ class rescuedPlankwalker(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(2)
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'B'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'B'], 'nil'))
 
     def atTriggerTurnStart(self, caster, dino, enemies):
         if (self.turnsLingering == 2):
@@ -169,7 +169,7 @@ class anchorperson(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'M'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'M'], 'nil'))
 
             if caster.hand.length() > 0:
                 index = 1
@@ -200,7 +200,7 @@ class headCaptain(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([3, 'G'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'G'], 'nil'))
             pickUp = h.cardLocation("Pick Up")
 
             for i in range(3):

@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardTokens as tk, mainVisuals as vis, react as r
+from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardTokens as tk, mainVisuals as vis, react as r, channel_linked_lists as cll
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -15,8 +15,8 @@ class orchardTree(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([6, 'G-notick'],
-                                                                               h.acons([1, 'Random-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([6, 'G-notick'],
+                                                                               cll.Attackcons([1, 'Random-notick'],
                                                                                'nil')))
             success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), supressFailText = True)
 
@@ -57,9 +57,9 @@ class grainCart(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'R-notick'],
-                                                                               h.acons([1, 'G-notick'],
-                                                                               h.acons([1, 'B-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
+                                                                               cll.Attackcons([1, 'G-notick'],
+                                                                               cll.Attackcons([1, 'B-notick'],
                                                                                'nil'))))
 
     class duringPacking(cf.cardFunctions):
@@ -124,7 +124,7 @@ class ripeMantra(gdc.DinoCard):
 
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'R'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R'],
                                                                                'nil'))
             caster.drawCard()
 
@@ -170,8 +170,8 @@ class plantAppleSeeds(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
-            ## cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'R-notick'],
-            ##                                                                    h.acons([1, 'G-notick'],
+            ## cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
+            ##                                                                    cll.Attackcons([1, 'G-notick'],
             ##                                                                    'nil')))
 
     class trigger_1(r.card_responseAndTrigger):
@@ -261,13 +261,13 @@ class cornucopia(gdc.DinoCard):
             if not success:
                 caster.moveMe(caster.pocket, card, caster.play)
 
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([1, 'R'],
-                                                                               h.acons([1, 'G'],
-                                                                               h.acons([1, 'B'],
-                                                                               h.acons([1, 'M'],
-                                                                               h.acons([1, 'Random'],
-                                                                               h.acons([1, 'L'],
-                                                                               h.acons([1, 'Notnil'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R'],
+                                                                               cll.Attackcons([1, 'G'],
+                                                                               cll.Attackcons([1, 'B'],
+                                                                               cll.Attackcons([1, 'M'],
+                                                                               cll.Attackcons([1, 'Random'],
+                                                                               cll.Attackcons([1, 'L'],
+                                                                               cll.Attackcons([1, 'Notnil'],
                                                                                'nil'))))))))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
@@ -334,7 +334,7 @@ class callousedHands(DinoCard):
             """
             for i in range(3, max(3, caster.hand.length())):
                 cf.plow(4, caster.hand).func(card, caster, dino, enemies, vis.prefabEmpty)
-                cf.numberX_toArbitraryEnemy_dealDamage(1, h.acons([1, 'R-notick'], 'nil')).func(card, caster, dino, enemies, vis.prefabEmpty)
+                cf.numberX_toArbitraryEnemy_dealDamage(1, cll.Attackcons([1, 'R-notick'], 'nil')).func(card, caster, dino, enemies, vis.prefabEmpty)
             """
 
     ## BUGGY
@@ -353,7 +353,7 @@ class appleWorm(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([4, 'B'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([4, 'B'],
                                                                                'nil'))
 
             previousCard, success = cf.getter_toPreviousCardInPlay().func(card, caster, dino, enemies, passedInVisuals)
@@ -372,8 +372,8 @@ class compostBin(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'G-notick'],
-                                                                               h.acons([2, 'B-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'G-notick'],
+                                                                               cll.Attackcons([2, 'B-notick'],
                                                                                'nil')))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
@@ -401,7 +401,7 @@ class callousedHands(DinoCard):
 
     def onPacking(self, caster, dino, enemies, passedInVisuals):
         super().onPacking(caster, dino, enemies, passedInVisuals)
-        cf.dealDamage().func(self, caster, dino, enemies, passedInVisuals, h.acons([6, 'R-notick'],
+        cf.dealDamage().func(self, caster, dino, enemies, passedInVisuals, cll.Attackcons([6, 'R-notick'],
                                                                            'nil'))
         
 
@@ -499,8 +499,8 @@ class dullOrchardAxe(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            damageData = cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, h.acons([2, 'R-notick'],
-                                                                                            h.acons([2, 'M'],
+            damageData = cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R-notick'],
+                                                                                            cll.Attackcons([2, 'M'],
                                                                                             'nil')))
             if not damageData.fatalDamage:
                 h.splash("Dealt non-Fatal Damage: Entoken this with <<prepared>>.")

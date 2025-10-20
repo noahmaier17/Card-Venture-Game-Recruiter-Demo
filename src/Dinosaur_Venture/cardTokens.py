@@ -122,7 +122,7 @@ class confidant(token):
 
         def trigger(self, card, caster, dino, enemies):
             card.reacted_1 = True
-            cf.dealDamage().func(card, caster, dino, enemies, "null", h.acons([1, 'M'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, "null", cll.Attackcons([1, 'M'], 'nil'))
 '''
 
 
