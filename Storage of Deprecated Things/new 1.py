@@ -1,10 +1,12 @@
 # Copyright Jonathan Hartley 2013. BSD 3-Clause license, see LICENSE file.
 from __future__ import print_function
+
 # import fixpath
 import colorama
-from colorama import Fore, Back, Style, Cursor, init
+from colorama import Back, Cursor, Fore, Style, init
+
 init()
-from random import randint, choice
+from random import choice, randint
 from string import printable
 
 # Demonstrate printing colored, random characters at random positions on the screen

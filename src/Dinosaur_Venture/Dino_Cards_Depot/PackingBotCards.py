@@ -1,4 +1,8 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, react as r, channel_linked_lists as cll
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import react as r
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''

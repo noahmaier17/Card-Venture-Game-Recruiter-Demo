@@ -1,9 +1,16 @@
 ## Allows for a nice way to display Cards
 
-import os, random, re
-from colorama import init, Fore, Back, Style
+import os
+import random
+import re
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
-from Dinosaur_Venture import helper as h, mainVisuals as vis, getCardsByTable as gcbt
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+
 
 def code():
     PAD = 37
@@ -114,7 +121,7 @@ def code():
         if (any(i in child.table for i in TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))) or (not(ONLY_SPECIFIC_TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))):
             matchAllConditions = True
             for condition in textConditions:
-                colorlessBodyText = child.niceBodyText(0, 99999, supressedTypes = [], noColor = True)
+                colorlessBodyText = child.niceBodyText(0, 99999, suppressedTypes = [], noColor = True)
                 if not re.search(condition, colorlessBodyText):
                     matchAllConditions = False
             for condition in nameConditions:
@@ -126,10 +133,10 @@ def code():
 
             matchingCardsArray.append(child)
             '''
-            print("  " + h.normalize(child().nameWithTokens(), PAD) + ":  " + child().niceBodyText(PAD + 5, h.WIDTH, supressedTypes = []))
+            print("  " + h.normalize(child().nameWithTokens(), PAD) + ":  " + child().niceBodyText(PAD + 5, h.WIDTH, suppressedTypes = []))
             '''
 
-            string += "  " + h.normalize(child.nameWithTokens(), PAD) + ":  " + child.niceBodyText(PAD + 5, h.WIDTH, supressedTypes = [], noColor = True) + "\n"
+            string += "  " + h.normalize(child.nameWithTokens(), PAD) + ":  " + child.niceBodyText(PAD + 5, h.WIDTH, suppressedTypes = [], noColor = True) + "\n"
             
             count += 1
             
@@ -140,7 +147,7 @@ def code():
             string += text + "\n"
             
             csv += (child.name + ";;; " 
-                    + child.niceBodyText(0, 99999, supressedTypes = [], noColor = True).replace("\n", "\n ;;; ") + ";;; "
+                    + child.niceBodyText(0, 99999, suppressedTypes = [], noColor = True).replace("\n", "\n ;;; ") + ";;; "
                     + str(child.table)
                     + "\n")
 

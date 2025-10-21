@@ -1,17 +1,20 @@
-import math, random, os, webbrowser
-from colorama import init, Fore, Back, Style
+import os
+import random
+import webbrowser
+
+from colorama import Back, Fore, Style, init
+
+from Dinosaur_Venture.entities import dinoes
+
 init(autoreset=True)
-from Dinosaur_Venture import (
-    entity as e,
-    helper as h,
-    mainVisuals as vis,
-    clearing as clr,
-    getCardsByTable as gcbt,
-    react as r,
-    gameplayLogging as log,
-    gameplayLoopEvents as gameEvent,
-    channel_linked_lists as cll
-)
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import clearing as clr
+from Dinosaur_Venture import gameplayLogging as log
+from Dinosaur_Venture import gameplayLoopEvents as gameEvent
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import react as r
 
 ## STARTING VARIABLES FOR NEW GAME
 event = "Initialize Round"
@@ -39,8 +42,8 @@ clearingsAvailable = []
 
 ## ----- PICK PLAYER -----
 characters = [
-    e.Rover(),
-    e.Graverobber()
+    dinoes.Rover(),
+    dinoes.Graverobber()
 ]
 
 preamble = []
@@ -106,9 +109,9 @@ if DEBUG_DINO_DECK:
     dino.deck.append(card)
     '''
 
-    dino.deck.append(gcbt.getCardByName("Fish"))
-    dino.deck.append(gcbt.getCardByName("Fish"))
-    dino.deck.append(gcbt.getCardByName("Fish"))
+    dino.deck.append(gcbt.getCardByName("MEGA Damage"))
+    dino.deck.append(gcbt.getCardByName("MEGA Damage"))
+    dino.deck.append(gcbt.getCardByName("MEGA Damage"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
     dino.deck.append(gcbt.getCardByName("Twig!"))
@@ -271,8 +274,8 @@ while True:
             if not(hasPackingCard):
                 break
             
-            extraSupressedTypes = ["looting", "core", "{}", "revealed", "round start"]
-            vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = extraSupressedTypes)
+            extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
+            vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
             
             while True:
                 pick = input(vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Pack a " + Fore.GREEN + "Card" + Fore.WHITE + ": ")
@@ -290,15 +293,15 @@ while True:
                     elif pick.lower().strip() in cardNames.keys() and pick != "":
                         key = pick.lower().strip()
                         print("    " + Back.CYAN + Style.BRIGHT + " " + cardNames[key].name + " ")
-                        print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, supressedTypes = []))
+                        print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, suppressedTypes = []))
                     elif pick.lower() == "clear":
-                        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = extraSupressedTypes)
+                        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
                     else:
                         print(vis.eventText(event) + "INVALID INPUT ")
 
             if pick != "pass":
                 ## -- Are we playing from the Pocket or from Hand? --
-                passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSupressedTypes = extraSupressedTypes)
+                passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
 
                 if pick <= dino.pocket.length():
                     dino.packCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals)
@@ -314,8 +317,8 @@ while True:
         r.reactionStack = r.reactStack([
             r.reactionWindow([r.AtTurnEnd(), r.DinoTurn()])
         ])
-        extraSupressedTypes = ["looting", "core", "{}", "revealed", "round start"]
-        passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSupressedTypes = extraSupressedTypes)
+        extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
+        passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
         r.reactionStack.react(dino, enemies, passedInVisuals)
 
         dino.turnEndTidying(dino, enemies, passedInVisuals)
@@ -395,7 +398,7 @@ while True:
             
                 enemy.turnEndTidying(dino, enemies, passedInVisuals)
                 
-                dino.enemyTurnDinoDeathCheck(roundCount)
+                dino.enemyTurnDinoDeathCheck()
 
             if enemy.takeAnotherTurnQuery():
                 pass

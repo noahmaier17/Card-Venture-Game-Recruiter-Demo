@@ -1,7 +1,17 @@
-import pytest, pytest_timeout, random, copy
-from Dinosaur_Venture import cardFunctions as cf, helper as h, mainVisuals as vis, gameplayScriptedInput as scriptInput, channel_linked_lists as cll
-from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as generalDinoCards
+import copy
+import random
+
+import pytest
+import pytest_timeout
 from Test_Utils.gameSetups import setup_getDinoEnemiesClearing
+
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import gameplayScriptedInput as scriptInput
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture.Dino_Cards_Depot import \
+    GeneralDinoCards as generalDinoCards
 
 '''
     Tests for correct functionality of dealing damage.

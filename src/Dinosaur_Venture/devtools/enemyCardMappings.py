@@ -1,9 +1,17 @@
 ## Maps out enemy cards
 
-import os, random, bisect, copy, math
-from colorama import init, Fore, Back, Style
+import bisect
+import copy
+import math
+import os
+import random
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
-from Dinosaur_Venture import enemyCards as ec, helper as h, mainVisuals as vis
+from Dinosaur_Venture import enemyCards as ec
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
 
 LOWERCASE_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'y', 'v', 'w', 'x', 'y', 'z']
 UPPERCASE_LETTERS = []
@@ -300,7 +308,7 @@ while True:
         count = 1
         for card in symbolToCardSet[character]:
 
-            print("  " + h.normalize(card.nameWithTokens(), PAD) + ":  " + card.niceBodyText(PAD + 5, h.WIDTH, supressedTypes = []))
+            print("  " + h.normalize(card.nameWithTokens(), PAD) + ":  " + card.niceBodyText(PAD + 5, h.WIDTH, suppressedTypes = []))
             print("  " + h.normalize( "(damageDist: " + str(round(card.damageDist, 2)) + ") (siftDist: " + str(round(card.siftDist, 2)) + ")", PAD ) + ".")
 
             count += 1

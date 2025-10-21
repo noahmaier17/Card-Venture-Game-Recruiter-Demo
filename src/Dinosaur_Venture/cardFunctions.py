@@ -1,5 +1,9 @@
-import random, copy
-from Dinosaur_Venture import cardModFunctions as cmf, helper as h, cardTokens as tk
+import copy
+import random
+
+from Dinosaur_Venture import cardModFunctions as cmf
+from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import helper as h
 
 ## Groupings of common Card functionality.
 ##  Used for both Shell functions, and for the sake of lengthy-yet-common-enough Card functionality.
@@ -594,7 +598,7 @@ class getter_toSubsequentCardInPlay(cardFunctions):
 ## |>| Pocket this.
 class packingText_PocketThis(cardFunctions):
     def func(self, card, caster, dino, enemies, passedInVisuals):
-        success = caster.moveMe(caster.hand, card, caster.pocket, supressFailText = True)
+        success = caster.moveMe(caster.hand, card, caster.pocket, suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, card, caster.pocket)
 

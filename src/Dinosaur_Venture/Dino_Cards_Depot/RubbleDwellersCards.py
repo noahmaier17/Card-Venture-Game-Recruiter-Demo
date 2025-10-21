@@ -1,4 +1,9 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, getCardsByTable as gcbt, mainVisuals as vis, react as r
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import react as r
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''

@@ -2,6 +2,7 @@ import pyglet
 from pyglet import shapes
 from pyglet.window import mouse
 
+
 def trd(value: int) -> int:
     return round(value / 3)
 

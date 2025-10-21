@@ -1,15 +1,15 @@
-import random, re
-from Dinosaur_Venture import (
-    card as c,
-    helper as h,
-    cardFunctions as cf,
-    cardModFunctions as cmf,
-    cardTokens as tk,
-    getCardsByTable as gcbt,
-    mainVisuals as vis,
-    react as r,
-    channel_linked_lists as cll
-)
+import random
+import re
+
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import cardModFunctions as cmf
+from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import react as r
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -34,7 +34,7 @@ class fishFry(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.moveMe(caster.hand, card, caster.draw, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.draw, suppressFailText = True)
             if not success:
                 caster.moveMe(caster.pocket, card, caster.draw)
 
@@ -63,7 +63,7 @@ class sleepingWithTheFishes(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.moveMe(caster.hand, card, caster.draw, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.draw, suppressFailText = True)
             if not success:
                 caster.moveMe(caster.pocket, card, caster.draw)
 
@@ -316,7 +316,7 @@ class tangledFishLine(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(5)
 
-            success = caster.moveMe(caster.hand, card, caster.play, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.play, suppressFailText = True)
             if not success:
                 success = caster.moveMe(caster.pocket, card, caster.play)
 

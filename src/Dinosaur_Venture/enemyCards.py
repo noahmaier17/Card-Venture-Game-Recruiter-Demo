@@ -1,5 +1,12 @@
-import math, random, os
-from Dinosaur_Venture import card as c, helper as h, entity as e, getCardsByTable as gcbt, cardFunctions as cf, channel_linked_lists as cll
+import random
+
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.entities import enemieses
+
 
 ## Initiates all enemy cards
 class EnemyCard(c.Card):
@@ -784,7 +791,7 @@ class soapboxStump(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
-            summonedEnemy = e.Shrew()
+            summonedEnemy = enemieses.Shrew()
             summonedEnemy.roundStart()
             summonedEnemy.minusActions(1)
             enemies.append(summonedEnemy)

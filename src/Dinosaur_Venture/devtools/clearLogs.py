@@ -1,5 +1,7 @@
 import os
+
 from send2trash import send2trash
+
 
 def code():
     directory_path = "Logs/"

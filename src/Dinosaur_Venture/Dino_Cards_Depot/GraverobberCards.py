@@ -1,4 +1,8 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardTokens as tk, channel_linked_lists as cll
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -145,7 +149,7 @@ class flickeringLantern(gdc.DinoCard):
         super().onPacking(caster, dino, enemies, passedInVisuals)
         cf.discardBottomCardOfDraw().func(self, caster, dino, enemies, passedInVisuals)
 
-        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), supressFailText = True)
+        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), suppressFailText = True)
         if not success:
             caster.moveMe(caster.pocket, self, caster.draw, position = caster.draw.length())
     '''

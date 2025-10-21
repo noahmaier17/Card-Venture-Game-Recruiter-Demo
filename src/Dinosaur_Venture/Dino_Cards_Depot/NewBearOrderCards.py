@@ -1,4 +1,7 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, channel_linked_lists as cll
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -189,7 +192,7 @@ class shoulderHump(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
 
-            success = caster.moveMe(caster.hand, card, caster.play, supressFailText = True)
+            success = caster.moveMe(caster.hand, card, caster.play, suppressFailText = True)
             if not success:
                 success = caster.moveMe(caster.pocket, card, caster.play)
 

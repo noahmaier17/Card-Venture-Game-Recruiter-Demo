@@ -1,5 +1,6 @@
 ## SERVER
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request
+
 from Dinosaur_Venture import getCardsByTable as gcbt
 
 app = Flask(__name__)
@@ -8,7 +9,7 @@ max_id = 1
 cards = []
 for child in gcbt.getDinoCards() + gcbt.getDinoShellCards() + gcbt.getEnemyCards():
     name = child().nameWithTokens()
-    text = child().niceBodyText(0, 99999, supressedTypes = [], noColor = True)
+    text = child().niceBodyText(0, 99999, suppressedTypes = [], noColor = True)
 
     cards.append({
         "id": max_id,
@@ -20,7 +21,7 @@ for child in gcbt.getDinoCards() + gcbt.getDinoShellCards() + gcbt.getEnemyCards
 dino_cards = []
 for child in gcbt.getDinoCards():
     name = child().nameWithTokens()
-    text = child().niceBodyText(0, 99999, supressedTypes = [], noColor = True)
+    text = child().niceBodyText(0, 99999, suppressedTypes = [], noColor = True)
 
     dino_cards.append({
         "name": name,

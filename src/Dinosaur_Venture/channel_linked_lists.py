@@ -1,13 +1,15 @@
 """
-    channel_linked_lists.py
+channel_linked_lists.py
 
-    Implements damage and HP objects that store health. 
-    Additionally includes the hard-coded values for different types of damage. 
+Implements damage and HP objects that store health. 
+Additionally includes the hard-coded values for different types of damage. 
 """
 
-from colorama import init, Fore, Back, Style
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
 from Dinosaur_Venture import helper as h
+
 
 class Attackcons():
     """
@@ -64,7 +66,7 @@ class Healthcons():
             if the entity will have some special mechanic once that happens.
 
     Notes:
-        If onBreakDiscardHand == True, onBreakSpecial can be True or False.
+        If `onBreakDiscardHand` == True, `onBreakSpecial` is expected to be False.
     """
     def __init__(self, r: int, g: int, b: int, tail: "Healthcons | str") -> None:
         self.r = r

@@ -1,7 +1,12 @@
-import math, random, os
-from colorama import init, Fore, Back, Style
+import math
+import os
+import random
+
+from colorama import Back, Fore, Style, init
+
 init(autoreset=True)
-from Dinosaur_Venture import helper as h, getCardsByTable as gcbt
+from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import helper as h
 
 ## Simulates card pulls, showing what can be expected from different sets
 
@@ -34,7 +39,7 @@ def code():
                 + Back.CYAN + Style.BRIGHT + " " + picks[i].name + " "
                 + Back.RESET + Style.NORMAL 
                 + h.normalize("", 41 - 5 - len(str(i+1)) - len(picks[i].name)) 
-                + picks[i].niceBodyText(41, h.WIDTH, supressedTypes = []))
+                + picks[i].niceBodyText(41, h.WIDTH, suppressedTypes = []))
             print("")
         input(" ... ")
 

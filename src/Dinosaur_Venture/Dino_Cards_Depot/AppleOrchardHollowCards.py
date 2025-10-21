@@ -1,4 +1,10 @@
-from Dinosaur_Venture import card as c, helper as h, cardFunctions as cf, cardTokens as tk, mainVisuals as vis, react as r, channel_linked_lists as cll
+from Dinosaur_Venture import card as c
+from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import react as r
 from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
 
 '''
@@ -18,7 +24,7 @@ class orchardTree(gdc.DinoCard):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([6, 'G-notick'],
                                                                                cll.Attackcons([1, 'Random-notick'],
                                                                                'nil')))
-            success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), supressFailText = True)
+            success = caster.moveMe(caster.play, card, caster.hand, position = caster.hand.length(), suppressFailText = True)
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -41,7 +47,7 @@ class barnWood(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            success = caster.playMe(caster.hand, card, caster, dino, enemies, passedInVisuals, supressFailText = False)
+            success = caster.playMe(caster.hand, card, caster, dino, enemies, passedInVisuals, suppressFailText = False)
             if not success:
                 caster.playMe(caster.pocket, card, caster, dino, enemies, passedInVisuals)
 

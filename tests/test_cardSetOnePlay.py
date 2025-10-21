@@ -1,8 +1,12 @@
-import pytest, pytest_timeout
-from Dinosaur_Venture import gameplayLoopEvents as gameEvents, gameplayScriptedInput as scriptInput, gameplayLogging as log
-from Test_Utils.gameSetups import setup_getDinoEnemiesClearing, setup_getCardSetOne, getCartesianProduct_dinoEnemiesClearingCards
+import pytest
+import pytest_timeout
 from Test_Utils import simulateGameplay
+from Test_Utils.gameSetups import (
+    getCartesianProduct_dinoEnemiesClearingCards, setup_getCardSetOne,
+    setup_getDinoEnemiesClearing)
 from Test_Utils.validateGameState import isCardExclusivelyAtIndexInLocation
+
+from Dinosaur_Venture import gameplayScriptedInput as scriptInput
 
 '''
     Tests the case where dinosaur has only one card in deck, and if the game can successfully:
