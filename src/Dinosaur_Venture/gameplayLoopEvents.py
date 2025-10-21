@@ -64,8 +64,8 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
     if dino.actions == 0:
         event = "Dino Turn End"
     else:
-        extraSupressedTypes = ["looting", "round start"]
-        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = extraSupressedTypes)
+        extraSuppressedTypes = ["looting", "round start"]
+        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
         
         ## ----- Actionable Code -----
         while True:
@@ -97,14 +97,14 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
                 elif pick.lower().strip() in cardNames.keys() and pick != "":
                     key = pick.lower().strip()
                     print("    " + Back.CYAN + Style.BRIGHT + " " + cardNames[key].name + " ")
-                    print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, supressedTypes = []))
+                    print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, suppressedTypes = []))
                 elif pick.lower() == "clear":
-                    vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = extraSupressedTypes)
+                    vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
                 else:
                     print(vis.eventText(event) + "INVALID INPUT ")
 
         if pick != "pass":
-            passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSupressedTypes = extraSupressedTypes)
+            passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
 
             ## -- Are we playing from the Pocket or from Hand? --
             if pick <= dino.pocket.length():

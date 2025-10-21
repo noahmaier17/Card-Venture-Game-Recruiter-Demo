@@ -247,17 +247,17 @@ class prefabPassedInVisuals():
 
 ## Creates a way to easily pass into a function calls printDinoTurn
 class prefabPrintDinoTurn(prefabPassedInVisuals):
-    def __init__(self, dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSupressedTypes = []):
+    def __init__(self, dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = []):
         super().__init__(entityNames, cardNames)
         self.storedDino = dino
         self.storedEnemies = enemies
         self.storedRoundCount = roundCount
         self.storedClearing = clearing
         self.event = event
-        self.storedExtraSupressedTypes = extraSupressedTypes
+        self.storedExtraSuppressedTypes = extraSuppressedTypes
 
     def display(self):
-        printDinoTurn(self.storedDino, self.storedEnemies, self.storedRoundCount, self.storedClearing, self.event, extraSupressedTypes = self.storedExtraSupressedTypes)
+        printDinoTurn(self.storedDino, self.storedEnemies, self.storedRoundCount, self.storedClearing, self.event, extraSuppressedTypes = self.storedExtraSuppressedTypes)
 
 ## Creates a way to easily pass into a function calls printDinoTurn
 class prefabPrintEnemyTurn(prefabPassedInVisuals):
@@ -283,8 +283,8 @@ class prefabEmpty(prefabPassedInVisuals):
         ## print("No visuals.")
 
 ## Prints the display on Dino's Turns
-def printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = []):
-    supressedTypes = extraSupressedTypes
+def printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = []):
+    suppressedTypes = extraSuppressedTypes
 
     os.system('cls')
 
@@ -314,11 +314,11 @@ def printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedType
             print(" | " + str(index) + ". Carcass                                              | null | null")
         index += 1
     
-    printDinoHand(dino, enemies, roundCount, clearing, supressedTypes, event)
+    printDinoHand(dino, enemies, roundCount, clearing, suppressedTypes, event)
     print("")
 
 ## Helper Function. Prints the Cards in Dino's Hand.
-def printDinoHand(dino, enemies, roundCount, clearing, supressedTypes, event):
+def printDinoHand(dino, enemies, roundCount, clearing, suppressedTypes, event):
     print(h.normalize("-X-", WIDTH + 2, separator = "-"))
 
     removeBetweenLineSpaces = False
@@ -330,14 +330,14 @@ def printDinoHand(dino, enemies, roundCount, clearing, supressedTypes, event):
     if (dino.pocket.length() > 0):
         ## print(eventText(event) + Fore.GREEN + "Cards" + Fore.WHITE + " in " + dino.name + "'s Pocket:")
         print(eventText(event) + dino.name + "'s Pocket" + smushedText + ":")
-        printLocation(dino.pocket.getArray(), 0, Back.MAGENTA, supressedTypes, event, removeBetweenLineSpaces = removeBetweenLineSpaces)
+        printLocation(dino.pocket.getArray(), 0, Back.MAGENTA, suppressedTypes, event, removeBetweenLineSpaces = removeBetweenLineSpaces)
 
     ## print(eventText(event) + Fore.GREEN + "Cards" + Fore.WHITE + " in " + dino.name + "'s Hand:")
     print(eventText(event) + dino.name + "'s Hand" + smushedText + ":")
     if (dino.hand.length() == 0):
         print(eventText(event) + "  Nothing but flies...")
     else:
-        printLocation(dino.hand.getArray(), dino.pocket.length(), Back.CYAN, supressedTypes, event, removeBetweenLineSpaces = removeBetweenLineSpaces)
+        printLocation(dino.hand.getArray(), dino.pocket.length(), Back.CYAN, suppressedTypes, event, removeBetweenLineSpaces = removeBetweenLineSpaces)
 
 ## Helper Function. Gets, line-by-line, the name of the Card + tokens.
 def getLineByLineCardName(card, length, prefix = ""):
@@ -421,21 +421,21 @@ def getLineByLineCardName(card, length, prefix = ""):
     return lines
 
 ## Helper Function. Prints cards of a given location.
-def printLocation(location, index, color, supressedTypes, event, nameFore = Fore.WHITE, removeBetweenLineSpaces = False):
+def printLocation(location, index, color, suppressedTypes, event, nameFore = Fore.WHITE, removeBetweenLineSpaces = False):
     firstPass = True
 
     for card in location:
         ## ----- Does suppression for "Revealed" Cards -----
-        supressedTypesPlusExtra = []
-        for singleType in supressedTypes:
-            supressedTypesPlusExtra.append(singleType)
-        if card.revealed == True and "revealed" in supressedTypes:
-            supressedTypesPlusExtra.append("p")
+        suppressedTypesPlusExtra = []
+        for singleType in suppressedTypes:
+            suppressedTypesPlusExtra.append(singleType)
+        if card.revealed == True and "revealed" in suppressedTypes:
+            suppressedTypesPlusExtra.append("p")
 
         ## ----- Initialization -----
         arrayIndex = 0
         nameTokensTextArray = getLineByLineCardName(card, 28, prefix = " ")
-        bodyTextArray = card.niceBodyText(43, WIDTH, supressedTypes = supressedTypesPlusExtra, keepAsArray = True)
+        bodyTextArray = card.niceBodyText(43, WIDTH, suppressedTypes = suppressedTypesPlusExtra, keepAsArray = True)
         if len(bodyTextArray) == 0:
             bodyTextArray.append("")
 

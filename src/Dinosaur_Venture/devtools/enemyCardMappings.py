@@ -308,7 +308,7 @@ while True:
         count = 1
         for card in symbolToCardSet[character]:
 
-            print("  " + h.normalize(card.nameWithTokens(), PAD) + ":  " + card.niceBodyText(PAD + 5, h.WIDTH, supressedTypes = []))
+            print("  " + h.normalize(card.nameWithTokens(), PAD) + ":  " + card.niceBodyText(PAD + 5, h.WIDTH, suppressedTypes = []))
             print("  " + h.normalize( "(damageDist: " + str(round(card.damageDist, 2)) + ") (siftDist: " + str(round(card.siftDist, 2)) + ")", PAD ) + ".")
 
             count += 1

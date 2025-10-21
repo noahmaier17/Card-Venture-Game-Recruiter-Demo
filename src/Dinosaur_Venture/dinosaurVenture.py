@@ -274,8 +274,8 @@ while True:
             if not(hasPackingCard):
                 break
             
-            extraSupressedTypes = ["looting", "core", "{}", "revealed", "round start"]
-            vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = extraSupressedTypes)
+            extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
+            vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
             
             while True:
                 pick = input(vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Pack a " + Fore.GREEN + "Card" + Fore.WHITE + ": ")
@@ -293,15 +293,15 @@ while True:
                     elif pick.lower().strip() in cardNames.keys() and pick != "":
                         key = pick.lower().strip()
                         print("    " + Back.CYAN + Style.BRIGHT + " " + cardNames[key].name + " ")
-                        print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, supressedTypes = []))
+                        print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, suppressedTypes = []))
                     elif pick.lower() == "clear":
-                        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSupressedTypes = extraSupressedTypes)
+                        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
                     else:
                         print(vis.eventText(event) + "INVALID INPUT ")
 
             if pick != "pass":
                 ## -- Are we playing from the Pocket or from Hand? --
-                passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSupressedTypes = extraSupressedTypes)
+                passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
 
                 if pick <= dino.pocket.length():
                     dino.packCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals)
@@ -317,8 +317,8 @@ while True:
         r.reactionStack = r.reactStack([
             r.reactionWindow([r.AtTurnEnd(), r.DinoTurn()])
         ])
-        extraSupressedTypes = ["looting", "core", "{}", "revealed", "round start"]
-        passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSupressedTypes = extraSupressedTypes)
+        extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
+        passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
         r.reactionStack.react(dino, enemies, passedInVisuals)
 
         dino.turnEndTidying(dino, enemies, passedInVisuals)

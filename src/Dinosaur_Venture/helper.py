@@ -21,7 +21,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
     from Dinosaur_Venture.mainVisuals import printLocation
 
     ## Currently not used; if we want to loot without seeing all card text
-    supressedTypes = []
+    suppressedTypes = []
 
     for table in lootTables:
         table.shuffle()
@@ -56,7 +56,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
                 + Back.CYAN + Style.BRIGHT + " " + dino.deck.at(i).name + " "
                 + Back.RESET + Style.NORMAL 
                 + normalize("", 41 - 5 - len(str(count + 1)) - len(dino.deck.at(i).name) - 3) + ":  "
-                + dino.deck.at(i).niceBodyText(41, WIDTH, supressedTypes = []))
+                + dino.deck.at(i).niceBodyText(41, WIDTH, suppressedTypes = []))
             # '''
             count += 1
             picksTable.append(count)
@@ -116,7 +116,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
                         + Back.CYAN + Style.BRIGHT + " " + picks.at(i).name + " "
                         + Back.RESET + Style.NORMAL 
                         + normalize("", 41 - 5 - len(str(i+1)) - len(picks.at(i).name) - 3) + ":  "
-                        + picks.at(i).niceBodyText(41, WIDTH, supressedTypes))
+                        + picks.at(i).niceBodyText(41, WIDTH, suppressedTypes))
                 print(normalize("", 41 - 3) + ".")
                 '''
         printLocation(picks.getArray(), 0, Back.WHITE, [], "None", nameFore = Fore.BLACK)
@@ -728,7 +728,7 @@ def printCheckProperNouns(string, entityNames, cardNames):
     elif string in cardNames.keys() and string != "":
         key = string
         splash("   ^" + cardNames[key].name + "^", printInsteadOfInput = True)
-        print(normalize("", 3) + cardNames[key].niceBodyText(3, WIDTH, supressedTypes = []))
+        print(normalize("", 3) + cardNames[key].niceBodyText(3, WIDTH, suppressedTypes = []))
         return True
     return False
 

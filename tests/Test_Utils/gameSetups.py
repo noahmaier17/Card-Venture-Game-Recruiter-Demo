@@ -6,7 +6,8 @@ import pytest
 
 from Dinosaur_Venture import clearing as clr
 from Dinosaur_Venture import getCardsByTable as gcbt
-from Dinosaur_Venture.entities import dinoes as dinoes_import, enemieses as enemieses_import
+from Dinosaur_Venture.entities import dinoes as dinoes_import
+from Dinosaur_Venture.entities import enemieses as enemieses_import
 
 
 ## Sets up dino, enemies, and the clearing. 

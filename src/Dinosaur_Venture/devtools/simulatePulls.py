@@ -39,7 +39,7 @@ def code():
                 + Back.CYAN + Style.BRIGHT + " " + picks[i].name + " "
                 + Back.RESET + Style.NORMAL 
                 + h.normalize("", 41 - 5 - len(str(i+1)) - len(picks[i].name)) 
-                + picks[i].niceBodyText(41, h.WIDTH, supressedTypes = []))
+                + picks[i].niceBodyText(41, h.WIDTH, suppressedTypes = []))
             print("")
         input(" ... ")
 

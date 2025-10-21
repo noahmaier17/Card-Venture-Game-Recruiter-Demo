@@ -98,7 +98,7 @@ class redCardboardBox(DinoCard):
                     print(" |  " + ALPHABET[index] + ". " + Back.CYAN + Style.BRIGHT 
                     + " " + card.name + " " + Back.RESET + Style.NORMAL 
                     + h.normalize("", 30 - len(card.name)) + "> " 
-                    + card.niceBodyText(41, 100, supressedTypes = []))
+                    + card.niceBodyText(41, 100, suppressedTypes = []))
                     index += 1
             
             print(" | Selectable:")
@@ -107,7 +107,7 @@ class redCardboardBox(DinoCard):
                 print(" |  " + str(index + 1) + ". " + Back.CYAN + Style.BRIGHT 
                 + " " + card.name + " " + Back.RESET + Style.NORMAL 
                 + h.normalize("", 30 - len(card.name)) + "> " 
-                + card.niceBodyText(41, 100, supressedTypes = []))
+                + card.niceBodyText(41, 100, suppressedTypes = []))
                 index += 1
             ## Picks the Card to Change
             pickedCardIndex = h.pickValue("Pick a Card to Change", range(1, len(upgradeCandidates) + 1)) - 1
