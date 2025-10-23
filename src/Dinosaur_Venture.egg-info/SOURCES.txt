@@ -11,7 +11,7 @@ src/Dinosaur_Venture/dinoCards.py
 src/Dinosaur_Venture/dinosaurVenture.py
 src/Dinosaur_Venture/enemyCards.py
 src/Dinosaur_Venture/entity.py
-src/Dinosaur_Venture/gameplayLogging.py
+src/Dinosaur_Venture/gameplay_logging.py
 src/Dinosaur_Venture/gameplayLoopEvents.py
 src/Dinosaur_Venture/getCardsByTable.py
 src/Dinosaur_Venture/helper.py

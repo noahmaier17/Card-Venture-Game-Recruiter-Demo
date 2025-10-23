@@ -13,7 +13,7 @@ from colorama import Back, Fore, Style, init
 init(autoreset=True)
 from Dinosaur_Venture import cardTokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import gameplayLogging as log
+from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import mainVisuals as vis
 from Dinosaur_Venture import react as r
@@ -383,7 +383,7 @@ class Entity():
         self.turn = 0
 
         # Logs
-        log.roundStartEntityLog(self)
+        log.round_start_entity_log(self)
     
     def roundEndTidying(self) -> None:
         """Handles Round End behavior."""
@@ -592,7 +592,7 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.playCardLog(self, fromLocation, cardIndex, caster, dino, enemies)
+        log.play_card_log(self, fromLocation, cardIndex, caster, dino, enemies)
 
         # Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
