@@ -9,7 +9,7 @@ from Dinosaur_Venture.entities import dinoes
 init(autoreset=True)
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import clearing as clr
-from Dinosaur_Venture import gameplayLogging as log
+from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import gameplayLoopEvents as gameEvent
 from Dinosaur_Venture import getCardsByTable as gcbt
 from Dinosaur_Venture import helper as h
@@ -140,10 +140,10 @@ if not SKIP_PICKING_CLEARINGS:
     guarenteedClearing = setOfAllWoods.pop(guarenteedClearingIndex)
 
 ## Creates a new log file instance
-log.newLogFile()
+log.new_log_file()
 
 while True:
-    log.currentEventLog(event)
+    log.current_event_log(event)
 
     if event == "Initialize Round":
         ## Uptick difficulty 
