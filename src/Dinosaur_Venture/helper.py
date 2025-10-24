@@ -18,28 +18,44 @@ ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 
 ## Overhead for picking a card to play/reveal/etc. from Hand/Pocket.
 ## If passing, returns "pass".
-def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemies, roundCount, clearing, event, entityNames, cardNames, extraSuppressedTypes=[], canPass=False):
+def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemies, roundCount, clearing, event, entityNames, cardNames, extraSuppressedTypes=[], canPass=False, scriptedInput=None):
     from Dinosaur_Venture import mainVisuals as vis
 
     while True:
-        pick = input(selectionText)
+        if scriptedInput != None: # Handles scripted input
+            print(selectionText) # We still want to ensure the inputText string is valid, even though it is not useful to print it
+            pick = scriptedInput.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
+        else: # Otherwise, we will pick via user input as normal
+            pick = input(selectionText)
+
         try:
+            # Is this pick an integer within our possible set of values?
             pick = int(pick)
             if pick not in choiceSet:
-                print(" INVALID PICK ")
+                print(vis.eventText(event) + "INVALID INPUT ")
             else:
                 return pick
+
         except ValueError:
+            # Are we trying to pass?
             if pick.lower() == "pass" and canPass:
                 return "pass"
+            
+            # Did we input an entity name?
             elif pick.lower().strip() in entityNames.keys() and pick != "":
                 splash(entityNames[pick.lower().strip()], printInsteadOfInput = True)
+
+            # Did we input a card name?
             elif pick.lower().strip() in cardNames.keys() and pick != "":
                 key = pick.lower().strip()
                 print("    " + Back.CYAN + Style.BRIGHT + " " + cardNames[key].name + " ")
                 print(normalize("", 3) + cardNames[key].niceBodyText(3, WIDTH, suppressedTypes = []))
+
+            # Did we input "clear"?
             elif pick.lower() == "clear":
-                vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
+                vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes=extraSuppressedTypes)
+
+            # If none of those are the case, we have invalid input
             else:
                 print(vis.eventText(event) + "INVALID INPUT ")
 
