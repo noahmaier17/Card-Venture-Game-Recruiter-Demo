@@ -65,48 +65,40 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
         event = "Dino Turn End"
     else:
         extraSuppressedTypes = ["looting", "round start"]
-        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
+        vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes=extraSuppressedTypes)
         
         ## ----- Actionable Code -----
-        while True:
-            ## Input text string
-            inputText = (vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Play a " 
-                    + Fore.GREEN + "Card" + Fore.WHITE 
-                    + " [" + Fore.CYAN + "Actions" + Fore.WHITE + ": " 
-                    + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
+        ## Input text string
+        selectionText = (vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Play a " 
+                + Fore.GREEN + "Card" + Fore.WHITE 
+                + " [" + Fore.CYAN + "Actions" + Fore.WHITE + ": " 
+                + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
 
-            if scriptedInput_dinoPlayCard != None:
-                print(inputText) ## We still want to ensure the inputText string is valid, even though it is not useful to print it
-                pick = scriptedInput_dinoPlayCard.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
+        if scriptedInput_dinoPlayCard != None:
+            print(selectionText) ## We still want to ensure the inputText string is valid, even though it is not useful to print it
+            pick = scriptedInput_dinoPlayCard.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
 
-            else:
-                pick = input(inputText)
+        else:
+            revealPicksIndexes = []
+            for i in range(dino.hand.length() + dino.pocket.length()):
+                revealPicksIndexes.append(i + 1)
 
-            ## Handles whatever that pick value equals
-            try:
-                pick = int(pick)
-                if (pick <= 0 or pick > dino.hand.length() + dino.pocket.length()):
-                    print(" INVALID PICK ")
-                else:
-                    break
-            except ValueError:
-                if pick.lower() == "pass":
-                    break
-                elif pick.lower().strip() in entityNames.keys() and pick != "":
-                    h.splash(entityNames[pick.lower().strip()], printInsteadOfInput = True)
-                elif pick.lower().strip() in cardNames.keys() and pick != "":
-                    key = pick.lower().strip()
-                    print("    " + Back.CYAN + Style.BRIGHT + " " + cardNames[key].name + " ")
-                    print(h.normalize("", 3) + cardNames[key].niceBodyText(3, h.WIDTH, suppressedTypes = []))
-                elif pick.lower() == "clear":
-                    vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
-                else:
-                    print(vis.eventText(event) + "INVALID INPUT ")
+            pick = h.selectCardFromHandAndPocket(revealPicksIndexes, 
+                                                 selectionText,
+                                                 dino, 
+                                                 enemies, 
+                                                 roundCount,
+                                                 clearing,
+                                                 event,
+                                                 entityNames,
+                                                 cardNames,
+                                                 extraSuppressedTypes=extraSuppressedTypes,
+                                                 canPass=True)
 
         if pick != "pass":
             passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
 
-            ## -- Are we playing from the Pocket or from Hand? --
+            # Are we playing from the Pocket or from Hand?
             if pick <= dino.pocket.length():
                 dino.playCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals)
             else:

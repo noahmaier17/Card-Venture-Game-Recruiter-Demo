@@ -16,6 +16,33 @@ PUNCTUATION_TYPES = [' ', ',', '!', '.', '-', ':', ';', '?', '{', '}', '[', ']',
 MULTIPLICATIVE_NUMERAL_TYPES = ["Nonce", "Once", "Twice", "Thrice", "Quarce", "Quince", "Sextce", "Spece", "Octce", "Nince", "Tence"]
 ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
+## Overhead for picking a card to play/reveal/etc. from Hand/Pocket.
+## If passing, returns "pass".
+def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemies, roundCount, clearing, event, entityNames, cardNames, extraSuppressedTypes=[], canPass=False):
+    from Dinosaur_Venture import mainVisuals as vis
+
+    while True:
+        pick = input(selectionText)
+        try:
+            pick = int(pick)
+            if pick not in choiceSet:
+                print(" INVALID PICK ")
+            else:
+                return pick
+        except ValueError:
+            if pick.lower() == "pass" and canPass:
+                return "pass"
+            elif pick.lower().strip() in entityNames.keys() and pick != "":
+                splash(entityNames[pick.lower().strip()], printInsteadOfInput = True)
+            elif pick.lower().strip() in cardNames.keys() and pick != "":
+                key = pick.lower().strip()
+                print("    " + Back.CYAN + Style.BRIGHT + " " + cardNames[key].name + " ")
+                print(normalize("", 3) + cardNames[key].niceBodyText(3, WIDTH, suppressedTypes = []))
+            elif pick.lower() == "clear":
+                vis.printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = extraSuppressedTypes)
+            else:
+                print(vis.eventText(event) + "INVALID INPUT ")
+
 ## Overhead for drafting a Card from a loot table
 def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuously = False, canPass = False, activateAbilityOnPass = False):
     from Dinosaur_Venture.mainVisuals import printLocation
