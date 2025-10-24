@@ -74,26 +74,24 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
                 + " [" + Fore.CYAN + "Actions" + Fore.WHITE + ": " 
                 + vis.rainbowNormalize(dino.actions, len(str(dino.actions))) + "]: ")
 
-        if scriptedInput_dinoPlayCard != None:
-            print(selectionText) ## We still want to ensure the inputText string is valid, even though it is not useful to print it
-            pick = scriptedInput_dinoPlayCard.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
+        revealPicksIndexes = []
+        for i in range(dino.hand.length() + dino.pocket.length()):
+            revealPicksIndexes.append(i + 1)
 
-        else:
-            revealPicksIndexes = []
-            for i in range(dino.hand.length() + dino.pocket.length()):
-                revealPicksIndexes.append(i + 1)
+        pick = h.selectCardFromHandAndPocket(revealPicksIndexes, 
+                                                selectionText,
+                                                dino, 
+                                                enemies, 
+                                                roundCount,
+                                                clearing,
+                                                event,
+                                                entityNames,
+                                                cardNames,
+                                                extraSuppressedTypes=extraSuppressedTypes,
+                                                canPass=True,
+                                                scriptedInput=scriptedInput_dinoPlayCard)
 
-            pick = h.selectCardFromHandAndPocket(revealPicksIndexes, 
-                                                 selectionText,
-                                                 dino, 
-                                                 enemies, 
-                                                 roundCount,
-                                                 clearing,
-                                                 event,
-                                                 entityNames,
-                                                 cardNames,
-                                                 extraSuppressedTypes=extraSuppressedTypes,
-                                                 canPass=True)
+        print(pick)
 
         if pick != "pass":
             passedInVisuals = vis.prefabPrintDinoTurn(dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = extraSuppressedTypes)
