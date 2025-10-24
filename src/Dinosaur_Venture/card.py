@@ -6,9 +6,9 @@ from Dinosaur_Venture import helper as h
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import cardFunctions as cf
+    from Dinosaur_Venture import mainVisuals as vis
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.entities import entity as e
-    from Dinosaur_Venture import mainVisuals as vis
 
 INITIALIZATION_ZONES = {
     "iBottom": "Bottom",

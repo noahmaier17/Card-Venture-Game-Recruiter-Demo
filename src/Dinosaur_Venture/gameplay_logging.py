@@ -8,9 +8,9 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture.entities import entity as e
-    from Dinosaur_Venture import helper as h
     from Dinosaur_Venture import card as c
+    from Dinosaur_Venture import helper as h
+    from Dinosaur_Venture.entities import entity as e
 
 ## ----- Constants -----
 # Global boolean that will force logging to be ignored (for testing)
