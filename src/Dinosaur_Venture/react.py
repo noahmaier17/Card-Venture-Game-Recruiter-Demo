@@ -161,7 +161,7 @@ class rt():
                 carrotWord = True
 
             if len(lefthandLines[-1]) + len(nextBloc) + len("  ") > pad:
-                ## Depending on the number of preceeding spaces, we must append a padded number of spaces
+                ## Depending on the number of preceding spaces, we must append a padded number of spaces
                 nextBloc = nextBloc.lstrip()
                 lefthandLines.append("  ")
 
@@ -187,7 +187,7 @@ class rt():
                 word = word.lstrip()
                 righthandLines.append("  ")
 
-            ## Do we have a new line symbol we must accomodate?
+            ## Do we have a new line symbol we must accommodate?
             if word == "//":
                 if righthandLines[-1].isspace():
                     righthandLines.pop()
