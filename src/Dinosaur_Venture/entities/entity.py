@@ -116,7 +116,7 @@ class Entity():
         # Enemy and isDinosaur are exclusive; do not change this value by other commands
         self.enemy = True
 
-        # The health of the enemy; should be overriden in inheritance
+        # The health of the enemy; should be overridden in inheritance
         self.hp = cll.DeadHealthcons()
 
         # The deck zones
@@ -199,7 +199,7 @@ class Entity():
         return returnArray
 
     def getIterableOfLocations(self) -> list["c.Card"]:
-        """Returns all cards in all locations (excluding deck) concatentated."""
+        """Returns all cards in all locations (excluding deck) concatenated."""
         array = []
         array.append(self.pocket)
         array.append(self.hand)
@@ -272,7 +272,7 @@ class Entity():
         For enemies, handles the logic for cards to be played. 
         Does so randomly, weighted by `self.likelihood` values.
 
-        Can overriden by other entities for more/less intelligent card selection.
+        Can be overridden by other entities for more/less intelligent card selection.
         
         Returns:
             Either 'nil' (if no card gets selected) or the index of the selected card.
@@ -927,27 +927,27 @@ class Entity():
         self.turn += 1
     
     def atTriggerTurnStart(self, dino, enemies):
-        """Special functionality at this moment in gameplay; planned to be depricated."""
+        """Special functionality at this moment in gameplay; planned to be deprecated."""
         pass
     
     def atTriggerTurnEnd(self, dino, enemies):
-        """Special functionality at this moment in gameplay; planned to be depricated."""
+        """Special functionality at this moment in gameplay; planned to be deprecated."""
         pass
     
     def atTriggerLoseBand(self, dino, enemies):
-        """Special functionality at this moment in gameplay; planned to be depricated."""
+        """Special functionality at this moment in gameplay; planned to be deprecated."""
         pass
     
     def atTriggerAnyEnemyNonfatallyDamaged(self, damageTaker, dino, enemies):
-        """Special functionality at this moment in gameplay; planned to be depricated."""
+        """Special functionality at this moment in gameplay; planned to be deprecated."""
         pass
     
     def atTriggerEnemySummoned(self, summonedEnemy, dino, enemies):
-        """Special functionality at this moment in gameplay; planned to be depricated."""
+        """Special functionality at this moment in gameplay; planned to be deprecated."""
         pass
     
     def atTriggerDinoPlayedCard(self, dino, enemies):
-        """Special functionality at this moment in gameplay; planned to be depricated."""
+        """Special functionality at this moment in gameplay; planned to be deprecated."""
         pass
     
     def r(self) -> int:
