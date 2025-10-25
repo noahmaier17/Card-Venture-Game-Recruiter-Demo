@@ -5,10 +5,10 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import mainVisuals as vis
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
 
 '''
-    Cattle Caste System
+    Chicken Coup
 '''
 
 class inWaitingCounterRevolt(gdc.DinoCard):
@@ -19,7 +19,7 @@ class inWaitingCounterRevolt(gdc.DinoCard):
         self.publishDollarTrigger("WTI-Zones of yours (EXCEPT Play and Discard), at your Turn End, if you have 2+ Actions, you may: Move this onto Draw.")
         self.publishInitialization(muck = True)
         self.publishReshuffle(muck = True)
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         ## self.triggers.append(r.reaction(self, False, self.trigger_1(self), endOfDinoTurn = True))
@@ -73,7 +73,7 @@ class revolutionarysMilitia(gdc.DinoCard):
         self.publishInitialization(muck = True)
         self.publishReshuffle(muck = True)
         self.bodyText.lootingText("Change a Card in Deck to: [ iMuck ], < iMuck >.")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -93,7 +93,7 @@ class persecutedProtestors(gdc.DinoCard):
         self.bodyText = c.bb("+ Cantrip. +2 Cards.")
         self.publishInitialization(muck = True)
         self.publishReshuffle(muck = True)
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -109,7 +109,7 @@ class jailbreaker(gdc.DinoShellCard):
         self.name = "//confidant// Jailbreaker"
         self.bodyText = c.bb("> Change this to: [ iMuck ], < iMuck >. //> Then, Enshell this as Follows: //    > ... //    > At Turn End, Discard this.")
         self.isConfidant = True
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "LIBERATED " + cardToEnshell.name
@@ -148,7 +148,7 @@ class cardOverlord(gdc.DinoCard):
         self.bodyText = c.bb("9G-notick. +1 Card. Draw 1 More Card for your Next Turn.")
         self.publishPacking("Entoken this with <<feathery>>. Draw a Card to the Into-Hand mat.")
         self.publishRoundStart("+ Cantrip.")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -174,7 +174,7 @@ class freedomTrail(gdc.DinoCard):
         self.name = "Freedom Trail"
         self.bodyText = c.bb("+3 Cards. At Turn End, you may: Discard this, for +3 Cards.")
         self.bodyText.heavinessText("{ HH }")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))
@@ -217,7 +217,7 @@ class autocratCapitulation(gdc.DinoCard):
         self.name = "Autocrat Capitulation"
         self.bodyText = c.bb("+1 Action. 1Row. //Once at Any Turn End, if you have 2+ Actions, you may: //(1) Plus 1 Action for your Next Turn, and Discard this.")
         self.bodyText.heavinessText("{ HH }")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))
@@ -260,7 +260,7 @@ class surveillanceState(gdc.DinoCard):
         self.name = "Surveillance State"
         self.bodyText = c.bb("(1Row x1).")
         self.publishDollarTrigger("WTI-Hand or Pocket, During your Turns when you Play a Card, after Resolution, if said Card is not in Play: //(1) Uptick all #x and x# values on this Card by 1.")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         ## self.bundle(throwCardFunction = self.duringPlay())
 
         ## self.triggers.append(r.reaction(self, True, self.trigger_1(self)))

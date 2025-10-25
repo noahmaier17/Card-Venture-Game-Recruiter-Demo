@@ -5,7 +5,7 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import mainVisuals as vis
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
 
 '''
     Apple Orchard Hollow

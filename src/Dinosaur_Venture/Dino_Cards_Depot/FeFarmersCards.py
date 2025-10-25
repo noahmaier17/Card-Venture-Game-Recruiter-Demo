@@ -3,10 +3,10 @@ from Dinosaur_Venture import cardFunctions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
 
 '''
-    Copper Croppers
+    Fe Farmers
 '''
 class rebuildOrDestroy(gdc.DinoCard):
     def __init__(self):
@@ -16,7 +16,7 @@ class rebuildOrDestroy(gdc.DinoCard):
         self.bodyText = c.bb("+3 Cards.")
         self.bodyText.heavinessText("{ HH }")
         self.publishPacking("{ HH } To every Enemy: Discard a Card.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -46,7 +46,7 @@ class troughBoy(gdc.DinoCard):
         self.name = "Trough Boy"
         self.bodyText = c.bb("+1 Action. 4B-notick.")
         self.publishPacking("{ HH } Break a Band.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -69,7 +69,7 @@ class collectiveBargaining(gdc.DinoCard):
         super().__init__()
         self.name = "Collective Bargaining"
         self.bodyText = c.bb("+1 Action. 2G. //At This Turn End, if you have 1+ Actions, you may: //(1) Plus 1 Action for your Next Turn.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self), endOfDinoTurn = True))
@@ -110,7 +110,7 @@ class attemptAppeasement(gdc.DinoCard):
         self.bodyText = c.bb("+1 Action. 2B.")
         self.bodyText.heavinessText("{ HH }")
         self.bodyText.lootingText("Bottom-Text Upgrade this Card's Play Text with either: //(1) +1 Card. //(2) +1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -147,7 +147,7 @@ class cardOverthrow(gdc.DinoCard):
         self.bodyText = c.bb("+1 Action. Pick an Enemy. To it: 4Notnil; Discard their Hand.")
         self.bodyText.heavinessText("{ HH }")
         self.publishRoundStart("+1 Card.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -168,7 +168,7 @@ class dethronement(gdc.DinoCard):
         super().__init__()
         self.name = "Dethronement"
         self.bodyText = c.bb("-1 Action. 4M / 2G. //Discard the Top Card of Draw. //Discard the Bottom Card of Draw.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -193,7 +193,7 @@ class failedPeaceTreaty(gdc.DinoCard):
         self.name = "Failed Peace Treaty"
         self.bodyText = c.bb("+2 Actions.")
         self.publishPacking("{ HH } To every Enemy: 2Random-notick.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -216,7 +216,7 @@ class actionOverthrow(gdc.DinoCard):
         self.name = "Action Overthrow"
         self.bodyText = c.bb("2R. Then: 2R.")
         self.publishRoundStart("+1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -234,7 +234,7 @@ class newFarmLeader(gdc.DinoCard):
         self.bodyText = c.bb("+ Cantrip. Mill. Then, reverse-order Immill, and +1 Card.")
         self.publishPacking("{ HH } 1G.")
         self.bodyText.lootingText("Change a Card in Deck to: [ iTop ].")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -272,7 +272,7 @@ class bayOfPigs(gdc.DinoCard):
         self.name = "Bay of Pigs"
         self.bodyText = c.bb("2Random-notick / 2Random-notick / 2Random-notick.")
         self.publishPacking("{ HH } Next Turn, +1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -304,7 +304,7 @@ class hatchingCoup(gdc.DinoCard):
         self.bodyText = c.bb("4R-notick / 4B-notick / 2M. //At Any Turn End, if you have 1+ Actions, you may: //(1) Move this onto Draw.")
         self.bodyText.heavinessText("{ HH }")
         self.publishRoundStart("-1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self), endOfDinoTurn = True))
@@ -345,7 +345,7 @@ class organizedArmaments(gdc.DinoCard):
         self.name = "Organized Armaments"
         self.bodyText = c.bb("+2 Actions. //At Every Turn End, if you have 1+ Actions, you may: //(1) 1M.")
         self.bodyText.heavinessText("{ HH }")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))

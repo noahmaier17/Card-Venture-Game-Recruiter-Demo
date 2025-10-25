@@ -1,19 +1,19 @@
 import copy
 
-## from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
+## from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
 from Dinosaur_Venture import enemyCards as ec_ec
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.Dino_Cards_Depot import (AppleOrchardHollowCards,
+from Dinosaur_Venture.dino_cards_depot import (AppleOrchardHollowCards,
                                                BanditsOfTheHighwayCards,
-                                               CattleCasteSystemCards,
-                                               CopperCroppersCards,
+                                               ChickenCoupCards,
+                                               FeFarmersCards,
                                                DebuffsCards, DebugCards,
                                                FallowFarmlandCards,
                                                FastFoodMascotsCards,
                                                FruitbearingMonksCards,
                                                FundamentalCards)
-from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
-from Dinosaur_Venture.Dino_Cards_Depot import (GraverobberCards,
+from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import (GraverobberCards,
                                                HorseHostelryCards,
                                                NewBearOrderCards,
                                                PackingBotCards,
@@ -25,7 +25,7 @@ TIER_1_TABLES = [
     "Fallow Farmland",
     "New Bear Order",
     "Bandits of the Highway",
-    "Copper Croppers",
+    "Fe Farmers",
     "Apple Orchard Hollow",
     "The Pier"
 ]
@@ -44,8 +44,11 @@ WIP_TABLES = [
     "Fruit-Bearing Monks",
     "Horse Hostelry",
     "Rubble-Dwellers",
-    "Cattle Caste System"
+    "Chicken Coup"
 ]
+
+## All Dino Cards including WIP Dino Clearings
+ALL_DINO_CARDS_INCLUDING_WIP = [] + ALL_DINO_CARDS + WIP_TABLES
 
 ## Enemy cards
 ENEMY_TABLES = [

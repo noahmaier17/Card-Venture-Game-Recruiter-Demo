@@ -17,9 +17,9 @@ def code():
     ## Change distDisplay to view the distribution numbers when adding new cards*
 
     RANDOM_ORDERING = False
-    ALL_TABLES = True           ## Overwrite on TABLES, but observes EXCLUDE_TABLE
+    ALL_TABLES = False           ## Overwrite on TABLES, but observes EXCLUDE_TABLE
     ONLY_SHELLS = False
-    INCLUDE_CONDITIONS = True
+    INCLUDE_CONDITIONS = False
 
     TABLES = []
     #TABLES.append("Fundamental")
@@ -28,12 +28,12 @@ def code():
     #TABLES.append("Fallow Farmland")
     #TABLES.append("New Bear Order")
     #TABLES.append("Bandits of the Highway")
-    #TABLES.append("Copper Croppers")
+    TABLES.append("Fe Farmers")
     #TABLES.append("Horse Hostelry")
-    TABLES.append("Apple Orchard Hollow")
+    #TABLES.append("Apple Orchard Hollow")
     #TABLES.append("Rubble-Dwellers")
     #TABLES.append("The Pier")
-    #TABLES.append("Cattle Caste System")
+    #TABLES.append("Chicken Coup")
     #TABLES.append("Shop")
 
     #TABLES.append("Packing Bot")

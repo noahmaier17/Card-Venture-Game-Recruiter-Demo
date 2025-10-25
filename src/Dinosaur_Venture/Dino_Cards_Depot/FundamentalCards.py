@@ -2,7 +2,7 @@ from Dinosaur_Venture import card as c
 from Dinosaur_Venture import cardFunctions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.Dino_Cards_Depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
 
 '''
     Muck Cards

@@ -276,7 +276,7 @@ class potpourri(gdc.DinoCard):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Random'], 'nil'))
 
 '''
-    Copper Croppers
+    Fe Farmers
 '''
 class rebuildOrDestroy(DinoCard):
     def __init__(self):
@@ -286,7 +286,7 @@ class rebuildOrDestroy(DinoCard):
         self.bodyText = c.bb("+3 Cards.")
         self.bodyText.heavinessText("{ HH }")
         self.publishPacking("{ HH } To every Enemy: Discard a Card.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -316,7 +316,7 @@ class troughBoy(DinoCard):
         self.name = "Trough Boy"
         self.bodyText = c.bb("+1 Action. 4B-notick.")
         self.publishPacking("{ HH } Break a Band.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -339,7 +339,7 @@ class collectiveBargaining(DinoCard):
         super().__init__()
         self.name = "Collective Bargaining"
         self.bodyText = c.bb("+1 Action. 2G. //At This Turn End, if you have 1+ Actions, you may: //(1) Plus 1 Action for your Next Turn.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self), endOfDinoTurn = True))
@@ -380,7 +380,7 @@ class attemptAppeasement(DinoCard):
         self.bodyText = c.bb("+1 Action. 2B.")
         self.bodyText.heavinessText("{ HH }")
         self.bodyText.lootingText("Bottom-Text Upgrade this Card's Play Text with either: //(1) +1 Card. //(2) +1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -417,7 +417,7 @@ class cardOverthrow(DinoCard):
         self.bodyText = c.bb("+1 Action. Pick an Enemy. To it: 4Notnil; Discard their Hand.")
         self.bodyText.heavinessText("{ HH }")
         self.publishRoundStart("+1 Card.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -438,7 +438,7 @@ class dethronement(DinoCard):
         super().__init__()
         self.name = "Dethronement"
         self.bodyText = c.bb("-1 Action. 4M / 2G. //Discard the Top Card of Draw. //Discard the Bottom Card of Draw.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -463,7 +463,7 @@ class failedPeaceTreaty(DinoCard):
         self.name = "Failed Peace Treaty"
         self.bodyText = c.bb("+2 Actions.")
         self.publishPacking("{ HH } To every Enemy: 2Random-notick.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -486,7 +486,7 @@ class actionOverthrow(DinoCard):
         self.name = "Action Overthrow"
         self.bodyText = c.bb("2R. Then: 2R.")
         self.publishRoundStart("+1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -504,7 +504,7 @@ class newFarmLeader(DinoCard):
         self.bodyText = c.bb("+ Cantrip. Mill. Then, reverse-order Immill, and +1 Card.")
         self.publishPacking("{ HH } 1G.")
         self.bodyText.lootingText("Change a Card in Deck to: [ iTop ].")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -542,7 +542,7 @@ class bayOfPigs(DinoCard):
         self.name = "Bay of Pigs"
         self.bodyText = c.bb("2Random-notick / 2Random-notick / 2Random-notick.")
         self.publishPacking("{ HH } Next Turn, +1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -574,7 +574,7 @@ class hatchingCoup(DinoCard):
         self.bodyText = c.bb("4R-notick / 4B-notick / 2M. //At Any Turn End, if you have 1+ Actions, you may: //(1) Move this onto Draw.")
         self.bodyText.heavinessText("{ HH }")
         self.publishRoundStart("-1 Action.")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self), endOfDinoTurn = True))
@@ -615,7 +615,7 @@ class organizedArmaments(DinoCard):
         self.name = "Organized Armaments"
         self.bodyText = c.bb("+2 Actions. //At Every Turn End, if you have 1+ Actions, you may: //(1) 1M.")
         self.bodyText.heavinessText("{ HH }")
-        self.table = ["Copper Croppers"]
+        self.table = ["Fe Farmers"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))
@@ -3798,7 +3798,7 @@ class rubbleRequesters(DinoCard):
             dino.gainCard(rubble())
 
 '''
-    Cattle Caste System
+    Chicken Coup
 '''
 
 class inWaitingCounterRevolt(DinoCard):
@@ -3809,7 +3809,7 @@ class inWaitingCounterRevolt(DinoCard):
         self.publishDollarTrigger("WTI-Zones of yours (EXCEPT Play and Discard), at your Turn End, if you have 2+ Actions, you may: Move this onto Draw.")
         self.publishInitialization(muck = True)
         self.publishReshuffle(muck = True)
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         ## self.triggers.append(r.reaction(self, False, self.trigger_1(self), endOfDinoTurn = True))
@@ -3863,7 +3863,7 @@ class revolutionarysMilitia(DinoCard):
         self.publishInitialization(muck = True)
         self.publishReshuffle(muck = True)
         self.bodyText.lootingText("Change a Card in Deck to: [ iMuck ], < iMuck >.")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -3883,7 +3883,7 @@ class persecutedProtestors(DinoCard):
         self.bodyText = c.bb("+ Cantrip. +2 Cards.")
         self.publishInitialization(muck = True)
         self.publishReshuffle(muck = True)
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
@@ -3899,7 +3899,7 @@ class jailbreaker(DinoShellCard):
         self.name = "//confidant// Jailbreaker"
         self.bodyText = c.bb("> Change this to: [ iMuck ], < iMuck >. //> Then, Enshell this as Follows: //    > ... //    > At Turn End, Discard this.")
         self.isConfidant = True
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "LIBERATED " + cardToEnshell.name
@@ -3938,7 +3938,7 @@ class cardOverlord(DinoCard):
         self.bodyText = c.bb("9G-notick. +1 Card. Draw 1 More Card for your Next Turn.")
         self.publishPacking("Entoken this with <<feathery>>. Draw a Card to the Into-Hand mat.")
         self.publishRoundStart("+ Cantrip.")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
@@ -3964,7 +3964,7 @@ class freedomTrail(DinoCard):
         self.name = "Freedom Trail"
         self.bodyText = c.bb("+3 Cards. At Turn End, you may: Discard this, for +3 Cards.")
         self.bodyText.heavinessText("{ HH }")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))
@@ -4007,7 +4007,7 @@ class autocratCapitulation(DinoCard):
         self.name = "Autocrat Capitulation"
         self.bodyText = c.bb("+1 Action. 1Row. //Once at Any Turn End, if you have 2+ Actions, you may: //(1) Plus 1 Action for your Next Turn, and Discard this.")
         self.bodyText.heavinessText("{ HH }")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))
@@ -4050,7 +4050,7 @@ class surveillanceState(DinoCard):
         self.name = "Surveillance State"
         self.bodyText = c.bb("(1Row x1).")
         self.publishDollarTrigger("WTI-Hand or Pocket, During your Turns when you Play a Card, after Resolution, if said Card is not in Play: //(1) Uptick all #x and x# values on this Card by 1.")
-        self.table = ["Cattle Caste System"]
+        self.table = ["Chicken Coup"]
         ## self.bundle(throwCardFunction = self.duringPlay())
 
         ## self.triggers.append(r.reaction(self, True, self.trigger_1(self)))

@@ -4,3 +4,7 @@ Version: 0.1.0
 Summary: Journey through several places, gathering new cards and meeting new enemies all throughout
 Requires-Dist: colorama>=0.4.6
 Requires-Dist: send2trash>=1.8.3
+Requires-Dist: pytest>=8.4.2
+Requires-Dist: pytest-timeout>=2.4.0
+Requires-Dist: Send2Trash>=1.8.3
+Requires-Dist: flask>=3.1.2

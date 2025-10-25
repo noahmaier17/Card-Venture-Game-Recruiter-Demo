@@ -10,23 +10,6 @@ from Dinosaur_Venture import getCardsByTable as gcbt, helper as h
 app = Flask(__name__)
 converter = Ansi2HTMLConverter(inline=True) ## Used extensive Google for this
 
-## ----- Helper Functions -----
-def convert_color_to_color(html_text: str) -> str:
-
-    color_to_color = {
-        "#ff0000": "#ff5555",  # red
-        "#00ff00": "#50fa7b",  # green
-        "#ffff00": "#f1fa8c",  # yellow
-        "#0000ff": "#6272a4",  # blue
-        "#ff00ff": "#ff79c6",  # magenta
-        "#00ffff": "#8be9fd",  # cyan
-        "#ffffff": "#bbbbbb",  # white
-    }
-    
-    for former_color, latter_color in color_to_color.items():
-        html_text = html_text.replace(former_color, latter_color)
-    return html_text
-
 ## ----- Sets up a list of all Cards -----
 max_id = 1
 all_cards = []
@@ -41,12 +24,10 @@ for child in gcbt.getAllCards().getArray():
     name = child.nameWithTokens()
     name = h.colorize("^" + name + "^")
     name = converter.convert(name, full=False)
-    name = convert_color_to_color(name)
 
     text = child.niceBodyText(0, 99999, suppressedTypes=[]) # , noColor=True)
 
     text = converter.convert(text, full=False)
-    text = convert_color_to_color(text)
 
     all_cards.append({
         "id": max_id,
@@ -142,7 +123,7 @@ def add_card():
         return card, 201
     return {"error": "Request must be JSON"}, 415
 
-## ----- ------
+## ----- Main Guard ------
 if __name__ == "__main__":
     # app.run(debug=True)
     app.run(host="0.0.0.0", port=5000, debug=True)

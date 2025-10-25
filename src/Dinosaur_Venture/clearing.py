@@ -230,11 +230,11 @@ class BanditsOfTheHighway(NeckOfTheWoods):
                enemieses.Karkit: 0.2
             }
 
-## Copper Croppers
-class CopperCroppers(NeckOfTheWoods):
+## Fe Farmers
+class FeFarmers(NeckOfTheWoods):
     def __init__(self):
         super().__init__()
-        self.name = "Copper Croppers"
+        self.name = "Fe Farmers"
         self.include = True
 
         self.themes = [
@@ -261,7 +261,7 @@ class CopperCroppers(NeckOfTheWoods):
             super().__init__()
             self.name = "Farmhouse"
             self.clearingText = "The center piece of a place designed to torment the rustic creatures that farmed there."
-            self.table = ["Copper Croppers"]
+            self.table = ["Fe Farmers"]
 
             self.enemiesToLikelihood = {
                enemieses.Copperals: 1,

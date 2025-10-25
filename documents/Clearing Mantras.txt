@@ -28,7 +28,7 @@ Saps Card Economy:      X X _ _ _
 
 
 
-    ---> Copper Croppers
+    ---> Fe Farmers
 
 Central Themes:
     "If you have 1+ Actions at the End of Turn..."

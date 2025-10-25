@@ -10,7 +10,7 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplayScriptedInput as scriptInput
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import mainVisuals as vis
-from Dinosaur_Venture.Dino_Cards_Depot import \
+from Dinosaur_Venture.dino_cards_depot import \
     GeneralDinoCards as generalDinoCards
 
 '''
