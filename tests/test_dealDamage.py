@@ -3,7 +3,7 @@ import random
 
 import pytest
 import pytest_timeout
-from Test_Utils.gameSetups import setup_getDinoEnemiesClearing
+from test_utils.gameSetups import setup_getDinoEnemiesClearing
 
 from Dinosaur_Venture import cardFunctions as cf
 from Dinosaur_Venture import channel_linked_lists as cll

@@ -1,10 +1,10 @@
 import pytest
 import pytest_timeout
-from Test_Utils import simulateGameplay
-from Test_Utils.gameSetups import (
+from test_utils import simulateGameplay
+from test_utils.gameSetups import (
     getCartesianProduct_dinoEnemiesClearingCards, setup_getCardSetOne,
     setup_getDinoEnemiesClearing)
-from Test_Utils.validateGameState import isCardExclusivelyAtIndexInLocation
+from test_utils.validateGameState import isCardExclusivelyAtIndexInLocation
 
 from Dinosaur_Venture import gameplayScriptedInput as scriptInput
 
