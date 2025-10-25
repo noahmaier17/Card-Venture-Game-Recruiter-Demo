@@ -702,7 +702,7 @@ class PrairieWatchDog(Enemy):
             if cardIndex != "nil":
                 card = self.hand[cardIndex]
                 print(" | Resolution of: " + Back.RED + Fore.BLACK + " " + card.name + " ")
-                print(" |  > " + card.niceBodyText(3, 100))
+                print(" |  > " + card.prettyCardText(3, 100))
                 input(" | ... ")
                 self.playCard(self.hand, cardIndex, self, dino, enemies)
             else:

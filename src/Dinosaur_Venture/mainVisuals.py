@@ -435,7 +435,7 @@ def printLocation(location, index, color, suppressedTypes, event, nameFore = For
         ## ----- Initialization -----
         arrayIndex = 0
         nameTokensTextArray = getLineByLineCardName(card, 28, prefix = " ")
-        bodyTextArray = card.niceBodyText(43, WIDTH, suppressedTypes = suppressedTypesPlusExtra, keepAsArray = True)
+        bodyTextArray = card.prettyCardText(43, WIDTH, suppressedTypes = suppressedTypesPlusExtra, keepAsArray = True)
         if len(bodyTextArray) == 0:
             bodyTextArray.append("")
 

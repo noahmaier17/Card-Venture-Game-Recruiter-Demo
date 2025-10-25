@@ -25,7 +25,7 @@ for child in gcbt.getAllCards().getArray():
     name = h.colorize("^" + name + "^")
     name = converter.convert(name, full=False)
 
-    text = child.niceBodyText(0, 99999, suppressedTypes=[]) # , noColor=True)
+    text = child.prettyCardText(0, 99999, suppressedTypes=[]) # , noColor=True)
 
     text = converter.convert(text, full=False)
 

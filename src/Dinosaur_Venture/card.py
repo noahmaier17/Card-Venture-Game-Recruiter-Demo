@@ -158,7 +158,7 @@ class bb():
     ) -> list | str:
         """
         Returns the whole array that represents this body text for UI.
-        Should only/mainly be called through the `Card.niceBodyText` call.
+        Should only/mainly be called through the `Card.prettyCardText` call.
         """
         array = []
 
@@ -383,7 +383,7 @@ class Card():
         if packingCardFunction != None:
             self.packingTextCardFunctions.append(packingCardFunction)
 
-    def niceBodyText(
+    def prettyCardText(
         self, 
         leftIndent: int, 
         length: int, 
@@ -640,7 +640,7 @@ class Card():
         if caster.enemy:
             teamCode = "%"
         h.splash(" Resolving: " + teamCode + self.name + teamCode, printInsteadOfInput = True, removePreline = True)
-        print(h.normalize("  > ", 4) + self.niceBodyText(4, h.WIDTH, suppressedTypes = ["looting", "round start"]))
+        print(h.normalize("  > ", 4) + self.prettyCardText(4, h.WIDTH, suppressedTypes = ["looting", "round start"]))
         if caster.enemy == False:
             print(" ... ")
 
@@ -658,7 +658,7 @@ class Card():
         if caster.enemy:
             teamCode = "%"
         h.splash(" Packing up: " + teamCode + self.name + teamCode, printInsteadOfInput = True, removePreline = True)
-        print(h.normalize("  > ", 4) + self.niceBodyText(4, h.WIDTH, suppressedTypes = ["looting", "round start"]))
+        print(h.normalize("  > ", 4) + self.prettyCardText(4, h.WIDTH, suppressedTypes = ["looting", "round start"]))
         if caster.enemy == False:
             print(" ... ")
 

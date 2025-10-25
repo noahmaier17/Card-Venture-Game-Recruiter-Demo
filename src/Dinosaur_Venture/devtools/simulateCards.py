@@ -121,7 +121,7 @@ def code():
         if (any(i in child.table for i in TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))) or (not(ONLY_SPECIFIC_TABLES) and not(any(i in child.table for i in EXCLUDE_TABLES))):
             matchAllConditions = True
             for condition in textConditions:
-                colorlessBodyText = child.niceBodyText(0, 99999, suppressedTypes = [], noColor = True)
+                colorlessBodyText = child.prettyCardText(0, 99999, suppressedTypes = [], noColor = True)
                 if not re.search(condition, colorlessBodyText):
                     matchAllConditions = False
             for condition in nameConditions:
@@ -133,10 +133,10 @@ def code():
 
             matchingCardsArray.append(child)
             '''
-            print("  " + h.normalize(child().nameWithTokens(), PAD) + ":  " + child().niceBodyText(PAD + 5, h.WIDTH, suppressedTypes = []))
+            print("  " + h.normalize(child().nameWithTokens(), PAD) + ":  " + child().prettyCardText(PAD + 5, h.WIDTH, suppressedTypes = []))
             '''
 
-            string += "  " + h.normalize(child.nameWithTokens(), PAD) + ":  " + child.niceBodyText(PAD + 5, h.WIDTH, suppressedTypes = [], noColor = True) + "\n"
+            string += "  " + h.normalize(child.nameWithTokens(), PAD) + ":  " + child.prettyCardText(PAD + 5, h.WIDTH, suppressedTypes = [], noColor = True) + "\n"
             
             count += 1
             
@@ -147,7 +147,7 @@ def code():
             string += text + "\n"
             
             csv += (child.name + ";;; " 
-                    + child.niceBodyText(0, 99999, suppressedTypes = [], noColor = True).replace("\n", "\n ;;; ") + ";;; "
+                    + child.prettyCardText(0, 99999, suppressedTypes = [], noColor = True).replace("\n", "\n ;;; ") + ";;; "
                     + str(child.table)
                     + "\n")
 
