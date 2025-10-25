@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Simulate Cards</title>
+
+<!-- Styling of Cards -->
+<style>
+    html {
+      scrollbar-gutter: stable;
+    }
+    body {
+      font-family: "Courier New", monospace;
+      background-color: #2b2b2b;
+      color: rgb(255, 255, 255);
+      padding: 1em;
+    }
+    .card {
+      border-bottom: 1px solid #333;
+      margin-bottom: 0.5em;
+      color: rgb(255, 255, 255);
+      padding-bottom: 0.1em;
+      font-size: 1.2em;
+    }
+    .name {
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      font-size: 1.2em;
+      white-space: pre-wrap;
+    }
+    pre {
+      white-space: pre-wrap;
+    }
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-bottom: 10px;
+      font-size: 1.4em;
+    }
+    .select-all-buttons {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Simulate Cards</h1>
+
+  <form method="get" action="/cards/view">
+    <div class="select-all-buttons">
+      <button type="button" onclick="randomize()">Randomize Order</button>
+    </div>
+    <div class="select-all-buttons">
+      <!-- <button type="button" onclick="selectAll(true)">Select All</button>
+      <button type="button" onclick="selectAll(false)">Deselect All</button> -->
+      <button type="button" onclick="toggleAll()">Toggle All</button>
+      <button type="button" onclick="selectDinosaurCards()">Toggle Dino Cards</button>
+      <button type="button" onclick="selectDinosaurCardsIncludingWip()">Toggle Dino Cards (including WIP Tables)</button>
+    </div>
+    <div class="checkbox-grid">
+      {% for table in all_tables %}
+        <label>
+          <input type="checkbox" name="tables" value="{{ table }}"
+            {% if table in selected_tables %}checked{% endif %}
+            onchange="this.form.submit()">
+          {{ table }}
+        </label>
+      {% endfor %}
+    </div>
+  </form>
+
+  <script>
+  function randomize() {
+    window.location.reload();
+  }
+
+  function toggleAll() {
+    const ALL_TABLES = {{ all_tables|tojson }};
+    selectCardsByTable(ALL_TABLES);
+  }
+
+  function selectDinosaurCards() {
+    const DINO_TABLES = {{ all_dino_cards|tojson }};
+    selectCardsByTable(DINO_TABLES);
+  }
+
+  function selectDinosaurCardsIncludingWip() {
+    const TABLES = {{ all_dino_cards_including_wip|tojson }};
+    selectCardsByTable(TABLES);
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function selectCardsByTable(selectionTable) {
+    // Do we have any selected dino cards?
+    var allDinoCardsSelected = true;
+    var atLeastOneNonDinoCardSelected = false;
+    document.querySelectorAll('input[name="tables"]').forEach(checkbox => {
+      if (selectionTable.includes(checkbox.value) && !checkbox.checked) {
+        allDinoCardsSelected = false;
+      }
+      if (!(selectionTable.includes(checkbox.value)) && checkbox.checked) {
+        atLeastOneNonDinoCardSelected = true;
+      }
+    });
+
+    // If we have anything except exclusively all the dino cards selected,
+    // turns the dino cards on
+    var checkboxValue;
+    if (allDinoCardsSelected && !atLeastOneNonDinoCardSelected) {
+      checkboxValue = false;
+    } else {
+      checkboxValue = true;
+    }
+    document.querySelectorAll('input[name="tables"]').forEach(checkbox => {
+      if (selectionTable.includes(checkbox.value)) {
+        checkbox.checked = checkboxValue;
+      } else {
+        checkbox.checked = false;
+      }
+    });
+  
+    document.querySelector('form').submit();
+  }
+  </script>
+
+  {% for card in set_of_cards %}
+    <div class="card">
+      <div class="name">{{ card.name | safe }}</div>
+      <pre>{{ card.text | safe }}</pre>
+    </div>
+  {% endfor %}
+
+  <div>
+    <button type="button" onclick="scrollToTop()">Scroll to Top</button>
+  </div>
+
+</body>
+</html>
