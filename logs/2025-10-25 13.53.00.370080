@@ -1,0 +1,228 @@
+CURRENT EVENT: Initialize Round
+CURRENT EVENT: Populate Clearing
+CURRENT EVENT: Start Round
+ROUND START: Rover state: { pocket -> None } { hand -> [ Packing Peanuts -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E22996EA0>] ] [ Forklift Certificate -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Warehouse Helmet -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Filled File -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Green Peck -> tokens: [] ] [ Green Bite -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Green Bite -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ] [ Green Gash -> tokens: [] ] [ Blue Trot -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Unrehearsed -> tokens: [] ] [ Green Growl -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Blue Peck -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ] [ Blue Bite -> tokens: [] ] [ Unrehearsed -> tokens: [] ]  } 
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 4th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E22996EA0>] ] [ Forklift Certificate -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E22996EA0>] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E22996EA0>] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Potpourri -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Potpourri -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Unrehearsed -> tokens: [] ] [ Green Growl -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Warehouse Helmet -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Warehouse Helmet -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Round End
+CURRENT EVENT: Initialize Round
+CURRENT EVENT: Populate Clearing
+CURRENT EVENT: Start Round
+ROUND START: Rover state: { pocket -> None } { hand -> [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E5470>] ] [ Packing Peanuts -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Filled File -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Warehouse Helmet -> tokens: [] ] [ Forklift Certificate -> tokens: [] ] [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Blue Gash -> tokens: [] ] [ Blue Bite -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Prepare -> tokens: [] ] [ Blue Gash -> tokens: [] ] [ Blue Peck -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Green Leaping Attack -> tokens: [] ] [ Red Leaping Attack -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Blue Bite -> tokens: [] ] [ Green Gash -> tokens: [] ] [ Frenzied Nibble -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Crave Fish Mantra -> tokens: [] ] [ Maw -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Unrehearsed -> tokens: [] ] [ Red Bite -> tokens: [] ] [ Blue Trot -> tokens: [] ] [ Green Growl -> tokens: [] ]  } 
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E5470>] ] [ Packing Peanuts -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E5470>] ] [ Packing Peanuts -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Green Leaping Attack -> tokens: [] ] [ Red Leaping Attack -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Crave Fish Mantra -> tokens: [] ] [ Maw -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Maw -> tokens: [] ] [ Unrehearsed -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Maw -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Forklift Certificate -> tokens: [] ] [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 5th card from { hand -> [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Packing Peanuts -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Red Bite -> tokens: [] ] [ Blue Trot -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ New Fresh Air -> tokens: [] ] [ Filled File -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E5470>] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Filled File -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E5470>] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Filled File -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E5470>] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Round End
+CURRENT EVENT: Initialize Round
+CURRENT EVENT: Populate Clearing
+CURRENT EVENT: Start Round
+ROUND START: Rover state: { pocket -> None } { hand -> [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Forklift Certificate -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ] [ Filled File -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Stamp Gun -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5940>] ] [ Packing Peanuts -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Blue Leaping Attack -> tokens: [] ] [ Red Gash -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Crave Fish Mantra -> tokens: [] ] [ Green Growl -> tokens: [] ] [ Blue Peck -> tokens: [] ] [ Red Peck -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Red Peck -> tokens: [] ] [ Green Leaping Attack -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Blue Growl -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ] [ Red Growl -> tokens: [] ] [ Blue Leaping Attack -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Blue Growl -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Green Bite -> tokens: [] ] [ Blue Gash -> tokens: [] ] [ Red Trot -> tokens: [] ] [ Small Maw -> tokens: [] ]  } 
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Forklift Certificate -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Warehouse Helmet -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 4th card from { hand -> [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Filled File -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5940>] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Potpourri -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Filled File -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5940>] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Potpourri -> tokens: [] ] [ Filled File -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5940>] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Red Peck -> tokens: [] ] [ Green Leaping Attack -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Blue Growl -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Packing Peanuts -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Blue Growl -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Blue Growl -> tokens: [] ] [ Red Growl -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Green Bite -> tokens: [] ] [ Blue Gash -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Packing Peanuts -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Blue Leaping Attack -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Blue Leaping Attack -> tokens: [] ] [ Green Leaping Attack -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Red Trot -> tokens: [] ] [ Small Maw -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Junk -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Fish -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Forklift Certificate -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 4th card from { hand -> [ Junk -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Forklift Certificate -> tokens: [] ] [ Potpourri -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Junk -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Forklift Certificate -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Junk -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Stamp Gun -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Junk -> tokens: [] ] [ Stamp Gun -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Green Bite -> tokens: [] ] [ Small Maw -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Fish -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Filled File -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Junk -> tokens: [] ] [ Forklift Certificate -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Round End
+CURRENT EVENT: Initialize Round
+CURRENT EVENT: Populate Clearing
+CURRENT EVENT: Start Round
+ROUND START: Rover state: { pocket -> None } { hand -> [ Warehouse Helmet -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Stamp Gun -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5A90>] ] [ Packing Peanuts -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Filled File -> tokens: [] ] [ Forklift Certificate -> tokens: [] ] [ Potpourri -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Red Gash -> tokens: [] ] [ Green Bite -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Unrehearsed -> tokens: [] ] [ Crave Fish Mantra -> tokens: [] ] [ Blue Gash -> tokens: [] ] [ Red Growl -> tokens: [] ]  } 
+ROUND START: Fishing Caravan state: { pocket -> None } { hand -> [ Red Peck -> tokens: [] ] [ Muster Courage -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Blue Leaping Attack -> tokens: [] ] [ Red Growl -> tokens: [] ] [ Fish Frenzy -> tokens: [] ] [ Fish Frenzy -> tokens: [] ]  } 
+ROUND START: Ravenous Fisherman state: { pocket -> None } { hand -> [ Crave Fish Mantra -> tokens: [] ] [ Frenzied Nibble -> tokens: [] ]  } { into-hand -> None } { into-into-hand -> None } { discard -> None } { play -> None } { draw -> [ Red Peck -> tokens: [] ] [ Green Peck -> tokens: [] ] [ Red Bite -> tokens: [] ] [ Blue Growl -> tokens: [] ]  } 
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Warehouse Helmet -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Stamp Gun -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5A90>] ] [ Packing Peanuts -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Warehouse Helmet -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Rusty Net Cutter -> tokens: [<Dinosaur_Venture.cardTokens.inoperable object at 0x0000026E247E5A90>] ] [ Packing Peanuts -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Fishing Caravan plays the 1th card from { hand -> [ Red Peck -> tokens: [] ] [ Muster Courage -> tokens: [] ]  } 
+PLAY CARD: Fishing Caravan plays the 0th card from { hand -> [ Red Peck -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Crave Fish Mantra -> tokens: [] ] [ Frenzied Nibble -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Frenzied Nibble -> tokens: [] ] [ Red Peck -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Forklift Certificate -> tokens: [] ] [ Potpourri -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Junk -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Forklift Certificate -> tokens: [] ] [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Potpourri -> tokens: [] ] [ Junk -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Junk -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Fishing Caravan plays the 4th card from { hand -> [ Blue Leaping Attack -> tokens: [] ] [ Red Growl -> tokens: [] ] [ Fish Frenzy -> tokens: [] ] [ Fish Frenzy -> tokens: [] ] [ Red Peck -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 1th card from { hand -> [ Green Peck -> tokens: [] ] [ Red Bite -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Potpourri -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Junk -> tokens: [] ] [ Junk -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Fishing Caravan plays the 1th card from { hand -> [ Muster Courage -> tokens: [] ] [ Red Peck -> tokens: [] ]  } 
+PLAY CARD: Ravenous Fisherman plays the 0th card from { hand -> [ Blue Growl -> tokens: [] ] [ Red Peck -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Fish -> tokens: [] ] [ Packing Peanuts -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ] [ Forklift Certificate -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ] [ Forklift Certificate -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Warehouse Helmet -> tokens: [] ] [ Filled File -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Filled File -> tokens: [] ] [ Fish -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Fish -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Filled File -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Fish -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 3th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Filled File -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ FEATHERED Metal Crate -> tokens: [<Dinosaur_Venture.cardTokens.feathery object at 0x0000026E247E55C0>] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Filled File -> tokens: [] ] [ New Fresh Air -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 0th card from { hand -> [ Packing Peanuts -> tokens: [] ] [ Filled File -> tokens: [] ] [ Junk -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Enemy Turn
+PLAY CARD: Fishing Caravan plays the 1th card from { hand -> [ Red Growl -> tokens: [] ] [ Fish Frenzy -> tokens: [] ]  } 
+PLAY CARD: Fishing Caravan plays the 0th card from { hand -> [ Red Growl -> tokens: [] ]  } 
+CURRENT EVENT: End of All Enemy Turns
+CURRENT EVENT: Dino Turn Start
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 2th card from { hand -> [ Junk -> tokens: [] ] [ Stamp Gun -> tokens: [] ] [ Potpourri -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+PLAY CARD: Rover plays the 1th card from { hand -> [ Junk -> tokens: [] ] [ Stamp Gun -> tokens: [] ]  } 
+CURRENT EVENT: Dino Play Card
+CURRENT EVENT: Dino Turn End
+CURRENT EVENT: Round End
+CURRENT EVENT: Initialize Round
