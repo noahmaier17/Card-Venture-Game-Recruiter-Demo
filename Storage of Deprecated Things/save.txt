@@ -1,2 +1,0 @@
-Unlocked_Belly_Filled_Shrew: True
-Unlocked_Hungry_Wolf: True
