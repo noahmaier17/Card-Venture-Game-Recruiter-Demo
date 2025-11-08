@@ -536,7 +536,7 @@ class Torchbearer(Enemy):
                 if enemy.dead == False:
                     count += 1
             for i in range(count):
-                self.damage(self, dino, enemies, cll.Attackcons([2, 'M'], 'nil'))
+                self.damage(self, dino, enemies, cll.Attackcons([2, cll.M()], 'nil'))
     
     def atTriggerTurnEnd(self, dino, enemies):
         if self.getBands() == 2:
@@ -594,8 +594,8 @@ class Grizzly(Enemy):
     ''' def atTriggerTurnEnd(self, dino, enemies):
         if self.dead == False:
             # h.splash("Triggered Special Gimmick: While Alive, at Turn End, 'Grizzly' heals 1L and self-damages 1M.")
-            self.heal(self, dino, enemies, cll.Attackcons([1, 'L'], 'nil'))
-            self.damage(self, dino, enemies, cll.Attackcons([1, 'M'], 'nil')) '''
+            self.heal(self, dino, enemies, cll.Attackcons([1, cll.L()], 'nil'))
+            self.damage(self, dino, enemies, cll.Attackcons([1, cll.M()], 'nil')) '''
     
 ## Shrew -- A small, puny rodent, easily frightened. 
 class Shrew(Enemy):
@@ -708,7 +708,7 @@ class PrairieWatchDog(Enemy):
             else:
                 h.splash("It could not play any Cards.")
         
-            self.damage(self, dino, enemies, cll.Attackcons([1, 'M'], 'nil'))
+            self.damage(self, dino, enemies, cll.Attackcons([1, cll.M()], 'nil'))
 
 ## Squirrel Researcher -- Trying to better understand this forsaken place. 
 class SquirrelResearcher(Enemy):

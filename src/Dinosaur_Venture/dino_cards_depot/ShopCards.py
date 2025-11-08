@@ -289,7 +289,7 @@ class muscles(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Random'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Random()], 'nil'))
             caster.drawCard()
 
 class magicalFeather(gdc.DinoShellCard):
@@ -402,10 +402,8 @@ class liquidation(gdc.DinoShellCard):
             card.mustDestroyCardWhenLooted = False
         h.selectCard(dino, "Liquidated Card", 0, [purgeLocation], [1], lootVacuously = True)
 
-'''
-class test01(DinoCard):
+class test01(gdc.DinoCard):
     def __init__(self):
-        super
         super().__init__()
         self.name = "Spiteful"
         self.bodyText = c.bb("Enbadge with 'Spite Sickness'.")
@@ -415,7 +413,6 @@ class test01(DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.cmfDepot.append(cmf.dealDamage_dropNotick())
-'''
 
 class badFortune(gdc.DinoShellCard):
     def __init__(self):

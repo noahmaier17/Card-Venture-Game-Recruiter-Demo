@@ -21,7 +21,7 @@ class heirloom(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.M()],
                                                                  'nil'))
 
     # def onReplacedWithLoot(self, dino, newCard):
@@ -58,7 +58,7 @@ class luggedCreature(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'B-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Bnotick()],
                                                                  'nil'))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
@@ -75,8 +75,8 @@ class faithfulHound(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Notnil'],
-                                                                 cll.Attackcons([1, 'Notnil'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Filled()],
+                                                                 cll.Attackcons([1, cll.Filled()],
                                                                  'nil')))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
@@ -110,7 +110,7 @@ class stowaway(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, 'G'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.G()],
                                                                  'nil'))
 
 class willOWisps(gdc.DinoCard):
@@ -124,7 +124,7 @@ class willOWisps(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.numberX_toArbitraryEnemy_dealDamage(2, cll.Attackcons([1, 'L'], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
+            cf.numberX_toArbitraryEnemy_dealDamage(2, cll.Attackcons([1, cll.L()], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
 
     # def onReplacedWithLoot(self, dino, newCard):
     #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iTop ].")
@@ -141,7 +141,7 @@ class flickeringLantern(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Rnotick()],
                                                                  'nil'))
 
     '''
@@ -167,8 +167,8 @@ class courageBuilding(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             ## caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'B-notick'],
-                                                                 cll.Attackcons([1, 'R'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Bnotick()],
+                                                                 cll.Attackcons([1, cll.R()],
                                                                  'nil')))
 
     class duringPacking(cf.cardFunctions):

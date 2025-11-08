@@ -1049,57 +1049,58 @@ class Entity():
         dino: "Entity", 
         enemies: list["Entity"], 
         chl: str
-    ) -> str:
+    ) -> cll.Channel:
         """
         Based on the input chl value (R, L, Random-notick, etc.), 
             returns one of the following core damage types:
             R, G, B, R-notick, G-notick, or B-notick.    
         """
         channels = [self.r(), self.g(), self.b()]
-        colorset = ['R', 'G', 'B']
+        colorset = [cll.R(), cll.G(), cll.B()]
+        notickColorset = [cll.Rnotick(), cll.Gnotick(), cll.Bnotick()]
 
-        if chl == 'Notnil':
+        if isinstance(chl, cll.Filled):
             possibleChl = []
             for i in range(3):
                 if channels[i] > 0:
                     possibleChl.append(colorset[i])
             chl = possibleChl[random.randint(0, len(possibleChl) - 1)]
 
-        if chl == 'Random':
+        if isinstance(chl, cll.Random):
             chl = colorset[random.randint(0, 2)]
 
-        if chl == 'Random-notick':
-            chl = colorset[random.randint(0, 2)] + "-notick"
+        if isinstance(chl, cll.RandomNotick):
+            chl = notickColorset[random.randint(0, 2)]
 
-        if chl == 'L':
+        if isinstance(chl, cll.L):
             possibleChl = []
             lowestValue = float('inf')
             for i in range(3):
                 if channels[i] > 0 and channels[i] < lowestValue:
                     lowestValue = channels[i]
             if self.r() == lowestValue:
-                possibleChl.append('R')
+                possibleChl.append(cll.R())
             if self.g() == lowestValue:
-                possibleChl.append('G')
+                possibleChl.append(cll.G())
             if self.b() == lowestValue:
-                possibleChl.append('B')
+                possibleChl.append(cll.B())
 
-            chl = possibleChl[random.randint(0, len(chl) - 1)]
+            chl = possibleChl[random.randint(0, len(possibleChl) - 1)]
 
-        if chl == 'M':
+        if isinstance(chl, cll.M):
             possibleChl = []
             highestValue = max(channels)
             if self.r() == highestValue:
-                possibleChl.append('R')
+                possibleChl.append(cll.R())
             if self.g() == highestValue:
-                possibleChl.append('G')
+                possibleChl.append(cll.G())
             if self.b() == highestValue:
-                possibleChl.append('B')
+                possibleChl.append(cll.B())
 
             if len(possibleChl) == 1:
                 chl = possibleChl[0]
             else:
-                chl = possibleChl[random.randint(0, len(possibleChl) - 1)].upper()
+                chl = possibleChl[random.randint(0, len(possibleChl) - 1)]
 
         # In the case we have R, R-notick, G, G-notick, B, or B-notick,
         #   the chl is already the correct core-6 channel type!
@@ -1133,11 +1134,11 @@ class Entity():
         
         chl = self.getRGBChannel(caster, dino, enemies, chl)
         
-        if chl == 'R' or chl == 'R-notick':
+        if isinstance(chl, cll.R) or isinstance(chl, cll.Rnotick):
             self.hp.r += dmg
-        elif chl == 'G' or chl == 'G-notick':
+        elif isinstance(chl, cll.G) or isinstance(chl, cll.Gnotick):
             self.hp.g += dmg
-        elif chl == 'B' or chl == 'B-notick':
+        elif isinstance(chl, cll.B) or isinstance(chl, cll.Bnotick):
             self.hp.b += dmg
         
         self.heal(caster, dino, enemies, attackData.tail)
@@ -1162,24 +1163,24 @@ class Entity():
         dmg = attackData.damage
         chl = attackData.channel
 
-        if chl == 'Row':
+        if chl is cll.Row():
             self.__takeRDamage(dmg, dino, enemies, notick = True)
             self.__takeGDamage(dmg, dino, enemies, notick = True)
             self.__takeBDamage(dmg, dino, enemies, notick = True)
         else:
             chl = self.getRGBChannel(caster, dino, enemies, chl)
 
-            if chl == 'R':
+            if isinstance(chl, cll.R):
                 self.__takeRDamage(dmg, dino, enemies)
-            elif chl == 'R-notick':
+            elif isinstance(chl, cll.Rnotick):
                 self.__takeRDamage(dmg, dino, enemies, notick = True)
-            elif chl == 'G':
+            elif isinstance(chl, cll.G):
                 self.__takeGDamage(dmg, dino, enemies)
-            elif chl == 'G-notick':
+            elif isinstance(chl, cll.Gnotick):
                 self.__takeGDamage(dmg, dino, enemies, notick = True)
-            elif chl == 'B':
+            elif isinstance(chl, cll.B):
                 self.__takeBDamage(dmg, dino, enemies)
-            elif chl == 'B-notick':
+            elif isinstance(chl, cll.Bnotick):
                 self.__takeBDamage(dmg, dino, enemies, notick = True)
 
         # Iterates

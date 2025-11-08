@@ -145,9 +145,12 @@ def code():
     SKIP_PICKING_CLEARINGS = False
 
     # To replace the shop cards, uncomment the following and add cards as you please
-    # shopLocation = h.cardLocation("")
-    # for card in [gcbt.getCardByName("Bolster")]: shopLocation.append(card)
-
+    '''
+    shopLocation = h.cardLocation("")
+    from Dinosaur_Venture.dino_cards_depot import ShopCards
+    for card in [ShopCards.test01()]: shopLocation.append(card)
+    '''
+    
     ## ----- Performs Debugging Actions -----
     if NUKE_DINO_DECK or DEBUG_DINO_DECK:
         dino.deck = h.cardLocation("deck")
@@ -166,9 +169,8 @@ def code():
         dino.deck.append(card)
         '''
 
-        dino.deck.append(gcbt.getCardByName("MEGA Damage"))
-        dino.deck.append(gcbt.getCardByName("MEGA Damage"))
-        dino.deck.append(gcbt.getCardByName("MEGA Damage"))
+        dino.deck.append(gcbt.getCardByName("Trampled Rodent"))
+        dino.deck.append(gcbt.getCardByName("Trampled Rodent"))
         dino.deck.append(gcbt.getCardByName("Twig!"))
         dino.deck.append(gcbt.getCardByName("Twig!"))
         dino.deck.append(gcbt.getCardByName("Twig!"))

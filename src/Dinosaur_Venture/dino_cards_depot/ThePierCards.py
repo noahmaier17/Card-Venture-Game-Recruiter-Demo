@@ -3,12 +3,10 @@ import re
 
 from Dinosaur_Venture import card as c
 from Dinosaur_Venture import cardFunctions as cf
-from Dinosaur_Venture import cardModFunctions as cmf
 from Dinosaur_Venture import cardTokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import getCardsByTable as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture import mainVisuals as vis
 from Dinosaur_Venture import react as r
 from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
 
@@ -215,8 +213,8 @@ class fishPot(gdc.DinoCard):
             return (LDamageMatchObject != None)
 
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R'],
-                                                                               cll.Attackcons([2, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.R()],
+                                                                               cll.Attackcons([2, cll.M()],
                                                                                'nil')))
 
             millCardFunction = cf.mill(usingCheckClause = True, checkClause = self.custom_checkClause)
