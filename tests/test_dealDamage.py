@@ -92,28 +92,28 @@ class TestSuite():
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, remaining enemy health)
         inputsToExpected = [
             ## Tests damaging very healthy enemy with 1 point of damage
-            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
-            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 8, 9, 'nil')),
-            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 9, 8, 'nil')),
+            (cll.Attackcons([1, cll.R()], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
+            (cll.Attackcons([1, cll.G()], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 8, 9, 'nil')),
+            (cll.Attackcons([1, cll.B()], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 9, 8, 'nil')),
 
             ## Tests damaging very weak enemy with 9 points of damage
-            (cll.Attackcons([9, 'R'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(0, 1, 1, 'nil')),
-            (cll.Attackcons([9, 'G'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 0, 1, 'nil')),
-            (cll.Attackcons([9, 'B'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 1, 0, 'nil')),
+            (cll.Attackcons([9, cll.R()], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(0, 1, 1, 'nil')),
+            (cll.Attackcons([9, cll.G()], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 0, 1, 'nil')),
+            (cll.Attackcons([9, cll.B()], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 1, 0, 'nil')),
 
             ## Checks for rollover damage (of which is and is not fatal)
-            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 1, 1, 'nil'), False, False, cll.Healthcons(0, 0, 1, 'nil')),
-            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 1, 'nil'), False, False, cll.Healthcons(1, 0, 0, 'nil')),
-            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(1, 1, 0, 'nil'), False, False, cll.Healthcons(0, 1, 0, 'nil')),
+            (cll.Attackcons([5, cll.R()], 'nil'), cll.Healthcons(0, 1, 1, 'nil'), False, False, cll.Healthcons(0, 0, 1, 'nil')),
+            (cll.Attackcons([5, cll.G()], 'nil'), cll.Healthcons(1, 0, 1, 'nil'), False, False, cll.Healthcons(1, 0, 0, 'nil')),
+            (cll.Attackcons([5, cll.B()], 'nil'), cll.Healthcons(1, 1, 0, 'nil'), False, False, cll.Healthcons(0, 1, 0, 'nil')),
 
-            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
-            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), True, True, cll.DeadHealthcons()),
-            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([5, cll.R()], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([5, cll.G()], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([5, cll.B()], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), True, True, cll.DeadHealthcons()),
 
             ## Checks for fatal damage
-            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), True, True, cll.DeadHealthcons()),
-            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), True, True, cll.DeadHealthcons()),
-            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([1, cll.R()], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([1, cll.G()], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), True, True, cll.DeadHealthcons()),
+            (cll.Attackcons([1, cll.B()], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
         ]
 
         runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
@@ -132,28 +132,28 @@ class TestSuite():
         ## Maps inputs (damage dealt, enemy HP) to expected behavior (fatal damage, broke a band, remaining enemy health)
         rootInputsToExpected = [
             ## Tests damaging very healthy enemy with 1 point of damage
-            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
-            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 8, 9, 'nil')),
-            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 9, 8, 'nil')),
+            (cll.Attackcons([1, cll.R()], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(8, 9, 9, 'nil')),
+            (cll.Attackcons([1, cll.G()], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 8, 9, 'nil')),
+            (cll.Attackcons([1, cll.B()], 'nil'), cll.Healthcons(9, 9, 9, 'nil'), False, False, cll.Healthcons(9, 9, 8, 'nil')),
 
             ## Tests damaging very weak enemy with 9 points of damage
-            (cll.Attackcons([9, 'R'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(0, 1, 1, 'nil')),
-            (cll.Attackcons([9, 'G'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 0, 1, 'nil')),
-            (cll.Attackcons([9, 'B'], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 1, 0, 'nil')),
+            (cll.Attackcons([9, cll.R()], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(0, 1, 1, 'nil')),
+            (cll.Attackcons([9, cll.G()], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 0, 1, 'nil')),
+            (cll.Attackcons([9, cll.B()], 'nil'), cll.Healthcons(1, 1, 1, 'nil'), False, False, cll.Healthcons(1, 1, 0, 'nil')),
 
             ## Checks for rollover damage (of which is breaks and does not break bands)
-            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 1, 1, 'nil'), False, False, cll.Healthcons(0, 0, 1, 'nil')),
-            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 1, 'nil'), False, False, cll.Healthcons(1, 0, 0, 'nil')),
-            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(1, 1, 0, 'nil'), False, False, cll.Healthcons(0, 1, 0, 'nil')),
+            (cll.Attackcons([5, cll.R()], 'nil'), cll.Healthcons(0, 1, 1, 'nil'), False, False, cll.Healthcons(0, 0, 1, 'nil')),
+            (cll.Attackcons([5, cll.G()], 'nil'), cll.Healthcons(1, 0, 1, 'nil'), False, False, cll.Healthcons(1, 0, 0, 'nil')),
+            (cll.Attackcons([5, cll.B()], 'nil'), cll.Healthcons(1, 1, 0, 'nil'), False, False, cll.Healthcons(0, 1, 0, 'nil')),
 
-            (cll.Attackcons([5, 'R'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
-            (cll.Attackcons([5, 'G'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), False, True, None),
-            (cll.Attackcons([5, 'B'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), False, True, None),
+            (cll.Attackcons([5, cll.R()], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
+            (cll.Attackcons([5, cll.G()], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), False, True, None),
+            (cll.Attackcons([5, cll.B()], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), False, True, None),
 
             ## Checks for band-breaking damage
-            (cll.Attackcons([1, 'R'], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), False, True, None),
-            (cll.Attackcons([1, 'G'], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), False, True, None),
-            (cll.Attackcons([1, 'B'], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
+            (cll.Attackcons([1, cll.R()], 'nil'), cll.Healthcons(1, 0, 0, 'nil'), False, True, None),
+            (cll.Attackcons([1, cll.G()], 'nil'), cll.Healthcons(0, 1, 0, 'nil'), False, True, None),
+            (cll.Attackcons([1, cll.B()], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), False, True, None),
         ]
 
         # For all of these inputted values, we will append the following bands:
@@ -242,49 +242,49 @@ class TestSuite():
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, (possible remaining enemy healths,))
         inputsToExpected = [
             ## Tests 1M damage against [9, 1, 0]
-            (cll.Attackcons([1, 'M'], 'nil'), cll.Healthcons(9, 1, 0, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.M()], 'nil'), cll.Healthcons(9, 1, 0, 'nil'), False, False, (
                 cll.Healthcons(8, 1, 0, 'nil'),
             )),
-            (cll.Attackcons([1, 'M'], 'nil'), cll.Healthcons(0, 9, 1, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.M()], 'nil'), cll.Healthcons(0, 9, 1, 'nil'), False, False, (
                 cll.Healthcons(0, 8, 1, 'nil'),
             )),            
-            (cll.Attackcons([1, 'M'], 'nil'), cll.Healthcons(1, 0, 9, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.M()], 'nil'), cll.Healthcons(1, 0, 9, 'nil'), False, False, (
                 cll.Healthcons(1, 0, 8, 'nil'),
             )),
 
             ## Tests fatal 2M damage
-            (cll.Attackcons([2, 'M'], 'nil'), cll.Healthcons(2, 0, 0, 'nil'), True, True, (
+            (cll.Attackcons([2, cll.M()], 'nil'), cll.Healthcons(2, 0, 0, 'nil'), True, True, (
                 cll.DeadHealthcons(),
             )),
-            (cll.Attackcons([2, 'M'], 'nil'), cll.Healthcons(0, 2, 0, 'nil'), True, True, (
+            (cll.Attackcons([2, cll.M()], 'nil'), cll.Healthcons(0, 2, 0, 'nil'), True, True, (
                 cll.DeadHealthcons(),
             )),            
-            (cll.Attackcons([2, 'M'], 'nil'), cll.Healthcons(0, 0, 2, 'nil'), True, True, (
+            (cll.Attackcons([2, cll.M()], 'nil'), cll.Healthcons(0, 0, 2, 'nil'), True, True, (
                 cll.DeadHealthcons(),
             )),
 
             ## Tests accurate 9M tie resolutions
-            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.M()], 'nil'), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
                 cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(5, 0, 0, 'nil'),
             )),
-            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.M()], 'nil'), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),            
-            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.M()], 'nil'), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
                 cll.Healthcons(5, 0, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),
-            (cll.Attackcons([9, 'M'], 'nil'), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.M()], 'nil'), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(5, 5, 0, 'nil'), cll.Healthcons(0, 5, 5, 'nil'), cll.Healthcons(5, 0, 5, 'nil'),
             )),
 
             ## Tests accurate 1M-1M tie resolutions
-            (cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.M()], cll.Attackcons([1, cll.M()], 'nil')), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
                 cll.Healthcons(4, 4, 0, 'nil'),
             )),
-            (cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.M()], cll.Attackcons([1, cll.M()], 'nil')), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(0, 4, 4, 'nil'),
             )),            
-            (cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.M()], cll.Attackcons([1, cll.M()], 'nil')), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
                 cll.Healthcons(4, 0, 4, 'nil'),
             )),
         ]
@@ -307,52 +307,52 @@ class TestSuite():
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, (possible remaining enemy healths,))
         inputsToExpected = [
             ## Tests 1L damage against [9, 1, 0]
-            (cll.Attackcons([1, 'L'], 'nil'), cll.Healthcons(9, 1, 0, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], 'nil'), cll.Healthcons(9, 1, 0, 'nil'), False, False, (
                 cll.Healthcons(9, 0, 0, 'nil'),
             )),
-            (cll.Attackcons([1, 'L'], 'nil'), cll.Healthcons(0, 9, 1, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], 'nil'), cll.Healthcons(0, 9, 1, 'nil'), False, False, (
                 cll.Healthcons(0, 9, 0, 'nil'),
             )),            
-            (cll.Attackcons([1, 'L'], 'nil'), cll.Healthcons(1, 0, 9, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], 'nil'), cll.Healthcons(1, 0, 9, 'nil'), False, False, (
                 cll.Healthcons(0, 0, 9, 'nil'),
             )),
 
             ## Tests fatal 2M damage
-            (cll.Attackcons([2, 'L'], 'nil'), cll.Healthcons(2, 0, 0, 'nil'), True, True, (
+            (cll.Attackcons([2, cll.L()], 'nil'), cll.Healthcons(2, 0, 0, 'nil'), True, True, (
                 cll.DeadHealthcons(),
             )),
-            (cll.Attackcons([2, 'L'], 'nil'), cll.Healthcons(0, 2, 0, 'nil'), True, True, (
+            (cll.Attackcons([2, cll.L()], 'nil'), cll.Healthcons(0, 2, 0, 'nil'), True, True, (
                 cll.DeadHealthcons(),
             )),            
-            (cll.Attackcons([2, 'L'], 'nil'), cll.Healthcons(0, 0, 2, 'nil'), True, True, (
+            (cll.Attackcons([2, cll.L()], 'nil'), cll.Healthcons(0, 0, 2, 'nil'), True, True, (
                 cll.DeadHealthcons(),
             )),
 
             ## Tests accurate LM tie resolutions
-            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.L()], 'nil'), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
                 cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(5, 0, 0, 'nil'),
             )),
-            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.L()], 'nil'), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(0, 5, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),
-            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.L()], 'nil'), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
                 cll.Healthcons(5, 0, 0, 'nil'), cll.Healthcons(0, 0, 5, 'nil'),
             )),
-            (cll.Attackcons([9, 'L'], 'nil'), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([9, cll.L()], 'nil'), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(5, 5, 0, 'nil'), cll.Healthcons(0, 5, 5, 'nil'), cll.Healthcons(5, 0, 5, 'nil'),
             )),
 
             ## Tests accurate 1L-1L NON-tie resolutions
-            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], cll.Attackcons([1, cll.L()], 'nil')), cll.Healthcons(5, 5, 0, 'nil'), False, False, (
                 cll.Healthcons(5, 3, 0, 'nil'), cll.Healthcons(3, 5, 0, 'nil')
             )),
-            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], cll.Attackcons([1, cll.L()], 'nil')), cll.Healthcons(0, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(0, 3, 5, 'nil'), cll.Healthcons(0, 5, 3, 'nil')
             )),            
-            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], cll.Attackcons([1, cll.L()], 'nil')), cll.Healthcons(5, 0, 5, 'nil'), False, False, (
                 cll.Healthcons(3, 0, 5, 'nil'), cll.Healthcons(5, 0, 3, 'nil')
             )),
-            (cll.Attackcons([1, 'L'], cll.Attackcons([1, 'L'], 'nil')), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
+            (cll.Attackcons([1, cll.L()], cll.Attackcons([1, cll.L()], 'nil')), cll.Healthcons(5, 5, 5, 'nil'), False, False, (
                 cll.Healthcons(3, 5, 5, 'nil'), cll.Healthcons(5, 3, 5, 'nil'), cll.Healthcons(5, 5, 3, 'nil')
             )),
         ]

@@ -55,7 +55,7 @@ class pocketTest(gdc.DinoCard):
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([999, 'M'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([999, cll.M()], 'nil'))
 
 class megaDamage(gdc.DinoCard):
     def __init__(self):
@@ -68,9 +68,9 @@ class megaDamage(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([10, 'R'],
-                                                                 cll.Attackcons([10, 'G'],
-                                                                 cll.Attackcons([10, 'B'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([10, cll.R()],
+                                                                 cll.Attackcons([10, cll.G()],
+                                                                 cll.Attackcons([10, cll.B()],
                                                                  'nil'))))
             caster.moveMe(caster.play, card, caster.pocket)
 

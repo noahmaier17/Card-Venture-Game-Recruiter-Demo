@@ -601,7 +601,7 @@ def colorize(text):
             returnText += Fore.MAGENTA + word + Fore.WHITE
         elif word == "Row":
             returnText += Style.BRIGHT + Back.RED + "R" + Back.GREEN + "o" + Back.BLUE + "w" + Style.NORMAL + Back.RESET
-        elif word == "Notnil":
+        elif word == "Notnil" or word == "Filled":
             returnText += Style.BRIGHT + Fore.BLACK + "Filled" + Style.NORMAL + Fore.WHITE
             # returnText += Fore.MAGENTA + "Nonzero" + Fore.WHITE
         elif word == "R":

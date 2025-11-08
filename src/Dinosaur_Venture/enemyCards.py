@@ -54,7 +54,7 @@ class redAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'R'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.R()], 'nil'))
 
 ## 1G.
 class greenAttack(EnemyCard):
@@ -67,7 +67,7 @@ class greenAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'G'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.G()], 'nil'))
 
 ## 1B.
 class blueAttack(EnemyCard):
@@ -80,7 +80,7 @@ class blueAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'B'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.B()], 'nil'))
 
 ## 1Random.
 class randomAttack(EnemyCard):
@@ -93,7 +93,7 @@ class randomAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'Random'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Random()], 'nil'))
 
 ## 2R.
 class doubleRedAttack(EnemyCard):
@@ -106,7 +106,7 @@ class doubleRedAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'R'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.R()], 'nil'))
 
 ## 2G.
 class doubleGreenAttack(EnemyCard):
@@ -119,7 +119,7 @@ class doubleGreenAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'G'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.G()], 'nil'))
 
 ## 2B.
 class doubleBlueAttack(EnemyCard):
@@ -132,7 +132,7 @@ class doubleBlueAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'B'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.B()], 'nil'))
 
 ## 2Random.
 class doubleRandomAttack(EnemyCard):
@@ -145,7 +145,7 @@ class doubleRandomAttack(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'Random'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Random()], 'nil'))
 
 ## 1M. 
 class smallMaw(EnemyCard):
@@ -158,7 +158,7 @@ class smallMaw(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'M'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.M()], 'nil'))
 
 ## 2M. 
 class maw(EnemyCard):
@@ -171,7 +171,7 @@ class maw(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'M'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.M()], 'nil'))
 
 ## Next turn, +1 Action. 
 class prepare(EnemyCard):
@@ -204,7 +204,7 @@ class redNip(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'R-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Rnotick()], 'nil'))
 
 ## 1G-notick. 
 class greenNip(EnemyCard):
@@ -217,7 +217,7 @@ class greenNip(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'G-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Gnotick()], 'nil'))
 
 ## 1B-notick. 
 class blueNip(EnemyCard):
@@ -230,7 +230,7 @@ class blueNip(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'B-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Bnotick()], 'nil'))
 
 ## 2R-notick. 
 class redPeck(EnemyCard):
@@ -243,7 +243,7 @@ class redPeck(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'R-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Rnotick()], 'nil'))
 
 ## 2G-notick. 
 class greenPeck(EnemyCard):
@@ -256,7 +256,7 @@ class greenPeck(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'G-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Gnotick()], 'nil'))
 
 ## 2B-notick. 
 class bluePeck(EnemyCard):
@@ -269,7 +269,7 @@ class bluePeck(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'B-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Bnotick()], 'nil'))
 
 ## 2R-notick. +1 Card.
 class RedTrot(EnemyCard):
@@ -282,7 +282,7 @@ class RedTrot(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'R-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Rnotick()], 'nil'))
             caster.drawCard()
 
 ## 2G-notick. +1 Card.
@@ -296,7 +296,7 @@ class GreenTrot(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'G-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Gnotick()], 'nil'))
             caster.drawCard()
 
 ## 2B-notick. +1 Card.
@@ -310,7 +310,7 @@ class BlueTrot(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'B-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Bnotick()], 'nil'))
             caster.drawCard()
 
 ## 2L. 
@@ -324,7 +324,7 @@ class scaredSlash(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'L'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.L()], 'nil'))
 
 ## +1 Action. 
 class unrehearsed(EnemyCard):
@@ -380,12 +380,12 @@ class redGash(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'R'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.R()], 'nil'))
         
     def atTriggerTurnStart(self, caster, dino, enemies):
         h.splash("Resolution of: Turn Start %Red Gash.%", printInsteadOfInput = True)
         h.splash("Inflicting:  1R.", printInsteadOfInput = True)
-        dino.damage(caster, dino, enemies, cll.Attackcons([1, 'R'], 'nil'))
+        dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.R()], 'nil'))
 
 ## 1G. Next Turn, 1G.
 class greenGash(EnemyCard):
@@ -403,12 +403,12 @@ class greenGash(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'G'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.G()], 'nil'))
 
     def atTriggerTurnStart(self, caster, dino, enemies):
         h.splash("Resolution of: Turn Start %Green Gash.%", printInsteadOfInput = True)
         h.splash("Inflicting:  1G.", printInsteadOfInput = True)
-        dino.damage(caster, dino, enemies, cll.Attackcons([1, 'G'], 'nil'))
+        dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.G()], 'nil'))
 
 ## 1B. Next Turn, 1B.
 class blueGash(EnemyCard):
@@ -426,12 +426,12 @@ class blueGash(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.monotonicLingering(1)
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'B'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.B()], 'nil'))
 
     def atTriggerTurnStart(self, caster, dino, enemies):
         h.splash("Resolution of: Turn Start %Blue Gash.%", printInsteadOfInput = True)
         h.splash("Inflicting:  1B.", printInsteadOfInput = True)
-        dino.damage(caster, dino, enemies, cll.Attackcons([1, 'B'], 'nil'))
+        dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.B()], 'nil'))
 
 ## +1 Action. + Cantrip.
 '''
@@ -467,11 +467,11 @@ class redGrowl(EnemyCard):
                     dino.discardCard(dino.hand, pick, dino, enemies, passedInVisuals)
                 else:
                     h.splash("Inflicting:  2R.")
-                    dino.damage(caster, dino, enemies, cll.Attackcons([2, 'R'], 'nil'))
+                    dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.R()], 'nil'))
             else:
                 h.splash('FAIL_PICK_CARD')
                 h.splash("Inflicting:  2R.")
-                dino.damage(caster, dino, enemies, cll.Attackcons([2, 'R'], 'nil'))
+                dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.R()], 'nil'))
 
 ## Dinosaur may Discard a Card. If Dinosaur did not, 2G.
 class greenGrowl(EnemyCard):
@@ -500,11 +500,11 @@ class greenGrowl(EnemyCard):
                     dino.discardCard(dino.hand, pick, dino, enemies, passedInVisuals)
                 else:
                     h.splash("Inflicting:  2G.")
-                    dino.damage(caster, dino, enemies, cll.Attackcons([2, 'G'], 'nil'))
+                    dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.G()], 'nil'))
             else:
                 h.splash('FAIL_PICK_CARD')
                 h.splash("Inflicting:  2G.")
-                dino.damage(caster, dino, enemies, cll.Attackcons([2, 'G'], 'nil'))
+                dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.G()], 'nil'))
 
 ## Dinosaur may Discard a Card. If Dinosaur did not, 2B.
 class blueGrowl(EnemyCard):
@@ -533,11 +533,11 @@ class blueGrowl(EnemyCard):
                     dino.discardCard(dino.hand, pick, dino, enemies, passedInVisuals)
                 else:
                     h.splash("Inflicting:  2B.")
-                    dino.damage(caster, dino, enemies, cll.Attackcons([2, 'B'], 'nil'))
+                    dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.B()], 'nil'))
             else:
                 h.splash('FAIL_PICK_CARD')
                 h.splash("Inflicting:  2B.")
-                dino.damage(caster, dino, enemies, cll.Attackcons([2, 'B'], 'nil'))
+                dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.B()], 'nil'))
 
 ## Next Turn, 2R-notick.
 class redLeapingAttack(EnemyCard):
@@ -558,7 +558,7 @@ class redLeapingAttack(EnemyCard):
     def atTriggerTurnStart(self, caster, dino, enemies):
         if self.turnsLingering == 1:
             h.splash("During Turn Start: 2R-notick.")
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'R-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Rnotick()], 'nil'))
 
 ## Next Turn, 2G-notick.
 class greenLeapingAttack(EnemyCard):
@@ -579,7 +579,7 @@ class greenLeapingAttack(EnemyCard):
     def atTriggerTurnStart(self, caster, dino, enemies):
         if self.turnsLingering == 1:
             h.splash("During Turn Start: 2G-notick.")
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'G-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Gnotick()], 'nil'))
 
 ## Next Turn, 2B-notick.
 class blueLeapingAttack(EnemyCard):
@@ -600,7 +600,7 @@ class blueLeapingAttack(EnemyCard):
     def atTriggerTurnStart(self, caster, dino, enemies):
         if self.turnsLingering == 1:
             h.splash("During Turn Start: 2B-notick.")
-            dino.damage(caster, dino, enemies, cll.Attackcons([2, 'B-notick'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Bnotick()], 'nil'))
 
 ## +1 Action. Next Turn, +3 Cards.
 class musterCourage(EnemyCard):
@@ -639,7 +639,7 @@ class redCanter(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'R'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.R()], 'nil'))
             caster.drawCard()
 
 ## 1G. +1 Card.
@@ -656,7 +656,7 @@ class greenCanter(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'G'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.G()], 'nil'))
             caster.drawCard()
 
 ## 1B. +1 Card.
@@ -673,7 +673,7 @@ class blueCanter(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            dino.damage(caster, dino, enemies, cll.Attackcons([1, 'B'], 'nil'))
+            dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.B()], 'nil'))
             caster.drawCard()
 
 ## Rocky Vase
@@ -708,7 +708,7 @@ class craveFishMantra(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            caster.heal(caster, dino, enemies, cll.Attackcons([1, 'L'], 'nil'))
+            caster.heal(caster, dino, enemies, cll.Attackcons([1, cll.L()], 'nil'))
             caster.drawCard()
 
 class fishFrenzy(EnemyCard):
@@ -820,5 +820,5 @@ class demandingInheritance(EnemyCard):
                 h.splash("Resolving: Turn Start 'Demanding Inheritance.'", printInsteadOfInput = True)
                 h.splash(str(count) + " times over: 1Random.")
                 for i in range(count):
-                    dino.damage(caster, dino, enemies, cll.Attackcons([1, 'Random'], 'nil'))
+                    dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Random()], 'nil'))
 

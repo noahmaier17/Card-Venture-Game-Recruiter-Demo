@@ -21,7 +21,7 @@ class metalCrate(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             ## card.foreverLinger = True
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'M'], cll.Attackcons([1, 'M'], 'nil')))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.M()], cll.Attackcons([1, cll.M()], 'nil')))
 
     '''
     def onReplacedWithLoot(self, dino, newCard):
@@ -39,8 +39,8 @@ class packingPeanuts(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'L'], 'nil'))
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'L'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.L()], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.L()], 'nil'))
 
 '''
 class shippingTape(gdc.DinoCard):
@@ -54,7 +54,7 @@ class shippingTape(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'R'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.R()], 'nil'))
 '''
 
 class forkliftCertificate(gdc.DinoCard):
@@ -116,11 +116,11 @@ class newFreshAir(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'G-notick'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Gnotick()], 'nil'))
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'G-notick'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Gnotick()], 'nil'))
 
 class stampGun(gdc.DinoCard):
     def __init__(self): 
@@ -133,8 +133,8 @@ class stampGun(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
-                                                                 cll.Attackcons([1, 'B-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Rnotick()],
+                                                                 cll.Attackcons([1, cll.Bnotick()],
                                                                  'nil')))
 
     class duringPacking(cf.cardFunctions):
@@ -167,7 +167,7 @@ class filledFile(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Notnil'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Filled()], 'nil'))
 
 class potpourri(gdc.DinoCard):
     def __init__(self):
@@ -180,5 +180,5 @@ class potpourri(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Random'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Random()], 'nil'))
 

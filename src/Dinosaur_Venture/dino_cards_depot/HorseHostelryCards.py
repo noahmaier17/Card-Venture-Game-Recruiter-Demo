@@ -23,9 +23,9 @@ class bottleCaps(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            damageData = cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Notnil'],
-                                                                                            cll.Attackcons([1, 'Notnil'],
-                                                                                            cll.Attackcons([1, 'Notnil'],
+            damageData = cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Filled()],
+                                                                                            cll.Attackcons([1, cll.Filled()],
+                                                                                            cll.Attackcons([1, cll.Filled()],
                                                                                             'nil'))))
             if damageData.fatalDamage:
                 h.splash("Dealt Fatal Damage: Replacing this with ^Broken Bottle^.")
@@ -55,7 +55,7 @@ class cowboyDuelMantra(gdc.DinoCard):
                     if enemy.hand.length() > 0:
                         enemy.discardCard(enemy.hand, random.randint(0, enemy.hand.length() - 1), dino, enemies, passedInVisuals)
                     else:
-                        enemy.damage(caster, dino, enemies, cll.Attackcons([1, 'Notnil'], 'nil'))
+                        enemy.damage(caster, dino, enemies, cll.Attackcons([1, cll.Filled()], 'nil'))
             card.mutateThis(gcbt.getCardByName("Broken Bottle"))
 
     ## def onPacking(self, caster, dino, enemies, passedInVisuals):
@@ -79,8 +79,8 @@ class trotTrot(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'R-notick'],
-                                                                               cll.Attackcons([1, 'R'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Rnotick()],
+                                                                               cll.Attackcons([1, cll.R()],
                                                                                'nil')))
             caster.drawCard()
             card.mutateThis(gcbt.getCardByName("Broken Bottle"))
@@ -97,9 +97,9 @@ class goodBadAndUgly(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'M'],
-                                                                               cll.Attackcons([1, 'L'],
-                                                                               cll.Attackcons([1, 'Random'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.M()],
+                                                                               cll.Attackcons([1, cll.L()],
+                                                                               cll.Attackcons([1, cll.Random()],
                                                                                'nil'))))
             caster.drawCard()
             card.mutateThis(gcbt.getCardByName("Broken Bottle"))
@@ -120,8 +120,8 @@ class expiredMilk(gdc.DinoCard):
             if index != -1:
                 enemy = enemies[index]
                 h.splash("To '" + enemy.name + "': 1G-notick / 1M; Replace an Arbitrary Card in Hand with ^Broken Bottle^.", printInsteadOfInput = True)
-                enemy.damage(caster, dino, enemies, cll.Attackcons([1, 'G-notick'],
-                                                    cll.Attackcons([1, 'M'],
+                enemy.damage(caster, dino, enemies, cll.Attackcons([1, cll.Gnotick()],
+                                                    cll.Attackcons([1, cll.M()],
                                                     'nil')))
 
                 if enemy.hand.length() > 0:
@@ -258,8 +258,8 @@ class fightOrFlight(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'G-notick'],
-                                                                               cll.Attackcons([1, 'B-notick'],
-                                                                               cll.Attackcons([1, 'G'],
-                                                                               cll.Attackcons([1, 'B'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Gnotick()],
+                                                                               cll.Attackcons([1, cll.Bnotick()],
+                                                                               cll.Attackcons([1, cll.G()],
+                                                                               cll.Attackcons([1, cll.B()],
                                                                                'nil')))))

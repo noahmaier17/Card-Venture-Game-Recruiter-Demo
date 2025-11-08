@@ -28,10 +28,10 @@ class inWaitingCounterRevolt(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, 'M'],
-                                                                 cll.Attackcons([2, 'M'],
-                                                                 cll.Attackcons([2, 'M'],
-                                                                 cll.Attackcons([2, 'M'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.M()],
+                                                                 cll.Attackcons([2, cll.M()],
+                                                                 cll.Attackcons([2, cll.M()],
+                                                                 cll.Attackcons([2, cll.M()],
                                                                  'nil')))))
             caster.drawCard()
 
@@ -153,7 +153,7 @@ class cardOverlord(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([9, 'G-notick'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([9, cll.Gnotick()],
                                                                                'nil'))
             caster.drawCard()
             caster.plusUpcomingPlusCard(0, 1)
@@ -226,7 +226,7 @@ class autocratCapitulation(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'Row'], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Row()], 'nil'))
 
     class trigger_1(r.card_responseAndTrigger):
         def __init__(self, card):

@@ -10,6 +10,101 @@ from colorama import Back, Fore, Style, init
 init(autoreset=True)
 from Dinosaur_Venture import helper as h
 
+class Channel():
+    """
+    Parent class of the several different types of damage.
+
+    Mostly just to create a hard-coded version of these values instead of strings.
+
+    Attributes:
+        is_notick (bool): if the value is a notick value.
+    """
+    def __init__(self):
+        self.is_notick = False
+
+    """
+    Returns the channel version without the -notick if this channel has -notick.
+    
+    Otherwise, returns nothing.
+    """
+    def without_notick_getter(self):
+        pass
+
+class R(Channel):
+    def __str__(self):
+        return "R"
+
+class G(Channel):
+    def __str__(self):
+        return "G"
+
+class B(Channel):
+    def __str__(self):
+        return "B"
+
+class Rnotick(Channel):
+    def __init__(self):
+        super().__init__()
+        self.is_notick = True
+
+    def without_notick_getter(self):
+        return R()
+
+    def __str__(self):
+        return "R-notick"
+
+class Gnotick(Channel):
+    def __init__(self):
+        super().__init__()
+        self.is_notick = True
+
+    def without_notick_getter(self):
+        return G()
+
+    def __str__(self):
+        return "G-notick"
+
+class Bnotick(Channel):
+    def __init__(self):
+        super().__init__()
+        self.is_notick = True
+
+    def without_notick_getter(self):
+        return B()
+
+    def __str__(self):
+        return "B-notick"
+
+class M(Channel):
+    def __str__(self):
+        return "M"
+    
+class L(Channel):
+    def __str__(self):
+        return "L"
+
+class Filled(Channel):
+    def __str__(self):
+        return "Filled"
+
+class Random(Channel):
+    def __str__(self):
+        return "Random"
+
+class RandomNotick(Channel):
+    def __init__(self):
+        super().__init__()
+        self.is_notick = True
+
+    def without_notick_getter(self):
+        return Random()
+
+    def __str__(self):
+        return "Random-notick"
+
+class Row(Channel):
+    def __str__(self):
+        return "Row"
 
 class Attackcons():
     """
@@ -17,7 +112,7 @@ class Attackcons():
 
     Attributes:
         damage (int): the amount of damage this deals.
-        channel (str): the damage channel type (R, G, B, L, M, Notnil, Random).
+        channel (str): the damage channel type (R, G, B, L, M, Notnil, Random, Row).
         tail (Attackcons | 'nil'): the next attack node; 'nil' if none.
     """
 
@@ -26,7 +121,7 @@ class Attackcons():
         Initializer.
         
         Arguments:
-            datum (damage: int, channel: channel_linked_lists.channel): damage and of what type.
+            datum (damage: int, channel: channel_linked_lists.Channel): damage and of what type.
             tail (Attackcons | channel_linked_lists.nilcons): represents the next element of damage.
         """
         self.damage = datum[0]
@@ -45,8 +140,8 @@ class Attackcons():
         if self.tail == 'nil':
             return
         else:
-            if self.channel[-len("-notick"):len(self.channel)] == '-notick':
-                self.channel = self.channel[0:-len("-notick")]
+            if self.channel.is_notick:
+                self.channel = self.channel.without_notick_getter()
             return self.tail.stripNotick()
 
 

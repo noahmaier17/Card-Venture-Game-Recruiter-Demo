@@ -86,7 +86,7 @@ class undercover(gdc.DinoShellCard):
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "UNDERCOVER " + cardToEnshell.name
         cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("To an Arbitrary Enemy: Heal 1Random.",
-                                                                               cf.toBlankEnemy_Heal(cll.Attackcons([1, 'Random'], 'nil'),
+                                                                               cf.toBlankEnemy_Heal(cll.Attackcons([1, cll.Random()], 'nil'),
                                                                                toArbitraryEnemy = True)))
 
 class doubleAgent(gdc.DinoShellCard):
@@ -99,7 +99,7 @@ class doubleAgent(gdc.DinoShellCard):
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "DOUBLE-AGENT " + cardToEnshell.name
         cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("To an Arbitrary Enemy: Heal 2M.",
-                                                                               cf.toBlankEnemy_Heal(cll.Attackcons([2, 'M'], 'nil'),
+                                                                               cf.toBlankEnemy_Heal(cll.Attackcons([2, cll.M()], 'nil'),
                                                                                toArbitraryEnemy = True)))
 
 '''

@@ -134,7 +134,7 @@ class fish(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, 'L'],
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.L()],
                                                                                'nil'))
             caster.drawCard()
             cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals)

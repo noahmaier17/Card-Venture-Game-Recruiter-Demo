@@ -1,0 +1,8 @@
+services:
+  - type: web
+    runtime: python
+    name: Simulate-Card
+    plan: free
+    autoDeployTrigger: commit
+    buildCommand: pip install -e .
+    startCommand: flask run
