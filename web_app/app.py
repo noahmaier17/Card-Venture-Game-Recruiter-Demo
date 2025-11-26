@@ -80,6 +80,30 @@ def view_cards():
                            all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP,
                            selected_tables=selected_tables)
 
+@app.get("/api/cards")
+def api_cards():
+    # Read the JSON from our request
+    data = request.get_json()
+    selected_tables = data.get("tables", []) 
+
+    # Filters the cards
+    selected_cards = []
+    index = 1
+    for card in all_cards:
+        if any(i in card["table"] for i in selected_tables):
+            card = copy.copy(card)
+            # Adds white-space padding
+            whitespaces = 3 - len(str(index))
+            spaces = " " * whitespaces
+
+            card["name"] = str(index) + "." + spaces + card["name"]
+            selected_cards.append(card)
+
+            index += 1
+    
+    return jsonify(selected_cards)
+
+'''
 ## ----- GET: Shows a card based on an ID value -----
 @app.get("/cards/<card_id>")
 def read_card(card_id: int):
@@ -122,6 +146,7 @@ def add_card():
         all_cards.append(card)
         return card, 201
     return {"error": "Request must be JSON"}, 415
+'''
 
 ## ----- Main Guard ------
 if __name__ == "__main__":

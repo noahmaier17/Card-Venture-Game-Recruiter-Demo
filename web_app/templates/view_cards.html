@@ -1,107 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Simulate Cards</title>
+  <head>
+    <meta charset="utf-8">
+    <title>Simulate Cards</title>
 
-<!-- Styling of Cards -->
-<style>
-    html {
-      scrollbar-gutter: stable;
-    }
-    body {
-      font-family: "Courier New", monospace;
-      background-color: #2b2b2b;
-      color: rgb(255, 255, 255);
-      padding: 1em;
-    }
-    .card {
-      border-bottom: 1px solid #333;
-      margin-bottom: 0.5em;
-      color: rgb(255, 255, 255);
-      padding-bottom: 0.1em;
-      font-size: 1.2em;
-    }
-    .name {
-      color: rgb(0, 0, 0);
-      font-weight: bold;
-      font-size: 1.2em;
-      white-space: pre-wrap;
-    }
-    pre {
-      white-space: pre-wrap;
-    }
-    .checkbox-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      margin-bottom: 10px;
-      font-size: 1.4em;
-    }
-    .select-all-buttons {
-      margin-bottom: 5px;
-    }
-  </style>
-</head>
+    <!-- Styling of Cards -->
+    <style>
+        html {
+          scrollbar-gutter: stable;
+        }
+        body {
+          font-family: "Courier New", monospace;
+          background-color: #2b2b2b;
+          color: rgb(255, 255, 255);
+          padding: 1em;
+        }
+        .card {
+          border-bottom: 1px solid #333;
+          margin-bottom: 0.5em;
+          color: rgb(255, 255, 255);
+          padding-bottom: 0.1em;
+          font-size: 1.2em;
+        }
+        .name {
+          color: rgb(0, 0, 0);
+          font-weight: bold;
+          font-size: 1.2em;
+          white-space: pre-wrap;
+        }
+        pre {
+          white-space: pre-wrap;
+        }
+        .checkbox-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1px;
+          margin-bottom: 10px;
+          font-size: 1.4em;
+        }
+        .select-all-buttons {
+          margin-bottom: 5px;
+        }
+      </style>
+  </head>
 
-<body>
-  <h1>Simulate Cards</h1>
+  <body>
+    <h1>Simulate Cards</h1>
 
-  <form method="get" action="/cards/view">
-    <div class="select-all-buttons">
-      <button type="button" onclick="randomize()">Randomize Order</button>
+    <form method="get" action="/cards/view">
+      <div class="select-all-buttons">
+        <button type="button" onclick="randomize()">Randomize Order</button>
+      </div>
+      <div class="select-all-buttons">
+        <!-- <button type="button" onclick="selectAll(true)">Select All</button>
+        <button type="button" onclick="selectAll(false)">Deselect All</button> -->
+        <button type="button" onclick="toggleAll()">Toggle All</button>
+        <button type="button" onclick="selectDinosaurCards()">Toggle Dino Cards</button>
+        <button type="button" onclick="selectDinosaurCardsIncludingWip()">Toggle Dino Cards (including WIP Tables)</button>
+      </div>
+
+      <div class="checkbox-grid">
+        {% for table in all_tables %}
+          <label>
+            <input type="checkbox" name="tables" value="{{ table }}"
+              {% if table in selected_tables %}checked{% endif %}>
+            {{ table }}
+          </label>
+        {% endfor %}
+      </div>
+
+    </form>
+
+    <div id="cards-container"></div>
+
+    <div>
+      <button type="button" onclick="scrollToTop()">Scroll to Top</button>
     </div>
-    <div class="select-all-buttons">
-      <!-- <button type="button" onclick="selectAll(true)">Select All</button>
-      <button type="button" onclick="selectAll(false)">Deselect All</button> -->
-      <button type="button" onclick="toggleAll()">Toggle All</button>
-      <button type="button" onclick="selectDinosaurCards()">Toggle Dino Cards</button>
-      <button type="button" onclick="selectDinosaurCardsIncludingWip()">Toggle Dino Cards (including WIP Tables)</button>
-    </div>
-    <div class="checkbox-grid">
-      {% for table in all_tables %}
-        <label>
-          <input type="checkbox" name="tables" value="{{ table }}"
-            {% if table in selected_tables %}checked{% endif %}
-            onchange="this.form.submit()">
-          {{ table }}
-        </label>
-      {% endfor %}
-    </div>
-  </form>
 
-  {% for card in set_of_cards %}
-    <div class="card">
-      <div class="name">{{ card.name | safe }}</div>
-      <pre>{{ card.text | safe }}</pre>
-    </div>
-  {% endfor %}
+    <script>
+      async function fetchCards() {
+        const selected = Array.from(document.querySelectorAll('input[name="tables"]:checked'))
+                              .map(cb => cb.value)
 
-  <div>
-    <button type="button" onclick="scrollToTop()">Scroll to Top</button>
-  </div>
+        // Send POST
+        const res = await fetch("/api/cards", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tables: selected })
+        });
 
-  <script>
-    function randomize() {
-      window.location.reload();
-    }
+        const data = await res.json();
+        ALL_CARDS = data
+        renderCards(data)
+      }
 
-    function toggleAll() {
-      const ALL_TABLES = {{ all_tables|tojson }};
-      selectCardsByTable(ALL_TABLES);
-    }
+      // Render cards in container
+      function renderCards(cards) {
+          const container = document.getElementById("cards-container");
+          container.innerHTML = ""; // clear previous cards
 
-    function selectDinosaurCards() {
-      const DINO_TABLES = {{ all_dino_cards|tojson }};
-      selectCardsByTable(DINO_TABLES);
-    }
+          cards.forEach(card => {
+              const div = document.createElement("div");
+              div.classList.add("card");
+              div.innerHTML = `<div class="name">${card.name}</div><pre>${card.text}</pre>`;
+              container.appendChild(div);
+          });
+      }
 
-    function selectDinosaurCardsIncludingWip() {
-      const TABLES = {{ all_dino_cards_including_wip|tojson }};
-      selectCardsByTable(TABLES);
-    }
-  </script>
+      // Add event listeners for checkboxes
+      document.querySelectorAll('input[name="tables"]').forEach(cb => {
+          cb.addEventListener("change", fetchCards);
+      });
 
-<script src="{{ url_for('static', filename='scripts.js') }}"></script>
-</body>
+      // Initial fetch
+      fetchCards();
+
+      function randomize() {
+        window.location.reload();
+      }
+
+      function toggleAll() {
+        const ALL_TABLES = {{ all_tables|tojson }};
+        selectCardsByTable(ALL_TABLES);
+      }
+
+      function selectDinosaurCards() {
+        const DINO_TABLES = {{ all_dino_cards|tojson }};
+        selectCardsByTable(DINO_TABLES);
+      }
+
+      function selectDinosaurCardsIncludingWip() {
+        const TABLES = {{ all_dino_cards_including_wip|tojson }};
+        selectCardsByTable(TABLES);
+      }
+    </script>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+  </body>
 </html>
