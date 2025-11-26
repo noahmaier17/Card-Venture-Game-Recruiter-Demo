@@ -70,63 +70,6 @@
     </div>
   </form>
 
-  <script>
-  function randomize() {
-    window.location.reload();
-  }
-
-  function toggleAll() {
-    const ALL_TABLES = {{ all_tables|tojson }};
-    selectCardsByTable(ALL_TABLES);
-  }
-
-  function selectDinosaurCards() {
-    const DINO_TABLES = {{ all_dino_cards|tojson }};
-    selectCardsByTable(DINO_TABLES);
-  }
-
-  function selectDinosaurCardsIncludingWip() {
-    const TABLES = {{ all_dino_cards_including_wip|tojson }};
-    selectCardsByTable(TABLES);
-  }
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function selectCardsByTable(selectionTable) {
-    // Do we have any selected dino cards?
-    var allDinoCardsSelected = true;
-    var atLeastOneNonDinoCardSelected = false;
-    document.querySelectorAll('input[name="tables"]').forEach(checkbox => {
-      if (selectionTable.includes(checkbox.value) && !checkbox.checked) {
-        allDinoCardsSelected = false;
-      }
-      if (!(selectionTable.includes(checkbox.value)) && checkbox.checked) {
-        atLeastOneNonDinoCardSelected = true;
-      }
-    });
-
-    // If we have anything except exclusively all the dino cards selected,
-    // turns the dino cards on
-    var checkboxValue;
-    if (allDinoCardsSelected && !atLeastOneNonDinoCardSelected) {
-      checkboxValue = false;
-    } else {
-      checkboxValue = true;
-    }
-    document.querySelectorAll('input[name="tables"]').forEach(checkbox => {
-      if (selectionTable.includes(checkbox.value)) {
-        checkbox.checked = checkboxValue;
-      } else {
-        checkbox.checked = false;
-      }
-    });
-  
-    document.querySelector('form').submit();
-  }
-  </script>
-
   {% for card in set_of_cards %}
     <div class="card">
       <div class="name">{{ card.name | safe }}</div>
@@ -138,5 +81,27 @@
     <button type="button" onclick="scrollToTop()">Scroll to Top</button>
   </div>
 
+  <script>
+    function randomize() {
+      window.location.reload();
+    }
+
+    function toggleAll() {
+      const ALL_TABLES = {{ all_tables|tojson }};
+      selectCardsByTable(ALL_TABLES);
+    }
+
+    function selectDinosaurCards() {
+      const DINO_TABLES = {{ all_dino_cards|tojson }};
+      selectCardsByTable(DINO_TABLES);
+    }
+
+    function selectDinosaurCardsIncludingWip() {
+      const TABLES = {{ all_dino_cards_including_wip|tojson }};
+      selectCardsByTable(TABLES);
+    }
+  </script>
+
+<script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>
