@@ -140,7 +140,13 @@ async function fetchCardsMatchingText() {
   const selected = Array.from(document.querySelectorAll('input[name="tables"]:checked'))
                         .map(cb => cb.value);
   const matchingTextName = document.getElementById('name-search-box').value.toLowerCase();
-  const matchingTextBodyText = document.getElementById('text-search-box').value;
+  var matchingTextBodyText = document.getElementById('text-search-box').value;
+
+  // We need the RegEx expression. If we look up -nt, the plaintext will fail to find that
+  // expression since it is written as -notick. To patch this, we will replace all instances of 
+  // "-nt" and "-notick" with "-n(t|otick)".
+  matchingTextBodyText = matchingTextBodyText.replace(/-nt/g, "-n(t|otick)");
+  matchingTextBodyText = matchingTextBodyText.replace(/-notick/g, "-n(t|otick)");
   const bodyTextRegex = new RegExp(matchingTextBodyText, "i");
 
   // Sends the list of selected tables
