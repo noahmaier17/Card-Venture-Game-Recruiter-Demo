@@ -417,7 +417,7 @@ class test01(gdc.DinoCard):
 class badFortune(gdc.DinoShellCard):
     def __init__(self):
         super().__init__()
-        self.name = "Bad Fortune"
+        self.name = "//shell// Bad Fortune"
         self.bodyText = c.bb("> Change this' Chance values to 0.15.")
         self.table = ["Shop"]
 
@@ -431,7 +431,7 @@ class badFortune(gdc.DinoShellCard):
 class goodFortune(gdc.DinoShellCard):
     def __init__(self):
         super().__init__()
-        self.name = "Good Fortune"
+        self.name = "//shell// Good Fortune"
         self.bodyText = c.bb("> Change this' Chance values to 0.85.")
         self.table = ["Shop"]
 
@@ -445,7 +445,7 @@ class goodFortune(gdc.DinoShellCard):
 class bolster(gdc.DinoShellCard):
     def __init__(self):
         super().__init__()
-        self.name = "Bolster"
+        self.name = "//shell// Bolster"
         self.bodyText = c.bb("> Change this' #x and x# values to 4.")
         self.table = ["Shop"]
 
