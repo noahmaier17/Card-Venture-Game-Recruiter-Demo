@@ -41,6 +41,9 @@
         .select-all-buttons {
           margin-bottom: 5px;
         }
+        #fraction-of-responses-container {
+          margin-bottom: 10px;
+        }
       </style>
   </head>
 
@@ -48,12 +51,18 @@
     <h1>Simulate Cards</h1>
 
     <form method="get" action="/cards/view">
+      <div>
+        <form id="dummy-form" onsubmit="return false;"></form>
+        <label for="name-search-card">Search Card Name:</label>
+        <input type="text" id="name-search-box" placeholder="" form="dumnmy-form" oninput="fetchCardsMatchingText()" autocomplete="off">
+
+        <label for="text-search-card">RegEx Card Text:</label>
+        <input type="text" id="text-search-box" placeholder="" form="dumnmy-form" oninput="fetchCardsMatchingText()" autocomplete="off">
+      </div>
       <div class="select-all-buttons">
         <button type="button" onclick="randomize()">Randomize Order</button>
       </div>
       <div class="select-all-buttons">
-        <!-- <button type="button" onclick="selectAll(true)">Select All</button>
-        <button type="button" onclick="selectAll(false)">Deselect All</button> -->
         <button type="button" onclick="toggleAll()">Toggle All</button>
         <button type="button" onclick="selectDinosaurCards()">Toggle Dino Cards</button>
         <button type="button" onclick="selectDinosaurCardsIncludingWip()">Toggle Dino Cards (including WIP Tables)</button>
@@ -62,8 +71,7 @@
       <div class="checkbox-grid">
         {% for table in all_tables %}
           <label>
-            <input type="checkbox" name="tables" value="{{ table }}"
-              {% if table in selected_tables %}checked{% endif %}>
+            <input type="checkbox" name="tables" value="{{ table }}" onchange="fetchCardsMatchingText()">
             {{ table }}
           </label>
         {% endfor %}
@@ -71,6 +79,10 @@
 
     </form>
 
+    <div id="fraction-of-responses-container">
+      <strong>Cards displayed:</strong>
+      <span id="cards-fraction">0 / 0</span>
+    </div>
     <div id="cards-container"></div>
 
     <div>
@@ -78,60 +90,19 @@
     </div>
 
     <script>
-      async function fetchCards() {
-        const selected = Array.from(document.querySelectorAll('input[name="tables"]:checked'))
-                              .map(cb => cb.value)
+      // We must call an initial fetchCardsMatchingText()
+      fetchCardsMatchingText();
 
-        // Send POST
-        const res = await fetch("/api/cards", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ tables: selected })
-        });
-
-        const data = await res.json();
-        ALL_CARDS = data
-        renderCards(data)
-      }
-
-      // Render cards in container
-      function renderCards(cards) {
-          const container = document.getElementById("cards-container");
-          container.innerHTML = ""; // clear previous cards
-
-          cards.forEach(card => {
-              const div = document.createElement("div");
-              div.classList.add("card");
-              div.innerHTML = `<div class="name">${card.name}</div><pre>${card.text}</pre>`;
-              container.appendChild(div);
-          });
-      }
-
-      // Add event listeners for checkboxes
-      document.querySelectorAll('input[name="tables"]').forEach(cb => {
-          cb.addEventListener("change", fetchCards);
-      });
-
-      // Initial fetch
-      fetchCards();
-
-      function randomize() {
-        window.location.reload();
-      }
-
-      function toggleAll() {
-        const ALL_TABLES = {{ all_tables|tojson }};
-        selectCardsByTable(ALL_TABLES);
-      }
-
+      // These scripts are using Jinja2 to get Python-related elements, but after
+      // getting access to those variables they call scripts.js functions.
       function selectDinosaurCards() {
         const DINO_TABLES = {{ all_dino_cards|tojson }};
-        selectCardsByTable(DINO_TABLES);
+        selectSubsetOfCards(DINO_TABLES);
       }
 
       function selectDinosaurCardsIncludingWip() {
-        const TABLES = {{ all_dino_cards_including_wip|tojson }};
-        selectCardsByTable(TABLES);
+        const ALL_TABLES = {{ all_dino_cards_including_wip|tojson }};
+        selectSubsetOfCards(ALL_TABLES);
       }
     </script>
 

@@ -18,6 +18,7 @@ card objects are in the form:
     "id" (int): an internal id value
     "name" (str): the name of the card
     "text" (str): the text of the card
+    "plainText" (str): the text of the card without any special formatting
     "table" (list[str]): the tables this card is a part of  
 '''
 for child in gcbt.getAllCards().getArray():
@@ -25,14 +26,15 @@ for child in gcbt.getAllCards().getArray():
     name = h.colorize("^" + name + "^")
     name = converter.convert(name, full=False)
 
-    text = child.prettyCardText(0, 99999, suppressedTypes=[]) # , noColor=True)
-
-    text = converter.convert(text, full=False)
+    text = child.prettyCardText(0, 99999, suppressedTypes=[], noColor=True)
+    prettyText = child.prettyCardText(0, 99999, suppressedTypes=[]) # , noColor=True)
+    prettyText = converter.convert(prettyText, full=False)
 
     all_cards.append({
         "id": max_id,
         "name": name,
-        "text": text,
+        "text": prettyText,
+        "plainText": text,
         "table": child.table
     })
     max_id += 1
@@ -50,6 +52,7 @@ def get_cards():
 ## ----- GET: UI for showing all cards -----
 @app.get("/cards/view")
 def view_cards():
+    '''
     # Gets query parameters
     selected_tables: list[str] = request.args.getlist("tables")
 
@@ -72,15 +75,20 @@ def view_cards():
                 selected_cards.append(card)
 
                 index += 1
-
+                
     return render_template("view_cards.html", 
                            set_of_cards=selected_cards,
                            all_tables=ALL_CARDS_TABLE_MINUS_ENEMY,
                            all_dino_cards=gcbt.ALL_DINO_CARDS,
                            all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP,
                            selected_tables=selected_tables)
+    '''
+    return render_template("view_cards.html", 
+                           all_tables=ALL_CARDS_TABLE_MINUS_ENEMY,
+                           all_dino_cards=gcbt.ALL_DINO_CARDS,
+                           all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP)
 
-@app.get("/api/cards")
+@app.post("/api/cards")
 def api_cards():
     # Read the JSON from our request
     data = request.get_json()
@@ -88,19 +96,15 @@ def api_cards():
 
     # Filters the cards
     selected_cards = []
-    index = 1
     for card in all_cards:
         if any(i in card["table"] for i in selected_tables):
             card = copy.copy(card)
-            # Adds white-space padding
-            whitespaces = 3 - len(str(index))
-            spaces = " " * whitespaces
 
-            card["name"] = str(index) + "." + spaces + card["name"]
             selected_cards.append(card)
-
-            index += 1
     
+    # Shuffles the order of the cards
+    random.shuffle(selected_cards)
+
     return jsonify(selected_cards)
 
 '''
