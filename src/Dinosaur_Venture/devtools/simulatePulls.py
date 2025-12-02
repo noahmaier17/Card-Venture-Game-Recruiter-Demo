@@ -24,7 +24,7 @@ def code():
         if any(i in card.table for i in PULL_TABLE):
             tabulizedCards.append(card)
 
-    os.system('cls')
+    h.clear_screen()
     epoch = 0 
     while True:
         epoch += 1

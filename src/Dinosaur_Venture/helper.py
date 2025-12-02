@@ -78,7 +78,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
     if lootVacuously:
         lootingInstances = 1
 
-    os.system('cls')
+    clear_screen()
     splash("[Round: " + str(roundCount) + "] [Looting: '" + clearingName + "'] [Number of times to Loot: " + MULTIPLICATIVE_NUMERAL_TYPES[lootingInstances] + "]", printInsteadOfInput = True)
     middleText = "[ All Destructable Cards in Deck ]"
     print(normalize("-X-", (WIDTH + 2 - len(middleText) - 3) // 2 + 1, separator = "-") + middleText + normalize("", (WIDTH + 2 - len(middleText)) // 2 + 1, separator = "-"))
@@ -571,6 +571,13 @@ def saveUpdate(saveFile, key, updatedValue, majorSplashText):
     file.write(newFile)
     file.close()
 '''
+
+## Clears the terminal; works with Windows, Linux, and MacOS
+def clear_screen():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 ## Adds colors to variables of a string, returning that newly colorized string
 def colorize(text):
