@@ -10,33 +10,33 @@ The following includes the most important and noteworthy files/folders in my pro
         .github/                        # GitHub Actions; automatically runs pytest on push/pull
         ...
 
-    src/
-        Dinosaur_Venture/
-            devtools/                   # Development utilities
-            dino_cards_depot/           # Contains all player cards
-            entities/                   # Entities (including the player and enemies) logic
+        src/
+            Dinosaur_Venture/
+                devtools/                   # Development utilities
+                dino_cards_depot/           # Contains all player cards
+                entities/                   # Entities (including the player and enemies) logic
 
-            cardFunctions.py            # Handles often-repeated card on-play logic
-            cardModFunctions.py         # Allows for modification of that often-repeated on-play logic
-            cardTokens.py               # Tokens placed on cards that modify them
-            dinosaur_venture.py         # Runs the game
-            gameplay_logging.py         # Logs events in the game for the purpose of debugging
-            gameplayScriptedInput.py    # Simulates user input for the purpose of testing
-            helper.py                   # Helper functions
-            mainVisuals.py              # Handles the command-line UI
-            react.py                    # Handles when cards can react to the current game state
+                cardFunctions.py            # Handles often-repeated card on-play logic
+                cardModFunctions.py         # Allows for modification of that often-repeated on-play logic
+                cardTokens.py               # Tokens placed on cards that modify them
+                dinosaur_venture.py         # Runs the game
+                gameplay_logging.py         # Logs events in the game for the purpose of debugging
+                gameplayScriptedInput.py    # Simulates user input for the purpose of testing
+                helper.py                   # Helper functions
+                mainVisuals.py              # Handles the command-line UI
+                react.py                    # Handles when cards can react to the current game state
+                ...
+
+        tests/
+            test_utils/                     # Helper functions
+            Files starting with "test_"     # Test cases
+
+        web_app/
+            app.py                          # Web Application for looking at card tables
             ...
 
-    tests/
-        test_utils/                     # Helper functions
-        Files starting with "test_"     # Test cases
-
-    web_app/
-        app.py                          # Web Application for looking at card tables
+        logs/                               # Location of debugging logs
         ...
-
-    logs/                               # Location of debugging logs
-    ...
 
 ## Feature Overview
 
