@@ -142,7 +142,7 @@ def code(MAP_ALL):
 def symbolicPrint(symbolToCardSet, coordinatesToCardSet, coordinatesToSymbolSet, uniformDamageBins, uniformSiftBins, lines):
     ## For every coordinate, first across horizontally and then down vertically, plots points
     lines = copy.deepcopy(lines)
-    os.system('cls')
+    h.clear_screen()
     print("-- SYMBOLIC PRINT -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- ")
 
     characterCountPerLine = []
@@ -179,7 +179,7 @@ def symbolicPrint(symbolToCardSet, coordinatesToCardSet, coordinatesToSymbolSet,
 def countsPrint(symbolToCardSet, coordinatesToCardSet, coordinatesToSymbolSet, uniformDamageBins, uniformSiftBins, lines):
     ## For every coordinate, first across horizontally and then down vertically, plots points
     lines = copy.deepcopy(lines)
-    os.system('cls')
+    h.clear_screen()
     print("-- COUNTS PRINT - -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- ")
 
     characterCountPerLine = []

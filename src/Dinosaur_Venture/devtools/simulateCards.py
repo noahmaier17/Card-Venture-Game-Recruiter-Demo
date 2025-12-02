@@ -79,7 +79,7 @@ def code():
         textConditions = []
         nameConditions = []
 
-    os.system('cls')
+    h.clear_screen()
             
     text = "  Searched Locations:  "
     csv = ""

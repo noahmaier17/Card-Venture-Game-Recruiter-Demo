@@ -87,7 +87,7 @@ class redCardboardBox(DinoCard):
             locations = ["Top of Draw", "Bottom of Draw", "Discard"]
         
             ## Display Text
-            os.system('cls')
+            h.clear_screen()
             print("Resolving: " + Back.CYAN + Style.BRIGHT + " " + self.name + " ")
             h.splash("Change an Initialized Location from 'Draw' to: 'Top of Draw', 'Bottom of Draw', or 'Discard'.", printInsteadOfInput = True)
             
@@ -113,7 +113,7 @@ class redCardboardBox(DinoCard):
             pickedCardIndex = h.pickValue("Pick a Card to Change", range(1, len(upgradeCandidates) + 1)) - 1
             pickedCard = upgradeCandidates[pickedCardIndex]
             ## Display Text
-            os.system('cls')
+            h.clear_screen()
             print(" | Picked: " + Back.CYAN + Style.BRIGHT + " " + pickedCard.name + " ")
             print("   " + pickedCard.prettyCardText(3, 100))
             print("")
