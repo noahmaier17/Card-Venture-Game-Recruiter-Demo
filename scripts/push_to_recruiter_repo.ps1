@@ -1,6 +1,6 @@
-# If we are currntthere are any uncommited changes on the current branch (likely main branch), does not run the script
+# If there are any uncommited changes on the current branch, does not run the script
 if (git status --porcelain) {
-    Write-Host ">> Manually commit all changes/reolve all conflicts on this branch before running this script" -ForegroundColor Red
+    Write-Host ">> Manually commit all changes/resolve all conflicts on this branch before running this script" -ForegroundColor Red
     exit 1
 }
 
@@ -13,30 +13,25 @@ if (Test-Path ".git/MERGE_HEAD") {
     Write-Host ">> Skipping merge step; merge already in progress" -ForegroundColor Cyan
 } else {
     Write-Host ">> Merge main into recruiter-demo branch" -ForegroundColor Cyan
-    git merge main
+    git merge main -m "Merge branch 'main' into recruiter-demo"
 }
 
-# Health check of git status
-git status
-
-# Removing git tracking in the recruiter-demo branch that I do not want pushed
+# Removing git tracking within the recruiter-demo branch of files I do not want tracked
 git rm -r '.\Storage of Deprecated Things'
-
-# Health check of git status
-git status
 
 # Detects if this merge had any conflicts
 if (git ls-files -u) {
+    git status
     Write-Host ">> Merge conflict; resolve and then re-run this script" -ForegroundColor Red
     exit 1
 }
 
-# Commits changes IF we have any files to commit
-if (-not (git status --porcelain)) {
-    Write-Host ">> Nothing to commit to recruiter-demo" -ForeGround Yellow
-} else {
+# Commits changes IF we have any files to commit (likely the file removals from earlier)
+if (git status --porcelain) {
     Write-Host ">> Commit changes to recruiter-demo" -ForegroundColor Cyan
-    git commit -m "Merge branch 'main' into recruiter-demo"    
+    git commit -m "Commit changes from 'main' to recruiter-demo"
+} else {
+    Write-Host ">> Nothing to commit to recruiter-demo" -ForegroundColor Yellow
 }
 
 # Pushs to the remote repository
