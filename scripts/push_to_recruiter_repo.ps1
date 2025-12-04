@@ -10,7 +10,7 @@ git merge main
 git rm -r '.\Storage of Deprecated Things'
 
 # Detects if this merge had any conflicts
-if ($LASTEXITCODE -ge 1) {
+if (git ls-files -u) {
     Write-Host ">> Merge conflict; resolve and then re-run this script" -ForegroundColor Red
     exit 1
 }
