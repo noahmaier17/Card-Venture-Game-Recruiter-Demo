@@ -9,6 +9,7 @@ git merge main
 # Removing git tracking in the recruiter-demo branch that I do not want pushed
 git rm -r '.\Storage of Deprecated Things'
 
+<#
 # Detects if this merge had any conflicts
 if (git ls-files -u) {
     Write-Host ">> Merge conflict; resolve and then re-run this script" -ForegroundColor Red
@@ -25,3 +26,4 @@ git checkout main
 
 # States the script is complete
 Write-Host ">> Script complete" -ForegroundColor Cyan
+#>
