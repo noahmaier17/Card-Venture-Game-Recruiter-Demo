@@ -28,7 +28,7 @@ git rm -r .\documents\
 # Detects if this merge had any conflicts
 if (git ls-files -u) {
     git status
-    Write-Host ">> Merge conflict; resolve and then re-run this script" -ForegroundColor Red
+    Write-Host ">> Merge conflict; manually resolve and then re-run this script" -ForegroundColor Red
     exit 1
 }
 
