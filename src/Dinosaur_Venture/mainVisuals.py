@@ -12,7 +12,7 @@ WIDTH = h.WIDTH
 ## Visualizes the map 
 ##  Returns an array of the locations enter-able in the order listed 
 def visualizeMap(locations):
-    os.system('cls')
+    h.clear_screen()
     
     BOUND = h.normalize("% ", WIDTH, separator = "~ ") + "%"
     PAGE_1 = h.normalize("\\ ", WIDTH, separator = "` ") + "\\"
@@ -286,7 +286,7 @@ class prefabEmpty(prefabPassedInVisuals):
 def printDinoTurn(dino, enemies, roundCount, clearing, event, extraSuppressedTypes = []):
     suppressedTypes = extraSuppressedTypes
 
-    os.system('cls')
+    h.clear_screen()
 
     ## ----- DISPLAY CODE -----
     print(" | [Round: " + str(roundCount + 1) + " % 2] [Turn: " + str(dino.turn) + "] Scavenging Through: "             + Fore.YELLOW + Style.BRIGHT + clearing.table[0])   
@@ -470,7 +470,7 @@ def printLocation(location, index, color, suppressedTypes, event, nameFore = For
 
 ## Prints the display on Enemy's Turns
 def printEnemyTurn(enemy, dino, enemies, roundCount, clearing, enemyIndex, event):
-    os.system('cls')
+    h.clear_screen()
     ## ----- DISPLAY CODE -----
     print(" | [Round: " + str(roundCount + 1) + " % 2] [Turn: " + str(enemy.turn) + "] Scavenging Through: " 
         + Fore.YELLOW + Style.BRIGHT + clearing.name)

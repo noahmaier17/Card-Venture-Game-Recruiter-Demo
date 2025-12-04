@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+
+# pytest
+.pytest_cache
+
+# Virtual environments
+.env
+.venv/
+venv/
+ENV/
+
+# Git
+.git/
+.gitignore
+
+# GitHub Actions
+.github/
+
+# VS Code
+.vscode/
+
+# Other files that not important and are only for debugging/personal use
+documents

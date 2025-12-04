@@ -83,6 +83,7 @@ def code():
     ## webbrowser.open('https://www.youtube.com/watch?v=xNN7iTA57jM&t=291s&ab_channel=TheGuildofAmbience')
 
     ## ----- Pick your Player -----
+    h.clear_screen()
     preamble = []
     preamble.append(" WELCOME TO THE DINSAUR VENTURE")
 
@@ -144,6 +145,9 @@ def code():
     # Skip picking clearings; useful for faster testing speed
     SKIP_PICKING_CLEARINGS = False
 
+    # Logic to force picking a specific clearing; potentially a future feature
+    DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS = False
+
     # To replace the shop cards, uncomment the following and add cards as you please
     '''
     shopLocation = h.cardLocation("")
@@ -192,13 +196,13 @@ def code():
     # h.selectCard(dino, "Hierloom", 0, [randomTier1Location], [4], lootVacuously = True, canPass = True, activateAbilityOnPass = True)
 
     # Logic for picking a guarenteed location
+    h.clear_screen()
     notFirstNeckOfTheWoods = True
     guarenteedClearing = None
-    if not SKIP_PICKING_CLEARINGS:
+    if not SKIP_PICKING_CLEARINGS and DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS:
         woodsPreamble = []
         for index, wood in enumerate(setOfAllWoods):
             woodsPreamble.append(str(index + 1) + ": '" + wood.name + "'")
-        print("")
         guarenteedClearingIndex = h.pickValue("Pick a guarenteed Neck of the Woods", 
                                               range(1, len(setOfAllWoods) + 1), 
                                               preamble=woodsPreamble) - 1
@@ -217,7 +221,7 @@ def code():
             difficulty += roundDifficultyCreep
             
             ## ----- DISPLAY CODE -----
-            os.system('cls')
+            h.clear_screen()
             roundCount += 1
                         
             ## ----- Rest Stop -----
@@ -269,7 +273,7 @@ def code():
                     card.atTriggerEndOfRestStop(dino)
 
                 # Clears screen
-                os.system('cls')
+                h.clear_screen()
 
                 # Sets dino looting back to as it should be
                 dino.looting += dino.uptickLooting
@@ -322,13 +326,13 @@ def code():
 
         elif event == "Start Round":
             """Starts a Round; handled via `gameEvent.startRound()`."""
-            os.system('cls')
+            h.clear_screen()
             gameEvent.startRound(dino, enemies)
             event = "Dino Turn Start"
 
         elif event == "Dino Turn Start":
             """Handles the start of dino's turn; handled via `gameEvent.dinoTurnStart()`."""
-            os.system('cls')
+            h.clear_screen()
             gameEvent.dinoTurnStart(dino, enemies)
             event = "Dino Play Card"
 
@@ -466,7 +470,7 @@ def code():
             # Iterates across all enemies
             while enemyIndex < len(enemies):
                 enemy = enemies[enemyIndex]
-                os.system('cls')
+                h.clear_screen()
                 unfinishedWithEnemyFlag = True
 
                 ## ----- Checks if this turn is finished already -----
