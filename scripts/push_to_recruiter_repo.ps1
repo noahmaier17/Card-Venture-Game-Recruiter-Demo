@@ -10,8 +10,12 @@ if (Test-Path ".git/MERGE_HEAD") {
     git merge main
 }
 
+git status
+
 # Removing git tracking in the recruiter-demo branch that I do not want pushed
 git rm -r '.\Storage of Deprecated Things'
+
+git status
 
 # Detects if this merge had any conflicts
 if (git ls-files -u) {
