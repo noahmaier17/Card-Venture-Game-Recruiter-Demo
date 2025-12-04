@@ -21,7 +21,9 @@ if (Test-Path ".git/MERGE_HEAD") {
 }
 
 # Removing git tracking within the recruiter-demo branch of files I do not want tracked
+Write-Host ">> Removes several undesired files from this branch; fatal pathspec errors expected" -ForegroundColor Cyan
 git rm -r '.\Storage of Deprecated Things'
+git rm -r .\documents\
 
 # Detects if this merge had any conflicts
 if (git ls-files -u) {
