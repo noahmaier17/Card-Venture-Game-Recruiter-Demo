@@ -1,3 +1,9 @@
+# If there are any uncommited changes on the current branch (likely main branch), does not run the script
+if (git status --porcelain) {
+    Write-Host ">> Commit all changes before running this script" -ForegroundColor Red
+    exit 1
+}
+
 # Checks out the recruiter-demo branch on this repository
 Write-Host ">> Checkout recruiter-demo branch" -ForegroundColor Cyan
 git checkout recruiter-demo
@@ -10,16 +16,24 @@ if (Test-Path ".git/MERGE_HEAD") {
     git merge main
 }
 
+# Health check of git status
 git status
 
 # Removing git tracking in the recruiter-demo branch that I do not want pushed
 git rm -r '.\Storage of Deprecated Things'
 
+# Health check of git status
 git status
 
 # Detects if this merge had any conflicts
-if (git ls-files -u) {
+if (-not (git ls-files -u)) {
     Write-Host ">> Merge conflict; resolve and then re-run this script" -ForegroundColor Red
+    exit 1
+}
+
+# Commits changes IF we have any files to commit
+if (git status --porcelain) {
+    Write-Host ">> No changes ready to be commit" -ForeGround Red
     exit 1
 }
 
