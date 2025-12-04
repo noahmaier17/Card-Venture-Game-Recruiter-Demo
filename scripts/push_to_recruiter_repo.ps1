@@ -1,4 +1,5 @@
 # If there are any uncommited changes on the current branch (likely main branch), does not run the script
+git checkout main
 if (git status --porcelain) {
     Write-Host ">> Commit all changes before running this script" -ForegroundColor Red
     exit 1
