@@ -2,9 +2,13 @@
 Write-Host ">> Checkout recruiter-demo branch" -ForegroundColor Cyan
 git checkout recruiter-demo
 
-# Merges the main branch to the recruiter-demo branch
-Write-Host ">> Merge main into recruiter-demo branch" -ForegroundColor Cyan
-git merge main
+# Merges the main branch to the recruiter-demo branch IF we do not already have a merge in progress
+if (Test-Path ".git/MERGE_HEAD") {
+    Write-Host ">> Skipping merge step; merge already in progress" -ForegroundColor Cyan
+} else {
+    Write-Host ">> Merge main into recruiter-demo branch" -ForegroundColor Cyan
+    git merge main
+}
 
 # Removing git tracking in the recruiter-demo branch that I do not want pushed
 git rm -r '.\Storage of Deprecated Things'
