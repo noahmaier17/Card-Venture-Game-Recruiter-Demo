@@ -20,7 +20,7 @@ if (Test-Path ".git/MERGE_HEAD") {
     git merge main -m "Merge branch 'main' into recruiter-demo"
 }
 
-# Removing git tracking within the recruiter-demo branch of files I do not want tracked
+# Removes several of the files not important for the public/recruiter repo
 Write-Host ">> Removes several undesired files from this branch; fatal pathspec errors expected" -ForegroundColor Cyan
 git rm -r '.\Storage of Deprecated Things'
 git rm -r .\documents\
@@ -34,10 +34,10 @@ if (git ls-files -u) {
 
 # Commits changes IF we have any files to commit (likely the file removals from earlier)
 if (git status --porcelain) {
-    Write-Host ">> Commit changes to recruiter-demo" -ForegroundColor Cyan
-    git commit -m "Commit changes from 'main' to recruiter-demo"
+    Write-Host ">> Commit additional changes to recruiter-demo" -ForegroundColor Cyan
+    git commit -m "Commit additional merge changes to recruiter-demo"
 } else {
-    Write-Host ">> Nothing additional commit to recruiter-demo (something may have been merged)" -ForegroundColor Yellow
+    Write-Host ">> Nothing additional commit to recruiter-demo (however, something may have been merged previously)" -ForegroundColor Yellow
 }
 
 # Pushs to the remote repository
