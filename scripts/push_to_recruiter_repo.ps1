@@ -1,7 +1,6 @@
-# If there are any uncommited changes on the current branch (likely main branch), does not run the script
-git checkout main
+# If we are currntthere are any uncommited changes on the current branch (likely main branch), does not run the script
 if (git status --porcelain) {
-    Write-Host ">> Commit all changes before running this script" -ForegroundColor Red
+    Write-Host ">> Commit all changes/reolve all conflicts on this branch before running this script" -ForegroundColor Red
     exit 1
 }
 
@@ -27,15 +26,17 @@ git rm -r '.\Storage of Deprecated Things'
 git status
 
 # Detects if this merge had any conflicts
-if (-not (git ls-files -u)) {
+if (git ls-files -u) {
     Write-Host ">> Merge conflict; resolve and then re-run this script" -ForegroundColor Red
     exit 1
 }
 
 # Commits changes IF we have any files to commit
-if (git status --porcelain) {
-    Write-Host ">> No changes ready to be commit" -ForeGround Red
-    exit 1
+if (-not (git status --porcelain)) {
+    Write-Host ">> No changes ready to be commit" -ForeGround Yellow
+} else {
+    Write-Host ">> Commit changes to recruiter-demo" -ForegroundColor Cyan
+    git commit -m "Merge branch 'main' into recruiter-demo"    
 }
 
 # Pushs to the remote repository
