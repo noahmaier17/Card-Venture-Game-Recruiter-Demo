@@ -1,6 +1,10 @@
+# ======================================================
+# Script: Merges main branch into recruiter-demo branch and pushes changes to recruiter repository.
+# ======================================================
+
 # If there are any uncommited changes on the current branch, does not run the script
 if (git status --porcelain) {
-    Write-Host ">> Manually commit all changes/resolve all conflicts on this branch before running this script" -ForegroundColor Red
+    Write-Host ">> Manually commit all changes/resolve all conflicts on this branch, then re-run this script" -ForegroundColor Red
     exit 1
 }
 
@@ -31,12 +35,16 @@ if (git status --porcelain) {
     Write-Host ">> Commit changes to recruiter-demo" -ForegroundColor Cyan
     git commit -m "Commit changes from 'main' to recruiter-demo"
 } else {
-    Write-Host ">> Nothing to commit to recruiter-demo" -ForegroundColor Yellow
+    Write-Host ">> Nothing additional commit to recruiter-demo (something may have been merged)" -ForegroundColor Yellow
 }
 
 # Pushs to the remote repository
 Write-Host ">> Push recruiter-demo to remote 'demo' repo" -ForegroundColor Cyan
 git push demo recruiter-demo
 
+# Does checkout main (I forget to do so often)
+Write-Host ">> Checkout main" -ForegroundColor Cyan
+git checkout main
+
 # States the script is complete
-Write-Host ">> Script complete; remember to 'checkout main branch' if desired" -ForegroundColor Cyan
+Write-Host ">> Script complete" -ForegroundColor Cyan
