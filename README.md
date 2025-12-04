@@ -7,8 +7,11 @@ A turn-based command-line game card game, in which the player (named dino) trave
 The following includes the most important and noteworthy files/folders in my project.
 
     Card-Venture-Game/
-        .github/                        # GitHub Actions; automatically runs pytest on push/pull
+        .github/                            # GitHub Actions; automatically runs pytest on push/pull
         ...
+
+        scripts/
+            push_to_recruiter_repo.ps1      # Script to merge private repo to public/recruiter-facing repo
 
         src/
             Dinosaur_Venture/
@@ -36,7 +39,10 @@ The following includes the most important and noteworthy files/folders in my pro
             ...
 
         logs/                               # Location of debugging logs
+        
+        Dockerfile                          # Dockerfile for this project
         ...
+
 
 ## Feature Overview
 
