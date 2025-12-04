@@ -1,6 +1,6 @@
 # If we are currntthere are any uncommited changes on the current branch (likely main branch), does not run the script
 if (git status --porcelain) {
-    Write-Host ">> Commit all changes/reolve all conflicts on this branch before running this script" -ForegroundColor Red
+    Write-Host ">> Manually commit all changes/reolve all conflicts on this branch before running this script" -ForegroundColor Red
     exit 1
 }
 
@@ -33,7 +33,7 @@ if (git ls-files -u) {
 
 # Commits changes IF we have any files to commit
 if (-not (git status --porcelain)) {
-    Write-Host ">> No changes ready to be commit" -ForeGround Yellow
+    Write-Host ">> Nothing to commit to recruiter-demo" -ForeGround Yellow
 } else {
     Write-Host ">> Commit changes to recruiter-demo" -ForegroundColor Cyan
     git commit -m "Merge branch 'main' into recruiter-demo"    
@@ -43,9 +43,5 @@ if (-not (git status --porcelain)) {
 Write-Host ">> Push recruiter-demo to remote 'demo' repo" -ForegroundColor Cyan
 git push demo recruiter-demo
 
-# Checks out the main branch
-Write-Host ">> Checkout main branch" -ForegroundColor Cyan
-git checkout main
-
 # States the script is complete
-Write-Host ">> Script complete" -ForegroundColor Cyan
+Write-Host ">> Script complete; remember to 'checkout main branch' if desired" -ForegroundColor Cyan
