@@ -760,7 +760,7 @@ class Entity():
         printCard: bool = False, 
         inputCard: bool = False
     ) -> None:
-        """Gains a Card to the to location at the given position."""
+        """Gains a Card to the to location at the given position; card should be initialized."""
         fantasy = h.cardLocation("fantasy")
         fantasy.append(card)
         self.moveCard(fantasy, 0, toLocation, position, printCard, inputCard)
@@ -777,6 +777,7 @@ class Entity():
         Gains a copy of a Card to the to location at the given position.
         
         Effectively the same as `gainCard` except this will `copy.deepcopy` the other card.
+        Useful for when the copied card is already in deck/will continue to be played with.
         """
         fantasy = h.cardLocation("fantasy")
         cardCopy = copy.deepcopy(card)
