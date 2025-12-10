@@ -1,12 +1,12 @@
 import uuid
 from typing import TYPE_CHECKING
 
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import cardFunctions as cf
-    from Dinosaur_Venture import mainVisuals as vis
+    from Dinosaur_Venture import card_functions as cf
+    from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.entities import entity as e
 

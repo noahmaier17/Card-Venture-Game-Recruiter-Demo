@@ -1,5 +1,5 @@
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc

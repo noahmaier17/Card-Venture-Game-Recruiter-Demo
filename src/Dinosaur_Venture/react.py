@@ -1,5 +1,5 @@
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
 
 ## The reaction stack

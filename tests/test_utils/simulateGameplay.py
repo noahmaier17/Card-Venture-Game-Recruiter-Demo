@@ -1,4 +1,4 @@
-from Dinosaur_Venture import gameplayLoopEvents as gameEvents
+from Dinosaur_Venture import gameplay_loop_events as gameEvents
 
 ## Sets up the entityNames and cardNames
 entityNames, cardNames = gameEvents.setupEntityAndCardNames()

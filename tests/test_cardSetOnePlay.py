@@ -6,7 +6,7 @@ from test_utils.gameSetups import (
     setup_getDinoEnemiesClearing)
 from test_utils.validateGameState import isCardExclusivelyAtIndexInLocation
 
-from Dinosaur_Venture import gameplayScriptedInput as scriptInput
+from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
 '''
     Tests the case where dinosaur has only one card in deck, and if the game can successfully:

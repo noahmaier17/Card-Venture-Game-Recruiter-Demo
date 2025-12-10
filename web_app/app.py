@@ -4,7 +4,7 @@ import copy
 from flask import Flask, jsonify, request, render_template
 from ansi2html import Ansi2HTMLConverter
 
-from Dinosaur_Venture import getCardsByTable as gcbt, helper as h
+from Dinosaur_Venture import get_cards_by_table as gcbt, helper as h
 
 ## ----- Sets up Flask and friends -----
 app = Flask(__name__)

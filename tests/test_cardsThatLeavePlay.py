@@ -6,9 +6,9 @@ from test_utils.gameSetups import (getCartesianProduct_anyInput,
                                    setup_getDinoEnemiesClearing)
 from test_utils.validateGameState import isCardExclusivelyAtIndexInLocation
 
-from Dinosaur_Venture import gameplayLoopEvents as gameEvents
-from Dinosaur_Venture import gameplayScriptedInput as scriptInput
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import gameplay_loop_events as gameEvents
+from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+from Dinosaur_Venture import get_cards_by_table as gcbt
 
 '''
     Tests the case where dinosaur has a card that leaves play.

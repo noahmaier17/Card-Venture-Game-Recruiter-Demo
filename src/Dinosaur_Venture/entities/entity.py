@@ -11,11 +11,11 @@ from typing import TYPE_CHECKING
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
 
 if TYPE_CHECKING:
