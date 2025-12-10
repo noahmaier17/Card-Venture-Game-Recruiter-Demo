@@ -1,10 +1,12 @@
 ## SERVER
-import random
 import copy
-from flask import Flask, jsonify, request, render_template
-from ansi2html import Ansi2HTMLConverter
+import random
 
-from Dinosaur_Venture import getCardsByTable as gcbt, helper as h
+from ansi2html import Ansi2HTMLConverter
+from flask import Flask, jsonify, render_template, request
+
+from Dinosaur_Venture import get_cards_by_table as gcbt
+from Dinosaur_Venture import helper as h
 
 ## ----- Sets up Flask and friends -----
 app = Flask(__name__)
@@ -17,14 +19,15 @@ all_cards = []
 card objects are in the form:
     "id" (int): an internal id value
     "name" (str): the name of the card
+    "plainName" (str): the name of the card without any special formatting
     "text" (str): the text of the card
     "plainText" (str): the text of the card without any special formatting
     "table" (list[str]): the tables this card is a part of  
 '''
 for child in gcbt.getAllCards().getArray():
     name = child.nameWithTokens()
-    name = h.colorize("^" + name + "^")
-    name = converter.convert(name, full=False)
+    prettyName = h.colorize("^" + name + "^")
+    prettyName = converter.convert(prettyName, full=False)
 
     text = child.prettyCardText(0, 99999, suppressedTypes=[], noColor=True)
     prettyText = child.prettyCardText(0, 99999, suppressedTypes=[]) # , noColor=True)
@@ -32,7 +35,8 @@ for child in gcbt.getAllCards().getArray():
 
     all_cards.append({
         "id": max_id,
-        "name": name,
+        "name": prettyName,
+        "plainName": name,
         "text": prettyText,
         "plainText": text,
         "table": child.table
@@ -41,6 +45,7 @@ for child in gcbt.getAllCards().getArray():
 
 # Removes the mostly redundant "Enemy" Pool given that "Enemy Card Pool" exists
 ALL_CARDS_TABLE_MINUS_ENEMY = gcbt.ALL_TABLES
+
 if "Enemy" in gcbt.ALL_TABLES:
     ALL_CARDS_TABLE_MINUS_ENEMY.remove("Enemy")
 
@@ -52,37 +57,6 @@ def get_cards():
 ## ----- GET: UI for showing all cards -----
 @app.get("/cards/view")
 def view_cards():
-    '''
-    # Gets query parameters
-    selected_tables: list[str] = request.args.getlist("tables")
-
-    # Populates the selected cards
-    selected_cards = []
-    if not selected_tables:
-        selected_tables = all_cards
-    else:
-        random.shuffle(all_cards)
-
-        index = 1
-        for card in all_cards:
-            if any(i in card["table"] for i in selected_tables):
-                card = copy.copy(card)
-                # Adds white-space padding
-                whitespaces = 3 - len(str(index))
-                spaces = " " * whitespaces
-
-                card["name"] = str(index) + "." + spaces + card["name"]
-                selected_cards.append(card)
-
-                index += 1
-                
-    return render_template("view_cards.html", 
-                           set_of_cards=selected_cards,
-                           all_tables=ALL_CARDS_TABLE_MINUS_ENEMY,
-                           all_dino_cards=gcbt.ALL_DINO_CARDS,
-                           all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP,
-                           selected_tables=selected_tables)
-    '''
     return render_template("view_cards.html", 
                            all_tables=ALL_CARDS_TABLE_MINUS_ENEMY,
                            all_dino_cards=gcbt.ALL_DINO_CARDS,

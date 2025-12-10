@@ -6,8 +6,8 @@ import random
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_tokens as tk
+from Dinosaur_Venture.card_initalization_zones import INITIALIZATION_ZONES
 
 WIDTH = 117 - 2
 
@@ -19,7 +19,7 @@ ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 ## Overhead for picking a card to play/reveal/etc. from Hand/Pocket.
 ## If passing, returns "pass".
 def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemies, roundCount, clearing, event, entityNames, cardNames, extraSuppressedTypes=[], canPass=False, scriptedInput=None):
-    from Dinosaur_Venture import mainVisuals as vis
+    from Dinosaur_Venture import main_visuals as vis
 
     while True:
         if scriptedInput != None: # Handles scripted input
@@ -61,7 +61,7 @@ def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemi
 
 ## Overhead for drafting a Card from a loot table
 def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuously = False, canPass = False, activateAbilityOnPass = False):
-    from Dinosaur_Venture.mainVisuals import printLocation
+    from Dinosaur_Venture.main_visuals import printLocation
 
     ## Currently not used; if we want to loot without seeing all card text
     suppressedTypes = []
@@ -583,7 +583,7 @@ def clear_screen():
 def colorize(text):
     returnText = ""
     splinterizedText = splinterize(text)
-    
+
     for word in splinterizedText:
         # print(word)
         if word == "DAS":
@@ -667,8 +667,8 @@ def colorize(text):
             returnText += Style.BRIGHT + "#" + Style.NORMAL + "x"
         elif word == "x#":
             returnText += "x" + Style.BRIGHT + "#" + Style.NORMAL
-        elif word in c.INITIALIZATION_ZONES.keys():
-            returnText += (Fore.BLACK + Style.BRIGHT + c.INITIALIZATION_ZONES.get(word) 
+        elif word in INITIALIZATION_ZONES.keys():
+            returnText += (Fore.BLACK + Style.BRIGHT + INITIALIZATION_ZONES.get(word) 
                             + Fore.WHITE + Style.NORMAL)
         elif word in ["notick"]:
             returnText += "nt"

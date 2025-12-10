@@ -1,14 +1,16 @@
 import pytest
 import pytest_timeout
-from test_utils import simulateGameplay
-from test_utils.gameSetups import (getCartesianProduct_anyInput,
-                                   setup_getCardSetTwoWithToLocations,
-                                   setup_getDinoEnemiesClearing)
-from test_utils.validateGameState import isCardExclusivelyAtIndexInLocation
 
-from Dinosaur_Venture import gameplayLoopEvents as gameEvents
-from Dinosaur_Venture import gameplayScriptedInput as scriptInput
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import gameplay_loop_events as gameEvents
+from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+from Dinosaur_Venture.dino_cards_depot.debug_cards import \
+    cantrip as debug_cards_cantrip
+from tests.test_utils import simulate_gameplay
+from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
+                                          setup_getCardSetTwoWithToLocations,
+                                          setup_getDinoEnemiesClearing)
+from tests.test_utils.validate_game_state import \
+    isCardExclusivelyAtIndexInLocation
 
 '''
     Tests the case where dinosaur has a card that leaves play.
@@ -28,7 +30,7 @@ class TestSuite():
         ## Fixture Setup
         dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing
         cardsesWithToLocations = setup_getCardSetTwoWithToLocations
-        cantripses = [gcbt.getCardByName("Cantrip")]
+        cantripses = [debug_cards_cantrip()]
 
         for set in getCartesianProduct_anyInput([dinoes, enemieses, clearingses, cardsesWithToLocations, cantripses]):
             dino, enemies, clearing, cardsesWithToLocations, cantrip = set
@@ -39,12 +41,12 @@ class TestSuite():
             dino.gainCard(cantrip, dino.deck)
 
             ## Run through gameplay
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
             dino, enemies, clearing, 
             [
-                simulateGameplay.startRound(),
-                simulateGameplay.dinoTurnStart(),
-                simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard_attemptPlayCardByName([testCard.name]))
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard_attemptPlayCardByName([testCard.name]))
             ])
 
             ## Tests if cards are in expected locations
@@ -52,10 +54,10 @@ class TestSuite():
             assert isCardExclusivelyAtIndexInLocation(cantrip, 0, dino.hand, dino, enemies)
 
             ## Plays the cantrip
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
             dino, enemies, clearing,
             [
-                simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard_attemptPlayCardByName([cantrip.name]))
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard_attemptPlayCardByName([cantrip.name]))
             ])
 
             ## Tests if cards are in expected locations
@@ -63,10 +65,10 @@ class TestSuite():
             assert isCardExclusivelyAtIndexInLocation(cantrip, 0, dino.play, dino, enemies)
 
             ## Plays the test card once more
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
             dino, enemies, clearing,
             [
-                simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard_attemptPlayCardByName([testCard.name]))
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard_attemptPlayCardByName([testCard.name]))
             ])
 
             ## Tests if cards are in expected locations

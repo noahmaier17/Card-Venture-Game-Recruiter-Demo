@@ -22,12 +22,24 @@
           padding-bottom: 0.1em;
           font-size: 1.2em;
         }
-        .name {
+
+        .card-names-line {
+          display: flex;
+          align-items: center;
           color: rgb(0, 0, 0);
-          font-weight: bold;
           font-size: 1.2em;
           white-space: pre-wrap;
+          gap: 8px;
         }
+        .card-name-text {
+          font-weight: bold;
+        }
+        .card-table-text {
+          font-size: 0.5em;
+          font-style: italic;
+          color: gray;
+        }
+
         pre {
           white-space: pre-wrap;
         }
@@ -53,10 +65,10 @@
     <form method="get" action="/cards/view">
       <div>
         <form id="dummy-form" onsubmit="return false;"></form>
-        <label for="name-search-card">Search Card Name:</label>
+        <label for="name-search-card">RegEx Search Card Name:</label>
         <input type="text" id="name-search-box" placeholder="..." form="dumnmy-form" oninput="fetchCardsMatchingText()" autocomplete="off">
 
-        <label for="text-search-card">RegEx Card Text:</label>
+        <label for="text-search-card">RegEx Search Card Text:</label>
         <input type="text" id="text-search-box" placeholder="..." form="dumnmy-form" oninput="fetchCardsMatchingText()" autocomplete="off">
       </div>
       <div class="select-all-buttons">

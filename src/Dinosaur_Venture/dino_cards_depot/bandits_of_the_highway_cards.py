@@ -1,9 +1,9 @@
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import getCardsByTable as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import rubbish, shovel
 
 '''
     Bandits of the Highway Cards
@@ -24,19 +24,20 @@ class coercionCultivator(gdc.DinoCard):
                                                                                             'nil'))
             if not damageData.fatalDamage:
                 h.splash("Dealt non-Fatal Damage: Pocket a ^Shovel^ Card.")
-                caster.gainCard(gcbt.getCardByName("Shovel"), caster.pocket)
+                caster.gainCard(shovel(), caster.pocket)
 
 class carCasing(gdc.DinoCard):
     def __init__(self):
         super().__init__()
         self.name = "Car Casing"
-        self.bodyText = c.bb("0.67 Chance for: 2R-notick / 2G-notick / 2B-notick / 2M. //Otherwise: Pocket this.")
+        self.bodyText = c.bb("0.67 Chance for: (+1 Action. 2R-notick / 2G-notick / 2B-notick / 2M.). //Otherwise: Pocket this.")
         self.table = ["Bandits of the Highway"]
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             if cf.chance(0.67, onSuccess_printInsteadOfInput = True).func(card, caster, dino, enemies, passedInVisuals):
+                caster.plusActions(1)
                 cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Rnotick()],
                                                                      cll.Attackcons([2, cll.Gnotick()],
                                                                      cll.Attackcons([2, cll.Bnotick()],
@@ -87,11 +88,11 @@ class hunkOfJunk(gdc.DinoCard):
                                                                  cll.Attackcons([1, cll.R()],
                                                                  cll.Attackcons([1, cll.Rnotick()],
                                                                  'nil')))))
-            query = h.yesOrNo("+1 Card and 0.5 Chance for: Pocket a Rubbish Card?", passedInVisuals = passedInVisuals)
+            query = h.yesOrNo("+1 Card and 0.5 Chance for: Pocket a ^Rubbish^?", passedInVisuals = passedInVisuals)
             if query:
                 caster.drawCard()
                 if cf.chance(0.5).func(card, caster, dino, enemies, passedInVisuals):
-                    caster.gainCard(gcbt.getCardByName("Rubbish"), dino.pocket)
+                    caster.gainCard(rubbish(), dino.pocket)
 
 class brakeCutters(gdc.DinoCard):
     def __init__(self):
@@ -105,7 +106,7 @@ class brakeCutters(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.M()], cll.Attackcons([1, cll.M()], cll.Attackcons([1, cll.M()], 'nil'))))
-            caster.gainCard(gcbt.getCardByName("Rubbish"), dino.discard)
+            caster.gainCard(rubbish(), dino.discard)
 
 class wheelShrapnel(gdc.DinoCard):
     def __init__(self):
@@ -178,7 +179,7 @@ class infiltratorInterrogators(gdc.DinoCard):
                 caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
-        caster.gainCard(gcbt.getCardByName("Rubbish"), caster.pocket)
+        caster.gainCard(rubbish(), caster.pocket)
 
 class raccoonHeist(gdc.DinoCard):
     def __init__(self):
@@ -192,7 +193,7 @@ class raccoonHeist(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(2)
-            caster.gainCard(gcbt.getCardByName("Shovel"), dino.pocket)
+            caster.gainCard(shovel(), dino.pocket)
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -218,7 +219,7 @@ class roadSignAugers(gdc.DinoCard):
                 caster.drawCard()
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
-        caster.gainCard(gcbt.getCardByName("Shovel"), caster.pocket)
+        caster.gainCard(shovel(), caster.pocket)
 
 class carFeigning(gdc.DinoCard):
     def __init__(self):

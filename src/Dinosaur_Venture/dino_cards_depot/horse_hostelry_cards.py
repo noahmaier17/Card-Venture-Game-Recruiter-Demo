@@ -2,12 +2,18 @@ import random
 import re
 
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardFunctions as cf
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_functions as cf
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+
+'''
+    BUG LIST:
+    1. Replacing cards does not exactly work last time I checked.
+    2. Remove all calls to gcbt.getCardByName()
+'''
 
 '''
     Horse Hostelry

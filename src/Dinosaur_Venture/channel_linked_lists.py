@@ -10,6 +10,7 @@ from colorama import Back, Fore, Style, init
 init(autoreset=True)
 from Dinosaur_Venture import helper as h
 
+
 class Channel():
     """
     Parent class of the several different types of damage.

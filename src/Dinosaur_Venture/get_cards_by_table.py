@@ -1,24 +1,24 @@
 import copy
 
-## from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
-from Dinosaur_Venture import enemyCards as ec_ec
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.dino_cards_depot import (AppleOrchardHollowCards,
-                                               BanditsOfTheHighwayCards,
-                                               ChickenCoupCards,
-                                               FeFarmersCards,
-                                               DebuffsCards, DebugCards,
-                                               FallowFarmlandCards,
-                                               FastFoodMascotsCards,
-                                               FruitbearingMonksCards,
-                                               FundamentalCards)
-from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
-from Dinosaur_Venture.dino_cards_depot import (GraverobberCards,
-                                               HorseHostelryCards,
-                                               NewBearOrderCards,
-                                               PackingBotCards,
-                                               RubbleDwellersCards, ShopCards,
-                                               ThePierCards)
+from Dinosaur_Venture.dino_cards_depot import (apple_orchard_hollow_cards,
+                                               bandits_of_the_highway_cards,
+                                               chicken_coup_cards,
+                                               debuffs_cards, debug_cards,
+                                               fallow_farmland_cards,
+                                               fast_food_mascots_cards,
+                                               fe_farmers_cards,
+                                               fruitbearing_monks_cards,
+                                               fundamental_cards)
+from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+from Dinosaur_Venture.dino_cards_depot import (graverobber_cards,
+                                               horse_hostelry_cards,
+                                               new_bear_order_cards,
+                                               packing_bot_cards,
+                                               rubble_dwellers_cards,
+                                               shop_cards, the_pier_cards)
+from Dinosaur_Venture.enemy_cards_depot import enemy_cards
+from Dinosaur_Venture.enemy_cards_depot import general_enemy_cards as gec
 
 ## Tier 1 Tables
 TIER_1_TABLES = [
@@ -61,13 +61,14 @@ ALL_TABLES = [
     "Debug",
     "Fundamental",
     "Shop",
-    "Debuffs"
+    "Debuffs",
+    "Muck"
 ] + ALL_DINO_CARDS + WIP_TABLES + ENEMY_TABLES
 
 ## Gets a list of all the cards.
 def getAllCards():
     cardLocation = h.cardLocation("All Cards")
-    for card in gdc.DinoCard.__subclasses__() + gdc.DinoShellCard.__subclasses__() + ec_ec.EnemyCard.__subclasses__():
+    for card in gdc.DinoCard.__subclasses__() + gdc.DinoShellCard.__subclasses__() + gec.EnemyCard.__subclasses__():
         cardLocation.append(card())
     return cardLocation
 
@@ -76,7 +77,7 @@ ALL_CARDS = getAllCards()
 
 ## Pools all the enemy cards into an uninitialized list
 ENEMY_CARD_POOL_UNINIT = []
-for Card in ec_ec.EnemyCard.__subclasses__():
+for Card in gec.EnemyCard.__subclasses__():
     if any(i in Card().table for i in ["Enemy Card Pool"]):
         ## We add it 2x
         ENEMY_CARD_POOL_UNINIT.append(Card)

@@ -5,7 +5,7 @@ import random
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 
 ## Simulates card pulls, showing what can be expected from different sets

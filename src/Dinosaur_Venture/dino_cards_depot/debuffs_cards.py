@@ -1,9 +1,9 @@
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardFunctions as cf
+from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import getCardsByTable as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import junk
 
 '''
     Debuffs
@@ -62,7 +62,7 @@ class inRuins(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "IN-RUINS " + cardToEnshell.name
-        cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("Gain a ^Junk^.", cf.gainACard(gcbt.getCardByName("Junk"))))
+        cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("Gain a ^Junk^.", cf.gainACard(junk())))
 
 class invigorating(gdc.DinoShellCard):
     def __init__(self):

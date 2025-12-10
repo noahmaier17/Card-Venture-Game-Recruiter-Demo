@@ -7,9 +7,9 @@ import re
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import main_visuals as vis
 
 
 def code():

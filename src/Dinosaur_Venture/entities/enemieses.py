@@ -8,9 +8,12 @@ import math
 import random
 
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import main_visuals as vis
+from Dinosaur_Venture.enemy_cards_depot.enemy_cards import (
+    craveFishMantra, demandingInheritance, fishFrenzy, goingNuts, nothing,
+    prepareToFly, soapboxStump)
 from Dinosaur_Venture.entities import entity as e
 
 
@@ -40,7 +43,7 @@ class Enemy(e.Entity):
         while (self.deck.length() < 6):
             if EFD.length() == 0:
                 # Case where we cannot add any more Cards
-                self.deck.append(gcbt.getCardByName("Nothing"))
+                self.deck.append(nothing())
             else:
                 card = EFD.pop(random.randint(0, EFD.length() - 1))
 
@@ -198,7 +201,9 @@ class Fisherman(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(gcbt.getCardByName("Crave Fish Mantra"))
+        
+
+        self.deck.append(craveFishMantra())
         self.damageDist = 1.8
         self.siftDist = 0.75
         super().fillDeck()
@@ -218,11 +223,11 @@ class FishingCaravan(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(gcbt.getCardByName("Fish Frenzy"))
+        self.deck.append(fishFrenzy())
         if random.random() < 0.25:
-            self.deck.append(gcbt.getCardByName("Fish Frenzy"))
+            self.deck.append(fishFrenzy())
             if random.random() < 0.1:
-                self.deck.append(gcbt.getCardByName("Fish Frenzy"))
+                self.deck.append(fishFrenzy())
         self.damageDist = 1.35
         self.siftDist = 1.25
         super().fillDeck()
@@ -244,7 +249,7 @@ class FlyingSquirrel(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(gcbt.getCardByName("Prepare To Fly"))
+        self.deck.append(prepareToFly())
         self.damageDist = 0.8
         self.siftDist = 1.2
         super().fillDeck()
@@ -265,7 +270,7 @@ class MalabarGiantSquirrel(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
 
-        self.deck.append(gcbt.getCardByName("Going Nuts"))
+        self.deck.append(goingNuts())
         self.damageDist = 1
         self.siftDist = 1
         super().fillDeck()
@@ -462,7 +467,7 @@ class CinnamonBear(Enemy):
         self.hp = self.__healthInit()
         self.publishBandBreak(1, discardHand = True)
 
-        self.deck.append(gcbt.getCardByName("Soapbox Stump"))
+        self.deck.append(soapboxStump())
         self.damageDist = 1.1
         self.siftDist = 1.1
         super().fillDeck()
@@ -490,7 +495,7 @@ class Babybear(Enemy):
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
         
-        self.deck.append(gcbt.getCardByName("Demanding Inheritance"))
+        self.deck.append(demandingInheritance())
         self.damageDist = 1
         self.siftDist = 1
         super().fillDeck()
@@ -568,7 +573,7 @@ class DiscardedPlastic(Enemy):
         if len(dino.play) > 1 and self.didOnceARoundAtTriggerDinoPlayedCard == False and self.dead == False:
             self.didOnceARoundAtTriggerDinoPlayedCard = True
             h.splash("Triggered Special Gimmick: Once a Round, while 'Discarded Plastic' is Alive: if '" + str(dino.name) + "' has more than 1 Card in play: Dino gains 'To-Toss Plastic,' and draws 1 additional Card next Turn.")
-            dino.discard.append(gcbt.getCardByName("To-Toss Plastic"))
+            dino.discard.append(toTossPlastic())
             dino.plusUpcomingPlusCard(0, 1)
 
 ## Grizzly -- More than any other bear does it despise what has come of the species. 

@@ -1,10 +1,10 @@
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardFunctions as cf
-from Dinosaur_Venture import getCardsByTable as gcbt
+from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import rubble
 
 '''
     Rubble Dwellers
@@ -29,7 +29,7 @@ class rubbleReorganizers(gdc.DinoCard):
 
     def onLooted(self, dino):
         for i in range(2):
-            dino.gainCard(gcbt.getCardByName("Rubble"))
+            dino.gainCard(rubble())
 
 class rubbleReclaimers(gdc.DinoCard):
     def __init__(self):
@@ -76,7 +76,7 @@ class rubbleReclaimers(gdc.DinoCard):
 
     def onLooted(self, dino):
         for i in range(1):
-            dino.gainCard(gcbt.getCardByName("Rubble"))
+            dino.gainCard(rubble())
 
 class rubbleRequesters(gdc.DinoCard):
     def __init__(self):
@@ -117,11 +117,11 @@ class rubbleRequesters(gdc.DinoCard):
 
         def trigger(self, card, caster, dino, enemies):
             self.reacted_1 = True
-            caster.gainCard(gcbt.getCardByName("Rubble"), caster.discard)
+            caster.gainCard(rubble(), caster.discard)
 
         def resetState_TurnEnd(self):
             self.reacted_1 = False
 
     def onLooted(self, dino):
         for i in range(1):
-            dino.gainCard(gcbt.getCardByName("Rubble"))
+            dino.gainCard(rubble())

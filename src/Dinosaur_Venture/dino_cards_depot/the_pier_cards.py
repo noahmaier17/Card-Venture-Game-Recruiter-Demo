@@ -2,13 +2,13 @@ import random
 import re
 
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import cardFunctions as cf
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_functions as cf
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import getCardsByTable as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.dino_cards_depot import GeneralDinoCards as gdc
+from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import fish
 
 '''
     The Pier
@@ -28,7 +28,7 @@ class fishFry(gdc.DinoCard):
             caster.plusActions(3)
             caster.canGainActionsThisTurn = False
             for i in range(1):
-                caster.gainCard(gcbt.getCardByName("Fish"), caster.hand, position = caster.hand.length())
+                caster.gainCard(fish(), caster.hand, position = caster.hand.length())
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -55,7 +55,7 @@ class sleepingWithTheFishes(gdc.DinoCard):
                 if enemy.dead:
                     anyDeadEnemies = True
                     h.splash("'" + enemy.name + "' is a Carcass, so: Gaining a ^Fish^.", printInsteadOfInput = True)
-                    caster.gainCard(gcbt.getCardByName("Fish"), caster.discard)
+                    caster.gainCard(fish(), caster.discard)
             if anyDeadEnemies:
                 input(" ... ")
 
@@ -117,7 +117,7 @@ class tackleBox(gdc.DinoCard):
             self.reacted_1 = True
             for i in range(self.detritusCount):
                 for j in range(1):
-                    caster.gainCard(gcbt.getCardByName("Fish"), caster.draw)
+                    caster.gainCard(fish(), caster.draw)
 
         def resetState_TurnEnd(self):
             self.reacted_1 = False
@@ -169,7 +169,7 @@ class goneFishing(gdc.DinoCard):
         def trigger(self, card, caster, dino, enemies):
             self.reacted_1 = True
             for i in range(self.countedActions):
-                caster.gainCard(gcbt.getCardByName("Fish"), caster.discard)
+                caster.gainCard(fish(), caster.discard)
 
         def resetState_TurnEnd(self):
             self.reacted_1 = False
@@ -225,7 +225,7 @@ class fishPot(gdc.DinoCard):
             millCardFunction.immill_func(card, caster, dino, enemies, passedInVisuals)
 
     def onLooted(self, dino):
-        toAddCard = gcbt.getCardByName("Fish")
+        toAddCard = fish()
         toAddCard.publishInitialization(muck = True)
         dino.gainCard(toAddCard, dino.deck)
 
@@ -288,7 +288,7 @@ class useJunkAsBait(gdc.DinoShellCard):
     class customAboveTextFunction(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             for i in range(4):
-                caster.gainCard(gcbt.getCardByName("Fish"), caster.discard)
+                caster.gainCard(fish(), caster.discard)
 
 class tangledFishLine(gdc.DinoCard):
     def __init__(self):
@@ -308,7 +308,7 @@ class tangledFishLine(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(2)
             for i in range(2):
-                caster.gainCard(gcbt.getCardByName("Fish"), caster.hand, position = caster.hand.length())
+                caster.gainCard(fish(), caster.hand, position = caster.hand.length())
 
     class duringPacking(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -371,7 +371,7 @@ class disphoticFishZone(gdc.DinoCard):
             else:
                 difference = 3 - cardsInHand
                 for i in range(difference):
-                    caster.gainCard(gcbt.getCardByName("Fish"), caster.hand, position = caster.hand.length())
+                    caster.gainCard(fish(), caster.hand, position = caster.hand.length())
                 h.splash("With " + str(cardsInHand) + " Card(s) in Hand: Gained " + str(difference) + " ^Fish^ to Hand.")
 
             card.publishToken(tk.inoperable())
@@ -394,7 +394,7 @@ class aphoticFishZone(gdc.DinoCard):
             else:
                 difference = 5 - cardsInHand
                 for i in range(difference):
-                    caster.gainCard(gcbt.getCardByName("Fish"), caster.discard)
+                    caster.gainCard(fish(), caster.discard)
                 h.splash("With " + str(cardsInHand) + " Card(s) in Hand: Gained " + str(difference) + " ^Fish^.")
 
     class duringPacking(cf.cardFunctions):
@@ -481,7 +481,7 @@ class rustyNetCutter(gdc.DinoCard):
         def trigger(self, card, caster, dino, enemies):
             self.reacted_1 = True
             for i in range(3):
-                    caster.gainCard(gcbt.getCardByName("Fish"), caster.discard)
+                    caster.gainCard(fish(), caster.discard)
 
         def resetState_AfterAfterEntityAttacked(self):
             self.reacted_1 = False

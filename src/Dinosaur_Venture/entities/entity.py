@@ -11,11 +11,11 @@ from typing import TYPE_CHECKING
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture import mainVisuals as vis
+from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
 
 if TYPE_CHECKING:
@@ -760,7 +760,7 @@ class Entity():
         printCard: bool = False, 
         inputCard: bool = False
     ) -> None:
-        """Gains a Card to the to location at the given position."""
+        """Gains a Card to the to location at the given position; card should be initialized."""
         fantasy = h.cardLocation("fantasy")
         fantasy.append(card)
         self.moveCard(fantasy, 0, toLocation, position, printCard, inputCard)
@@ -777,6 +777,7 @@ class Entity():
         Gains a copy of a Card to the to location at the given position.
         
         Effectively the same as `gainCard` except this will `copy.deepcopy` the other card.
+        Useful for when the copied card is already in deck/will continue to be played with.
         """
         fantasy = h.cardLocation("fantasy")
         cardCopy = copy.deepcopy(card)

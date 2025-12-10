@@ -1,41 +1,4 @@
 /**
- * Changes the tables that are currently selected.
- */
-/*
-function selectCardsByTable(selectionTable) {
-  // Do we have any selected dino cards?
-  var allDinoCardsSelected = true;
-  var atLeastOneNonDinoCardSelected = false;
-  document.querySelectorAll('input[name="tables"]').forEach(checkbox => {
-    if (selectionTable.includes(checkbox.value) && !checkbox.checked) {
-      allDinoCardsSelected = false;
-    }
-    if (!(selectionTable.includes(checkbox.value)) && checkbox.checked) {
-      atLeastOneNonDinoCardSelected = true;
-    }
-  });
-
-  // If we have anything except exclusively all the dino cards selected,
-  // turns the dino cards on.
-  var checkboxValue;
-  if (allDinoCardsSelected && !atLeastOneNonDinoCardSelected) {
-    checkboxValue = false;
-  } else {
-    checkboxValue = true;
-  }
-  document.querySelectorAll('input[name="tables"]').forEach(checkbox => {
-    if (selectionTable.includes(checkbox.value)) {
-      checkbox.checked = checkboxValue;
-    } else {
-      checkbox.checked = false;
-    }
-  });
-
-  document.querySelector('form').submit();
-}
-*/
-
-/**
  * Scroll to top button functionality.
  */
 function scrollToTop() {
@@ -96,7 +59,27 @@ function renderCards(cards, totalCount) {
   cards.forEach(card => {
     const div = document.createElement("div");
     div.classList.add("card");
-    div.innerHTML = `<div class="name">${card.name}</div><pre>${card.text}</pre>`;
+
+    // Handles listing all tables this card belongs to
+    var tableString = "("
+    var firstPass = true
+    card.table.forEach(tb => {
+      if (!firstPass) {
+        tableString += ", "
+      }
+      tableString += tb
+      firstPass = false
+    })
+    tableString += ")"
+
+    // Sets the actual HTML elements
+    div.innerHTML = `
+      <div class="card-names-line">
+        <span class="card-name-text">${card.name}</span>
+        <span class="card-table-text">${tableString}</span>
+      </div>
+      <pre>${card.text}</pre>
+    `;
     cards_container.appendChild(div);
   });
 }
@@ -149,6 +132,9 @@ async function fetchCardsMatchingText() {
   matchingTextBodyText = matchingTextBodyText.replace(/-notick/g, "-n(t|otick)");
   const bodyTextRegex = new RegExp(matchingTextBodyText, "i");
 
+  // We also need the RegEx expression for the card name
+  const cardNameRegex = new RegExp(matchingTextName, "i");
+
   // Sends the list of selected tables
   const res = await fetch("/api/cards", {
     method: "POST",
@@ -168,7 +154,7 @@ async function fetchCardsMatchingText() {
   // Otherwise, we get a subset of cards where we must match the text
   const subsetOfCards = [];
   cards.forEach(card => {
-    if (card.name.toLowerCase().includes(matchingTextName) && bodyTextRegex.test(card.plainText)) {
+    if (cardNameRegex.test(card.plainName) && bodyTextRegex.test(card.plainText)) {
       subsetOfCards.push(card);
     }
   });

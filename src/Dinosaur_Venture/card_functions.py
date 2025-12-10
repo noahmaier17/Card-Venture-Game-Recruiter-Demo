@@ -1,8 +1,8 @@
 import copy
 import random
 
-from Dinosaur_Venture import cardModFunctions as cmf
-from Dinosaur_Venture import cardTokens as tk
+from Dinosaur_Venture import card_mod_functions as cmf
+from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
 
 ## Groupings of common Card functionality.

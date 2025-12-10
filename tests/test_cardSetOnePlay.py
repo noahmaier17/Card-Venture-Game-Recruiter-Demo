@@ -1,12 +1,13 @@
 import pytest
 import pytest_timeout
-from test_utils import simulateGameplay
-from test_utils.gameSetups import (
+
+from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+from tests.test_utils import simulate_gameplay
+from tests.test_utils.game_setups import (
     getCartesianProduct_dinoEnemiesClearingCards, setup_getCardSetOne,
     setup_getDinoEnemiesClearing)
-from test_utils.validateGameState import isCardExclusivelyAtIndexInLocation
-
-from Dinosaur_Venture import gameplayScriptedInput as scriptInput
+from tests.test_utils.validate_game_state import \
+    isCardExclusivelyAtIndexInLocation
 
 '''
     Tests the case where dinosaur has only one card in deck, and if the game can successfully:
@@ -32,12 +33,12 @@ class TestSuite():
             dino.gainCard(testCard, dino.deck)
 
             ## Run through play card
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
                 dino, enemies, clearing, 
                 [
-                    simulateGameplay.startRound(),
-                    simulateGameplay.dinoTurnStart(),
-                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard([1]))
+                    simulate_gameplay.startRound(),
+                    simulate_gameplay.dinoTurnStart(),
+                    simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard([1]))
                 ])
 
             ## Checks if the card is in play
@@ -56,12 +57,12 @@ class TestSuite():
             dino.gainCard(testCard, dino.deck)
 
             ## Run through play card
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
                 dino, enemies, clearing, 
                 [
-                    simulateGameplay.startRound(),
-                    simulateGameplay.dinoTurnStart(),
-                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["pass"]))
+                    simulate_gameplay.startRound(),
+                    simulate_gameplay.dinoTurnStart(),
+                    simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["pass"]))
                 ])
 
             ## Checks if the card is in play
@@ -80,12 +81,12 @@ class TestSuite():
             dino.gainCard(testCard, dino.deck)
 
             ## Run through play card
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
                 dino, enemies, clearing, 
                 [
-                    simulateGameplay.startRound(),
-                    simulateGameplay.dinoTurnStart(),
-                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "pass"]))
+                    simulate_gameplay.startRound(),
+                    simulate_gameplay.dinoTurnStart(),
+                    simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "pass"]))
                 ])
 
             ## Checks if the card is in play exclusively
@@ -104,12 +105,12 @@ class TestSuite():
             dino.gainCard(testCard, dino.deck)
 
             ## Run through play card
-            simulateGameplay.simulate(
+            simulate_gameplay.simulate(
                 dino, enemies, clearing, 
                 [
-                    simulateGameplay.startRound(),
-                    simulateGameplay.dinoTurnStart(),
-                    simulateGameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "1"]))
+                    simulate_gameplay.startRound(),
+                    simulate_gameplay.dinoTurnStart(),
+                    simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.script_DinoPlayCard(["askdfaskdjfksa", "128391823912839", "0", "1"]))
                 ])
 
             ## Checks if the card is in play
