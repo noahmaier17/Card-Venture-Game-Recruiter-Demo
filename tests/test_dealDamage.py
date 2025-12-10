@@ -11,7 +11,7 @@ from Dinosaur_Venture import gameplayScriptedInput as scriptInput
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import mainVisuals as vis
 from Dinosaur_Venture.dino_cards_depot import \
-    GeneralDinoCards as generalDinoCards
+    general_dino_cards as generalDinoCards
 
 '''
     Tests for correct functionality of dealing damage.
