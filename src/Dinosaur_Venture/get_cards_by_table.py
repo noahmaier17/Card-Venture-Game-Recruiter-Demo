@@ -48,7 +48,8 @@ ALL_TABLES = [
     "Debug",
     "Fundamental",
     "Shop",
-    "Debuffs"
+    "Debuffs",
+    "Muck"
 ] + ALL_DINO_CARDS + WIP_TABLES + ENEMY_TABLES
 
 ## Gets a list of all the cards.
