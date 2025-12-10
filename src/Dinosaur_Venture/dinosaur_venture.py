@@ -166,18 +166,19 @@ def code():
         testCard.publishShell(aboveThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)),
                             belowThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)))
         dino.deck.append(testCard)
-
-        dino.deck.append(gcbt.getCardByName("Time in a Bottle"))
-        card = gcbt.getCardByName("Fish Fry")
-        gcbt.getCardByName("//shell// In-Ruins").onLootedEnshelling(dino, card)
-        dino.deck.append(card)
         '''
 
-        dino.deck.append(gcbt.getCardByName("Trampled Rodent"))
-        dino.deck.append(gcbt.getCardByName("Trampled Rodent"))
-        dino.deck.append(gcbt.getCardByName("Twig!"))
-        dino.deck.append(gcbt.getCardByName("Twig!"))
-        dino.deck.append(gcbt.getCardByName("Twig!"))
+        from Dinosaur_Venture.dino_cards_depot import (
+            bandits_of_the_highway_cards, debuffs_cards, shop_cards)
+
+        testCard = shop_cards.firewoodAxe()
+        debuffs_cards.inRuins().onLootedEnshelling(dino, testCard)
+        dino.deck.append(testCard)
+
+        dino.deck.append(shop_cards.twig())
+        dino.deck.append(shop_cards.twig())
+        dino.deck.append(shop_cards.twig())
+        dino.deck.append(bandits_of_the_highway_cards.coercionCultivator())
 
     difficulty += DIFFICULTY_DEBUG_BONUS
     if difficulty <= 0:

@@ -3,7 +3,6 @@ import random
 
 import pytest
 import pytest_timeout
-from tests.test_utils.game_setups import setup_getDinoEnemiesClearing
 
 from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
@@ -12,6 +11,7 @@ from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.dino_cards_depot import \
     general_dino_cards as generalDinoCards
+from tests.test_utils.game_setups import setup_getDinoEnemiesClearing
 
 '''
     Tests for correct functionality of dealing damage.

@@ -10,18 +10,9 @@ if TYPE_CHECKING:
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.entities import entity as e
 
-INITIALIZATION_ZONES = {
-    "iBottom": "Bottom",
-    "iTop": "Top",
-    "iDiscard": "Discard",
-    "iInto_Hand": "Into Hand",
-    "iDraw": "Draw",
-    "iMuck": "Muck",
-    "iPocket": "Pocket"
-}
-REVERSED_INITIALIZATION_ZONES = {}  ## Has the keys and values in the other order
-for key in INITIALIZATION_ZONES.keys():
-    REVERSED_INITIALIZATION_ZONES.update({INITIALIZATION_ZONES[key]: key})
+from Dinosaur_Venture.card_initalization_zones import \
+    REVERSED_INITIALIZATION_ZONES
+
 
 ## Creates the bodyText, making it so we can truncate certain details if they are not useful currently.
 ##  Types of input:

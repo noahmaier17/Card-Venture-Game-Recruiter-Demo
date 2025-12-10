@@ -6,8 +6,8 @@ import random
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import card as c
 from Dinosaur_Venture import card_tokens as tk
+from Dinosaur_Venture.card_initalization_zones import INITIALIZATION_ZONES
 
 WIDTH = 117 - 2
 
@@ -583,7 +583,7 @@ def clear_screen():
 def colorize(text):
     returnText = ""
     splinterizedText = splinterize(text)
-    
+
     for word in splinterizedText:
         # print(word)
         if word == "DAS":
@@ -667,8 +667,8 @@ def colorize(text):
             returnText += Style.BRIGHT + "#" + Style.NORMAL + "x"
         elif word == "x#":
             returnText += "x" + Style.BRIGHT + "#" + Style.NORMAL
-        elif word in c.INITIALIZATION_ZONES.keys():
-            returnText += (Fore.BLACK + Style.BRIGHT + c.INITIALIZATION_ZONES.get(word) 
+        elif word in INITIALIZATION_ZONES.keys():
+            returnText += (Fore.BLACK + Style.BRIGHT + INITIALIZATION_ZONES.get(word) 
                             + Fore.WHITE + Style.NORMAL)
         elif word in ["notick"]:
             returnText += "nt"

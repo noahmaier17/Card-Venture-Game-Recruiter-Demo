@@ -9,9 +9,9 @@ import random
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import enemy_cards as ec
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
+from Dinosaur_Venture.enemy_cards_depot import general_enemy_cards as gec
 
 LOWERCASE_LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'y', 'v', 'w', 'x', 'y', 'z']
 UPPERCASE_LETTERS = []
@@ -41,7 +41,7 @@ PAD_BEFORE_PLOT_X = 6
 PAD_BEFORE_PLOT_Y = 2
 
 def code(MAP_ALL):
-    uninitializedEnemyCards = ec.EnemyCard.__subclasses__()
+    uninitializedEnemyCards = gec.EnemyCard.__subclasses__()
     enemyCards = []
     for card in uninitializedEnemyCards:
         enemyCards.append(card())

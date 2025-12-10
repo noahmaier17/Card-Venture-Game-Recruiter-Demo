@@ -3,15 +3,12 @@ import random
 from Dinosaur_Venture import card as c
 from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.entities import enemieses
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import fish
+from Dinosaur_Venture.enemy_cards_depot import general_enemy_cards as gec
 
-
-## Initiates all enemy cards
-class EnemyCard(c.Card):
-    def __init__(self, damageDist, siftDist, likelihood):
-        super().__init__(likelihood, damageDist, siftDist)
+## There is an Dinosaur_Venture.entities.enemieses import below because a card summons Shrews.
+## This should be safe but I am leaving this comment here for readability.
 
 ## -- Parameters for difficulty --
 ## Cards that do something next turn get taxed based on the virtue that
@@ -31,7 +28,7 @@ TAX_PLUS_ONE_ACTION = 1
 
 ## -- GENERAL ENEMY CARDS --
 ## Does nothing.
-class nothing(EnemyCard):
+class nothing(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = -1, siftDist = 0, likelihood = 0.15)
         self.name = "Nothing"
@@ -44,7 +41,7 @@ class nothing(EnemyCard):
             pass
 
 ## 1R.
-class redAttack(EnemyCard):
+class redAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1, siftDist = 0.5, likelihood = 0.5)
         self.name = "Red Nibble"
@@ -57,7 +54,7 @@ class redAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.R()], 'nil'))
 
 ## 1G.
-class greenAttack(EnemyCard):
+class greenAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1, siftDist = 0.5, likelihood = 0.5)
         self.name = "Green Nibble"
@@ -70,7 +67,7 @@ class greenAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.G()], 'nil'))
 
 ## 1B.
-class blueAttack(EnemyCard):
+class blueAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1, siftDist = 0.5, likelihood = 0.5)
         self.name = "Blue Nibble"
@@ -83,7 +80,7 @@ class blueAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.B()], 'nil'))
 
 ## 1Random.
-class randomAttack(EnemyCard):
+class randomAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.25, siftDist = 0.5, likelihood = 0.5)
         self.name = "Frenzied Nibble"
@@ -96,7 +93,7 @@ class randomAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Random()], 'nil'))
 
 ## 2R.
-class doubleRedAttack(EnemyCard):
+class doubleRedAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2, siftDist = 0.5, likelihood = 0.5)
         self.name = "Red Bite"
@@ -109,7 +106,7 @@ class doubleRedAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.R()], 'nil'))
 
 ## 2G.
-class doubleGreenAttack(EnemyCard):
+class doubleGreenAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2, siftDist = 0.5, likelihood = 0.5)
         self.name = "Green Bite"
@@ -122,7 +119,7 @@ class doubleGreenAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.G()], 'nil'))
 
 ## 2B.
-class doubleBlueAttack(EnemyCard):
+class doubleBlueAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2, siftDist = 0.5, likelihood = 0.5)
         self.name = "Blue Bite"
@@ -135,7 +132,7 @@ class doubleBlueAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.B()], 'nil'))
 
 ## 2Random.
-class doubleRandomAttack(EnemyCard):
+class doubleRandomAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2.25, siftDist = 0.5, likelihood = 0.5)
         self.name = "Frenzied Bite"
@@ -148,7 +145,7 @@ class doubleRandomAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Random()], 'nil'))
 
 ## 1M. 
-class smallMaw(EnemyCard):
+class smallMaw(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.25, siftDist = 0.5, likelihood = 0.5)
         self.name = "Small Maw"
@@ -161,7 +158,7 @@ class smallMaw(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.M()], 'nil'))
 
 ## 2M. 
-class maw(EnemyCard):
+class maw(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2.25, siftDist = 0.5, likelihood = 0.5)
         self.name = "Maw"
@@ -174,7 +171,7 @@ class maw(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.M()], 'nil'))
 
 ## Next turn, +1 Action. 
-class prepare(EnemyCard):
+class prepare(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = (targetDamage * TAX_PLUS_ONE_ACTION) * (TAX_NEXT_TURN ** 1),
@@ -194,7 +191,7 @@ class prepare(EnemyCard):
         caster.plusActions(1)
 
 ## 1R-notick. 
-class redNip(EnemyCard):
+class redNip(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.67, siftDist = 1, likelihood = 0.5)
         self.name = "Red Nip"
@@ -207,7 +204,7 @@ class redNip(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Rnotick()], 'nil'))
 
 ## 1G-notick. 
-class greenNip(EnemyCard):
+class greenNip(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.67, siftDist = 1, likelihood = 0.5)
         self.name = "Green Nip"
@@ -220,7 +217,7 @@ class greenNip(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Gnotick()], 'nil'))
 
 ## 1B-notick. 
-class blueNip(EnemyCard):
+class blueNip(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.67, siftDist = 1, likelihood = 0.5)
         self.name = "Blue Nip"
@@ -233,7 +230,7 @@ class blueNip(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.Bnotick()], 'nil'))
 
 ## 2R-notick. 
-class redPeck(EnemyCard):
+class redPeck(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.67, siftDist = 1, likelihood = 0.5)
         self.name = "Red Peck"
@@ -246,7 +243,7 @@ class redPeck(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Rnotick()], 'nil'))
 
 ## 2G-notick. 
-class greenPeck(EnemyCard):
+class greenPeck(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.67, siftDist = 1, likelihood = 0.5)
         self.name = "Green Peck"
@@ -259,7 +256,7 @@ class greenPeck(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Gnotick()], 'nil'))
 
 ## 2B-notick. 
-class bluePeck(EnemyCard):
+class bluePeck(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.67, siftDist = 1, likelihood = 0.5)
         self.name = "Blue Peck"
@@ -272,7 +269,7 @@ class bluePeck(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Bnotick()], 'nil'))
 
 ## 2R-notick. +1 Card.
-class RedTrot(EnemyCard):
+class RedTrot(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.85, siftDist = 1.5, likelihood = 0.5)
         self.name = "Red Trot"
@@ -286,7 +283,7 @@ class RedTrot(EnemyCard):
             caster.drawCard()
 
 ## 2G-notick. +1 Card.
-class GreenTrot(EnemyCard):
+class GreenTrot(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.85, siftDist = 1.5, likelihood = 0.5)
         self.name = "Green Trot"
@@ -300,7 +297,7 @@ class GreenTrot(EnemyCard):
             caster.drawCard()
 
 ## 2B-notick. +1 Card.
-class BlueTrot(EnemyCard):
+class BlueTrot(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 1.85, siftDist = 1.5, likelihood = 0.5)
         self.name = "Blue Trot"
@@ -314,7 +311,7 @@ class BlueTrot(EnemyCard):
             caster.drawCard()
 
 ## 2L. 
-class scaredSlash(EnemyCard):
+class scaredSlash(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2.5, siftDist = 1, likelihood = 0.5)
         self.name = "Scared Slash"
@@ -327,7 +324,7 @@ class scaredSlash(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.L()], 'nil'))
 
 ## +1 Action. 
-class unrehearsed(EnemyCard):
+class unrehearsed(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = (targetDamage * TAX_PLUS_ONE_ACTION),
@@ -344,7 +341,7 @@ class unrehearsed(EnemyCard):
 
 ## +1 Action.
 ##  To the next positioned living Enemy: +1 Card.
-class talkingStick(EnemyCard):
+class talkingStick(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = (targetDamage * TAX_PLUS_ONE_ACTION),
@@ -365,7 +362,7 @@ class talkingStick(EnemyCard):
                 h.splash("FAIL_FIND_ENEMY")
 
 ## 1R. Next Turn, 1R.
-class redGash(EnemyCard):
+class redGash(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1 + (1) ** TAX_NEXT_TURN,
@@ -388,7 +385,7 @@ class redGash(EnemyCard):
         dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.R()], 'nil'))
 
 ## 1G. Next Turn, 1G.
-class greenGash(EnemyCard):
+class greenGash(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1 + (1) ** TAX_NEXT_TURN,
@@ -411,7 +408,7 @@ class greenGash(EnemyCard):
         dino.damage(caster, dino, enemies, cll.Attackcons([1, cll.G()], 'nil'))
 
 ## 1B. Next Turn, 1B.
-class blueGash(EnemyCard):
+class blueGash(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1 + (1) ** TAX_NEXT_TURN,
@@ -435,13 +432,13 @@ class blueGash(EnemyCard):
 
 ## +1 Action. + Cantrip.
 '''
-class lastStand(EnemyCard):
+class lastStand(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2 - 0.5, 
 '''
 
 ## Dinosaur may Discard a Card. If Dinosaur did not, 2R.
-class redGrowl(EnemyCard):
+class redGrowl(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2 - 0.5, siftDist = 0.65, likelihood = 0.5)
         self.name = "Red Growl"
@@ -474,7 +471,7 @@ class redGrowl(EnemyCard):
                 dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.R()], 'nil'))
 
 ## Dinosaur may Discard a Card. If Dinosaur did not, 2G.
-class greenGrowl(EnemyCard):
+class greenGrowl(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2 - 0.5, siftDist = 0.65, likelihood = 0.5)
         self.name = "Green Growl"
@@ -507,7 +504,7 @@ class greenGrowl(EnemyCard):
                 dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.G()], 'nil'))
 
 ## Dinosaur may Discard a Card. If Dinosaur did not, 2B.
-class blueGrowl(EnemyCard):
+class blueGrowl(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 2 - 0.5, siftDist = 0.65, likelihood = 0.5)
         self.name = "Blue Growl"
@@ -540,7 +537,7 @@ class blueGrowl(EnemyCard):
                 dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.B()], 'nil'))
 
 ## Next Turn, 2R-notick.
-class redLeapingAttack(EnemyCard):
+class redLeapingAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1.67 * TAX_NEXT_TURN,
@@ -561,7 +558,7 @@ class redLeapingAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Rnotick()], 'nil'))
 
 ## Next Turn, 2G-notick.
-class greenLeapingAttack(EnemyCard):
+class greenLeapingAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1.67 * TAX_NEXT_TURN,
@@ -582,7 +579,7 @@ class greenLeapingAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Gnotick()], 'nil'))
 
 ## Next Turn, 2B-notick.
-class blueLeapingAttack(EnemyCard):
+class blueLeapingAttack(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1.67 * TAX_NEXT_TURN,
@@ -603,7 +600,7 @@ class blueLeapingAttack(EnemyCard):
             dino.damage(caster, dino, enemies, cll.Attackcons([2, cll.Bnotick()], 'nil'))
 
 ## +1 Action. Next Turn, +3 Cards.
-class musterCourage(EnemyCard):
+class musterCourage(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = (targetDamage * TAX_PLUS_ONE_ACTION),
@@ -626,7 +623,7 @@ class musterCourage(EnemyCard):
                 caster.drawCard()
 
 ## 1R. +1 Card.
-class redCanter(EnemyCard):
+class redCanter(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1.15,
@@ -643,7 +640,7 @@ class redCanter(EnemyCard):
             caster.drawCard()
 
 ## 1G. +1 Card.
-class greenCanter(EnemyCard):
+class greenCanter(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1.15,
@@ -660,7 +657,7 @@ class greenCanter(EnemyCard):
             caster.drawCard()
 
 ## 1B. +1 Card.
-class blueCanter(EnemyCard):
+class blueCanter(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1.15,
@@ -677,7 +674,7 @@ class blueCanter(EnemyCard):
             caster.drawCard()
 
 ## Rocky Vase
-class rockyVase(EnemyCard):
+class rockyVase(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(
             damageDist = 1,
@@ -697,7 +694,7 @@ class rockyVase(EnemyCard):
                 caster.drawCard(caster.discard, shuffleLocation = 'NONE')
 
 ## +1 Action. Heal 1L.
-class craveFishMantra(EnemyCard):
+class craveFishMantra(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 6)
         self.name = "Crave Fish Mantra"
@@ -711,7 +708,7 @@ class craveFishMantra(EnemyCard):
             caster.heal(caster, dino, enemies, cll.Attackcons([1, cll.L()], 'nil'))
             caster.drawCard()
 
-class fishFrenzy(EnemyCard):
+class fishFrenzy(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 6)
         self.name = "Fish Frenzy"
@@ -722,12 +719,12 @@ class fishFrenzy(EnemyCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            dino.gainCard(gcbt.getCardByName("Fish"), dino.draw)
+            dino.gainCard(fish(), dino.draw)
             for enemy in enemies:
-                enemy.gainCard(gcbt.getCardByName("Fish"), enemy.draw)
+                enemy.gainCard(fish(), enemy.draw)
 
 ## + Cantrip. Top-Text Upgrade the Top Card of Draw with: //> +1 Action.
-class prepareToFly(EnemyCard):
+class prepareToFly(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 3)
         self.name = "Prepare To Fly"
@@ -746,13 +743,13 @@ class prepareToFly(EnemyCard):
 
                 cardToEnshell.name = "Flying " + cardToEnshell.name
                 cardToEnshell.publishShell(aboveThrowTextWrapper = cf.shellTextWrapper("+1 Action.", cf.plusXActions(1)))
-                if isinstance(cardToEnshell, EnemyCard):
+                if isinstance(cardToEnshell, gec.EnemyCard):
                     cardToEnshell.likelihood += 3
             else:
                 h.splash("FAIL_FIND_CARD")
 
 ## +1 Action. Redistribute the HP in this current Band Arbitrarily.
-class goingNuts(EnemyCard):
+class goingNuts(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 3)
         self.name = "Going Nuts"
@@ -778,7 +775,7 @@ class goingNuts(EnemyCard):
             caster.hp.replaceBand(0, newHp)
 
 ## Summon a Shrew; it gets -1 Action. 
-class soapboxStump(EnemyCard):
+class soapboxStump(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 3)
         self.name = "Soapbox Stump"
@@ -790,14 +787,16 @@ class soapboxStump(EnemyCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
+            from Dinosaur_Venture.entities.enemieses import Shrew
+
             card.foreverLinger = True
-            summonedEnemy = enemieses.Shrew()
+            summonedEnemy = Shrew()
             summonedEnemy.roundStart()
             summonedEnemy.minusActions(1)
             enemies.append(summonedEnemy)
 
 ## Next turn, per non-Carcass Enemy: 1Random.
-class demandingInheritance(EnemyCard):
+class demandingInheritance(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
         super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 1)
         self.name = "Demanding Inheritance"

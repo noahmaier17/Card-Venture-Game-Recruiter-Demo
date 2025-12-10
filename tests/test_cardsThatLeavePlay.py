@@ -1,14 +1,16 @@
 import pytest
 import pytest_timeout
-from tests.test_utils import simulate_gameplay
-from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
-                                   setup_getCardSetTwoWithToLocations,
-                                   setup_getDinoEnemiesClearing)
-from tests.test_utils.validate_game_state import isCardExclusivelyAtIndexInLocation
 
 from Dinosaur_Venture import gameplay_loop_events as gameEvents
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
-from Dinosaur_Venture import get_cards_by_table as gcbt
+from Dinosaur_Venture.dino_cards_depot.debug_cards import \
+    cantrip as debug_cards_cantrip
+from tests.test_utils import simulate_gameplay
+from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
+                                          setup_getCardSetTwoWithToLocations,
+                                          setup_getDinoEnemiesClearing)
+from tests.test_utils.validate_game_state import \
+    isCardExclusivelyAtIndexInLocation
 
 '''
     Tests the case where dinosaur has a card that leaves play.
@@ -28,7 +30,7 @@ class TestSuite():
         ## Fixture Setup
         dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing
         cardsesWithToLocations = setup_getCardSetTwoWithToLocations
-        cantripses = [gcbt.getCardByName("Cantrip")]
+        cantripses = [debug_cards_cantrip()]
 
         for set in getCartesianProduct_anyInput([dinoes, enemieses, clearingses, cardsesWithToLocations, cantripses]):
             dino, enemies, clearing, cardsesWithToLocations, cantrip = set

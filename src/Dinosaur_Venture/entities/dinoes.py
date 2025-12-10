@@ -7,6 +7,7 @@ Includes all the playable 'dino' characters, as well as the class by which they 
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import junk
 from Dinosaur_Venture.entities import entity as e
 
 
@@ -76,7 +77,7 @@ class Rover(Dinosaur):
         for card in cards.getArray():
             self.deck.append(card)
         for i in range(4):
-            self.deck.append(gcbt.getCardByName("Junk"))
+            self.deck.append(junk())
 
 class Graverobber(Dinosaur):
     """
@@ -93,9 +94,9 @@ class Graverobber(Dinosaur):
         for card in cards.getArray():
             self.deck.append(card)
         for i in range(2):
-            self.deck.append(gcbt.getCardByName("Junk"))
+            self.deck.append(junk())
         self.deckDraw = 0
-        # self.deck.append(gcbt.getCardByName("miscellany"))
+        # self.deck.append(miscellany())
 
     def turnEndTidying(self, dino, enemies, passedInVisuals):
         for i in range(24):
@@ -113,7 +114,7 @@ class Shepherd(Dinosaur):
         for card in cards.getArray():
             self.deck.append(card)
         for i in range(3):
-            self.deck.append(gcbt.getCardByName("Junk"))
+            self.deck.append(junk())
 
 '''
 class HungryWolf(Dinosaur):

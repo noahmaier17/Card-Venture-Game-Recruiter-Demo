@@ -5,7 +5,13 @@ import random
 import pytest
 
 from Dinosaur_Venture import clearing as clr
-from Dinosaur_Venture import get_cards_by_table as gcbt
+from Dinosaur_Venture.dino_cards_depot.apple_orchard_hollow_cards import \
+    orchardTree
+from Dinosaur_Venture.dino_cards_depot.fallow_farmland_cards import (
+    cultivator, gnawedCableCord, grasshopperCache, twigRockScarecrow)
+from Dinosaur_Venture.dino_cards_depot.fundamental_cards import twigExclamation
+from Dinosaur_Venture.dino_cards_depot.new_bear_order_cards import torchBearing
+from Dinosaur_Venture.dino_cards_depot.shop_cards import stick
 from Dinosaur_Venture.entities import dinoes as dinoes_import
 from Dinosaur_Venture.entities import enemieses as enemieses_import
 
@@ -82,10 +88,10 @@ def getCartesianProduct_anyInput(arrays):
 @pytest.fixture
 def setup_getCardSetOne():
     cardses = []
-    cardses.append(gcbt.getCardByName("Twig!"))
-    cardses.append(gcbt.getCardByName("Stick"))
-    cardses.append(gcbt.getCardByName("Grasshopper Cache"))
-    cardses.append(gcbt.getCardByName("Torch Bearing"))
+    cardses.append(twigExclamation())
+    cardses.append(stick())
+    cardses.append(grasshopperCache())
+    cardses.append(torchBearing())
     return cardses
 
 ## Gets card set 2, which are cards that reappear in some location.
@@ -97,14 +103,14 @@ def setup_getCardSetTwoWithToLocations():
     cardses = []
     toLocations = []
     '''
-    cardses.append(gcbt.getCardByName("Orchard Tree"))
+    cardses.append(orchardTree())
     toLocations.append("hand")
-    cardses.append(gcbt.getCardByName("Cultivator"))
+    cardses.append(cultivator())
     toLocations.append("draw")
-    cardses.append(gcbt.getCardByName("Gnawed Cable Cord"))
+    cardses.append(gnawedCableCord())
     toLocations.append("draw")
     '''
-    cardses.append(gcbt.getCardByName("Twig-Rock Scarecrow"))
+    cardses.append(twigRockScarecrow())
     toLocations.append("draw")
 
     '''

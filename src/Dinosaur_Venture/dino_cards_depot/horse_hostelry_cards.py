@@ -10,6 +10,12 @@ from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
 
 '''
+    BUG LIST:
+    1. Replacing cards does not exactly work last time I checked.
+    2. Remove all calls to gcbt.getCardByName()
+'''
+
+'''
     Horse Hostelry
 '''
 class bottleCaps(gdc.DinoCard):
