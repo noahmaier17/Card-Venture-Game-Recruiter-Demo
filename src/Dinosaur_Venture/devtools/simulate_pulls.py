@@ -1,5 +1,3 @@
-import math
-import os
 import random
 
 from colorama import Back, Fore, Style, init

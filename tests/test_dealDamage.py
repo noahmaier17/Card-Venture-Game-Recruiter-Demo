@@ -7,7 +7,6 @@ import pytest_timeout
 from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
-from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.dino_cards_depot import \
     general_dino_cards as generalDinoCards

@@ -4,7 +4,7 @@ from Dinosaur_Venture import gameplay_loop_events as gameEvents
 entityNames, cardNames = gameEvents.setupEntityAndCardNames()
 
 ## Simulator class.
-## Every simulator class has a corresponding gameplayLoopEvents.py class. This is for simulating those
+## Every simulator class has a corresponding gameplay_loop_events.py class. This is for simulating those
 ##  gameplay loop events, handing special cases which may arise from the simulated nature of the code.
 class simulateGameEvent():
     def __init__(self, scriptedInput=None):
