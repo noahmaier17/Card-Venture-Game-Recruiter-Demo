@@ -1,7 +1,6 @@
 import pytest
 import pytest_timeout
 
-from Dinosaur_Venture import gameplay_loop_events as gameEvents
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture.dino_cards_depot.debug_cards import \
     cantrip as debug_cards_cantrip

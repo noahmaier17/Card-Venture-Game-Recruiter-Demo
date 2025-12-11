@@ -1,6 +1,6 @@
 '''
     Enables scripted input, used for automated test cases. 
-    Most gameplayLoopEvents.py functions have a corresponding gameplayScriptInput.py function. 
+    Most gameplay_loop_events.py functions have a corresponding gameplay_script_input.py function. 
 '''
 
 ## Parent class. 
@@ -22,13 +22,13 @@ class gameplayScriptInput():
     def getNextSplashValue(self):
         return ""
 
-## Script for gameplayLoopEvents.dinoPlayCard
-## The getNextValue call asks for all the input values of gameplayLoopEvents.dinoPlayCard to enable other functionality
+## Script for gameplay_loop_events.dinoPlayCard
+## The getNextValue call asks for all the input values of gameplay_loop_events.dinoPlayCard to enable other functionality
 class script_DinoPlayCard(gameplayScriptInput):
     def getNextValue(self, dino, enemies, roundCount, clearing, event, entityNames, cardNames):
         return super().getNextValue()
 
-## Script for gameplayLoopEvents.dinoPlayCard
+## Script for gameplay_loop_events.dinoPlayCard
 ## Special functionality: based on the input value, looks for a card in hand/pocket with that name.
 ##  If such a card exists, plays the index of its location (as if a human looked for the card name). 
 ##  If no such card exists, types into the console whatever that input value happened to be.

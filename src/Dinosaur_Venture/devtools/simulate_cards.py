@@ -1,6 +1,5 @@
 ## Allows for a nice way to display Cards
 
-import os
 import random
 import re
 

@@ -1,4 +1,3 @@
-import os
 import webbrowser
 
 ## DIRECTORY = "C:/Users/light/OneDrive/Desktop/Dinosaur Venture/"
