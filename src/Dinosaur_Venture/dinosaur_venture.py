@@ -187,7 +187,7 @@ def code(
         guarenteedClearing = setOfAllWoods.pop(guarenteedClearingIndex)
 
     # Creates a new log file instance
-    log.new_log_file()
+    log.new_physical_log_file()
 
     # The below while loop runs the entire game
     while True:
