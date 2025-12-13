@@ -12,6 +12,8 @@ The following depicts and explains the project directory. The most important and
 
         scripts/
             push_to_recruiter_repo.ps1      # Script to merge private repo to public/recruiter-facing repo          !!
+            clear_logs.py                   # Cleans all logs in logs/ folder
+            ...
 
         src/
             Dinosaur_Venture/
@@ -60,9 +62,9 @@ The following is a list of the the biggest features within my project with a bit
 - Enemy Cards (`src/Dinosaur_Venture/enemy_cards_depot/enemy_cards.py`)
     - The list of enemy cards; all are also unique. 
     - ~40 implemented.
-- devtools (`src/Dinosaur_Venture/devtools/*`)
+- scripts (`scripts/*`)
+    - `push_to_recruiter_repo.ps1` merges my personal, development repo with the public/recruiter repo. Also removes files not needed for the public-facing repo, like a TODO list. 
     - `clear_logs.py` clears the log writing for this game. In `src/Dinosaur_Venture/gameplay_logging`, I created custom logging functionality so different moments throughout a game are saved in an external location. That way, if there is some sort of buggy functionality, I can trace these logs to understand what is incorrect. This devtool clears all of those logs. 
-    - `simulate_cards.py` lets a developer look up cards. It supports looking up cards based on their loot table, and based on some sort of RegEx condition. I have implemented a remotely-hosted web application version of this tool in the `web_app/` folder.
 - Test Cases (`tests/`)
     - I have been working to implement test cases for my game, which can be found within this folder.
 - Simulate Cards Web Application (`web_app/`)
