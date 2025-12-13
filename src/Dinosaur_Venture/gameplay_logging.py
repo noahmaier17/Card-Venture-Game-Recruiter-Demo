@@ -12,13 +12,68 @@ if TYPE_CHECKING:
     from Dinosaur_Venture import helper as h
     from Dinosaur_Venture.entities import entity as e
 
-## ----- Constants -----
-# Global boolean that will force logging to be ignored (for testing)
-IGNORE_GAMEPLAY_LOGGING = True
+## ----- Logging Classes -----
+# For CI, we need to create an in-memory logger instead of a physical logger
+class Logger():
+    """Abstract class for creating logging for game moments."""
+    def __init__(self) -> None:
+        """Creates the logger."""
+        pass
 
-# Log file name
-LOG_FILE_NAME = "Logs/" + str(datetime.now())
-LOG_FILE_NAME = LOG_FILE_NAME.replace(":", ".")
+    def open(self) -> None:
+        """Opens the logger."""
+        pass
+    
+    def write(self, text: str) -> None:
+        """
+        Writes to the logger the input text.
+        Each individual write call acts as its own entry in the log.
+        """
+        pass
+
+    def read(self) -> str:
+        """Reads the log."""
+        pass
+
+class PhysicalLogger(Logger):
+    """Physically logs game events as a file. Used throughout the game."""
+    def __init__(self) -> None:
+        log_file_name = "Logs/" + str(datetime.now())
+        log_file_name = log_file_name.replace(":", ".")
+
+        self.log_file_name = log_file_name
+
+    def open(self) -> None:
+        open(self.log_file_name, 'x')
+
+    def write(self, text: str) -> None:
+        with open(self.log_file_name, "a") as file:
+            file.write(text + "\n")
+    
+    def read(self) -> str:
+        with open(self.log_file_name, "a") as file:
+            return file.read() 
+
+class InMemoryLogger(Logger):
+    """Logs game events in memory. Used for testing."""
+    def __init__(self) -> None:
+        self.logs = []
+
+    def open(self) -> None:
+        pass # Nothing needs to be opened
+
+    def write(self, text: str) -> None:
+        self.logs.append(text)
+    
+    def read(self) -> str:
+        returnString = ""
+        for line in self.logs:
+            returnString.append(line + "\n")
+        return returnString
+
+## ----- Logger Variable -----
+# The variable that accesses the Logger class; initialized with a new_*_log_file() call
+_log = None
 
 ## ----- Helper Functions ------
 def get_card_location_spiel(cardLocation: "h.cardLocation") -> None:
@@ -34,18 +89,22 @@ def get_card_spiel(card: "c.Card") -> None:
     """Helper function; gets information about a `card.Card()`."""
     return "[ " + card.name + " -> tokens: " + str(card.tokens) + " ] "
 
-## ----- Logging -----
-def new_log_file() -> None:
-    """Creates a new log file; done at the start of every gameplay run."""
-    if not IGNORE_GAMEPLAY_LOGGING:
-        open(LOG_FILE_NAME, 'x')
+## ----- Core Logging Functions -----
+def new_in_memory_log_file() -> None:
+    """Creates a new in-memory log file; used for testing."""
+    global _log
+    _log = InMemoryLogger()
+
+def new_physical_log_file() -> None:
+    """Creates a new log file; done at the start of every gameplay run."""    
+    global _log
+    _log = PhysicalLogger()
 
 def write_to_log(text: str) -> None:
     """General function for writing text."""
-    if not IGNORE_GAMEPLAY_LOGGING:
-        with open(LOG_FILE_NAME, "a") as file:
-            file.write(text + "\n")
+    _log.write(text)
 
+## ----- Gameplay Logging -----
 def play_card_log(
     entity: "e.Entity",
     fromLocation: "h.cardLocation",

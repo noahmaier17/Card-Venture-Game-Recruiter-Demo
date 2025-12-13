@@ -1,4 +1,5 @@
 from Dinosaur_Venture import gameplay_loop_events as gameEvents
+from Dinosaur_Venture import gameplay_logging as log
 
 ## Sets up the entityNames and cardNames
 entityNames, cardNames = gameEvents.setupEntityAndCardNames()
@@ -33,6 +34,9 @@ class dinoPlayCard(simulateGameEvent):
 ##  simualteGameEventsArray: an array of simulateGameEvent methods, which corresponds to the order
 ##  of what is simulated.
 def simulate(dino, enemies, clearing, simulateGameEventsArray):
+    # Creates the in-memory logger for testing purposes
+    log.new_in_memory_log_file()
+
     for simulateGameEvent in simulateGameEventsArray:
         if isinstance(simulateGameEvent, startRound):
             simulateGameEvent.sim(dino, enemies)
