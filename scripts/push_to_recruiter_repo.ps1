@@ -37,7 +37,7 @@ if (git status --porcelain) {
     Write-Host ">> Commit additional changes to recruiter-demo" -ForegroundColor Cyan
     git commit -m "Commit additional merge changes to recruiter-demo"
 } else {
-    Write-Host ">> Nothing additional commit to recruiter-demo" -ForegroundColor Yellow
+    Write-Host ">> Nothing additional to commit to recruiter-demo" -ForegroundColor Yellow
 }
 
 # Pushs to the remote repository
