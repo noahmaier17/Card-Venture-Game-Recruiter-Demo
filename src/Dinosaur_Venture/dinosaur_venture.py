@@ -30,7 +30,20 @@ from Dinosaur_Venture import react as r
 if TYPE_CHECKING:
     from Dinosaur_Venture.entities import entity as e
 
-def code():
+# This code can also be run using debug_run_dinosaur_venture.py, which will override some of these values in this code function.
+# See that file for more details.
+def code(
+        DIFFICULTY_DEBUG_BONUS=0,
+        NUMBER_OF_CARDS_TO_LOOT=4,
+        DO_ROUND_1_LOOTING=False,
+        NUKE_DINO_DECK=False,
+        DEBUG_DINO_DECK=False,
+        SKIP_SHOP_DEBUG=False,
+        LOOT_SHELLS_ONLY=False,
+        SKIP_PICKING_CLEARINGS=False,
+        DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS=False,
+        OVERRIDE_SHOP_LOCATION=None
+    ):
     ## ----- Starting Variables -----
     # Whatever current event we are at; main logic driver
     event: str = "Initialize Round"
@@ -115,47 +128,11 @@ def code():
 
     # Gets maps for entities/cards and their description/text
     entityNames, cardNames = gameEvent.setupEntityAndCardNames()
-
-    ## ----- Debugging Values ----
-    ## For all booleans, the non-debugging value is False
-
-    # For debugging, if we want to increase/decrease the difficulty
-    # Non-debugging value: 0
-    DIFFICULTY_DEBUG_BONUS = 0
-
-    # For debugging, if we want to loot more cards at a Rest Stop
-    # Non-debugging value: 4
-    NUMBER_OF_CARDS_TO_LOOT = 4
-
-    ## If we will loot round 1; useful for faster testing speed
-    DO_ROUND_1_LOOTING = False
-
-    # To replace all of dino's deck with nothing
-    NUKE_DINO_DECK = False
-
-    # To replace dino's deck with the special debugging deck (see below)
-    DEBUG_DINO_DECK = False
-
-    # Skips every shop for the purpose of debugging; useful for faster testing speed
-    SKIP_SHOP_DEBUG = False
-
-    # Only loot shells
-    LOOT_SHELLS_ONLY = False
-
-    # Skip picking clearings; useful for faster testing speed
-    SKIP_PICKING_CLEARINGS = False
-
-    # Logic to force picking a specific clearing; potentially a future feature
-    DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS = False
-
-    # To replace the shop cards, uncomment the following and add cards as you please
-    '''
-    shopLocation = h.cardLocation("")
-    from Dinosaur_Venture.dino_cards_depot import ShopCards
-    for card in [ShopCards.test01()]: shopLocation.append(card)
-    '''
     
     ## ----- Performs Debugging Actions -----
+    if OVERRIDE_SHOP_LOCATION:
+        shopLocation = OVERRIDE_SHOP_LOCATION
+
     if NUKE_DINO_DECK or DEBUG_DINO_DECK:
         dino.deck = h.cardLocation("deck")
 
