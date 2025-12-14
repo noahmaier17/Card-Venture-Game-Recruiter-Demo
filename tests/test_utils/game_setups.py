@@ -20,7 +20,6 @@ from Dinosaur_Venture.entities import enemieses as enemieses_import
 ## All of the returned values have no unique/atypical mechanics
 ##  (as in, using the default dino, enemy, and clearing values give the same behavior).
 ## Clearing is randomly assigned.
-@pytest.fixture
 def setup_getDinoEnemiesClearing():
     ## We want all the casters, dino, enemies, clearing, etc.
 
@@ -28,8 +27,12 @@ def setup_getDinoEnemiesClearing():
     dinoes = [dinoes_import.Dinosaur()] ## Empty Player Character
 
     ## (3) Enemies
-    enemieses = []
-    enemieses.append([enemieses_import.Copperals()])
+    enemieses = [
+        [enemieses_import.Copperals()],
+        [enemieses_import.Shrew(), enemieses_import.Shrew()],
+        [enemieses_import.Enemy(), enemieses_import.Enemy(), enemieses_import.Enemy()],
+        [enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit()]
+    ]
 
     ## (4) Gets 5 clearings (randomly, allowing duplicates)
     clearinges = []

@@ -35,4 +35,4 @@ def test_yesOrNo(expected_value, input_array, input_string):
     """
     
     gameplayScriptInput = scriptInput.gameplayScriptInput(copy.copy(input_array))
-    assert expected_value == h.yesOrNo(input_string, gameplayScriptInput=gameplayScriptInput)
+    assert expected_value == h.yesOrNo(input_string, scriptedInput=gameplayScriptInput)

@@ -3,7 +3,7 @@ import pytest_timeout
 
 from Dinosaur_Venture.entities import dinoes as dinoes_import
 from Dinosaur_Venture.entities import entity as e
-from tests.test_utils.upcoming_list_utilities import are_upcoming_lists_equal
+from tests.test_utils.list_utilities import are_upcoming_lists_equal
 
 
 @pytest.mark.parametrize(

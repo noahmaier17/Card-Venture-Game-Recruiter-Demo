@@ -10,11 +10,13 @@ from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.dino_cards_depot import \
     general_dino_cards as generalDinoCards
-from tests.test_utils.game_setups import setup_getDinoEnemiesClearing
+from tests.test_utils.game_setups import setup_getDinoEnemiesClearing, getCartesianProduct_anyInput
 
 '''
     Tests for correct functionality of dealing damage.
 '''
+
+DINOES, ENEMIESES, CLEARINGSES = setup_getDinoEnemiesClearing()
 
 ## Runs the tests.
 ## inputsToExpected is looking for something in the form:
@@ -30,7 +32,7 @@ def runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpect
             repeats = 16
         else:
             repeats = 1
-        for repeat in range(repeats):
+        for _ in range(repeats):
             ## Copies the inputToExpected
             inputToExpected = copy.deepcopy(uncopiedInputToExpected)
 
@@ -85,9 +87,7 @@ class TestSuite():
         Tests a random instance of the 'setup_getDinoEnemiesClearing' instead of enumerating them in their entirety.
     '''
     @pytest.mark.timeout(5)
-    def test_RGBdamageTypes_noBandedEnemies(self, setup_getDinoEnemiesClearing):
-        dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing
-
+    def test_RGBdamageTypes_noBandedEnemies(self):
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, remaining enemy health)
         inputsToExpected = [
             ## Tests damaging very healthy enemy with 1 point of damage
@@ -115,7 +115,7 @@ class TestSuite():
             (cll.Attackcons([1, cll.B()], 'nil'), cll.Healthcons(0, 0, 1, 'nil'), True, True, cll.DeadHealthcons()),
         ]
 
-        runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
+        runTestDamageInputsToExpected(DINOES, ENEMIESES, CLEARINGSES, inputsToExpected)
 
     '''
         Tests:
@@ -123,9 +123,7 @@ class TestSuite():
 
         Tests a random instance of the 'setup_getDinoEnemiesClearing' instead of enumerating them in their entirety.
     '''
-    def test_RGBdamageTypes_bandedEnemies(self, setup_getDinoEnemiesClearing):
-        dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing
-
+    def test_RGBdamageTypes_bandedEnemies(self):
         ## For the purpose of having fewer hard-coded values, we will append to every inputsToExpected sets of bands
 
         ## Maps inputs (damage dealt, enemy HP) to expected behavior (fatal damage, broke a band, remaining enemy health)
@@ -223,7 +221,7 @@ class TestSuite():
                         newExpectedHealth
                     ))
 
-        runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
+        runTestDamageInputsToExpected(DINOES, ENEMIESES, CLEARINGSES, inputsToExpected)
 
     '''
         Test:
@@ -233,9 +231,7 @@ class TestSuite():
 
         Tests a random instance of the 'setup_getDinoEnemiesClearing' instead of enumerating them in their entirety.
     '''
-    def test_M_noBandedEnemies(self, setup_getDinoEnemiesClearing):
-        dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing
-
+    def test_M_noBandedEnemies(self):
         ## For the purpose of having fewer hard-coded values, we will append to every inputsToExpected sets of bands
 
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, (possible remaining enemy healths,))
@@ -288,7 +284,7 @@ class TestSuite():
             )),
         ]
 
-        runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
+        runTestDamageInputsToExpected(DINOES, ENEMIESES, CLEARINGSES, inputsToExpected)
 
     '''
         Test:
@@ -298,9 +294,7 @@ class TestSuite():
 
         Tests a random instance of the 'setup_getDinoEnemiesClearing' instead of enumerating them in their entirety.
     '''
-    def test_L_noBandedEnemies(self, setup_getDinoEnemiesClearing):
-        dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing
-
+    def test_L_noBandedEnemies(self):
         ## For the purpose of having fewer hard-coded values, we will append to every inputsToExpected sets of bands
 
         ## Maps inputs (card object, damage dealt, enemy) to expected behavior (fatal damage, broke a band, (possible remaining enemy healths,))
@@ -356,4 +350,4 @@ class TestSuite():
             )),
         ]
 
-        runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpected)
+        runTestDamageInputsToExpected(DINOES, ENEMIESES, CLEARINGSES, inputsToExpected)
