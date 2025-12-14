@@ -2,12 +2,16 @@ import copy
 import math
 import os
 import random
+from typing import TYPE_CHECKING
 
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture.card_initalization_zones import INITIALIZATION_ZONES
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
 WIDTH = 117 - 2
 
@@ -741,7 +745,7 @@ def __splinterize(text, returnArray):
 
 ## Allows for an input of yes (True) or no (False). 
 ##  text: the question to be asked. 
-def yesOrNo(text, preamble = [], passedInVisuals = "null"):
+def yesOrNo(text, preamble = [], passedInVisuals = "null", gameplayScriptInput: "scriptInput.gameplayScriptInput" = None):
     newPreamble = []
     for amble in preamble:
         newPreamble.append(amble)
@@ -756,7 +760,11 @@ def yesOrNo(text, preamble = [], passedInVisuals = "null"):
             question += " > (Clear), [Input Noun], "
         question += Fore.YELLOW + "Y" + Fore.WHITE+  "es or " + Fore.RED + "N" + Fore.WHITE + "o: "
         
-        pick = input(question).lower().strip()
+        if gameplayScriptInput:
+            pick = gameplayScriptInput.getNextValue()
+        else:
+            pick = input(question).lower().strip()
+
         if pick in ["y", "yes"]:
             return True
         elif pick in ["n", "no"]:

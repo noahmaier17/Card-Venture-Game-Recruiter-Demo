@@ -2,6 +2,10 @@
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+# For running pytest correctly
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
 [project]
 name = "Dinosaur_Venture"
 version = "0.1.0"
