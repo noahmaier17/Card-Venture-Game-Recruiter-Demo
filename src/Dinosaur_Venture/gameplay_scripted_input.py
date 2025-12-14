@@ -6,7 +6,7 @@
 ## Parent class. 
 ## The expected input is an array.
 class gameplayScriptInput():
-    def __init__(self, input):
+    def __init__(self, input: list):
         self.input = input
 
         ## For the common general case of entering a helper.splash instance,

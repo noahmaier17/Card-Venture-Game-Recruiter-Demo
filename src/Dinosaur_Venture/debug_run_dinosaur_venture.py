@@ -41,6 +41,7 @@ OVERRIDE_SHOP_LOCATION = None
 OVERRIDE_SHOP_LOCATION = h.cardLocation("")
 
 from Dinosaur_Venture.dino_cards_depot import shop_cards
+
 for card in [shop_cards.test01()]: OVERRIDE_SHOP_LOCATION.append(card)
 # '''
 
