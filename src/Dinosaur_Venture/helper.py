@@ -1006,6 +1006,12 @@ class cardLocation():
     def getArray(self):
         return self.array
 
+    def logIdentity(self) -> dict:
+        return {
+            "name": self.name,
+            "cards": self.array
+        }
+
 ## Combines two card locations into a new one
 def unionCardLocations(location1, location2, name = 'DEFAULT'):
     if name == 'DEFAULT':

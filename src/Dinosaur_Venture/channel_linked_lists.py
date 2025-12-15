@@ -300,6 +300,19 @@ class Healthcons():
         else: 
             return "["+str(self.r)+", "+str(self.g)+", "+str(self.b)+"] - "+self.tail.__str__()
 
+    def logIdentity(self) -> dict:
+        curr_json = {
+            "r": self.r,
+            "g": self.g,
+            "b": self.b,
+            "tail": self.tail
+        }
+        if self.tail == "nil":
+            return curr_json
+        else:
+            curr_json["tail"] = self.tail.logIdentity()
+            return curr_json
+
 class DeadHealthcons(Healthcons):
     """
     A special type of healthcons when the entity is dead and all HP values should be 0.
