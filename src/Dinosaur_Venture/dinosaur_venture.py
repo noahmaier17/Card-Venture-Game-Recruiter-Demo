@@ -191,7 +191,7 @@ def code(
 
     # The below while loop runs the entire game
     while True:
-        log.current_event_log(event)
+        # log.current_event_log(event)
 
         if event == "Initialize Round":
             """Prepares a Round, doing tasks like looting/buying Cards."""

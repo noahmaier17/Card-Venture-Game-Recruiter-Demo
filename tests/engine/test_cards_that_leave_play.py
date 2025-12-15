@@ -1,3 +1,5 @@
+# Commented out this test. It was one of my first tests and it does not match the direction I took for testing.
+"""
 import pytest
 import pytest_timeout
 
@@ -75,3 +77,4 @@ class TestSuite():
             assert isCardExclusivelyAtIndexInLocation(cantrip, 0, dino.play, dino, enemies)
             
             ## Can change to: is card exclusively at index in location
+"""

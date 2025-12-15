@@ -3,4 +3,4 @@ __pycache__/
 *.py[cod]
 
 # We do not need to push anything within the logs file
-logs/*
+*.jsonl

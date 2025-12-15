@@ -357,6 +357,14 @@ class Card():
         # Creates a copy-resistant identifier of this card using uuid
         self.uniqueID = uuid.uuid4()
 
+    def logIdentity(self) -> dict:
+        """
+        Returns log-imperitive information about this card.
+        """
+        return {
+            "name": self.name
+        }
+
     def bundle(
         self,
         throwCardFunction: "cf.cardFunction" = None,

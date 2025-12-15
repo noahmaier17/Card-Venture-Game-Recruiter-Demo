@@ -745,7 +745,7 @@ def __splinterize(text, returnArray):
 
 ## Allows for an input of yes (True) or no (False). 
 ##  text: the question to be asked. 
-def yesOrNo(text, preamble = [], passedInVisuals = "null", gameplayScriptInput: "scriptInput.gameplayScriptInput" = None):
+def yesOrNo(text, preamble = [], passedInVisuals = "null", scriptedInput: "scriptInput.gameplayScriptInput" = None):
     newPreamble = []
     for amble in preamble:
         newPreamble.append(amble)
@@ -760,8 +760,8 @@ def yesOrNo(text, preamble = [], passedInVisuals = "null", gameplayScriptInput: 
             question += " > (Clear), [Input Noun], "
         question += Fore.YELLOW + "Y" + Fore.WHITE+  "es or " + Fore.RED + "N" + Fore.WHITE + "o: "
         
-        if gameplayScriptInput:
-            pick = gameplayScriptInput.getNextValue()
+        if scriptedInput:
+            pick = scriptedInput.getNextValue()
         else:
             pick = input(question).lower().strip()
 
@@ -1005,6 +1005,12 @@ class cardLocation():
 
     def getArray(self):
         return self.array
+
+    def logIdentity(self) -> dict:
+        return {
+            "name": self.name,
+            "cards": self.array
+        }
 
 ## Combines two card locations into a new one
 def unionCardLocations(location1, location2, name = 'DEFAULT'):

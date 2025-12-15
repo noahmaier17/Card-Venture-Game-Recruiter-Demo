@@ -24,13 +24,13 @@ NUKE_DINO_DECK = False
 DEBUG_DINO_DECK = False
 
 # Skips every shop for the purpose of debugging; useful for faster testing speed
-SKIP_SHOP_DEBUG = False
+SKIP_SHOP_DEBUG = True
 
 # Only loot shells
 LOOT_SHELLS_ONLY = False
 
 # Skip picking clearings; useful for faster testing speed
-SKIP_PICKING_CLEARINGS = False
+SKIP_PICKING_CLEARINGS = True
 
 # Logic to force picking a specific clearing; potentially a future feature
 DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS = True

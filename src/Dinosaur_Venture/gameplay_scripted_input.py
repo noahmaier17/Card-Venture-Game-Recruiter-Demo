@@ -7,7 +7,10 @@
 ## The expected input is an array.
 class gameplayScriptInput():
     def __init__(self, input: list):
-        self.input = input
+        # Converts all input into string values
+        self.input = []
+        for value in input:
+            self.input.append(str(value))
 
         ## For the common general case of entering a helper.splash instance,
         ##  if the following boolean is true, we skip inputting that text. 

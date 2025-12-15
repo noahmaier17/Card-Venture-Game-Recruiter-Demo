@@ -189,6 +189,29 @@ class Entity():
         # Are we on an extra turn?
         self.onExtraTurn = False
     
+    def logIdentity(self) -> dict:
+        """
+        Returns log-imperitive information about this entity.
+        """
+        return {
+            "name": self.name,
+            "enemy": self.enemy,
+            "hp": self.hp.logIdentity(),
+            "draw": self.draw.logIdentity(),
+            "hand": self.draw.logIdentity(),
+            "discard": self.draw.logIdentity(),
+            "play": self.draw.logIdentity(),
+            "into-hand": self.draw.logIdentity(),
+            "into-into-hand": self.draw.logIdentity(),
+            "pocket": self.draw.logIdentity(),
+            "actions": self.actions,
+            "canGainActionsThisTurn": self.canGainActionsThisTurn,
+            "upcomingPlusCard": self.upcomingPlusCard,
+            "upcomingPlusAction": self.upcomingPlusAction,
+            "dead": self.dead,
+            "deadCardPlays": self.deadCardPlays
+        }
+    
     def getLocations(self) -> list["h.cardLocation"]:
         """Returns all locations (excluding deck) concatenated."""
         locations = self.getIterableOfLocations()
@@ -383,7 +406,7 @@ class Entity():
         self.turn = 0
 
         # Logs
-        log.round_start_entity_log(self)
+        # log.round_start_entity_log(self)
     
     def roundEndTidying(self) -> None:
         """Handles Round End behavior."""
@@ -592,7 +615,7 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.play_card_log(self, fromLocation, cardIndex, caster, dino, enemies)
+        log.write_to_log(log.PlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
 
         # Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
