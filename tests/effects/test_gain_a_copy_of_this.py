@@ -44,8 +44,6 @@ def test_gainACopyOfThis():
 
     # If we add this copied card to a card location, do dino's deck and that list have the same values
     comparison_after_copy_card_location.append(card_to_copy)
-    print(dino.deck.getArray())
-    print(comparison_after_copy_card_location.getArray())
 
     def comparison_parameter(card):
         return card.name

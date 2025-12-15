@@ -45,5 +45,4 @@ def simulate(dino, enemies, clearing, simulateGameEventsArray):
         elif isinstance(simulateGameEvent, dinoPlayCard):
             simulateGameEvent.sim(dino, enemies, 0, clearing, "Dino Play Card")
         else:
-            print(0/0) ## Very lazy error thrower
-    # return (dino, enemies, clearing)
+            raise Exception(simulateGameEventsArray + " is not implemented for simulation")
