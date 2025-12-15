@@ -5,6 +5,7 @@ Test utilities for checking state of attributes like entity.plusUpcomingActions.
 """
 from typing import Callable
 
+
 def are_upcoming_lists_equal(list_1: list, list_2: list, comparison_parameter: Callable[[any], any]=None):
     """
     Tests if list_1 and list_2 have equal values. 

@@ -4,10 +4,10 @@ gameplay_logging.py
 Logs moments in the game so they can reviewed for bug checking.
 """
 
+import json
+from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import TYPE_CHECKING
-from abc import ABC, abstractmethod
-import json
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
@@ -23,6 +23,12 @@ class LogEntry(ABC):
     def __init__(self) -> None:
         """
         Creates a log entry.
+        """
+    
+    @abstractmethod
+    def _log_type(self) -> str:
+        """
+        Returns the type of log that this class represents as a string.
         """
 
     def to_json(self) -> dict:
@@ -57,10 +63,18 @@ class LogEntry(ABC):
                 return serialize(object.log_identity())
 
             raise Exception("Cannot serialize parameter " + str(object))
-            
-        return serialize(self.__dict__)
+        
+        # We need to both include a JSON entry for this type of log...
+        log_json = {
+            "log_type": self._log_type()
+        }
+
+        # ... and serialize the remaining attributes
+        return log_json | serialize(self.__dict__)
 
 class PlayCardLogEntry(LogEntry):
+    _LOG_TYPE = "Play Card"
+
     """
     Log for playing a Card.
     """
@@ -79,6 +93,9 @@ class PlayCardLogEntry(LogEntry):
         self.caster = caster
         self.dino = dino
         self.enemies = enemies
+    
+    def _log_type(self):
+        return self._LOG_TYPE
 
 ## ----- Logger Classes -----
 # For CI, we need to create an in-memory logger instead of a physical logger
@@ -93,7 +110,7 @@ class Logger(ABC):
         """Opens the logger."""
 
     @abstractmethod
-    def write(self, text: str) -> None:
+    def _write(self, text: str) -> None:
         """
         Writes to the logger the input log_entry.
         Each individual write call acts as its own entry in the log.
@@ -105,10 +122,9 @@ class Logger(ABC):
 
     def write_log_entry_to_log(self, LogEntry: LogEntry) -> None:
         """
-        Enters the log information.
-        Used instead of `write` to future proof possible changes.
+        Enters the log information, including what type of log we are using.
         """
-        self.write(LogEntry)
+        self._write(LogEntry)
 
 class PhysicalLogger(Logger):
     """Physically logs game events to a file in JSON. Used throughout the game."""
@@ -121,7 +137,7 @@ class PhysicalLogger(Logger):
     def open(self) -> None:
         open(self.log_file_name, 'x')
 
-    def write(self, log_entry: LogEntry) -> None:
+    def _write(self, log_entry: LogEntry) -> None:
         # Opens the file
         with open(self.log_file_name, "a") as file:
             # Converts the log entry into almost-JSON
@@ -145,7 +161,7 @@ class InMemoryLogger(Logger):
     def open(self) -> None:
         pass # Nothing needs to be opened
 
-    def write(self, log_entry: LogEntry) -> None:
+    def _write(self, log_entry: LogEntry) -> None:
         self.logs.append(log_entry)
     
     def read(self) -> str:
@@ -159,6 +175,8 @@ class InMemoryLogger(Logger):
 _log = None
 
 ## ----- Helper Functions ------
+'''
+# No longer needed; we use JSON and logIdentity() calls to do this
 def get_card_location_spiel(cardLocation: "h.cardLocation") -> None:
     """Helper function; gets information about a `helper.cardLocation()`."""
     cardsSpiel = ""
@@ -171,6 +189,7 @@ def get_card_location_spiel(cardLocation: "h.cardLocation") -> None:
 def get_card_spiel(card: "c.Card") -> None:
     """Helper function; gets information about a `card.Card()`."""
     return "[ " + card.name + " -> tokens: " + str(card.tokens) + " ] "
+'''
 
 ## ----- Core Logging Functions -----
 def new_in_memory_log_file() -> None:

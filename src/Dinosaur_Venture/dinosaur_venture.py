@@ -20,12 +20,12 @@ from Dinosaur_Venture.entities import dinoes
 init(autoreset=True) 
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import clearing as clr
-from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import gameplay_loop_events as gameEvent
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.logging import gameplay_logging as log
 
 if TYPE_CHECKING:
     from Dinosaur_Venture.entities import entity as e

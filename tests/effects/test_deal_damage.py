@@ -10,7 +10,8 @@ from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.dino_cards_depot import \
     general_dino_cards as generalDinoCards
-from tests.test_utils.game_setups import setup_getDinoEnemiesClearing, getCartesianProduct_anyInput
+from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
+                                          setup_getDinoEnemiesClearing)
 
 '''
     Tests for correct functionality of dealing damage.

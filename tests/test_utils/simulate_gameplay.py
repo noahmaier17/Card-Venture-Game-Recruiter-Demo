@@ -1,5 +1,5 @@
-from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import gameplay_loop_events as gameEvents
+from Dinosaur_Venture.logging import gameplay_logging as log
 
 ## Sets up the entityNames and cardNames
 entityNames, cardNames = gameEvents.setupEntityAndCardNames()

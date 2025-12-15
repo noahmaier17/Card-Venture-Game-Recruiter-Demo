@@ -1,9 +1,11 @@
-import pytest
 import random
 
-from Dinosaur_Venture import helper as h
-from tests.test_utils.game_setups import setup_getDinoEnemiesClearing, getCartesianProduct_anyInput
+import pytest
+
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+from Dinosaur_Venture import helper as h
+from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
+                                          setup_getDinoEnemiesClearing)
 
 DINOES, ENEMIESES, CLEARINGSES = setup_getDinoEnemiesClearing()
 DINOES_ENEMIESES_CLEARINGSES = getCartesianProduct_anyInput([DINOES, ENEMIESES, CLEARINGSES])

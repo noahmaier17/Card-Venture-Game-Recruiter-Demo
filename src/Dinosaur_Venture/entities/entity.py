@@ -13,10 +13,10 @@ from colorama import Back, Fore, Style, init
 init(autoreset=True)
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.logging import gameplay_logging as log
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
@@ -198,12 +198,12 @@ class Entity():
             "enemy": self.enemy,
             "hp": self.hp.logIdentity(),
             "draw": self.draw.logIdentity(),
-            "hand": self.draw.logIdentity(),
-            "discard": self.draw.logIdentity(),
-            "play": self.draw.logIdentity(),
-            "into-hand": self.draw.logIdentity(),
-            "into-into-hand": self.draw.logIdentity(),
-            "pocket": self.draw.logIdentity(),
+            "hand": self.hand.logIdentity(),
+            "discard": self.discard.logIdentity(),
+            "play": self.play.logIdentity(),
+            "into-hand": self.intoHand.logIdentity(),
+            "into-into-hand": self.intoIntoHand.logIdentity(),
+            "pocket": self.pocket.logIdentity(),
             "actions": self.actions,
             "canGainActionsThisTurn": self.canGainActionsThisTurn,
             "upcomingPlusCard": self.upcomingPlusCard,
