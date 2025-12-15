@@ -13,9 +13,9 @@ from Dinosaur_Venture.dino_cards_depot import \
 from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
                                           setup_getDinoEnemiesClearing)
 
-'''
+"""
     Tests for correct functionality of dealing damage.
-'''
+"""
 
 DINOES, ENEMIESES, CLEARINGSES = setup_getDinoEnemiesClearing()
 
