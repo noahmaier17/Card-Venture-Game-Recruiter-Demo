@@ -80,6 +80,17 @@ def getCartesianProduct_anyInput(arrays):
 
     return masterSet
 
+## For every array within arrays, returns a single instance of each.
+## Most useful to get a single dino, enemies, and clearing for testing.
+def getSingleSlice(arrays) -> tuple:
+    returnArray = []
+    for array in arrays:
+        index = random.randint(0, len(array) - 1)
+        copiedValue = copy.deepcopy(array[index])
+        returnArray.append(copiedValue)
+    
+    return tuple(returnArray)
+
 ## Gets card set 1, defined as cards that are:
 ## (1) Dino's and Vanilla
 ## (2) { 0H }
