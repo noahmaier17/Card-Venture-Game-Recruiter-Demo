@@ -91,14 +91,11 @@ class deadHarvestedGrass(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusActions(1)
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.G()], 'nil'))
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.L()], 'nil'))
-            priorLength = -1
-            while caster.hand.lengthExcludingFeathery() < 1 and caster.hand.length() != priorLength:
-                priorLength = caster.hand.length()
-                caster.drawCard()
+            cf.drawUntilYouHaveXCardsInHand(1).func(card, caster, dino, enemies, passedInVisuals)
 
 class gnawedCableCord(gdc.DinoCard):
     def __init__(self):
