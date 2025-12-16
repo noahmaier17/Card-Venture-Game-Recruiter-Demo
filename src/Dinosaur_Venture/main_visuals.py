@@ -241,6 +241,12 @@ class prefabPassedInVisuals():
         self.entityNames = entityNames
         self.cardNames = cardNames
 
+    def logIdentity(self) -> dict:
+        """
+        Creates a log identity for this prefabPassedInVisual; nothing is needed.
+        """
+        return {}
+
 ## Creates a way to easily pass into a function calls printDinoTurn
 class prefabPrintDinoTurn(prefabPassedInVisuals):
     def __init__(self, dino, enemies, roundCount, clearing, entityNames, cardNames, event, extraSuppressedTypes = []):

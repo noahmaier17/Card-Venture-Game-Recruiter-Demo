@@ -139,23 +139,15 @@ def code(
     # If DEBUG_DINO_DECK == True, replaces dino's deck with the following cards
     if DEBUG_DINO_DECK:
         '''
-        testCard = gcbt.getCardByName("Forklift Certificate")
-        testCard.publishShell(aboveThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)),
-                            belowThrowTextWrapper = cf.shellTextWrapper("+2 Actions.", cf.plusXActions(2)))
+        testCard = shop_cards.firewoodAxe()
+        debuffs_cards.inRuins().onLootedEnshelling(dino, testCard)
         dino.deck.append(testCard)
         '''
 
         from Dinosaur_Venture.dino_cards_depot import (
-            bandits_of_the_highway_cards, debuffs_cards, shop_cards)
+            fallow_farmland_cards)
 
-        testCard = shop_cards.firewoodAxe()
-        debuffs_cards.inRuins().onLootedEnshelling(dino, testCard)
-        dino.deck.append(testCard)
-
-        dino.deck.append(shop_cards.twig())
-        dino.deck.append(shop_cards.twig())
-        dino.deck.append(shop_cards.twig())
-        dino.deck.append(bandits_of_the_highway_cards.coercionCultivator())
+        dino.deck.append(fallow_farmland_cards.deadHarvestedGrass())
 
     difficulty += DIFFICULTY_DEBUG_BONUS
     if difficulty <= 0:

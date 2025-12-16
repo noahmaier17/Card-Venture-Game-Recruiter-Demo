@@ -1,9 +1,16 @@
 import copy
 import random
+from typing import TYPE_CHECKING
 
 from Dinosaur_Venture import card_mod_functions as cmf
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.logging import gameplay_logging as log
+from Dinosaur_Venture.logging.log_entry import serialize_object
+from Dinosaur_Venture.logging import log_entry
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture.entities import entity as e
 
 ## Groupings of common Card functionality.
 ##  Used for both Shell functions, and for the sake of lengthy-yet-common-enough Card functionality.
@@ -20,6 +27,14 @@ class cardFunctions():
     ## The function call. Should be overridden every time.
     def func(self, card, caster, dino, enemies, passedInVisuals):
         pass
+
+    # Creates a log identity for this card function
+    def logIdentity(self) -> dict:
+        return_dict = {}
+        for key, value in self.__dict__.items():
+            return_dict[key] = serialize_object(value)
+        return return_dict
+            
 
 ## For shells, a class for the parameters of the shell. Includes text and the cardFunction itself.
 class shellTextWrapper():
@@ -602,6 +617,21 @@ class packingText_PocketThis(cardFunctions):
         if not success:
             caster.moveMe(caster.pocket, card, caster.pocket)
 
+## Draw until you have [ number ] Card(s) in Hand.
+class drawUntilYouHaveXCardsInHand(cardFunctions):
+    def __init__(self, number: int):
+        self.number = number
+
+    def func(self, card, caster: "e.Entity", dino, enemies, passedInVisuals):
+        # logging
+        log.write_to_log(log_entry.CardFunctionDrawUntilYouHaveXCardsInHand(
+            self, card, caster, dino, enemies, passedInVisuals
+        ))
+
+        priorLength = -1
+        while caster.hand.lengthExcludingFeathery() < self.number and caster.hand.length() != priorLength:
+            priorLength = caster.hand.length()
+            caster.drawCard()
 
 
 
