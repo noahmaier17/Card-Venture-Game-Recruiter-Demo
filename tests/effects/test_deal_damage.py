@@ -10,11 +10,11 @@ from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.dino_cards_depot import \
     general_dino_cards as generalDinoCards
-from tests.test_utils.game_setups import setup_getDinoEnemiesClearing, getCartesianProduct_anyInput
+from tests.test_utils.game_setups import setup_getDinoEnemiesClearing
 
-'''
+"""
     Tests for correct functionality of dealing damage.
-'''
+"""
 
 DINOES, ENEMIESES, CLEARINGSES = setup_getDinoEnemiesClearing()
 
@@ -65,7 +65,7 @@ def runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpect
 
             ## Deals the damage
             damageData = cf.dealDamage().func(card, dino, dino, enemies, vis.prefabEmpty(), damageArray,
-                                            scriptedInput_cardFunctions_dealDamage=scriptInput.script_cardFunctions_dealDamage([str(enemyIndex + 1)]))
+                                            scriptedInput=scriptInput.gameplayScriptInput([str(enemyIndex + 1)]))
             
             ## Do our expected values match?
             assert expectedFatalDamage == damageData.fatalDamage, str(i) + " did not have matching fatal damage values."

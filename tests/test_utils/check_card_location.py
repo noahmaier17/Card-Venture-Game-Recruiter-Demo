@@ -9,6 +9,7 @@ from typing import Callable
 from Dinosaur_Venture import helper as h
 from tests.test_utils.list_utilities import are_lists_exactly_equal
 
+
 def check_card_locations_unordered(
     card_location_1: h.cardLocation, 
     card_location_2: h.cardLocation, 

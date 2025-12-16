@@ -99,10 +99,10 @@ class breakABand(cardFunctions):
 ## [ damageArray ].
 ## Returns information about the nature of that damage dealt (see entity.DamageData).
 class dealDamage(cardFunctions):
-    def func(self, card, caster, dino, enemies, passedInVisuals, damageArray, scriptedInput_cardFunctions_dealDamage=None):
+    def func(self, card, caster, dino, enemies, passedInVisuals, damageArray, scriptedInput=None):
         ## CMF CASE: Check for dealDamage_dropNotick. If we have that modifer, changes the damageArray accordingly.
         if cmf.cmf_isLeftInRight([cmf.dealDamage_dropNotick], card.cmfDepot + caster.cmfDepot):
-            h.splash("Card Modifier: Dealing Damage while ignoring -notick.", scriptedInput=scriptedInput_cardFunctions_dealDamage)
+            h.splash("Card Modifier: Dealing Damage while ignoring -notick.", scriptedInput=scriptedInput)
             damageArray.stripNotick()
 
         ## If we are an enemy, we will damage dino
@@ -116,10 +116,10 @@ class dealDamage(cardFunctions):
                                      enemies,
                                      preamble=preamble,
                                      passedInVisuals=passedInVisuals,
-                                     scriptedInput=scriptedInput_cardFunctions_dealDamage)
+                                     scriptedInput=scriptedInput)
 
             if pick == -1:
-                h.splash(" No Enemies can be targeted!", scriptedInput=scriptedInput_cardFunctions_dealDamage)
+                h.splash(" No Enemies can be targeted!", scriptedInput=scriptedInput)
                 return
             else:
                 enemy = enemies[pick]
@@ -366,12 +366,12 @@ class arbitrarilyDiscardCardFrom_Location(cardFunctions):
         self.location = location
         self.inputCard = inputCard
 
-    def func(self, card, caster, dino, enemies, passedInVisuals):
+    def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
         if self.location.length() > 0:
             position = random.randint(0, self.location.length() - 1)
             caster.discardCard(self.location, position, dino, enemies, passedInVisuals, inputCard = self.inputCard)
         else:
-            h.splash('FAIL_MOVE')
+            h.splash('FAIL_MOVE', scriptedInput=scriptedInput)
 
 ## To an Arbitrary Card in [ Location ]:
 ##  --> Returns that Card, and then if it was successful

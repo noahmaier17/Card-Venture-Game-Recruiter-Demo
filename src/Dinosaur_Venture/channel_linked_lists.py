@@ -31,6 +31,12 @@ class Channel():
     def without_notick_getter(self):
         pass
 
+    def __eq__(self, other: any):
+        if not isinstance(other, Channel):
+            return False
+        
+        return self.__str__() == other.__str__()
+
 class R(Channel):
     def __str__(self):
         return "R"
@@ -135,6 +141,38 @@ class Attackcons():
             return str(self.damage) + str(self.channel)
         else:
             return str(self.damage) + str(self.channel) + " / " + self.tail.__str__()
+    
+    def __eq__(self, other: any) -> bool:
+        """Returns if two Attackcons are equal."""
+        if not isinstance(other, Attackcons):
+            return False
+        
+        return self.__equals(other)
+    
+    def __equals(self, other: "Attackcons") -> bool:
+        if (self.damage != other.damage or not self.channel.__eq__(other.channel)):
+            return False
+
+        if (self.tail == 'nil') != (other.tail == 'nil'):
+            return False
+        
+        if (self.tail == 'nil'):
+            return True
+        
+        return self.tail.__equals(other.tail)
+        
+    def logIdentity(self) -> dict:
+        """Returns log-imperitive information about this Attackcons."""
+        curr_json = {
+            "damage": self.damage,
+            "channel": self.channel.__str__(),
+            "tail": "nil"
+        }
+        if self.tail == "nil":
+            return curr_json
+        else:
+            curr_json["tail"] = self.tail.logIdentity()
+            return curr_json
 
     def stripNotick(self) -> None:
         """Removes all instances of -notick from this damage chain."""

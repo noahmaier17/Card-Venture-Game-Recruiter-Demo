@@ -168,14 +168,15 @@ class trampledRodent(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusActions(1)
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Rnotick()],
                                                                  cll.Attackcons([1, cll.Gnotick()],
                                                                  cll.Attackcons([1, cll.Bnotick()],
                                                                  cll.Attackcons([1, cll.M()],
-                                                                 'nil')))))
-            cf.arbitrarilyDiscardCardFrom_Location(caster.hand, inputCard = True).func(card, caster, dino, enemies, passedInVisuals)
+                                                                 'nil')))), 
+                                                                 scriptedInput=scriptedInput)
+            cf.arbitrarilyDiscardCardFrom_Location(caster.hand, inputCard = True).func(card, caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
 
 class twigRockScarecrow(gdc.DinoCard):
     def __init__(self):
@@ -207,12 +208,13 @@ class mangledShrew(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Rnotick()],
                                                                  cll.Attackcons([1, cll.Filled()],
                                                                  cll.Attackcons([1, cll.Filled()],
                                                                  cll.Attackcons([1, cll.Filled()],
-                                                                 'nil')))))
+                                                                 'nil')))),
+                                                                 scriptedInput=scriptedInput)
 
 class lastSeeds(gdc.DinoCard):
     def __init__(self):

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.entities import entity as e
+    from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
 from Dinosaur_Venture.card_initalization_zones import \
     REVERSED_INITIALIZATION_ZONES
@@ -629,7 +630,14 @@ class Card():
         self.bodyText.mutatePackingText(throwTextWrapper.text)
         self.packingTextCardFunctions.append(throwTextWrapper.cardFunction)
 
-    def onPlay(self, caster: "e.Entity", dino: "e.Entity", enemies: list["e.Entity"], passedInVisuals: "vis.prefabPassedInVisuals"):
+    def onPlay(
+        self, 
+        caster: "e.Entity", 
+        dino: "e.Entity", 
+        enemies: list["e.Entity"], 
+        passedInVisuals: "vis.prefabPassedInVisuals",
+        scriptedInput: "scriptInput.gameplayScriptInput" = None
+    ) -> None:
         """Plays this Card!"""
         # Boiler plate onPlay functionality.
         caster.minusActions(1)
@@ -645,7 +653,7 @@ class Card():
 
         # Does throw text shell function calls
         for cardFunction in self.throwTextCardFunctions:
-            cardFunction.func(self, caster, dino, enemies, passedInVisuals)
+            cardFunction.func(self, caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
 
     def onPacking(self, caster: "e.Entity", dino: "e.Entity", enemies: list["e.Entity"], passedInVisuals: "vis.prefabPassedInVisuals"):
         """Performs the Packing text of a Card!"""

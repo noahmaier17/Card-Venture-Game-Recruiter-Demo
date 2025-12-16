@@ -13,13 +13,14 @@ from colorama import Back, Fore, Style, init
 init(autoreset=True)
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
-from Dinosaur_Venture import gameplay_logging as log
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.logging import gameplay_logging as log
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
+    from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
 class Entity():
     """
@@ -198,12 +199,12 @@ class Entity():
             "enemy": self.enemy,
             "hp": self.hp.logIdentity(),
             "draw": self.draw.logIdentity(),
-            "hand": self.draw.logIdentity(),
-            "discard": self.draw.logIdentity(),
-            "play": self.draw.logIdentity(),
-            "into-hand": self.draw.logIdentity(),
-            "into-into-hand": self.draw.logIdentity(),
-            "pocket": self.draw.logIdentity(),
+            "hand": self.hand.logIdentity(),
+            "discard": self.discard.logIdentity(),
+            "play": self.play.logIdentity(),
+            "into-hand": self.intoHand.logIdentity(),
+            "into-into-hand": self.intoIntoHand.logIdentity(),
+            "pocket": self.pocket.logIdentity(),
             "actions": self.actions,
             "canGainActionsThisTurn": self.canGainActionsThisTurn,
             "upcomingPlusCard": self.upcomingPlusCard,
@@ -600,6 +601,7 @@ class Entity():
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
         overrideToLocation: h.cardLocation | str = "null", 
+        scriptedInput: "scriptInput.gameplayScriptInput" = None
     ) -> None:
         """
         Given a selected index, plays that Card.
@@ -615,7 +617,7 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.write_to_log(log.PlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
+        log.write_to_log(log.EntityPlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
 
         # Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
@@ -641,7 +643,7 @@ class Entity():
             card.removeToken(tk.prepare())
 
         ## ----- Calls the onPlay of the Card -----
-        card.onPlay(caster, dino, enemies, passedInVisuals)
+        card.onPlay(caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
 
         # Reaction window for after the Card's resolution
         r.reactionStack = r.reactStack([
@@ -938,6 +940,9 @@ class Entity():
 
     def plusActions(self, plusActions: int) -> None:
         """Attempts to give + Action, ignoring + Actions under specific debuffs."""
+        # Logging
+        log.write_to_log(log.EntityPlusActionsLogEntry(self, plusActions))
+
         if self.canGainActionsThisTurn:
             self.actions += plusActions
     
@@ -1028,6 +1033,9 @@ class Entity():
         attackData: cll.Attackcons
     ) -> "Entity.DamageData":
         """Deals attackData damage to this entity."""
+        # Logging
+        log.write_to_log(log.EntityDamage(caster, dino, enemies, attackData))
+
         # Entity value for if any damage was dealt this turn
         caster.dealtDamageThisTurn = True
 
