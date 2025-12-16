@@ -4,6 +4,7 @@ from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
 from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CARD_TESTING_METHODS, TestCard
+
 # from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
 #                                           setup_getDinoEnemiesClearing)
 

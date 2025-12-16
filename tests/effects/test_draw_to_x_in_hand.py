@@ -1,12 +1,14 @@
-import pytest
 from typing import TYPE_CHECKING
-from Dinosaur_Venture.entities import entity as e
+
+import pytest
+
 from Dinosaur_Venture import card as c
 from Dinosaur_Venture import card_tokens as tk
-from Dinosaur_Venture.helper import ALPHABET
 from Dinosaur_Venture.card_functions import drawUntilYouHaveXCardsInHand
-from tests.test_utils.game_setups import getSingleSliceOfDinoEnemiesClearing
+from Dinosaur_Venture.entities import entity as e
+from Dinosaur_Venture.helper import ALPHABET
 from Dinosaur_Venture.main_visuals import prefabEmpty
+from tests.test_utils.game_setups import getSingleSliceOfDinoEnemiesClearing
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import helper as h

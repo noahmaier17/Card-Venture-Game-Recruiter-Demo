@@ -3,8 +3,8 @@ import random
 from abc import ABC
 from typing import TYPE_CHECKING
 
-from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture.logging import gameplay_logging as log
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
                                           setup_getDinoEnemiesClearing)
