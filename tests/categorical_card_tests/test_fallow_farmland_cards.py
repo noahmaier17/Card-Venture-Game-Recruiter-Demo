@@ -1,7 +1,9 @@
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
-from Dinosaur_Venture.logging import gameplay_logging as log
+# from Dinosaur_Venture.logging import gameplay_logging as log
+from Dinosaur_Venture.logging.intent import Intent
+from Dinosaur_Venture.logging import log_entry
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CARD_TESTING_METHODS, TestCard
 from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
@@ -13,16 +15,16 @@ DINOES_ENEMIESES_CLEARINGSES = getCartesianProduct_anyInput([DINOES, ENEMIESES, 
 class TestTrampledRodent(TestCard):
     def test_on_play(self):
         INTENT = [
-            log.Intent(
-                log.EntityPlayCardLogEntry,
+            Intent(
+                log_entry.EntityPlayCardLogEntry,
                 {"playedCard.name": "Trampled Rodent"}
             ),
-            log.Intent(
-                log.EntityPlusActionsLogEntry,
+            Intent(
+                log_entry.EntityPlusActionsLogEntry,
                 {"plusActions": 1}
             ),
-            log.Intent(
-                log.EntityDamage,
+            Intent(
+                log_entry.EntityDamage,
                 {"attackData": cll.Attackcons([1, cll.Rnotick()],
                                cll.Attackcons([1, cll.Gnotick()],
                                cll.Attackcons([1, cll.Bnotick()],
@@ -47,12 +49,12 @@ class TestTrampledRodent(TestCard):
 class TestMangledShrew(TestCard):
     def test_on_play(self):
         INTENT = [
-            log.Intent(
-                log.EntityPlayCardLogEntry,
+            Intent(
+                log_entry.EntityPlayCardLogEntry,
                 {"playedCard.name": "Mangled Shrew"},
             ),
-            log.Intent(
-                log.EntityDamage,
+            Intent(
+                log_entry.EntityDamage,
                 {"attackData": cll.Attackcons([2, cll.Rnotick()],
                                cll.Attackcons([1, cll.Filled()],
                                cll.Attackcons([1, cll.Filled()],

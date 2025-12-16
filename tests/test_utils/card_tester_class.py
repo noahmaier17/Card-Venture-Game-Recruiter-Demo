@@ -1,6 +1,6 @@
 import copy
 import random
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import TYPE_CHECKING
 
 from Dinosaur_Venture.logging import gameplay_logging as log
@@ -13,6 +13,7 @@ DINOES_ENEMIESES_CLEARINGSES = getCartesianProduct_anyInput([DINOES, ENEMIESES, 
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
+    from Dinosaur_Venture.logging.intent import Intent
 
 class TestCard(ABC):
     """
@@ -25,7 +26,7 @@ class CardTestingMethods():
     List of methods useful for testing cards.
     """
     @staticmethod
-    def _assert_logs_match_intent(intents: list[log.Intent]):
+    def _assert_logs_match_intent(intents: list["Intent"]):
         """
         Crawls through the log, ensuring that instances of our expected intents match to instances
         of log entries, in order.
@@ -42,7 +43,7 @@ class CardTestingMethods():
                 return False
 
             curr_log_entry: log.LogEntry = log.get_next_log_line()
-            curr_intent: log.Intent = intents[intent_index]
+            curr_intent: "Intent" = intents[intent_index]
 
             # Print statements for debugging
             ## print("CURRENT INTENT: ", curr_intent.log_class, curr_intent.json_parameters, curr_intent.python_object_parameters)
@@ -112,7 +113,7 @@ class CardTestingMethods():
 
     @staticmethod
     def default_test_card_intent_on_play(
-        intent: list["log.Intent"],
+        intent: list["Intent"],
         card_to_test: "c.Card",
         simulateGameEventsArray: list[simulate_gameplay.simulateGameEvent]
     ) -> None:
