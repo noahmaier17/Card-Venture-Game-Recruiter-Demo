@@ -28,7 +28,7 @@ def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemi
     while True:
         if scriptedInput: # Handles scripted input
             print(selectionText) # We still want to ensure the inputText string is valid, even though it is not useful to print it
-            pick = scriptedInput.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
+            pick = scriptedInput.getNextValue()
         else: # Otherwise, we will pick via user input as normal
             pick = input(selectionText)
 

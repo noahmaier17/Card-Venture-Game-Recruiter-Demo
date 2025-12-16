@@ -28,7 +28,7 @@ class dinoTurnStart(simulateGameEvent):
 class dinoPlayCard(simulateGameEvent):
     def sim(self, dino, enemies, roundCount, clearing, event):
         gameEvents.dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames,
-                                scriptedInput_dinoPlayCard=self.scriptedInput)
+                                scriptedInput=self.scriptedInput)
 
 ## Simulates gameplay.
 ##  simualteGameEventsArray: an array of simulateGameEvent methods, which corresponds to the order

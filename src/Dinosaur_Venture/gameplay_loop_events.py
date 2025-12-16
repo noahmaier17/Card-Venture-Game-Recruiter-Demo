@@ -1,14 +1,14 @@
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
+from typing import TYPE_CHECKING
+
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 
-from typing import TYPE_CHECKING
-
 if TYPE_CHECKING:
-    from Dinosaur_Venture.entities import entity as e
     from Dinosaur_Venture import clearing as clr
+    from Dinosaur_Venture.entities import entity as e
 
 def setupEntityAndCardNames():
     from Dinosaur_Venture import get_cards_by_table as gcbt
@@ -72,7 +72,7 @@ def dinoPlayCard(
     event: str, 
     entityNames: dict, 
     cardNames: dict, 
-    scriptedInput_dinoPlayCard=None
+    scriptedInput=None
 ) -> None:
 
     ## ----- Checks if Dino may still play cards, otherwise becomes enemy turns -----
@@ -104,7 +104,7 @@ def dinoPlayCard(
                                                 cardNames,
                                                 extraSuppressedTypes=extraSuppressedTypes,
                                                 canPass=True,
-                                                scriptedInput=scriptedInput_dinoPlayCard)
+                                                scriptedInput=scriptedInput)
 
         print(pick)
 
@@ -113,9 +113,9 @@ def dinoPlayCard(
 
             # Are we playing from the Pocket or from Hand?
             if pick <= dino.pocket.length():
-                dino.playCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals, scriptedInput=scriptedInput_dinoPlayCard)
+                dino.playCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
             else:
-                dino.playCard(dino.hand, pick - 1 - dino.pocket.length(), dino, dino, enemies, passedInVisuals, scriptedInput=scriptedInput_dinoPlayCard)
+                dino.playCard(dino.hand, pick - 1 - dino.pocket.length(), dino, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
 
             for enemy in enemies:
                 enemy.atTriggerDinoPlayedCard(dino, enemies)

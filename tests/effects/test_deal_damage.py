@@ -65,7 +65,7 @@ def runTestDamageInputsToExpected(dinoes, enemieses, clearingses, inputsToExpect
 
             ## Deals the damage
             damageData = cf.dealDamage().func(card, dino, dino, enemies, vis.prefabEmpty(), damageArray,
-                                            scriptedInput_cardFunctions_dealDamage=scriptInput.script_cardFunctions_dealDamage([str(enemyIndex + 1)]))
+                                            scriptedInput=scriptInput.gameplayScriptInput([str(enemyIndex + 1)]))
             
             ## Do our expected values match?
             assert expectedFatalDamage == damageData.fatalDamage, str(i) + " did not have matching fatal damage values."
