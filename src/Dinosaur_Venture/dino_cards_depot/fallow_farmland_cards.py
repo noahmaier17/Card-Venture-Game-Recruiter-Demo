@@ -93,8 +93,8 @@ class deadHarvestedGrass(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.G()], 'nil'))
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.L()], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.G()], 'nil'), scriptedInput=scriptedInput)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.L()], 'nil'), scriptedInput=scriptedInput)
             cf.drawUntilYouHaveXCardsInHand(1).func(card, caster, dino, enemies, passedInVisuals)
 
 class gnawedCableCord(gdc.DinoCard):

@@ -24,17 +24,15 @@ class cardFunctions():
     def __init__(self):
         pass
 
+    ## Creates a log identity for this card function.
+    ## Should contain many of the class attributes for this cardFunction. 
+    ## Only needs to be implemented if this card function has test cases AND has log-important class attributes.
+    def logIdentity(self) -> dict:
+        return {}
+
     ## The function call. Should be overridden every time.
     def func(self, card, caster, dino, enemies, passedInVisuals):
         pass
-
-    # Creates a log identity for this card function
-    def logIdentity(self) -> dict:
-        return_dict = {}
-        for key, value in self.__dict__.items():
-            return_dict[key] = serialize_object(value)
-        return return_dict
-            
 
 ## For shells, a class for the parameters of the shell. Includes text and the cardFunction itself.
 class shellTextWrapper():
@@ -619,8 +617,13 @@ class packingText_PocketThis(cardFunctions):
 
 ## Draw until you have [ number ] Card(s) in Hand.
 class drawUntilYouHaveXCardsInHand(cardFunctions):
-    def __init__(self, number: int):
-        self.number = number
+    def __init__(self, draw_to_x_number: int):
+        self.draw_to_x_number = draw_to_x_number
+
+    def logIdentity(self) -> dict:
+        return {
+            "drawToXNumber": self.draw_to_x_number
+        }
 
     def func(self, card, caster: "e.Entity", dino, enemies, passedInVisuals):
         # logging
@@ -629,7 +632,7 @@ class drawUntilYouHaveXCardsInHand(cardFunctions):
         ))
 
         priorLength = -1
-        while caster.hand.lengthExcludingFeathery() < self.number and caster.hand.length() != priorLength:
+        while caster.hand.lengthExcludingFeathery() < self.draw_to_x_number and caster.hand.length() != priorLength:
             priorLength = caster.hand.length()
             caster.drawCard()
 
