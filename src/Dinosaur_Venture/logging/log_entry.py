@@ -1,0 +1,159 @@
+"""
+log_entry.py
+
+Creates entries within the log for specific game events.
+Each LogEntry is coupled with specific classes/function calls.
+"""
+
+from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture import channel_linked_lists as cll
+    from Dinosaur_Venture import helper as h
+    from Dinosaur_Venture.entities import entity as e
+
+def serialize_object(object):
+    """
+    Helper method. Seralizes the object into JSON.
+    """
+    # Do we have a basic data type?
+    if object is None or isinstance(object, (int, float, str, bool)):
+        return object
+
+    # Do we have a list/tuple we must recurse across?            
+    elif isinstance(object, (list, tuple)):
+        return_object = []
+        for value in object:
+            return_object.append(serialize_object(value))
+        
+        if isinstance(object, tuple):
+            return tuple(return_object)
+        else:
+            return return_object
+    
+    # Do we have a dictionary?
+    elif isinstance(object, dict):
+        return_object = {}
+        for key, value in object.items():
+            return_object[key] = serialize_object(value)
+        return return_object
+    
+    # Do we have an object with logIdentity or log_identity call?
+    elif hasattr(object, "logIdentity") and callable(object.logIdentity):
+        return serialize_object(object.logIdentity())
+    elif hasattr(object, "log_identity") and callable(object.log_identity):
+        return serialize_object(object.log_identity())
+
+    raise Exception("Cannot serialize parameter " + str(object))
+    
+class LogEntry(ABC):
+    """
+    Parent class of LogEntry classes.
+    """
+    _LOG_TYPE: str # Must implement for each LogEntry class
+
+    @abstractmethod
+    def __init__(self) -> None:
+        """
+        Creates a log entry.
+        """
+
+    def to_json(self) -> dict:
+        """Transforms all attributes of this class into JSON."""
+        # We need to both include a JSON entry for this type of log...
+        log_json = {
+            "log_type": self._LOG_TYPE
+        }
+
+        # ... and serialize the remaining attributes
+        return log_json | serialize_object(self.__dict__)
+
+class EntityLogEntry(LogEntry):
+    """
+    Log Entries found within functions within `entity.py`.
+    The purpose of this inheritance is mostly for code quality.
+    """
+
+class EntityDamage(EntityLogEntry):
+    """
+    Log for dealing damage.
+    Employed in `entity.damage()`.
+    """
+    _LOG_TYPE = "Entity Damage"
+
+    def __init__(
+        self,
+        caster: "e.Entity", 
+        dino: "e.Entity", 
+        enemies: list["e.Entity"], 
+        attackData: "cll.Attackcons"
+    ) -> None:
+        self.caster = caster
+        self.dino = dino
+        self.enemies = enemies
+        self.attackData = attackData
+
+class EntityPlusActionsLogEntry(EntityLogEntry):
+    """
+    Log for + Actions.
+    Employed in `entity.plusActions()`.
+    """
+    _LOG_TYPE = "Entity Plus Actions"
+
+    def __init__(self, entity: "e.Entity", plusActions: int) -> None:
+        self.entity = entity
+        self.plusActions = plusActions
+
+class EntityPlayCardLogEntry(EntityLogEntry):
+    """
+    Log for playing a Card.
+    Employed in `entity.playCard()`.
+    """    
+    _LOG_TYPE = "Entity Play Card"
+
+    def __init__(
+        self,
+        entity: "e.Entity",
+        fromLocation: "h.cardLocation",
+        cardIndex: int,
+        caster: "e.Entity",
+        dino: "e.Entity",
+        enemies: list["e.Entity"]
+    ) -> None:
+        self.playedCard = fromLocation.at(cardIndex) # Customly added for ease of log parsing
+        self.entity = entity
+        self.fromLocation = fromLocation
+        self.cardIndex = cardIndex
+        self.caster = caster
+        self.dino = dino
+        self.enemies = enemies
+
+class CardFunctionLogEntry(LogEntry):
+    """
+    Log Entries found within functions within `card_functions.py`.
+    The purpose of this inheritance is mostly for code quality.
+    """
+
+class CardFunctionDrawUntilYouHaveXCardsInHand(CardFunctionLogEntry):
+    """
+    Log for drawing until you have X Card(s) in Hand.
+    Employed in `card_functions.drawUntilYouHaveXCardsInHand()`.
+    """    
+    _LOG_TYPE = "Card Function Draw To X in Hand"
+
+    def __init__(
+        self,
+        cardFunction,
+        card, 
+        caster, 
+        dino, 
+        enemies, 
+        passedInVisuals
+    ) -> None:
+        self.cardFunction = cardFunction
+        self.card = card
+        self.caster = caster
+        self.dino = dino
+        self.enemies = enemies
+        self.passedInVisuals = passedInVisuals

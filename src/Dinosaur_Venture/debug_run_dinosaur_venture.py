@@ -21,7 +21,7 @@ NUKE_DINO_DECK = False
 
 # To replace dino's deck with the special debugging deck
 # See dinosaur_venture.py file to determine the contents of this debug deck (line ~140)
-DEBUG_DINO_DECK = False
+DEBUG_DINO_DECK = True
 
 # Skips every shop for the purpose of debugging; useful for faster testing speed
 SKIP_SHOP_DEBUG = True

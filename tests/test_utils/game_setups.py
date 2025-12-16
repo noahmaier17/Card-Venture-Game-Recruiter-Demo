@@ -86,10 +86,20 @@ def getSingleSlice(arrays) -> tuple:
     returnArray = []
     for array in arrays:
         index = random.randint(0, len(array) - 1)
+        print(" >> ", array[index])
         copiedValue = copy.deepcopy(array[index])
         returnArray.append(copiedValue)
     
     return tuple(returnArray)
+
+## Returns a single slice of the dino, enemies, and clearing.
+## Most useful for when we simply need burner values for these.
+def getSingleSliceOfDinoEnemiesClearing() -> tuple:
+    dinoes, enemieses, clearingses = setup_getDinoEnemiesClearing()
+    dino = dinoes[random.randint(0, len(dinoes) - 1)]
+    enemies = enemieses[random.randint(0, len(enemieses) - 1)]
+    clearing = clearingses[random.randint(0, len(clearingses) - 1)]
+    return (dino, enemies, clearing)
 
 ## Gets card set 1, defined as cards that are:
 ## (1) Dino's and Vanilla

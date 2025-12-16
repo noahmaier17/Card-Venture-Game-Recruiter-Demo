@@ -11,7 +11,9 @@ def code():
     for entry in os.listdir(directory_path):
         full_path = os.path.join(directory_path, entry)
         if os.path.isfile(full_path):
-            files.append(directory_path + entry)
+            # If the file does not contain .gitkeep, preps it for removal
+            if not ".gitkeep" in directory_path + entry:
+                files.append(directory_path + entry)
     print(files)
 
     ## Sends them to the trash

@@ -1,9 +1,16 @@
 import copy
 import random
+from typing import TYPE_CHECKING
 
 from Dinosaur_Venture import card_mod_functions as cmf
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.logging import gameplay_logging as log
+from Dinosaur_Venture.logging import log_entry
+from Dinosaur_Venture.logging.log_entry import serialize_object
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture.entities import entity as e
 
 ## Groupings of common Card functionality.
 ##  Used for both Shell functions, and for the sake of lengthy-yet-common-enough Card functionality.
@@ -16,6 +23,12 @@ class cardFunctions():
     ##  Can be omitted in the inheritance if unneeded.
     def __init__(self):
         pass
+
+    ## Creates a log identity for this card function.
+    ## Should contain many of the class attributes for this cardFunction. 
+    ## Only needs to be implemented if this card function has test cases AND has log-important class attributes.
+    def logIdentity(self) -> dict:
+        return {}
 
     ## The function call. Should be overridden every time.
     def func(self, card, caster, dino, enemies, passedInVisuals):
@@ -602,6 +615,26 @@ class packingText_PocketThis(cardFunctions):
         if not success:
             caster.moveMe(caster.pocket, card, caster.pocket)
 
+## Draw until you have [ number ] Card(s) in Hand.
+class drawUntilYouHaveXCardsInHand(cardFunctions):
+    def __init__(self, draw_to_x_number: int):
+        self.draw_to_x_number = draw_to_x_number
+
+    def logIdentity(self) -> dict:
+        return {
+            "drawToXNumber": self.draw_to_x_number
+        }
+
+    def func(self, card, caster: "e.Entity", dino, enemies, passedInVisuals):
+        # logging
+        log.write_to_log(log_entry.CardFunctionDrawUntilYouHaveXCardsInHand(
+            self, card, caster, dino, enemies, passedInVisuals
+        ))
+
+        priorLength = -1
+        while caster.hand.lengthExcludingFeathery() < self.draw_to_x_number and caster.hand.length() != priorLength:
+            priorLength = caster.hand.length()
+            caster.drawCard()
 
 
 

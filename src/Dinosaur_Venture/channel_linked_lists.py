@@ -192,7 +192,7 @@ class Healthcons():
         r (int): R-channel value.    
         g (int): G-channel value.    
         b (int): B-channel value.
-        tail (healthcons | None): the next band of health. 
+        tail (healthcons | "nil"): the next band of health. 
         isDeadHealthcons (bool): If the entity is dead. 
         onBreakDiscardHand (bool): When this band is broken, 
             if the entity will discard their hand.

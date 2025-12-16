@@ -1,8 +1,9 @@
 import copy
 import random
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import TYPE_CHECKING
 
+from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture.logging import gameplay_logging as log
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
@@ -13,6 +14,8 @@ DINOES_ENEMIESES_CLEARINGSES = getCartesianProduct_anyInput([DINOES, ENEMIESES, 
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
+    from Dinosaur_Venture.logging.intent import Intent
+    from Dinosaur_Venture.logging.log_entry import LogEntry
 
 class TestCard(ABC):
     """
@@ -25,7 +28,7 @@ class CardTestingMethods():
     List of methods useful for testing cards.
     """
     @staticmethod
-    def _assert_logs_match_intent(intents: list[log.Intent]):
+    def _assert_logs_match_intent(intents: list["Intent"]):
         """
         Crawls through the log, ensuring that instances of our expected intents match to instances
         of log entries, in order.
@@ -33,16 +36,24 @@ class CardTestingMethods():
         # We have nothing to test
         if len(intents) == 0:
             return True
-
+        
         intent_index = 0
 
         # Continuously crawls until all intents have found matches
+        all_logs_types = [] # Used for printing when we have an error
         while intent_index < len(intents):
-            if not log.contains_next_log_line():
-                return False
+            curr_intent: "Intent" = intents[intent_index]
 
-            curr_log_entry: log.LogEntry = log.get_next_log_line()
-            curr_intent: log.Intent = intents[intent_index]
+            if not log.contains_next_log_line():
+                # We did not end up finding this current intent, so we throw an error
+                assert False, (
+                    "Failed to find Intent " + str(curr_intent.log_class) + "\n" + 
+                    "with object parameters " + str(curr_intent.python_object_parameters) + "\n" +
+                    "within the following logs " + str(all_logs_types)
+                )
+
+            curr_log_entry: "LogEntry" = log.get_next_log_line()
+            all_logs_types.append(type(curr_log_entry))
 
             # Print statements for debugging
             ## print("CURRENT INTENT: ", curr_intent.log_class, curr_intent.json_parameters, curr_intent.python_object_parameters)
@@ -55,8 +66,6 @@ class CardTestingMethods():
 
             # Next, do we have matching JSON parameters?
             contains_json_parameters = True
-            '''
-            I removed JSON parameters (redundant compared to python_object_parameters), but here is that code if desired for later
             for key_list, value in curr_intent.json_parameters.items():
                 # We will traverse down this list of keys, which (if successful) will give us a specific value.
                 # We will see if that value matches what we are expecting
@@ -76,7 +85,6 @@ class CardTestingMethods():
 
                 if not(current_dictionary_level and value == current_dictionary_level):
                     contains_json_parameters = False
-            '''
 
             # Last, do we have matching Python object parameters?
             contains_python_object_parameters = True
@@ -112,7 +120,7 @@ class CardTestingMethods():
 
     @staticmethod
     def default_test_card_intent_on_play(
-        intent: list["log.Intent"],
+        intent: list["Intent"],
         card_to_test: "c.Card",
         simulateGameEventsArray: list[simulate_gameplay.simulateGameEvent]
     ) -> None:
@@ -122,6 +130,11 @@ class CardTestingMethods():
         """
         # Uses a single instance of dino, enemies, and clearing
         dino, enemies, clearing = CardTestingMethods.default_dino_enemies_clearing_getter()
+
+        # We do not want any of the enemies/dino to die (messes with scripted input), so we give them 999 hp in every channel
+        new_healthcons = cll.Healthcons(999, 999, 999, 'nil')
+        for entity in enemies + [dino]:
+            entity.setHP(copy.deepcopy(new_healthcons))
 
         # Gains the card to dino's deck
         dino.gainCard(card_to_test(), dino.deck)
@@ -135,7 +148,7 @@ class CardTestingMethods():
         )
         
         # Does our intent match our logs?
-        CardTestingMethods._assert_logs_match_intent(intent)
+        assert CardTestingMethods._assert_logs_match_intent(intent)
 
     @staticmethod
     def default_dino_enemies_clearing_getter() -> tuple:
