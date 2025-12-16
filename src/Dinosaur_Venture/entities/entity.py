@@ -17,6 +17,7 @@ from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
 from Dinosaur_Venture.logging import gameplay_logging as log
+from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
@@ -617,7 +618,7 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.write_to_log(log.EntityPlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
+        log.write_to_log(log_entry.EntityPlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
 
         # Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
@@ -941,7 +942,7 @@ class Entity():
     def plusActions(self, plusActions: int) -> None:
         """Attempts to give + Action, ignoring + Actions under specific debuffs."""
         # Logging
-        log.write_to_log(log.EntityPlusActionsLogEntry(self, plusActions))
+        log.write_to_log(log_entry.EntityPlusActionsLogEntry(self, plusActions))
 
         if self.canGainActionsThisTurn:
             self.actions += plusActions
@@ -1034,7 +1035,7 @@ class Entity():
     ) -> "Entity.DamageData":
         """Deals attackData damage to this entity."""
         # Logging
-        log.write_to_log(log.EntityDamage(caster, dino, enemies, attackData))
+        log.write_to_log(log_entry.EntityDamage(caster, dino, enemies, attackData))
 
         # Entity value for if any damage was dealt this turn
         caster.dealtDamageThisTurn = True
