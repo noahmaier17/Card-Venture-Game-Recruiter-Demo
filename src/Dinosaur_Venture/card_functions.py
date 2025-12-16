@@ -6,8 +6,8 @@ from Dinosaur_Venture import card_mod_functions as cmf
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.logging import gameplay_logging as log
-from Dinosaur_Venture.logging.log_entry import serialize_object
 from Dinosaur_Venture.logging import log_entry
+from Dinosaur_Venture.logging.log_entry import serialize_object
 
 if TYPE_CHECKING:
     from Dinosaur_Venture.entities import entity as e

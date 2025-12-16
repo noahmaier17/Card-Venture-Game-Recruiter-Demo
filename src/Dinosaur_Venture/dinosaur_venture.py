@@ -144,8 +144,7 @@ def code(
         dino.deck.append(testCard)
         '''
 
-        from Dinosaur_Venture.dino_cards_depot import (
-            fallow_farmland_cards)
+        from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
 
         dino.deck.append(fallow_farmland_cards.deadHarvestedGrass())
 
