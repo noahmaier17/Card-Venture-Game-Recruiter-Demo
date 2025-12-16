@@ -4,6 +4,11 @@ init(autoreset=True)
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture.entities import entity as e
+    from Dinosaur_Venture import clearing as clr
 
 def setupEntityAndCardNames():
     from Dinosaur_Venture import get_cards_by_table as gcbt
@@ -17,7 +22,7 @@ def setupEntityAndCardNames():
 
 ## Starts a round against some enemies.
 ## Returns NOTHING.
-def startRound(dino, enemies):
+def startRound(dino: "e.Entity", enemies: "e.Entity"):
     dino.roundStart()
 
     ## ----- Round Start Window -----
@@ -34,7 +39,7 @@ def startRound(dino, enemies):
 
 ## Handles the start of the player's turn.
 ## Returns NOTHING.
-def dinoTurnStart(dino, enemies):
+def dinoTurnStart(dino: "e.Entity", enemies: "e.Entity"):
     dino.turnStart()
 
     while (dino.intoHand.length() > 0):
@@ -59,7 +64,17 @@ def dinoTurnStart(dino, enemies):
 
 ## Handles when dino plays a card.
 ## Returns (event)
-def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames, scriptedInput_dinoPlayCard=None):
+def dinoPlayCard(
+    dino: "e.Entity", 
+    enemies: "e.Entity",
+    roundCount: int, 
+    clearing: "clr.Clearing", 
+    event: str, 
+    entityNames: dict, 
+    cardNames: dict, 
+    scriptedInput_dinoPlayCard=None
+) -> None:
+
     ## ----- Checks if Dino may still play cards, otherwise becomes enemy turns -----
     if dino.actions == 0:
         event = "Dino Turn End"
@@ -98,9 +113,9 @@ def dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNa
 
             # Are we playing from the Pocket or from Hand?
             if pick <= dino.pocket.length():
-                dino.playCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals)
+                dino.playCard(dino.pocket, pick - 1, dino, dino, enemies, passedInVisuals, scriptedInput=scriptedInput_dinoPlayCard)
             else:
-                dino.playCard(dino.hand, pick - 1 - dino.pocket.length(), dino, dino, enemies, passedInVisuals)
+                dino.playCard(dino.hand, pick - 1 - dino.pocket.length(), dino, dino, enemies, passedInVisuals, scriptedInput=scriptedInput_dinoPlayCard)
 
             for enemy in enemies:
                 enemy.atTriggerDinoPlayedCard(dino, enemies)

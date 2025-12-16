@@ -26,7 +26,7 @@ def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemi
     from Dinosaur_Venture import main_visuals as vis
 
     while True:
-        if scriptedInput != None: # Handles scripted input
+        if scriptedInput: # Handles scripted input
             print(selectionText) # We still want to ensure the inputText string is valid, even though it is not useful to print it
             pick = scriptedInput.getNextValue(dino, enemies, roundCount, clearing, event, entityNames, cardNames)
         else: # Otherwise, we will pick via user input as normal

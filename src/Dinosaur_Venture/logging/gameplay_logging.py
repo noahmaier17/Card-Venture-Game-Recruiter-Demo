@@ -7,28 +7,25 @@ Logs moments in the game so they can reviewed for bug checking.
 import json
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Type
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
     from Dinosaur_Venture import helper as h
     from Dinosaur_Venture.entities import entity as e
+    from Dinosaur_Venture import channel_linked_lists as cll
 
 ## ----- Gameplay Logging -----
 class LogEntry(ABC):
     """
     Parent class of LogEntry classes.
     """
+    _LOG_TYPE: str # Must implement for each LogEntry class
+
     @abstractmethod
     def __init__(self) -> None:
         """
         Creates a log entry.
-        """
-    
-    @abstractmethod
-    def _log_type(self) -> str:
-        """
-        Returns the type of log that this class represents as a string.
         """
 
     def to_json(self) -> dict:
@@ -66,18 +63,49 @@ class LogEntry(ABC):
         
         # We need to both include a JSON entry for this type of log...
         log_json = {
-            "log_type": self._log_type()
+            "log_type": self._LOG_TYPE
         }
 
         # ... and serialize the remaining attributes
         return log_json | serialize(self.__dict__)
 
-class PlayCardLogEntry(LogEntry):
-    _LOG_TYPE = "Play Card"
+class EntityDamage(LogEntry):
+    """
+    Log for dealing damage.
+    Employed in `entity.damage()`.
+    """
+    _LOG_TYPE = "Entity Damage"
 
+    def __init__(
+        self,
+        caster: "e.Entity", 
+        dino: "e.Entity", 
+        enemies: list["e.Entity"], 
+        attackData: "cll.Attackcons"
+    ) -> None:
+        self.caster = caster
+        self.dino = dino
+        self.enemies = enemies
+        self.attackData = attackData
+
+class EntityPlusActionsLogEntry(LogEntry):
+    """
+    Log for + Actions.
+    Employed in `entity.plusActions()`.
+    """
+    _LOG_TYPE = "Entity Plus Actions"
+
+    def __init__(self, entity: "e.Entity", plusActions: int) -> None:
+        self.entity = entity
+        self.plusActions = plusActions
+
+class EntityPlayCardLogEntry(LogEntry):
     """
     Log for playing a Card.
-    """
+    Employed in `entity.playCard()`.
+    """    
+    _LOG_TYPE = "Entity Play Card"
+
     def __init__(
         self,
         entity: "e.Entity",
@@ -87,15 +115,26 @@ class PlayCardLogEntry(LogEntry):
         dino: "e.Entity",
         enemies: list["e.Entity"]
     ) -> None:
+        self.playedCard = fromLocation.at(cardIndex) # Customly added for ease of log parsing
         self.entity = entity
         self.fromLocation = fromLocation
         self.cardIndex = cardIndex
         self.caster = caster
         self.dino = dino
         self.enemies = enemies
-    
-    def _log_type(self):
-        return self._LOG_TYPE
+
+class Intent():
+    """
+    Contains a list of parameters to check if the LogEntry in the log matches this LogEntry. 
+    We use this `Intent` class so we can include additional parameters beyond the LogEntry type.
+    For instance, {"name": "Mangled Shrew"} can test if this LogEntry has a parameter
+    "name" with a value of "Mangled Shrew"
+    """
+    def __init__(self, log_class: Type[LogEntry], python_object_parameters: dict):
+        self.log_class: Type[LogEntry] = log_class
+        # I used to have JSON parameters but python_object_parameters essentially covers what I want
+        # self.json_parameters: dict = json_parameters
+        self.python_object_parameters: dict = python_object_parameters
 
 ## ----- Logger Classes -----
 # For CI, we need to create an in-memory logger instead of a physical logger
@@ -156,7 +195,8 @@ class PhysicalLogger(Logger):
 class InMemoryLogger(Logger):
     """Logs game events in memory as Logger.Log class instances. Used for testing."""
     def __init__(self) -> None:
-        self.logs = []
+        self.log_crawl_index: int = 0
+        self.logs: list[LogEntry] = []
 
     def open(self) -> None:
         pass # Nothing needs to be opened
@@ -169,27 +209,27 @@ class InMemoryLogger(Logger):
         for line in self.logs:
             returnString.append(line + "\n")
         return returnString
+    
+    def get_next_log_line(self) -> LogEntry:
+        """
+        Crawls the log LogEntry by LogEntry.
+        """
+        if not self.contains_next_log_line():
+            assert Exception("Out of bounds error for log crawling")
+
+        returnLogEntry = self.logs[self.log_crawl_index]
+        self.log_crawl_index += 1
+        return returnLogEntry
+    
+    def contains_next_log_line(self) -> bool:
+        """
+        Returns True if the log contains another line.
+        """
+        return self.log_crawl_index < len(self.logs)
 
 ## ----- Logger Variable -----
 # The variable that accesses the Logger class; initialized with a new_*_log_file() call
 _log = None
-
-## ----- Helper Functions ------
-'''
-# No longer needed; we use JSON and logIdentity() calls to do this
-def get_card_location_spiel(cardLocation: "h.cardLocation") -> None:
-    """Helper function; gets information about a `helper.cardLocation()`."""
-    cardsSpiel = ""
-    for card in cardLocation.getArray():
-        cardsSpiel += get_card_spiel(card)
-    if len(cardLocation.getArray()) == 0:
-        cardsSpiel = "None"
-    return "{ " + cardLocation.name + " -> " + cardsSpiel + " } "
-
-def get_card_spiel(card: "c.Card") -> None:
-    """Helper function; gets information about a `card.Card()`."""
-    return "[ " + card.name + " -> tokens: " + str(card.tokens) + " ] "
-'''
 
 ## ----- Core Logging Functions -----
 def new_in_memory_log_file() -> None:
@@ -206,22 +246,16 @@ def write_to_log(log_entry: LogEntry) -> None:
     """General function for writing text."""
     _log.write_log_entry_to_log(log_entry)
 
+def get_next_log_line() -> LogEntry:
+    """Crawls the log, line by line."""
+    return _log.get_next_log_line()
+
+def contains_next_log_line() -> bool:
+    """Returns True if the log contains another line."""
+    return _log.contains_next_log_line()
+
 ## ----- Gameplay Logging -----
 '''
-def play_card_log(
-    entity: "e.Entity",
-    fromLocation: "h.cardLocation",
-    cardIndex: int,
-    caster: "e.Entity",
-    dino: "e.Entity",
-    enemies: list["e.Entity"]
-) -> None:
-    """Logs playing a Card."""
-    write_to_log(
-        "PLAY CARD: " + 
-        entity.name + " plays the " + str(cardIndex) + "th card from " + get_card_location_spiel(fromLocation)
-    )
-
 def round_start_entity_log(entity: "e.Entity") -> None:
     """Logs the state of an entity at Round Start."""
     locationsSpiel = ""
