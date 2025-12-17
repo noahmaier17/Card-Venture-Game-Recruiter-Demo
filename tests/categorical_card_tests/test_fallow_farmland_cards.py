@@ -1,8 +1,15 @@
+"""
+test_fallow_farmland_cards.py
+
+Tests all Fallow Farmland Cards, comparing what happens when played/packed against expected logging.
+"""
+
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
 from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
+from Dinosaur_Venture import helper as h
 from tests.test_utils.card_tester_class import CARD_TESTING_METHODS, TestCard
 
 class TestGrasshopperCache(TestCard):
@@ -79,7 +86,9 @@ class TestTrampledRodent(TestCard):
                 cll.Attackcons([1, cll.Bnotick()],
                 cll.Attackcons([1, cll.M()],
                 'nil'))))
-            )
+            ),
+            # Per the Trampled Rodent class, we have input=True for this card function and we will test for that
+            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(h.CARD_LOCATION_HAND, True)
         ]
         
         CARD_TESTING_METHODS.default_test_card_intent_simulation(

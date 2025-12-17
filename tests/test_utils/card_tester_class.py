@@ -108,8 +108,11 @@ class CardTestingMethods():
 
                 # If we have a current object, and our expected value matches the actual value,
                 # our log entries match!
-                if not (current_object and value.__eq__(current_object)):
-                    contains_python_object_parameters = False
+                if (current_object and isinstance(current_object, (int, float, str, bool)) and isinstance(value, (int, float, str, bool))):
+                    contains_python_object_parameters = (current_object == value)
+
+                elif (current_object):
+                    contains_python_object_parameters = (value.__eq__(current_object))
 
             # If both are contained, we have a success!
             if contains_json_parameters and contains_python_object_parameters:

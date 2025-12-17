@@ -10,6 +10,7 @@ from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import channel_linked_lists as cll
+    from Dinosaur_Venture import helper as h
 
 class Intent():
     """
@@ -95,5 +96,24 @@ def card_function_draw_until_you_have_x_cards_in_hand_intent_factory(draw_to_x_n
         log_entry.CardFunctionDrawUntilYouHaveXCardsInHand,
         {},
         {"cardFunction.draw_to_x_number": draw_to_x_number}
+    )
+
+# CardFunctionArbitrarilyDiscardCardFrom_Location
+def card_function_arbitrarily_discard_card_from_location_intent_factory(location: "h.cardLocation", inputCard: bool) -> Intent:
+    """
+    Constructs an Intent for comparison against `log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location`, 
+    forcing inclusion of key parameters.
+    
+    Arguments:
+        location (h.cardLocation): the location we will arbitrarily discard from.
+        inputCard (bool): if 
+    """
+    return Intent(
+        log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location,
+        {},
+        {
+            "cardFunction.location": location,
+            "cardFunction.inputCard": inputCard
+        }
     )
     

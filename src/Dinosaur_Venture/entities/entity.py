@@ -123,15 +123,15 @@ class Entity():
 
         # The deck zones
         # Do not change these names! Functionality depends on reading the names of these locations
-        self.deck = h.cardLocation('deck')
+        self.deck = h.cardLocation(h.CARD_LOCATION_DECK)
 
-        self.draw = h.cardLocation('draw')
-        self.hand = h.cardLocation('hand')
-        self.discard = h.cardLocation('discard')
-        self.play = h.cardLocation('play')
-        self.intoHand = h.cardLocation('into-hand')
-        self.intoIntoHand = h.cardLocation('into-into-hand')
-        self.pocket = h.cardLocation('pocket')
+        self.draw = h.cardLocation(h.CARD_LOCATION_DRAW)
+        self.hand = h.cardLocation(h.CARD_LOCATION_HAND)
+        self.discard = h.cardLocation(h.CARD_LOCATION_DISCARD)
+        self.play = h.cardLocation(h.CARD_LOCATION_PLAY)
+        self.intoHand = h.cardLocation(h.CARD_LOCATION_INTO_HAND)
+        self.intoIntoHand = h.cardLocation(h.CARD_LOCATION_INTO_INTO_HAND)
+        self.pocket = h.cardLocation(h.CARD_LOCATION_POCKET)
 
         # Card Handler Functions, which allow the overriding of cardFunctions functionality
         self.cmfDepot = []

@@ -215,3 +215,27 @@ class CardFunctionDrawUntilYouHaveXCardsInHand(CardFunctionLogEntry):
         self.dino = dino
         self.enemies = enemies
         self.passedInVisuals = passedInVisuals
+
+class CardFunctionArbitrarilyDiscardCardFrom_Location(CardFunctionLogEntry):
+    """
+    Log for discarding an arbitrary card from [ location ].
+    Employed in `card_functions.arbitrarilyDiscardCardFrom_Location()`.
+    """    
+    _LOG_TYPE = "Arbitrarily Discard Card From Location"
+
+    def __init__(
+        self,
+        cardFunction,
+        card, 
+        caster, 
+        dino, 
+        enemies, 
+        passedInVisuals
+    ) -> None:
+        self.cardFunction = cardFunction
+        self.card = card
+        self.caster = caster
+        self.dino = dino
+        self.enemies = enemies
+        self.passedInVisuals = passedInVisuals
+    

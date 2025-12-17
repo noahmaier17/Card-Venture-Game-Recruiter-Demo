@@ -375,11 +375,14 @@ class arbitrarilyDiscardCardFromDraw(cardFunctions):
 
 ## Arbitrarily Discard a Card from [ Location ].
 class arbitrarilyDiscardCardFrom_Location(cardFunctions):
-    def __init__(self, location, inputCard = False):
+    def __init__(self, location: h.cardLocation, inputCard: bool = False):
         self.location = location
         self.inputCard = inputCard
 
     def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
+        # Logging
+        log.write_to_log(log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location(self, card, caster, dino, enemies, passedInVisuals))
+
         if self.location.length() > 0:
             position = random.randint(0, self.location.length() - 1)
             caster.discardCard(self.location, position, dino, enemies, passedInVisuals, inputCard = self.inputCard)

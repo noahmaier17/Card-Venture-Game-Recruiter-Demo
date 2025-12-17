@@ -1012,6 +1012,16 @@ class cardLocation():
             "cards": self.array
         }
 
+## Constants to compare for naming of card locations
+CARD_LOCATION_DECK = "deck"
+CARD_LOCATION_HAND = "hand"
+CARD_LOCATION_DISCARD = "discard"
+CARD_LOCATION_DRAW = "draw"
+CARD_LOCATION_PLAY = "play"
+CARD_LOCATION_INTO_HAND = "into-hand"
+CARD_LOCATION_INTO_INTO_HAND = "into-into-hand"
+CARD_LOCATION_POCKET = "pocket"
+
 ## Combines two card locations into a new one
 def unionCardLocations(location1, location2, name = 'DEFAULT'):
     if name == 'DEFAULT':
