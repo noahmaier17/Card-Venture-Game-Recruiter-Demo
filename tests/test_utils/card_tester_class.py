@@ -119,13 +119,13 @@ class CardTestingMethods():
         return True
 
     @staticmethod
-    def default_test_card_intent_on_play(
+    def default_test_card_intent_simulation(
         intent: list["Intent"],
         card_to_test: "c.Card",
         simulateGameEventsArray: list[simulate_gameplay.simulateGameEvent]
     ) -> None:
         """
-        Tests the logs created by the default on play gameplay simulation against the input intent value.
+        Tests the logs created by the input simulateGameEventsArray against the input intent value.
         Uses a single instance of dino, enemies, and clearing.
         """
         # Uses a single instance of dino, enemies, and clearing
@@ -141,9 +141,9 @@ class CardTestingMethods():
 
         # Runs through playing the card based on our input simulated game events array
         simulate_gameplay.simulate(
-            dino, 
-            enemies, 
-            clearing, 
+            dino,
+            enemies,
+            clearing,
             simulateGameEventsArray
         )
         

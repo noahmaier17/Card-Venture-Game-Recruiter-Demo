@@ -129,6 +129,64 @@ class EntityPlayCardLogEntry(EntityLogEntry):
         self.dino = dino
         self.enemies = enemies
 
+class EntityPackingCardLogEntry(EntityLogEntry):
+    """
+    Log for playing a Card.
+    Employed in `entity.packCard()`.
+    """    
+    _LOG_TYPE = "Entity Packing Card"
+
+    def __init__(
+        self,
+        entity: "e.Entity",
+        fromLocation: "h.cardLocation",
+        cardIndex: int,
+        caster: "e.Entity",
+        dino: "e.Entity",
+        enemies: list["e.Entity"]
+    ) -> None:
+        self.packedCard = fromLocation.at(cardIndex) # Customly added for ease of log parsing
+        self.entity = entity
+        self.fromLocation = fromLocation
+        self.cardIndex = cardIndex
+        self.caster = caster
+        self.dino = dino
+        self.enemies = enemies
+
+class EntityPlusUpcomingPlusAction(EntityLogEntry):
+    """
+    Log for playing a Card.
+    Employed in `entity.plusUpcomingPlusAction()`.
+    """    
+    _LOG_TYPE = "Entity Plus Upcoming Plus Action"
+
+    def __init__(
+        self,
+        caster: "e.Entity",
+        when: int, 
+        count: int
+    ) -> None:
+        self.caster = caster
+        self.when = when
+        self.count = count
+
+class EntityPlusUpcomingPlusCard(EntityLogEntry):
+    """
+    Log for playing a Card.
+    Employed in `entity.plusUpcomingPlusCard()`.
+    """    
+    _LOG_TYPE = "Entity Plus Upcoming Plus Card"
+
+    def __init__(
+        self,
+        caster: "e.Entity",
+        when: int, 
+        count: int
+    ) -> None:
+        self.caster = caster
+        self.when = when
+        self.count = count
+
 class CardFunctionLogEntry(LogEntry):
     """
     Log Entries found within functions within `card_functions.py`.

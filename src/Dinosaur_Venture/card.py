@@ -666,11 +666,20 @@ class Card():
             if "scriptedInput" in signature.parameters:
                 cardFunction.func(self, caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
             elif scriptedInput:
-                assert Exception("Passed a scriptedInput value", scriptedInput, "to onPlay but the cardFunction lacked that parameter.")
+                assert False, (
+                    "Passed a scriptedInput value " + str(scriptedInput) + " to onPlay but the cardFunction lacked that parameter"
+                )
             else:
                 cardFunction.func(self, caster, dino, enemies, passedInVisuals)
 
-    def onPacking(self, caster: "e.Entity", dino: "e.Entity", enemies: list["e.Entity"], passedInVisuals: "vis.prefabPassedInVisuals"):
+    def onPacking(
+        self, 
+        caster: "e.Entity", 
+        dino: "e.Entity", 
+        enemies: list["e.Entity"], 
+        passedInVisuals: "vis.prefabPassedInVisuals",
+        scriptedInput: "scriptInput.gameplayScriptInput" = None
+    ) -> None:
         """Performs the Packing text of a Card!"""
         # Boiler plate onPacking functionality.
         self.revealed = True
@@ -686,7 +695,23 @@ class Card():
 
         # Does throw text shell function calls
         for cardFunction in self.packingTextCardFunctions:
-            cardFunction.func(self, caster, dino, enemies, passedInVisuals)
+            '''
+            For testing, cardFunctions need to have a scriptedInput parameter. The vast majority of the cards in the game (at this time)
+            do not have such a parameter. Instead of needing to refactor hundreds of lines, I check to see if we have a scripted input value
+            and continue accordingly.
+
+            If a scripted input value was input, but it cannot be passed to the card function (essentially only the case with testing), 
+            throws an Exception. 
+            '''
+            signature = inspect.signature(cardFunction.func)
+            if "scriptedInput" in signature.parameters:
+                cardFunction.func(self, caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
+            elif scriptedInput:
+                assert False, (
+                    "Passed a scriptedInput value " + str(scriptedInput) + " to onPacking but the cardFunction lacked that parameter"
+                )
+            else:
+                cardFunction.func(self, caster, dino, enemies, passedInVisuals)
 
     def mutateThis(self, mutationCard: "Card") -> None:
         """

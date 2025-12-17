@@ -126,10 +126,7 @@ class rust(gdc.DinoShellCard):
 
     class customBelowTextFunction(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            priorLength = -1
-            while caster.hand.lengthExcludingFeathery() < 3 and caster.hand.length() != priorLength:
-                priorLength = caster.hand.length()
-                caster.drawCard()
+            cf.drawUntilYouHaveXCardsInHand(3).func(card, caster, dino, enemies, passedInVisuals)
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "RUSTED " + cardToEnshell.name
@@ -146,15 +143,15 @@ class grasshopperCache(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
-            priorLength = -1
-            while caster.hand.lengthExcludingFeathery() < 3 and caster.hand.length() != priorLength:
-                priorLength = caster.hand.length()
-                caster.drawCard()
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
+            cf.drawUntilYouHaveXCardsInHand(3).func(card, caster, dino, enemies, passedInVisuals)
 
     class duringPacking(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Gnotick()], cll.Attackcons([2, cll.M()], 'nil')))
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Gnotick()], 
+                                                                               cll.Attackcons([2, cll.M()],
+                                                                               'nil')),
+                                                                               scriptedInput=scriptedInput)
 
 class trampledRodent(gdc.DinoCard):
     def __init__(self):

@@ -666,6 +666,7 @@ class Entity():
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
         overrideToLocation: h.cardLocation | str = "null", 
+        scriptedInput: "scriptInput.gameplayScriptInput" = None
     ) -> None:
         """
         Given a selected index, resolves the packing text of that Card.
@@ -680,6 +681,9 @@ class Entity():
             overrideToLocation: if this card will not be played to `caster.play`.
                 If not "null," expected parameter is a `h.cardLocation`.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityPackingCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
+
         # Where are we playing this Card to?
         if overrideToLocation == "null":
             # We move in nowhere, but still need access to this card
@@ -688,7 +692,7 @@ class Entity():
             card = self.moveCard(fromLocation, cardIndex, overrideToLocation)
 
         ## ----- Calls the onPacking of the Card -----
-        card.onPacking(caster, dino, enemies, passedInVisuals)
+        card.onPacking(caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
 
         # Resets state after playing a Card
         for entity in enemies + [dino]:
@@ -897,9 +901,16 @@ class Entity():
         
         Example: `plusUpcomingPlusCard(0, 1)` increase the hand size by 1 on the next turn.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityPlusUpcomingPlusCard(self, when, count))
+
+        self._plusUpcomingPlusCard(when, count)
+
+    def _plusUpcomingPlusCard(self, when: int, count: int) -> None:
+        """Helper function for increasing future card count, recursively."""
         if len(self.upcomingPlusCard) < when + 1:
             self.upcomingPlusCard.append(0)
-            self.plusUpcomingPlusCard(when, count)
+            self._plusUpcomingPlusCard(when, count)
         else:
             self.upcomingPlusCard[when] += count
 
@@ -921,9 +932,16 @@ class Entity():
         
         Example: `plusUpcomingPlusAction(0, 1)` increase action count by 1 for the next turn.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityPlusUpcomingPlusAction(self, when, count))
+
+        self._plusUpcomingPlusAction(when, count)
+
+    def _plusUpcomingPlusAction(self, when: int, count: int) -> None:
+        """Helper function for increasing future action count, recursively."""
         if len(self.upcomingPlusAction) < when + 1:
             self.upcomingPlusAction.append(0)
-            self.plusUpcomingPlusAction(when, count)
+            self._plusUpcomingPlusAction(when, count)
         else:
             self.upcomingPlusAction[when] += count
 

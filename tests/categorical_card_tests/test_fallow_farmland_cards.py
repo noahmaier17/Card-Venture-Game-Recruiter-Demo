@@ -5,16 +5,50 @@ from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CARD_TESTING_METHODS, TestCard
 
-# from tests.test_utils.game_setups import (getCartesianProduct_anyInput,
-#                                           setup_getDinoEnemiesClearing)
+class TestGrasshopperCache(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.grasshopperCache
 
+    def test_on_play(self):
+        intents = [
+            intent.entity_play_card_intent_factory("Grasshopper Cache"),
+            intent.card_function_draw_until_you_have_x_cards_in_hand_intent_factory(3)
+        ]
 
-# DINOES, ENEMIESES, CLEARINGSES = setup_getDinoEnemiesClearing()
-# DINOES_ENEMIESES_CLEARINGSES = getCartesianProduct_anyInput([DINOES, ENEMIESES, CLEARINGSES])
+        CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST,
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1]))
+            ]
+        )
+
+    def test_on_packing(self):
+        intents = [
+            intent.entity_packing_card_intent_factory("Grasshopper Cache"),
+            intent.entity_damage_intent_factory(
+                cll.Attackcons([2, cll.Gnotick()],
+                cll.Attackcons([2, cll.M()],
+                'nil'))
+            )
+        ]
+
+        CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST,
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPackingCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
+            ]
+        )
 
 class TestDeadHarvestedGrass(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.deadHarvestedGrass
+
     def test_on_play(self):
-        INTENT = [
+        intents = [
             intent.entity_play_card_intent_factory("Dead Harvested Grass"),
             intent.entity_plus_actions_intent_factory(1),
             intent.entity_damage_intent_factory(cll.Attackcons([3, cll.G()], 'nil')),
@@ -22,11 +56,9 @@ class TestDeadHarvestedGrass(TestCard):
             intent.card_function_draw_until_you_have_x_cards_in_hand_intent_factory(1)
         ]
 
-        CARD_TO_TEST = fallow_farmland_cards.deadHarvestedGrass
-
-        CARD_TESTING_METHODS.default_test_card_intent_on_play(
-            INTENT,
-            CARD_TO_TEST,
+        CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST,
             [
                 simulate_gameplay.startRound(),
                 simulate_gameplay.dinoTurnStart(),
@@ -35,8 +67,10 @@ class TestDeadHarvestedGrass(TestCard):
         )
 
 class TestTrampledRodent(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.trampledRodent
+
     def test_on_play(self):
-        INTENT = [
+        intents = [
             intent.entity_play_card_intent_factory("Trampled Rodent"),
             intent.entity_plus_actions_intent_factory(1),
             intent.entity_damage_intent_factory(
@@ -47,12 +81,10 @@ class TestTrampledRodent(TestCard):
                 'nil'))))
             )
         ]
-
-        CARD_TO_TEST = fallow_farmland_cards.trampledRodent
         
-        CARD_TESTING_METHODS.default_test_card_intent_on_play(
-            INTENT,
-            CARD_TO_TEST,
+        CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST,
             [
                 simulate_gameplay.startRound(),
                 simulate_gameplay.dinoTurnStart(),
@@ -61,8 +93,10 @@ class TestTrampledRodent(TestCard):
         )
 
 class TestMangledShrew(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.mangledShrew
+
     def test_on_play(self):
-        INTENT = [
+        intents = [
             intent.entity_play_card_intent_factory("Mangled Shrew"),
             intent.entity_damage_intent_factory(
                 cll.Attackcons([2, cll.Rnotick()],
@@ -73,11 +107,9 @@ class TestMangledShrew(TestCard):
             )
         ]
 
-        CARD_TO_TEST = fallow_farmland_cards.mangledShrew
-
-        CARD_TESTING_METHODS.default_test_card_intent_on_play(
-            INTENT,
-            CARD_TO_TEST,
+        CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST,
             [
                 simulate_gameplay.startRound(),
                 simulate_gameplay.dinoTurnStart(),

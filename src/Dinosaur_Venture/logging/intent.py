@@ -41,6 +41,20 @@ def entity_play_card_intent_factory(card_name: str) -> Intent:
         {"playedCard.name": card_name}
     )
 
+def entity_packing_card_intent_factory(card_name: str) -> Intent:
+    """
+    Constructs an Intent for comparison against `log_entry.EntityPlayCardLogEntry`, 
+    forcing inclusion of key parameters.
+    
+    Arguments:
+        card_name (str): the name of the card expected to be played.
+    """
+    return Intent(
+        log_entry.EntityPackingCardLogEntry,
+        {},
+        {"packedCard.name": card_name}
+    )
+
 def entity_damage_intent_factory(attackcons: "cll.Attackcons") -> Intent:
     """
     Constructs an Intent for comparison against `log_entry.EntityDamage`, 
