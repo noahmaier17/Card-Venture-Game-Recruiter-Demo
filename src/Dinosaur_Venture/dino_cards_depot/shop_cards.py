@@ -175,10 +175,7 @@ class snowShovel(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
             caster.plusActions(1)
-            priorLength = -1
-            while caster.hand.lengthExcludingFeathery() < 2 and caster.hand.length() != priorLength:
-                priorLength = caster.hand.length()
-                caster.drawCard()
+            cf.drawUntilYouHaveXCardsInHand(2).func(card, caster, dino, enemies, passedInVisuals)
             caster.drawCard()
 
 class firewoodAxe(gdc.DinoCard):
