@@ -11,6 +11,7 @@ from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture.card_initalization_zones import INITIALIZATION_ZONES
 
 if TYPE_CHECKING:
+    from Dinosaur_Venture import card as c
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
 WIDTH = 117 - 2
@@ -1003,7 +1004,7 @@ class cardLocation():
         for card in bottomDraw.getArray():
             self.array.append(card)
 
-    def getArray(self):
+    def getArray(self) -> list["c.Card"]:
         return self.array
 
     def logIdentity(self) -> dict:
