@@ -84,6 +84,17 @@ def entity_plus_actions_intent_factory(plus_actions: int) -> Intent:
         {"plusActions": plus_actions}
     )
 
+def entity_draw_card_intent_factory() -> Intent:
+    """
+    Constructs an Intent for comparison against `log_entry.EntityDrawCard`, 
+    forcing inclusion of key parameters (of which we have none).
+    """
+    return Intent(
+        log_entry.EntityDrawCard,
+        {},
+        {}
+    )
+
 def card_function_draw_until_you_have_x_cards_in_hand_intent_factory(draw_to_x_number: int) -> Intent:
     """
     Constructs an Intent for comparison against `log_entry.CardFunctionDrawUntilYouHaveXCardsInHand`, 
@@ -98,7 +109,6 @@ def card_function_draw_until_you_have_x_cards_in_hand_intent_factory(draw_to_x_n
         {"cardFunction.draw_to_x_number": draw_to_x_number}
     )
 
-# CardFunctionArbitrarilyDiscardCardFrom_Location
 def card_function_arbitrarily_discard_card_from_location_intent_factory(location: "h.cardLocation", inputCard: bool) -> Intent:
     """
     Constructs an Intent for comparison against `log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location`, 

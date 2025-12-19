@@ -221,9 +221,11 @@ class lastSeeds(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusActions(1)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([9, cll.L()], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([9, cll.L()],
+                                                                               'nil'), 
+                                                                               scriptedInput=scriptedInput)
             caster.drawCard()
 
     def onLooted(self, dino):

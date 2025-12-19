@@ -6,7 +6,8 @@ import pytest_timeout
 from Dinosaur_Venture import card as c
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.entities import dinoes as dinoes_import
-from tests.test_utils.check_card_location import check_card_locations_unordered
+from tests.test_utils.card_location_utilities import \
+    check_card_locations_unordered
 
 
 @pytest.mark.timeout(5)

@@ -162,4 +162,4 @@ class CardTestingMethods():
         return copy.deepcopy(DINOES_ENEMIESES_CLEARINGSES[random.randint(0, len(DINOES_ENEMIESES_CLEARINGSES) - 1)])
 
 # Constant used to run all of these Card Testing Methods
-CARD_TESTING_METHODS = CardTestingMethods()
+# CARD_TESTING_METHODS = CardTestingMethods()

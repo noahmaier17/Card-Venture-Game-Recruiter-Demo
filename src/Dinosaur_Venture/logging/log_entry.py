@@ -129,6 +129,28 @@ class EntityPlayCardLogEntry(EntityLogEntry):
         self.dino = dino
         self.enemies = enemies
 
+class EntityDrawCard(EntityLogEntry):
+    """
+    Log for drawing a Card.
+    Employed in `entity.drawCard()`.
+    """
+    _LOG_TYPE = "Entity Draw Card"
+
+    def __init__(
+        self,
+        entity: "e.Entity",
+        fromLocation: "h.cardLocation", 
+        toLocation: "h.cardLocation", 
+        shuffleLocation: "h.cardLocation", 
+        printCard: bool, 
+        inputCard: bool
+    ) -> None:
+        self.fromLocation = fromLocation
+        self.toLocation = toLocation
+        self.shuffleLocation = shuffleLocation
+        self.printCard = printCard
+        self.inputCard = inputCard
+
 class EntityPackingCardLogEntry(EntityLogEntry):
     """
     Log for playing a Card.

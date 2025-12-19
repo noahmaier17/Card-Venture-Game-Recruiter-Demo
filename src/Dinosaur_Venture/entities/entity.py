@@ -727,8 +727,6 @@ class Entity():
                 toLocation: 'hand'
                 shuffleLocation: 'discard'
             If shuffleLocation == 'NONE', reshuffles nothing.
-
- 
         """
         
         ## ----- sets default locations -----
@@ -742,6 +740,9 @@ class Entity():
             shuffleLocation = h.cardLocation("Nothing")
         
         ## ----- does the drawing -----
+        # Logging
+        log.write_to_log(log_entry.EntityDrawCard(self, fromLocation, toLocation, shuffleLocation, printCard, inputCard))
+        
         # Reshuffles if need be. 
         if (fromLocation.length() == 0 and shuffleLocation.length() > 0):
             if (self.enemy == False):

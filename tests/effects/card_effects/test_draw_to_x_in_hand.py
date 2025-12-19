@@ -1,39 +1,22 @@
-from typing import TYPE_CHECKING
+"""
+test_draw_to_x_in_hand.py
+
+Tests drawing to X cards in hand.
+Does not perform any tests on ordering of card locations after drawing. Such behavior should be fairly thouroughly tested
+with the test_draw_cards.py test cases.
+"""
 
 import pytest
 
 from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture.card_functions import drawUntilYouHaveXCardsInHand
 from Dinosaur_Venture.entities import entity as e
-from Dinosaur_Venture.helper import ALPHABET
 from Dinosaur_Venture.main_visuals import prefabEmpty
+from tests.test_utils import card_location_utilities
 from tests.test_utils.game_setups import getSingleSliceOfDinoEnemiesClearing
 
-if TYPE_CHECKING:
-    from Dinosaur_Venture import helper as h
-
-UPPERCASE_ALHPABET = [letter.upper() for letter in ALPHABET]
-LOWERCASE_ALHPABET = [letter.lower() for letter in ALPHABET]
-NUMBERS = [number for number in list(range(0, 24))]
-
-print(getSingleSliceOfDinoEnemiesClearing())
+# We just need some arbitrary single instance of these classes
 DINO, ENEMIES, CLEARING = getSingleSliceOfDinoEnemiesClearing()
-
-def populate_card_location(count: int, card_location: "h.cardLocation", names_array: list, feathery_list_by_index=None):
-    """
-    Appends count-number of cards to the given card location, where the i-th card is named the i-th element of names_array.
-    Does so in order.
-    If feathery_list_by_index is present, entokens the i-th card with feathery if feathery_list_by_index[i] == true.
-    """
-    for i in range(count):
-        new_card = c.Card()
-        new_card.name = names_array[i]
-
-        if feathery_list_by_index and feathery_list_by_index[i]:
-            new_card.publishToken(tk.feathery())
-
-        card_location.append(new_card)
 
 @pytest.mark.parametrize(
     "cards_in_hand, cards_in_draw, cards_in_discard, draw_to_x_value, expected_hand_size, expected_draw_size, expected_discard_size",
@@ -67,9 +50,9 @@ def test_drawToXInHand(
     # Discard is an unordered card location.
 
     # Does that aforementioned populating
-    populate_card_location(cards_in_hand, caster.hand, LOWERCASE_ALHPABET)
-    populate_card_location(cards_in_draw, caster.draw, UPPERCASE_ALHPABET)
-    populate_card_location(cards_in_discard, caster.discard, NUMBERS)
+    card_location_utilities.populate_card_location(cards_in_hand, caster.hand, card_location_utilities.LOWERCASE_ALHPABET)
+    card_location_utilities.populate_card_location(cards_in_draw, caster.draw, card_location_utilities.UPPERCASE_ALHPABET)
+    card_location_utilities.populate_card_location(cards_in_discard, caster.discard, card_location_utilities.NUMBERS_AS_STRINGS)
 
     # As of right now, our "card", dino, enemies, and passedInVisuals are not important.
     # If we were to later implement a card_mod_function, we will still pass in burner values to these.
@@ -85,6 +68,7 @@ def test_drawToXInHand(
     assert caster.discard.length() == expected_discard_size
 
 class test_attributes():
+    """Parameterization attributes."""
     def __init__(
         self,
         list_of_hand_feathered_cards: list[bool],
@@ -153,6 +137,9 @@ class test_attributes():
 def test_drawToXInHand_withFeatheryCards(
     test_attributes: test_attributes
 ):
+    """
+    Does draw to X work as expected including with <<feathery>> cards?
+    """
     # We need to create a caster
     caster: e.Entity = e.Entity()
 
@@ -161,22 +148,22 @@ def test_drawToXInHand_withFeatheryCards(
     # Discard is an unordered card location.
 
     # Does that aforementioned populating
-    populate_card_location(
+    card_location_utilities.populate_card_location(
         len(test_attributes.list_of_hand_feathered_cards), 
         caster.hand,
-        LOWERCASE_ALHPABET,
+        card_location_utilities.LOWERCASE_ALHPABET,
         feathery_list_by_index=test_attributes.list_of_hand_feathered_cards
     )
-    populate_card_location(
+    card_location_utilities.populate_card_location(
         len(test_attributes.list_of_draw_feathered_cards), 
         caster.draw, 
-        UPPERCASE_ALHPABET,
+        card_location_utilities.UPPERCASE_ALHPABET,
         feathery_list_by_index=test_attributes.list_of_draw_feathered_cards
     )
-    populate_card_location(
+    card_location_utilities.populate_card_location(
         len(test_attributes.list_of_discard_feathered_cards), 
         caster.discard, 
-        NUMBERS,
+        card_location_utilities.NUMBERS_AS_STRINGS,
         feathery_list_by_index=test_attributes.list_of_discard_feathered_cards
     )
 

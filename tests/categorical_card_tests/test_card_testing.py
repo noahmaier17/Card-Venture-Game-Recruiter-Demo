@@ -8,11 +8,12 @@ import pytest
 
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
 from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
-from Dinosaur_Venture import helper as h
-from tests.test_utils.card_tester_class import CARD_TESTING_METHODS, TestCard
+from tests.test_utils.card_tester_class import CardTestingMethods, TestCard
+
 
 class TestCardTesting(TestCard):
     # We just use Trampled Rodent just for fun
@@ -37,7 +38,7 @@ class TestCardTesting(TestCard):
         
         # Expects the assertion
         with pytest.raises(AssertionError):
-            CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            CardTestingMethods.default_test_card_intent_simulation(
                 intents,
                 self.CARD_TO_TEST,
                 [
@@ -70,7 +71,7 @@ class TestCardTesting(TestCard):
 
         # Expects the assertion
         with pytest.raises(AssertionError):
-            CARD_TESTING_METHODS.default_test_card_intent_simulation(
+            CardTestingMethods.default_test_card_intent_simulation(
                 intents,
                 self.CARD_TO_TEST,
                 [
@@ -90,7 +91,7 @@ class TestCardTesting(TestCard):
             intent.card_function_arbitrarily_discard_card_from_location_intent_factory(h.CARD_LOCATION_HAND, True)
         ]
 
-        CARD_TESTING_METHODS.default_test_card_intent_simulation(
+        CardTestingMethods.default_test_card_intent_simulation(
             intents,
             self.CARD_TO_TEST,
             [
