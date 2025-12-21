@@ -19,6 +19,28 @@ LOWERCASE_ALHPABET = [letter.lower() for letter in h.ALPHABET]
 NUMBERS = [number for number in list(range(0, 24))]
 NUMBERS_AS_STRINGS = [str(number) for number in NUMBERS]
 
+def is_location_sorted_per_parameter(card_location: "h.cardLocation", increasing_order_array: list):
+    """
+    Does the card location contains cards with names that strictly increase based on our increasing_order_array?
+
+    In other words, for every index i in the card_location, does the name of card_location[i] appear before
+    card_location[i + 1] in the increasing_order_array?
+    """
+    increasing_order_array_index = 0
+    card_location_index = 0
+
+    while card_location_index < card_location.length():
+        card = card_location.at(card_location_index)
+
+        if card.name == increasing_order_array[increasing_order_array_index]:
+            card_location_index += 1
+        else:
+            increasing_order_array_index += 1
+            if increasing_order_array_index >= len(increasing_order_array):
+                return False
+    
+    return True
+
 def populate_card_location(count: int, card_location: "h.cardLocation", names_array: list, feathery_list_by_index=None):
     """
     Appends count-number of cards to the given card location, where the i-th card is named the i-th element of names_array.
