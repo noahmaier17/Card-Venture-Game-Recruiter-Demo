@@ -8,7 +8,6 @@ from tests.test_utils import card_location_utilities, list_utilities
 class test_arguments():
     """
     Contains all the arguments neccesary for testing. Utilized to make reading tests easier.
-    All parameters default to 0.
     """
     def __init__(
         self,
@@ -106,7 +105,7 @@ def test_move_card_onto_location(test_arguments: test_arguments):
         # ... is our fromLocation still correctly ordered?
         assert card_location_utilities.is_location_sorted_per_parameter(fromLocation, card_location_utilities.LOWERCASE_ALHPABET)
 
-        # ... does our toLocation contain this card at index position and is otherwise unchanged?
+        # ... does our toLocation contain this card at index position while otherwise remaining unchanged?
         compare_to_location = h.cardLocation("compare-to-location")
         card_location_utilities.populate_card_location(
             test_arguments.to_location_size,
@@ -121,6 +120,7 @@ def test_move_card_onto_location(test_arguments: test_arguments):
             comparison_parameter=list_utilities.default_name_comparison_parameter
         )
 
+    # ... if not...
     else:
         # ... is our fromLocation still correctly ordered?
         assert card_location_utilities.is_location_sorted_per_parameter(fromLocation, card_location_utilities.LOWERCASE_ALHPABET)
