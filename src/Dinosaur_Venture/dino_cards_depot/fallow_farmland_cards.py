@@ -184,16 +184,17 @@ class twigRockScarecrow(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusUpcomingPlusAction(0, 1)
             caster.plusUpcomingPlusCard(0, 1)
             caster.moveMe(caster.play, card, caster.draw, position = 0)
 
     class duringPacking(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Random()],
                                                                                cll.Attackcons([1, cll.Random()],
-                                                                               'nil')))
+                                                                               'nil')),
+                                                                               scriptedInput=scriptedInput)
 
 class mangledShrew(gdc.DinoCard):
     def __init__(self):

@@ -13,7 +13,6 @@ from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CardTestingMethods, TestCard
 
-
 class TestCultivator(TestCard):
     CARD_TO_TEST = fallow_farmland_cards.cultivator
 
@@ -48,6 +47,28 @@ class TestCultivator(TestCard):
             ],
             dino = dino
         )
+    
+    def test_on_packing(self):
+        """Tests packing of Cultivator."""
+        dino = e.Entity()
+
+        intents = [
+            intent.entity_packing_card_intent_factory("Cultivator"),
+            intent.entity_draw_card_intent_factory(
+                to_location=dino.intoHand
+            )
+        ]
+
+        CardTestingMethods.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST(),
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPackingCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
+            ],
+            dino = dino
+        )
 
 class TestGnawedCableCord(TestCard):
     CARD_TO_TEST = fallow_farmland_cards.gnawedCableCord
@@ -79,6 +100,28 @@ class TestGnawedCableCord(TestCard):
                 simulate_gameplay.startRound(),
                 simulate_gameplay.dinoTurnStart(),
                 simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
+            ],
+            dino = dino
+        )
+
+    def test_on_packing(self):
+        """Tests packing of Gnawed Cable Cord."""
+        dino = e.Entity()
+
+        intents = [
+            intent.entity_packing_card_intent_factory("Gnawed Cable Cord"),
+            intent.entity_draw_card_intent_factory(
+                to_location=dino.intoHand
+            )
+        ]
+
+        CardTestingMethods.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST(),
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPackingCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
             ],
             dino = dino
         )
@@ -229,3 +272,55 @@ class TestLastSeeds(TestCard):
                 simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
             ]
     )
+
+class TestTwigRockScarecrow(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.twigRockScarecrow
+
+    def test_on_play(self):
+        """Tests on play of Twig-Rock Scarecrow."""
+        dino = e.Entity()
+        card_to_test = self.CARD_TO_TEST()
+
+        intents = [
+            intent.entity_play_card_intent_factory("Twig-Rock Scarecrow"),
+            intent.entity_plus_upcoming_plus_action_intent_factory(0, 1),
+            intent.entity_plus_upcoming_plus_card_intent_factory(0, 1),
+            intent.entity_move_me_intent_factory(
+                dino.play,
+                card_to_test,
+                dino.draw,
+                0
+            )
+        ]
+
+        CardTestingMethods.default_test_card_intent_simulation(
+            intents,
+            card_to_test,
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1]))
+            ],
+            dino = dino
+        )
+    
+    def test_on_packing(self):
+        """Tests packing of Twig-Rock Scarecrow."""
+        intents = [
+            intent.entity_packing_card_intent_factory("Twig-Rock Scarecrow"),
+            intent.entity_damage_intent_factory(
+                cll.Attackcons([1, cll.Random()],
+                cll.Attackcons([1, cll.Random()],
+                'nil'))
+            )
+        ]
+
+        CardTestingMethods.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST(),
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPackingCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
+            ]
+        )

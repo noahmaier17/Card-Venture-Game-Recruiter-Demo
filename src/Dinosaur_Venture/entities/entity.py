@@ -703,6 +703,27 @@ class Entity():
             for card in entity.getLocations():
                 card.resetCardState_AfterAnyCardResolves()
 
+    def fetchLocationByConstant(self, name: str) -> h.cardLocation:
+        """Retrieves the card location matching the `h.CARD_LOCATION_*` constant."""
+        if name == h.CARD_LOCATION_DECK:
+            return self.deck
+        elif name == h.CARD_LOCATION_DISCARD:
+            return self.discard
+        elif name == h.CARD_LOCATION_DRAW:
+            return self.draw
+        elif name == h.CARD_LOCATION_HAND:
+            return self.hand
+        elif name == h.CARD_LOCATION_INTO_HAND:
+            return self.intoHand
+        elif name == h.CARD_LOCATION_INTO_INTO_HAND:
+            return self.intoIntoHand
+        elif name == h.CARD_LOCATION_PLAY:
+            return self.play
+        elif name == h.CARD_LOCATION_POCKET:
+            return self.pocket
+        else:
+            assert False, "Cannot fetch location by name of " + str(name)
+
     # Constants for denoting default locations we will draw from
     DEFAULT_CARD_LOCATION = 'DEFAULT'
     NO_CARD_LOCATION = 'NONE'

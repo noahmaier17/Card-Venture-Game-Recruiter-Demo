@@ -26,9 +26,12 @@ class test_arguments():
         expected_hand_size: int=0,
         expected_draw_size: int=0,
         expected_discard_size: int=0,
-        from_location: h.cardLocation | str = e.Entity.DEFAULT_CARD_LOCATION,
-        to_location: h.cardLocation | str = e.Entity.DEFAULT_CARD_LOCATION,
-        shuffle_location: h.cardLocation | str = e.Entity.DEFAULT_CARD_LOCATION,
+        from_location: str = e.Entity.DEFAULT_CARD_LOCATION,
+        to_location: str = e.Entity.DEFAULT_CARD_LOCATION,
+        shuffle_location: str = e.Entity.DEFAULT_CARD_LOCATION,
+        from_location_length: int=None,     # Only important if we have an alternative from location
+        to_location_length: int=None,       # Only important if we have an alternative to location
+        shuffle_location_length: int=None,  # Only important if we have an alternative shuffle location
         
     ) -> None:
         self.plus_cards_count = plus_cards_count
@@ -41,6 +44,9 @@ class test_arguments():
         self.from_location = from_location
         self.to_location = to_location
         self.shuffle_location = shuffle_location
+        self.from_location_length = from_location_length
+        self.to_location_length = to_location_length
+        self.shuffle_location_length = shuffle_location_length
 
 def run_test(test_arguments: test_arguments, randomly_entoken_with_feathery=False):
     """Runs the drawing cards tests."""
@@ -74,6 +80,15 @@ def run_test(test_arguments: test_arguments, randomly_entoken_with_feathery=Fals
             card.publishToken(tk.feathery())
 
     # Does the drawing
+    if test_arguments.to_location != e.Entity.DEFAULT_CARD_LOCATION:
+        test_arguments.to_location = caster.fetchLocationByConstant(test_arguments.to_location)
+
+    if test_arguments.from_location != e.Entity.DEFAULT_CARD_LOCATION:
+        test_arguments.from_location = caster.fetchLocationByConstant(test_arguments.from_location)
+
+    if test_arguments.shuffle_location != e.Entity.DEFAULT_CARD_LOCATION:
+        test_arguments.shuffle_location = caster.fetchLocationByConstant(test_arguments.shuffle_location)
+
     for _ in range(test_arguments.plus_cards_count):
         caster.drawCard(
             fromLocation=test_arguments.from_location,
@@ -127,6 +142,18 @@ def run_test(test_arguments: test_arguments, randomly_entoken_with_feathery=Fals
         # Since our discard pile had only numeric cards, is our draw pile exclusively numeric?
         for card in caster.draw.getArray():
             assert card.name.isnumeric()
+
+    # Is the size of this alternative to location the correct length?
+    if test_arguments.to_location != e.Entity.DEFAULT_CARD_LOCATION:
+        assert test_arguments.to_location.length() == test_arguments.to_location_length
+
+    # Is the size of this alternative from location the correct length?
+    if test_arguments.from_location != e.Entity.DEFAULT_CARD_LOCATION:
+        assert test_arguments.to_location.length() == test_arguments.from_location_length
+
+    # Is the size of this alternative shuffle location the correct length?
+    if test_arguments.shuffle_location != e.Entity.DEFAULT_CARD_LOCATION:
+        assert test_arguments.shuffle_location.length() == test_arguments.shuffle_location_length
 
 @pytest.mark.parametrize(
     "test_arguments",
@@ -312,3 +339,35 @@ def test_draw_cards_ignoring_feathery_cards(test_arguments: test_arguments):
     # assortment of cards feathery and run tests
     run_test(test_arguments, randomly_entoken_with_feathery=True)
 
+@pytest.mark.parametrize(
+    "test_arguments",
+    [
+        # Draws a card to the into-hand mat
+        test_arguments(
+            plus_cards_count=1,
+            draw_size=3,
+            expected_draw_size=2,
+            to_location=h.CARD_LOCATION_INTO_HAND,
+            to_location_length=1
+        ),
+        # Draws a card to the play mat
+        test_arguments(
+            plus_cards_count=8,
+            draw_size=2,
+            discard_size=3,
+            to_location=h.CARD_LOCATION_PLAY,
+            to_location_length=5
+        ),
+        # Fails to draw a card to the discard mat (no cards to draw)
+        test_arguments(
+            plus_cards_count=16,
+            to_location=h.CARD_LOCATION_DISCARD,
+            to_location_length=0
+        )
+    ]
+)
+def test_draw_to_alternative_location(test_arguments: test_arguments):
+    """
+    Does drawing cards to a different to location work correctly?
+    """
+    run_test(test_arguments)

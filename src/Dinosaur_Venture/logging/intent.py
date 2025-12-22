@@ -71,6 +71,44 @@ def entity_damage_intent_factory(attackcons: "cll.Attackcons") -> Intent:
         {"attackData": attackcons}    
     )
 
+def entity_plus_upcoming_plus_action_intent_factory(when: int, count: int) -> Intent:
+    """
+    Constructs an Intent for comparison against `log_entry.EntityPlusUpcomingPlusAction`,
+    forcing inclusion of key parameters.
+
+    Arguments:
+        when (int): how many turns past the next turn the upcoming plus actions is recieved.
+            A when value of 0 is next turn.
+        count (int): how many plus actions to recieve.
+    """
+    return Intent(
+        log_entry.EntityPlusUpcomingPlusAction,
+        {},
+        {
+            "when": when,
+            "count": count
+        }
+    )
+
+def entity_plus_upcoming_plus_card_intent_factory(when: int, count: int) -> Intent:
+    """
+    Constructs an Intent for comparison against `log_entry.EntityPlusUpcomingPlusCard`,
+    forcing inclusion of key parameters.
+
+    Arguments:
+        when (int): how many turns past the next turn the upcoming plus cards is recieved.
+            A when value of 0 is next turn.
+        count (int): how many plus cards to recieve.
+    """
+    return Intent(
+        log_entry.EntityPlusUpcomingPlusCard,
+        {},
+        {
+            "when": when,
+            "count": count
+        }
+    )
+
 def entity_plus_actions_intent_factory(plus_actions: int) -> Intent:
     """
     Constructs an Intent for comparison against `log_entry.EntityPlusActionsLogEntry`, 
@@ -112,15 +150,36 @@ def entity_move_me_intent_factory(
         }
     )
 
-def entity_draw_card_intent_factory() -> Intent:
+def entity_draw_card_intent_factory(
+    to_location: "h.cardLocation"=None,
+    from_location: "h.cardLocation"=None,
+    shuffle_location: "h.cardLocation"=None
+) -> Intent:
     """
     Constructs an Intent for comparison against `log_entry.EntityDrawCardLogEntry`, 
-    forcing inclusion of key parameters (of which we have none).
+    forcing inclusion of key parameters (of which we have none required).
+
+    Arguments:
+        to_location (h.cardLocation): location where we will draw cards to. 
+            If not included, will assume the default, untested, to_location of hand.
+        from_location (h.cardLocation): location where we will draw cards from. 
+            If not included, will assume the default, untested, from_location of draw.
+        shuffle_location (h.cardLocation): location where we will shuffle from. 
+            If not included, will assume the default, untested, shuffle_location of discard.
     """
+    python_object_parameters = {}
+
+    if to_location is not None:
+        python_object_parameters["toLocation"] = to_location
+    if from_location is not None:
+        python_object_parameters["fromLocation"] = from_location
+    if shuffle_location is not None:
+        python_object_parameters["shuffleLocation"] = shuffle_location
+
     return Intent(
         log_entry.EntityDrawCard,
         {},
-        {}
+        python_object_parameters
     )
 
 def card_function_draw_until_you_have_x_cards_in_hand_intent_factory(draw_to_x_number: int) -> Intent:
