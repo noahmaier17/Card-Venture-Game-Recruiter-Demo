@@ -666,7 +666,7 @@ class Card():
                 cardFunction.func(self, caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
             elif scriptedInput:
                 assert False, (
-                    "Passed a scriptedInput value " + str(scriptedInput) + " to onPlay but the cardFunction lacked that parameter"
+                    "Passed a scriptedInput value " + str(scriptedInput) + " to onPlay but the cardFunction lacked that parameter."
                 )
             else:
                 cardFunction.func(self, caster, dino, enemies, passedInVisuals)
