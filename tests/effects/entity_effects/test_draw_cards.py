@@ -47,9 +47,6 @@ def run_test(test_arguments: test_arguments, randomly_entoken_with_feathery=Fals
     # We need to create a caster
     caster: e.Entity = e.Entity()
 
-    # We also need to initialize the log
-    log.new_in_memory_log_file()
-
     # Hand will have lowercase letter'd names, draw will have uppercase letter'd names, and discard will have numeric names.
     # Hand and draw will be ordered from A to Z to test correct sequencing.
     # Discard is an unordered card location.
