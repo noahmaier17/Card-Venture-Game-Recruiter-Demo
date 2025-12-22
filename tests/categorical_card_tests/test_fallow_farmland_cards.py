@@ -8,10 +8,11 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
+from Dinosaur_Venture.entities import entity as e
 from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CardTestingMethods, TestCard
-from Dinosaur_Venture.entities import entity as e
+
 
 class TestCultivator(TestCard):
     CARD_TO_TEST = fallow_farmland_cards.cultivator

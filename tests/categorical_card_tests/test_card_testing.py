@@ -13,6 +13,7 @@ from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
 from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CardTestingMethods, TestCard
+from Dinosaur_Venture.entities import entity as e
 
 
 class TestCardTesting(TestCard):
@@ -23,6 +24,8 @@ class TestCardTesting(TestCard):
         """
         If we have an incorrect intent parameter (specifically a wrong name), do we correctly have a false?
         """
+        dino = e.Entity()
+
         intents = [
             intent.entity_play_card_intent_factory("SUPER DUPER WRONG NAME SO WRONG"),
             intent.entity_plus_actions_intent_factory(1),
@@ -33,25 +36,28 @@ class TestCardTesting(TestCard):
                 cll.Attackcons([1, cll.M()],
                 'nil'))))
             ),
-            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(h.CARD_LOCATION_HAND, True)
+            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(dino.hand, True)
         ]
         
         # Expects the assertion
         with pytest.raises(AssertionError):
             CardTestingMethods.default_test_card_intent_simulation(
                 intents,
-                self.CARD_TO_TEST,
+                self.CARD_TO_TEST(),
                 [
                     simulate_gameplay.startRound(),
                     simulate_gameplay.dinoTurnStart(),
                     simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
-                ]
+                ],
+                dino = dino
             )
 
     def test_assertion_for_incorrect_damage_intent(self):
         """
         Does an incorrect damage intent factory cause an error?
         """
+        dino = e.Entity()
+
         intents = [
             intent.entity_play_card_intent_factory("Trampled Rodent"),
             intent.entity_plus_actions_intent_factory(1),
@@ -66,39 +72,43 @@ class TestCardTesting(TestCard):
                 cll.Attackcons([1999, cll.M()],
                 'nil'))))))))
             ),
-            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(h.CARD_LOCATION_HAND, True)
+            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(dino.hand, True)
         ]
 
         # Expects the assertion
         with pytest.raises(AssertionError):
             CardTestingMethods.default_test_card_intent_simulation(
                 intents,
-                self.CARD_TO_TEST,
+                self.CARD_TO_TEST(),
                 [
                     simulate_gameplay.startRound(),
                     simulate_gameplay.dinoTurnStart(),
                     simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
-                ]
+                ],
+                dino = dino
             )
 
     def test_missing_intents_still_successful(self):
         """
         If we have partial, yet nevertheless still correctly ordered intents, are we successful?
         """
+        dino = e.Entity()
+
         intents = [
             intent.entity_play_card_intent_factory("Trampled Rodent"),
             # ...
-            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(h.CARD_LOCATION_HAND, True)
+            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(dino.hand, True)
         ]
 
         CardTestingMethods.default_test_card_intent_simulation(
             intents,
-            self.CARD_TO_TEST,
+            self.CARD_TO_TEST(),
             [
                 simulate_gameplay.startRound(),
                 simulate_gameplay.dinoTurnStart(),
                 simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput([1, 1]))
-            ]
+            ],
+            dino = dino
         )
 
         

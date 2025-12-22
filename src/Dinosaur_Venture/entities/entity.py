@@ -703,11 +703,15 @@ class Entity():
             for card in entity.getLocations():
                 card.resetCardState_AfterAnyCardResolves()
 
+    # Constants for denoting default locations we will draw from
+    DEFAULT_CARD_LOCATION = 'DEFAULT'
+    NO_CARD_LOCATION = 'NONE'
+
     def drawCard(
         self,
-        fromLocation: h.cardLocation | str = 'DEFAULT', 
-        toLocation: h.cardLocation | str = 'DEFAULT', 
-        shuffleLocation: h.cardLocation | str = 'DEFAULT', 
+        fromLocation: h.cardLocation | str = DEFAULT_CARD_LOCATION, 
+        toLocation: h.cardLocation | str = DEFAULT_CARD_LOCATION, 
+        shuffleLocation: h.cardLocation | str = DEFAULT_CARD_LOCATION, 
         printCard: bool = False, 
         inputCard: bool = False
     ) -> any:
@@ -726,21 +730,21 @@ class Entity():
             Either 'empty' or the Card, depending if a Card was drawn.
     
         Notes:
-            If a location == 'DEFAULT', we draw from the following locations:
+            If a location == DEFAULT_CARD_LOCATION, we draw from the following locations:
                 fromLocation: 'draw'
                 toLocation: 'hand'
                 shuffleLocation: 'discard'
-            If shuffleLocation == 'NONE', reshuffles nothing.
+            If shuffleLocation == NO_CARD_LOCATION, reshuffles nothing.
         """
         
         ## ----- sets default locations -----
-        if isinstance(fromLocation, str) and fromLocation == 'DEFAULT':
+        if isinstance(fromLocation, str) and fromLocation == self.DEFAULT_CARD_LOCATION:
             fromLocation = self.draw
-        if isinstance(toLocation, str) and toLocation == 'DEFAULT':
+        if isinstance(toLocation, str) and toLocation == self.DEFAULT_CARD_LOCATION:
             toLocation = self.hand
-        if isinstance(shuffleLocation, str) and shuffleLocation == 'DEFAULT':
+        if isinstance(shuffleLocation, str) and shuffleLocation == self.DEFAULT_CARD_LOCATION:
             shuffleLocation = self.discard
-        if isinstance(shuffleLocation, str) and shuffleLocation == 'NONE':
+        if isinstance(shuffleLocation, str) and shuffleLocation == self.NO_CARD_LOCATION:
             shuffleLocation = h.cardLocation("Nothing")
         
         ## ----- does the drawing -----

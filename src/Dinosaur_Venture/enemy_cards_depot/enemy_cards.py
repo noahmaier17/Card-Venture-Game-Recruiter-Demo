@@ -6,6 +6,7 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.dino_cards_depot.fundamental_cards import fish
 from Dinosaur_Venture.enemy_cards_depot import general_enemy_cards as gec
+from Dinosaur_Venture.entities import entity as e
 
 ## There is an Dinosaur_Venture.entities.enemieses import below because a card summons Shrews.
 ## This should be safe but I am leaving this comment here for readability.
@@ -691,7 +692,7 @@ class rockyVase(gec.EnemyCard):
             caster.drawCard()
             cf.arbitrarilyDiscardCardFrom_Location(caster.hand).func(self, caster, dino, enemies, passedInVisuals)
             for i in range(2):
-                caster.drawCard(caster.discard, shuffleLocation = 'NONE')
+                caster.drawCard(caster.discard, shuffleLocation = e.Entity.NO_CARD_LOCATION)
 
 ## +1 Action. Heal 1L.
 class craveFishMantra(gec.EnemyCard):

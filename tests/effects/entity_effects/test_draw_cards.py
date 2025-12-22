@@ -1,4 +1,5 @@
 import random
+from typing import TYPE_CHECKING
 
 import pytest
 
@@ -6,6 +7,9 @@ from Dinosaur_Venture import card as c
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture.entities import entity as e
 from tests.test_utils import card_location_utilities, list_utilities
+from Dinosaur_Venture.logging import gameplay_logging as log
+
+from Dinosaur_Venture import helper as h
 
 
 class test_arguments():
@@ -21,7 +25,11 @@ class test_arguments():
         discard_size: int=0,
         expected_hand_size: int=0,
         expected_draw_size: int=0,
-        expected_discard_size: int=0
+        expected_discard_size: int=0,
+        from_location: h.cardLocation | str = e.Entity.DEFAULT_CARD_LOCATION,
+        to_location: h.cardLocation | str = e.Entity.DEFAULT_CARD_LOCATION,
+        shuffle_location: h.cardLocation | str = e.Entity.DEFAULT_CARD_LOCATION,
+        
     ) -> None:
         self.plus_cards_count = plus_cards_count
         self.hand_size = hand_size
@@ -30,11 +38,17 @@ class test_arguments():
         self.expected_hand_size = expected_hand_size
         self.expected_draw_size = expected_draw_size
         self.expected_discard_size = expected_discard_size
+        self.from_location = from_location
+        self.to_location = to_location
+        self.shuffle_location = shuffle_location
 
 def run_test(test_arguments: test_arguments, randomly_entoken_with_feathery=False):
     """Runs the drawing cards tests."""
     # We need to create a caster
     caster: e.Entity = e.Entity()
+
+    # We also need to initialize the log
+    log.new_in_memory_log_file()
 
     # Hand will have lowercase letter'd names, draw will have uppercase letter'd names, and discard will have numeric names.
     # Hand and draw will be ordered from A to Z to test correct sequencing.
@@ -64,7 +78,11 @@ def run_test(test_arguments: test_arguments, randomly_entoken_with_feathery=Fals
 
     # Does the drawing
     for _ in range(test_arguments.plus_cards_count):
-        caster.drawCard()
+        caster.drawCard(
+            fromLocation=test_arguments.from_location,
+            toLocation=test_arguments.to_location,
+            shuffleLocation=test_arguments.shuffle_location
+        )
 
     # Is the size of our hand as expected?
     assert caster.hand.length() == test_arguments.expected_hand_size
