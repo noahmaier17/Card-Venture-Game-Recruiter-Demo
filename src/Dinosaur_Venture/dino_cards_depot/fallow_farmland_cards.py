@@ -55,14 +55,15 @@ class cultivator(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.M()],
                                                                                cll.Attackcons([1, cll.M()],
-                                                                               'nil')))
+                                                                               'nil')),
+                                                                               scriptedInput=scriptedInput)
             caster.moveMe(caster.play, card, caster.draw, position = 0)
 
     class duringPacking(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.drawCard(fromLocation = caster.draw, toLocation = caster.intoHand, shuffleLocation = caster.discard, inputCard = True)
 
 class brassMuzzle(gdc.DinoCard):
@@ -107,13 +108,14 @@ class gnawedCableCord(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusActions(2)
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Bnotick()], 'nil'))
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Bnotick()], 'nil'),
+                                                                               scriptedInput=scriptedInput)
             caster.moveMe(caster.play, card, caster.draw, position = 0)
 
     class duringPacking(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.drawCard(fromLocation = caster.draw, toLocation = caster.intoHand, shuffleLocation = caster.discard, inputCard = True)
 
 class rust(gdc.DinoShellCard):

@@ -9,6 +9,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from Dinosaur_Venture import card as c
     from Dinosaur_Venture import channel_linked_lists as cll
     from Dinosaur_Venture import helper as h
     from Dinosaur_Venture.entities import entity as e
@@ -104,6 +105,33 @@ class EntityPlusActionsLogEntry(EntityLogEntry):
     def __init__(self, entity: "e.Entity", plusActions: int) -> None:
         self.entity = entity
         self.plusActions = plusActions
+
+class EntityMoveMeLogEntry(EntityLogEntry):
+    """
+    Log for moving a card by card object.
+    Employed in `entity.moveMe()`.
+    """
+    _LOG_TYPE = "Entity Move Me"
+
+    def __init__(
+        self,
+        entity: "e.Entity",
+        fromLocation: "h.cardLocation",
+        card: "c.Card",
+        toLocation: "h.cardLocation",
+        position: int,
+        printCard: bool,
+        inputCard: bool,
+        suppressFailText: bool
+    ) -> None:
+        self.entity = entity
+        self.fromLocation = fromLocation
+        self.card = card
+        self.toLocation = toLocation
+        self.position = position
+        self.printCard = printCard
+        self.inputCard = inputCard
+        self.suppressFailText = suppressFailText
 
 class EntityPlayCardLogEntry(EntityLogEntry):
     """

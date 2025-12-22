@@ -247,7 +247,7 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
 def locateCardIndex(array, card):
     i = 0
     for crosscheckCard in array.getArray():
-        if card.isEqual(crosscheckCard):
+        if card.__eq__(crosscheckCard):
             return i
         i += 1
     return -1

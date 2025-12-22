@@ -1,9 +1,10 @@
 import pytest
 
-from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import card as c
+from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.entities import entity as e
 from tests.test_utils import card_location_utilities, list_utilities
+
 
 class test_arguments():
     """

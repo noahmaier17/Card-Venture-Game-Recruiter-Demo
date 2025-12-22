@@ -455,10 +455,9 @@ class Card():
                     text += ", <<" + token.name + ">>"
         return text
 
-
-    def isEqual(self, otherCard: "Card") -> bool:
+    def __eq__(self, otherCard: "Card") -> bool:
         """Returns True if two cards are equal."""
-        return self == otherCard
+        return self.uniqueID == otherCard.uniqueID
 
     def monotonicLingering(self, newLingering: int) -> None:
         """Strictly increases this Card's linering amount."""

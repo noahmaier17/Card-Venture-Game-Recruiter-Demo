@@ -503,6 +503,10 @@ class Entity():
             inputCard: if the moved card's information should be shown via `input()`.
             suppressFailText: if the move is unsuccessful, if we should ignore the FAIL_MOVE text.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityMoveMeLogEntry(
+            self, fromLocation, card, toLocation, position, printCard, inputCard, suppressFailText))
+
         index = h.locateCardIndex(fromLocation, card)
         if index >= 0 and card.shelled == False:
             self.moveCard(
@@ -730,13 +734,13 @@ class Entity():
         """
         
         ## ----- sets default locations -----
-        if fromLocation == 'DEFAULT':
+        if isinstance(fromLocation, str) and fromLocation == 'DEFAULT':
             fromLocation = self.draw
-        if toLocation == 'DEFAULT':
+        if isinstance(toLocation, str) and toLocation == 'DEFAULT':
             toLocation = self.hand
-        if shuffleLocation == 'DEFAULT':
+        if isinstance(shuffleLocation, str) and shuffleLocation == 'DEFAULT':
             shuffleLocation = self.discard
-        if shuffleLocation == 'NONE':
+        if isinstance(shuffleLocation, str) and shuffleLocation == 'NONE':
             shuffleLocation = h.cardLocation("Nothing")
         
         ## ----- does the drawing -----

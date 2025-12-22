@@ -146,8 +146,7 @@ def code(
 
         from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
 
-        dino.deck.append(fallow_farmland_cards.twigRockScarecrow())
-        dino.deck.append(fallow_farmland_cards.grasshopperCache())
+        dino.deck.append(fallow_farmland_cards.gnawedCableCord())
 
     difficulty += DIFFICULTY_DEBUG_BONUS
     if difficulty <= 0:

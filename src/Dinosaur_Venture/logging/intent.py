@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING, Type
 from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
+    from Dinosaur_Venture import card as c
     from Dinosaur_Venture import channel_linked_lists as cll
     from Dinosaur_Venture import helper as h
 
@@ -84,9 +85,36 @@ def entity_plus_actions_intent_factory(plus_actions: int) -> Intent:
         {"plusActions": plus_actions}
     )
 
+def entity_move_me_intent_factory(
+    from_location: "h.cardLocation", 
+    card: "c.Card", 
+    to_location: "h.cardLocation",
+    position: int
+) -> Intent:
+    """
+    Constructs an Intent for comparison against `log_entry.EntityMoveMeLogEntry`, 
+    forcing inclusion of key parameters.
+
+    Arguments:
+        from_location (h.cardLocation): the location where the card is moved from.
+        card (c.Card): the card to move.
+        to_location (h.cardLocation): the location where the card is moved to.
+        position (int): where in the to_location this card is placed.
+    """
+    return Intent(
+        log_entry.EntityMoveMeLogEntry,
+        {},
+        {
+            "fromLocation": from_location,
+            "card": card,
+            "toLocation": to_location,
+            "position": position
+        }
+    )
+
 def entity_draw_card_intent_factory() -> Intent:
     """
-    Constructs an Intent for comparison against `log_entry.EntityDrawCard`, 
+    Constructs an Intent for comparison against `log_entry.EntityDrawCardLogEntry`, 
     forcing inclusion of key parameters (of which we have none).
     """
     return Intent(
@@ -116,7 +144,7 @@ def card_function_arbitrarily_discard_card_from_location_intent_factory(location
     
     Arguments:
         location (h.cardLocation): the location we will arbitrarily discard from.
-        inputCard (bool): if 
+        inputCard (bool): if the inputCard parameter of this card function is True.
     """
     return Intent(
         log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location,
