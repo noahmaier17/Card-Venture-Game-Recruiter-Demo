@@ -9,9 +9,12 @@ from colorama import Back, Fore, Style, init
 init(autoreset=True)
 from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture.card_initalization_zones import INITIALIZATION_ZONES
+from Dinosaur_Venture.logging import gameplay_logging as log
+from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
+    from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
 WIDTH = 117 - 2
@@ -744,9 +747,25 @@ def __splinterize(text, returnArray):
         returnArray[len(returnArray) - 1] = returnArray[len(returnArray) - 1] + text[0:1]
         __splinterize(text[1:len(text)], returnArray)
 
-## Allows for an input of yes (True) or no (False). 
-##  text: the question to be asked. 
-def yesOrNo(text, preamble = [], passedInVisuals = "null", scriptedInput: "scriptInput.gameplayScriptInput" = None):
+def yesOrNo(
+    text: str,
+    preamble: list[str]=[],
+    passedInVisuals: "vis.prefabPassedInVisuals"=None,
+    scriptedInput: "scriptInput.gameplayScriptInput" = None
+) -> bool:
+    """
+    Allows for an input of yes (True) or no (False). 
+
+    Arguments:
+        text (str): the question prompt.
+        preamble (list[str]): text that comes before this prompt.
+        passedInVisuals (vis.prefabPassedInVisuals): visuals to present if CLEAR is input.
+            CLEAR can only be input if this parameter is given.
+        scriptedInput (scriptInput.gameplayScriptInput): forced input; mostly for testing.
+    """
+    # Logging
+    log.write_to_log(log_entry.HelperYesOrNoLogEntry(text, preamble, passedInVisuals))
+
     newPreamble = []
     for amble in preamble:
         newPreamble.append(amble)
@@ -757,7 +776,7 @@ def yesOrNo(text, preamble = [], passedInVisuals = "null", scriptedInput: "scrip
 
     while True:
         question = ""
-        if passedInVisuals != "null":
+        if passedInVisuals != None:
             question += " > (Clear), [Input Noun], "
         question += Fore.YELLOW + "Y" + Fore.WHITE+  "es or " + Fore.RED + "N" + Fore.WHITE + "o: "
         
@@ -770,12 +789,12 @@ def yesOrNo(text, preamble = [], passedInVisuals = "null", scriptedInput: "scrip
             return True
         elif pick in ["n", "no"]:
             return False
-        elif pick == "clear" and passedInVisuals != "null":
+        elif pick == "clear" and passedInVisuals != None:
             passedInVisuals.display()
             print(" ~ Cleared ~ ")
             for row in preamble:
                 splash(row, printInsteadOfInput = True)
-        elif passedInVisuals != "null" and not printCheckProperNouns(pick, passedInVisuals.entityNames, passedInVisuals.cardNames):
+        elif passedInVisuals != None and not printCheckProperNouns(pick, passedInVisuals.entityNames, passedInVisuals.cardNames):
             print(" INVALID INPUT ")
 
 ## Tries to print the name of a proper noun, returning True if it did. 
