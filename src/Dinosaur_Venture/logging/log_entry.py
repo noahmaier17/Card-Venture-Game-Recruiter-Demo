@@ -10,8 +10,10 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
+    from Dinosaur_Venture import card_functions as cf
     from Dinosaur_Venture import channel_linked_lists as cll
     from Dinosaur_Venture import helper as h
+    from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture.entities import entity as e
 
 def serialize_object(object):
@@ -237,6 +239,27 @@ class EntityPlusUpcomingPlusCard(EntityLogEntry):
         self.when = when
         self.count = count
 
+class HelperFunctionLogEntry(LogEntry):
+    """
+    Log Entries found within functions within `helper.py` (or similar helper-method files).
+    The purpose of this inheritance is mostly for code quality.
+    """
+
+class HelperYesOrNoLogEntry(LogEntry):
+    """
+    Log for answering Yes or No.
+    Employed in `helper.yesOrNo()`
+    """
+    def __init__(
+        self,
+        text: str,
+        preamble: list,
+        passedInVisuals: "vis.prefabPassedInVisuals"
+    ) -> None:
+        self.text = text
+        self.preamble = preamble
+        self.passedInVisuals = passedInVisuals
+
 class CardFunctionLogEntry(LogEntry):
     """
     Log Entries found within functions within `card_functions.py`.
@@ -252,12 +275,12 @@ class CardFunctionDrawUntilYouHaveXCardsInHand(CardFunctionLogEntry):
 
     def __init__(
         self,
-        cardFunction,
-        card, 
-        caster, 
-        dino, 
-        enemies, 
-        passedInVisuals
+        cardFunction: "cf.cardFunctions",
+        card: "c.Card", 
+        caster: "e.Entity", 
+        dino: "e.Entity", 
+        enemies: list["e.Entity"], 
+        passedInVisuals: "vis.prefabPassedInVisuals"
     ) -> None:
         self.cardFunction = cardFunction
         self.card = card
@@ -275,12 +298,12 @@ class CardFunctionArbitrarilyDiscardCardFrom_Location(CardFunctionLogEntry):
 
     def __init__(
         self,
-        cardFunction,
-        card, 
-        caster, 
-        dino, 
-        enemies, 
-        passedInVisuals
+        cardFunction: "cf.cardFunctions",
+        card: "c.Card", 
+        caster: "e.Entity", 
+        dino: "e.Entity", 
+        enemies: list["e.Entity"], 
+        passedInVisuals: "vis.prefabPassedInVisuals"
     ) -> None:
         self.cardFunction = cardFunction
         self.card = card

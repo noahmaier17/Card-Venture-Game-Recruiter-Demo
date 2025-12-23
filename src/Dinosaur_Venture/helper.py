@@ -14,8 +14,8 @@ from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
-    from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+    from Dinosaur_Venture import main_visuals as vis
 
 WIDTH = 117 - 2
 

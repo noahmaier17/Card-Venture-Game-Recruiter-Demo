@@ -150,6 +150,41 @@ def entity_move_me_intent_factory(
         }
     )
 
+def entity_draw_several_cards_intent_factories(
+    cards_to_draw: int,
+    to_location: "h.cardLocation"=None,
+    from_location: "h.cardLocation"=None,
+    shuffle_location: "h.cardLocation"=None    
+) -> list[Intent]:
+    """
+    Constructs an Intent for comparison against `log_entry.EntityDrawCardLogEntry`, 
+    forcing inclusion of key parameters (of which we have none required).
+
+    Arguments:
+        cards_to_draw (int): number of cards expected to be drawn.
+        to_location (h.cardLocation): location where we will draw cards to. 
+            If not included, will assume the default, untested, to_location of hand.
+        from_location (h.cardLocation): location where we will draw cards from. 
+            If not included, will assume the default, untested, from_location of draw.
+        shuffle_location (h.cardLocation): location where we will shuffle from. 
+            If not included, will assume the default, untested, shuffle_location of discard.
+    """
+    python_object_parameters = {}
+
+    if to_location is not None:
+        python_object_parameters["toLocation"] = to_location
+    if from_location is not None:
+        python_object_parameters["fromLocation"] = from_location
+    if shuffle_location is not None:
+        python_object_parameters["shuffleLocation"] = shuffle_location
+
+    return [Intent(
+        log_entry.EntityDrawCard,
+        {},
+        python_object_parameters
+    )] * cards_to_draw
+
+
 def entity_draw_card_intent_factory(
     to_location: "h.cardLocation"=None,
     from_location: "h.cardLocation"=None,
@@ -180,6 +215,20 @@ def entity_draw_card_intent_factory(
         log_entry.EntityDrawCard,
         {},
         python_object_parameters
+    )
+
+def helper_function_yes_or_no_intent_factory(text: str) -> Intent:
+    """
+    Constructs an Intent for comparison against `helper.yesOrNo`, 
+    forcing inclusion of key parameters.
+
+    Arguments:
+        text (str): the text string that is used for the 'yes or no' prompt.
+    """
+    return Intent(
+        log_entry.HelperYesOrNoLogEntry,
+        {},
+        {"text": text}
     )
 
 def card_function_draw_until_you_have_x_cards_in_hand_intent_factory(draw_to_x_number: int) -> Intent:

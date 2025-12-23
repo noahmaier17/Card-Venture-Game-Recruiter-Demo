@@ -13,6 +13,78 @@ from Dinosaur_Venture.logging import intent
 from tests.test_utils import simulate_gameplay
 from tests.test_utils.card_tester_class import CardTestingMethods, TestCard
 
+'''
+class TestBrassMuzzle(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.brassMuzzle
+
+    def test_on_play(self):
+        """Tests on play of Brass Muzzle."""
+        intents = [
+            intent.entity_play_card_intent_factory("Brass Muzzle"),
+            intent.entity_damage_intent_factory(
+                cll.Attackcons([2, cll.B()],
+                cll.Attackcons([2, cll.M()],
+                'nil'))
+            ),
+        ]
+'''
+
+class TestRustedScythe(TestCard):
+    CARD_TO_TEST = fallow_farmland_cards.rustedScythe
+
+    CORE_ON_PLAY_INTENTS = [
+        intent.entity_play_card_intent_factory("Rusted Scythe"),
+        intent.entity_damage_intent_factory(
+            cll.Attackcons([2, cll.Rnotick()],
+            cll.Attackcons([2, cll.M()],
+            'nil'))
+        ),
+        intent.helper_function_yes_or_no_intent_factory("Discard your Hand for +2 Cards?")
+    ]
+    CORE_SCRIPTED_INPUT = [1, 1]
+
+    def test_on_play_yes_path(self):
+        """
+        Tests on play of Rusted Scythe when 'yes' is input to discarding your hand for +2 Cards.
+        """
+        intents = (
+            self.CORE_ON_PLAY_INTENTS + 
+            intent.entity_draw_several_cards_intent_factories(2) +
+            [intent.entity_draw_card_intent_factory()]
+        )
+
+        CardTestingMethods.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST(),
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput(
+                    self.CORE_SCRIPTED_INPUT + ["yes"]))
+            ]
+        )
+
+    def test_on_play_no_path(self):
+        """
+        Tests on play of Rusted Scythe when 'no' is input to discarding your hand for +2 Cards.
+        """
+        intents = (
+            self.CORE_ON_PLAY_INTENTS + 
+            [intent.entity_draw_card_intent_factory()]
+        )
+
+        CardTestingMethods.default_test_card_intent_simulation(
+            intents,
+            self.CARD_TO_TEST(),
+            [
+                simulate_gameplay.startRound(),
+                simulate_gameplay.dinoTurnStart(),
+                simulate_gameplay.dinoPlayCard(scriptedInput=scriptInput.gameplayScriptInput(
+                    self.CORE_SCRIPTED_INPUT + ["no"]))
+            ]
+        )
+  
+
 class TestCultivator(TestCard):
     CARD_TO_TEST = fallow_farmland_cards.cultivator
 

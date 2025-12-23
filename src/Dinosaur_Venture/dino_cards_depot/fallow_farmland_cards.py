@@ -35,13 +35,16 @@ class rustedScythe(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
-            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Rnotick()], cll.Attackcons([2, cll.M()], 'nil')))
-            query = h.yesOrNo("Discard your Hand for +2 Cards?", passedInVisuals = passedInVisuals)
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Rnotick()], 
+                                                                               cll.Attackcons([2, cll.M()],
+                                                                               'nil')),
+                                                                               scriptedInput=scriptedInput)
+            query = h.yesOrNo("Discard your Hand for +2 Cards?", passedInVisuals=passedInVisuals, scriptedInput=scriptedInput)
             if query:
                 while caster.hand.length() > 0:
                     caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
-                for i in range(2):
+                for _ in range(2):
                     dino.drawCard()
             dino.drawCard()
 
