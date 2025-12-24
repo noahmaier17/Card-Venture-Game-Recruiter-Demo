@@ -53,9 +53,8 @@ class shovel(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
-            for i in range(3):
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+            for _ in range(3):
                 caster.drawCard()
 
             cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals)

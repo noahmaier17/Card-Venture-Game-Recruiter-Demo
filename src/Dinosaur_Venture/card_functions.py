@@ -7,7 +7,6 @@ from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
-from Dinosaur_Venture.logging.log_entry import serialize_object
 
 if TYPE_CHECKING:
     from Dinosaur_Venture.entities import entity as e
@@ -409,6 +408,12 @@ class discardYourDraw(cardFunctions):
     def func(self, card, caster, dino, enemies, passedInVisuals):
         while caster.draw.length() > 0:
             caster.discardCard(caster.draw, 0, dino, enemies, passedInVisuals)
+
+## Discard your Hand (OR Discard their Hand).
+class discardYourHand(cardFunctions):
+    def func(self, card, caster, dino, enemies, passedInVisuals):
+        while caster.hand.length() > 0:
+            caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
 
 ## To every Enemy: [ damageArray ].
 class toEveryEnemy_dealDamage(cardFunctions):

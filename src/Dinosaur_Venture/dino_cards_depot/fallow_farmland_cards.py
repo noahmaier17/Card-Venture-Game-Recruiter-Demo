@@ -30,7 +30,7 @@ class rustedScythe(gdc.DinoCard):
     def __init__(self):
         super().__init__()
         self.name = "Rusted Scythe"
-        self.bodyText = c.bb("2R-notick / 2M. You may: Discard your Hand for +2 Cards. //Then, +1 Card.")
+        self.bodyText = c.bb("2R-notick / 2M. You may: Discard your Hand for +1 Card. //Then, +1 Card.")
         self.table = ["Fallow Farmland"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -42,10 +42,8 @@ class rustedScythe(gdc.DinoCard):
                                                                                scriptedInput=scriptedInput)
             query = h.yesOrNo("Discard your Hand for +2 Cards?", passedInVisuals=passedInVisuals, scriptedInput=scriptedInput)
             if query:
-                while caster.hand.length() > 0:
-                    caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
-                for _ in range(2):
-                    dino.drawCard()
+                cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+                dino.drawCard()
             dino.drawCard()
 
 class cultivator(gdc.DinoCard):

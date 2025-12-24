@@ -63,8 +63,7 @@ class highwayGrassMedian(gdc.DinoCard):
 
             query = h.yesOrNo("Discard your Hand for: + Cantrip?", preamble = [], passedInVisuals = passedInVisuals)
             if query:
-                while caster.hand.length() > 0:
-                    caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+                cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
                 caster.plusActions(1)
                 caster.drawCard()
 
@@ -120,8 +119,7 @@ class wheelShrapnel(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.Rnotick()], cll.Attackcons([2, cll.M()], 'nil')))
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
 
 class shamSpeedSign(gdc.DinoCard):
     def __init__(self):
@@ -155,8 +153,7 @@ class bandItBond(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             cf.breakABand().func(card, caster, dino, enemies, passedInVisuals)
 
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
 
 class infiltratorInterrogators(gdc.DinoCard):
     def __init__(self):
@@ -175,8 +172,7 @@ class infiltratorInterrogators(gdc.DinoCard):
             for i in range(cf.getter_numberX(2).func(card, caster, dino, enemies, passedInVisuals)):
                 caster.drawCard(toLocation = caster.pocket)
 
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
         caster.gainCard(rubbish(), caster.pocket)
@@ -213,9 +209,8 @@ class roadSignAugers(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
-            for i in range(3):
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+            for _ in range(3):
                 caster.drawCard()
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):

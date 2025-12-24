@@ -144,9 +144,9 @@ def code(
         dino.deck.append(testCard)
         '''
 
-        from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
+        from Dinosaur_Venture.dino_cards_depot import shop_cards
 
-        dino.deck.append(fallow_farmland_cards.gnawedCableCord())
+        dino.deck.append(shop_cards.leavesRake())
 
     difficulty += DIFFICULTY_DEBUG_BONUS
     if difficulty <= 0:

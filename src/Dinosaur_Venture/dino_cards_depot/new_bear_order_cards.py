@@ -56,8 +56,7 @@ class playDead(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(4)
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
             caster.drawCard()
 
     class duringPacking(cf.cardFunctions):
@@ -216,9 +215,8 @@ class honeyPot(gdc.DinoCard):
 
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
             card.monotonicLingering(1)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
 
     def atTriggerTurnStart(self, caster, dino, enemies):
         if self.turnsLingering == 1:
@@ -242,8 +240,7 @@ class hibernation(gdc.DinoCard):
                     while enemy.hand.length() > 0:
                         enemy.discardCard(enemy.hand, 0, dino, enemies, passedInVisuals)
 
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
 
 '''
 class bearClaws(DinoCard):

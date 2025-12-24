@@ -94,9 +94,8 @@ class spareSpade(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
-            for i in range(2):
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+            for _ in range(2):
                 caster.drawCard()
 
 class stowaway(gdc.DinoCard):
@@ -214,9 +213,8 @@ class holyShovel(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             caster.plusActions(1)
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
-            for i in range(2):
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+            for _ in range(2):
                 caster.drawCard()
 
     class duringPacking(cf.cardFunctions):

@@ -157,8 +157,8 @@ class leavesRake(gdc.DinoCard):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             card.foreverLinger = True
             caster.plusActions(1)
-            while caster.hand.length() > 0:
-                caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+
             for i in range(3):
                 caster.drawCard()
 
