@@ -464,6 +464,43 @@ def code(
                     "Hungry Wolf Player!")
             '''
             
+            """
+            Here contains key formerly-used code for these unlocks.
+                        
+            unlockConditions = {
+                "Unlocked_Belly_Filled_Shrew": "3 or more 'Shrews' eliminated in one turn",
+                "Unlocked_Hungry_Wolf": "You made it one turn" 
+            }
+
+            ## Updates the save value accordingly. 
+            ##  saveFile: the save file name. 
+            ##  key: the value on save. 
+            ##  updatedValue: the new thing to make the key paired to. 
+            ##  splashText: what to say if this variable got updated. 
+            def saveUpdate(saveFile, key, updatedValue, majorSplashText):
+                minorSplashText = unlockConditions.get(key)
+                newFile = ""
+                file = open(str(saveFile), 'r')
+                for line in file:
+                    keyValuePair = line.split(": ")
+                    if keyValuePair[0] == key and keyValuePair[1] != str(updatedValue) + "\n":
+                        splash(Fore.YELLOW + "Unlocked Achieved" + Fore.WHITE + ": "
+                            + majorSplashText, printInsteadOfInput = True)
+                        splash(" - Requirement: " + Fore.YELLOW + minorSplashText + ".", 
+                            printInsteadOfInput = True)
+                        yetToTypeYes = True
+                        while yetToTypeYes:
+                            yetToTypeYes = not yesOrNo("Type (Y)es to Continue.")
+                        newFile += keyValuePair[0] + ": " + str(updatedValue) + "\n"
+                    else:
+                        newFile += line
+
+                file.close()
+                file = open(str(saveFile), 'w+')
+                file.write(newFile)
+                file.close()
+            """
+
             event = "Dino Turn Start"
 
         elif event == "Round End":
