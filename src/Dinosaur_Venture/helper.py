@@ -16,6 +16,8 @@ if TYPE_CHECKING:
     from Dinosaur_Venture import card as c
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
     from Dinosaur_Venture import main_visuals as vis
+    from Dinosaur_Venture.entities import entity as e 
+    from Dinosaur_Venture import clearing as clr
 
 WIDTH = 117 - 2
 
@@ -24,9 +26,24 @@ PUNCTUATION_TYPES = [' ', ',', '!', '.', '-', ':', ';', '?', '{', '}', '[', ']',
 MULTIPLICATIVE_NUMERAL_TYPES = ["Nonce", "Once", "Twice", "Thrice", "Quarce", "Quince", "Sextce", "Spece", "Octce", "Nince", "Tence"]
 ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-## Overhead for picking a card to play/reveal/etc. from Hand/Pocket.
-## If passing, returns "pass".
-def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemies, roundCount, clearing, event, entityNames, cardNames, extraSuppressedTypes=[], canPass=False, scriptedInput=None):
+def selectCardFromHandAndPocket(
+    choiceSet: list[int], 
+    selectionText: str, 
+    dino: "e.Entity", 
+    enemies: list["e.Entity"], 
+    roundCount: int, 
+    clearing: "clr.Clearing", 
+    event: str, 
+    entityNames: dict, 
+    cardNames: dict, 
+    extraSuppressedTypes: list[str] = [],
+    canPass: bool = False, 
+    scriptedInput: "scriptInput.gameplayScriptInput" = None
+) -> str | int:
+    """
+    Overhead for picking a card to play/reveal/etc from Hand/Pocket. 
+    
+    If passing, returns "pass". Otherwise returns the picked value."""
     from Dinosaur_Venture import main_visuals as vis
 
     while True:
@@ -67,8 +84,17 @@ def selectCardFromHandAndPocket(choiceSet: list[int], selectionText, dino, enemi
             else:
                 print(vis.eventText(event) + "INVALID INPUT ")
 
-## Overhead for drafting a Card from a loot table
-def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuously = False, canPass = False, activateAbilityOnPass = False):
+def selectCard(
+    dino: "e.Entity", 
+    clearingName: "clr.Clearing", 
+    roundCount: int, 
+    lootTables: list["cardLocation"], 
+    pullsTable: list[int],
+    lootVacuously: bool = False, 
+    canPass: bool = False, 
+    activateAbilityOnPass: bool = False
+) -> None:
+    """Drafts a Card from a loot table."""
     from Dinosaur_Venture.main_visuals import printLocation
 
     ## Currently not used; if we want to loot without seeing all card text
@@ -245,9 +271,12 @@ def selectCard(dino, clearingName, roundCount, lootTables, pullsTable, lootVacuo
     else:
         selectCard(dino, clearingName, roundCount, lootTables, pulls = pulls, lootVacuously = lootVacuously)
 
-## Checks for if a given card is found within an array of cards. 
-##  Returns the index of that array if found, otherwise returning -1. 
-def locateCardIndex(array, card):
+def locateCardIndex(array: "cardLocation", card: "c.Card"):
+    """
+    Checks for if a given card is found within an array of cards. 
+    
+    Returns the index of that array if found, otherwise returning -1.
+    """
     i = 0
     for crosscheckCard in array.getArray():
         if card.__eq__(crosscheckCard):
@@ -255,9 +284,14 @@ def locateCardIndex(array, card):
         i += 1
     return -1
 
-## Allows user to pick a living enemy.
-## If there is no possible target, returns -1.
-def pickLivingEnemy(text, enemies, preamble=[], passedInVisuals="null", scriptedInput=None):
+def pickLivingEnemy(
+    text: str, 
+    enemies: list["e.Enemies"], 
+    preamble: list[str] = [], 
+    passedInVisuals: "vis.prefabPassedInVisuals" = "null",
+    scriptedInput: "scriptInput.gameplayScriptInput" = None
+) -> int:
+    """Allows the user to pick a living enemy. If there is no possible target, returns -1."""
     excludingValues = []
     allDead = True
     for i in range(len(enemies)):
@@ -274,17 +308,21 @@ def pickLivingEnemy(text, enemies, preamble=[], passedInVisuals="null", scripted
                      passedInVisuals=passedInVisuals,
                      excludingValues=excludingValues,
                      scriptedInput=scriptedInput) - 1
-
-## Gets index of the front-est living Enemy. Returns -1 if no enemy matches that criteria. 
-def getFrontLivingEnemyIndex(enemies):
+ 
+def getFrontLivingEnemyIndex(enemies: list["e.Entity"]) -> int:
+    """Gets index of the front-est living Enemy. Returns -1 if no enemy matches that criteria."""
     for i in range(len(enemies)):
         if enemies[i].dead == False:
             return i
     return -1
 
-## Gets index of the next living Enemy, given a position in the enemies list to start from. 
-##  Returns -1 if no enemy matches that criteria. 
-def getNextLivingEnemyIndex(enemies, relativeIndex):
+def getNextLivingEnemyIndex(enemies: list["e.Entity"], relativeIndex: int) -> int:
+    """
+    Gets index of the next living Enemy, given a position in the enemies list to start from. 
+    Loops around the end of the list like a circular array.
+    
+    Returns -1 if no enemy matches that criteria.
+    """
     for i in range(relativeIndex + 1, len(enemies)):
         if enemies[i].dead == False:
             return i
@@ -293,16 +331,21 @@ def getNextLivingEnemyIndex(enemies, relativeIndex):
             return i
     return -1
 
-## Returns a count of the number of dead enemies
-def deadCount(enemies):
+def deadCount(enemies: list["e.Entity"]) -> int:
+    """Returns a count of the number of dead enemies.."""
     deadCount = 0
     for enemy in enemies:
         if enemy.dead == True:
             deadCount += 1
     return deadCount
 
-## Pick a number, unbounded* (capped at 99)
-def pickNonNegativeNumber(text, preamble = [], passedInVisuals = "null", canPass = False):
+def pickNonNegativeNumber(
+    text: str, 
+    preamble: list[str] = [], 
+    passedInVisuals: "vis.prefabPassedInVisuals" = "null",
+    canPass: bool = False
+) -> int:
+    """Pick a number, unbounded* (capped at 99)."""
     ## OBSERVE: Copy and pasted code from pickValue into here
 
     pick = 0
@@ -345,8 +388,8 @@ def pickNonNegativeNumber(text, preamble = [], passedInVisuals = "null", canPass
             elif passedInVisuals == "null" or not printCheckProperNouns(pick, passedInVisuals.entityNames, passedInVisuals.cardNames):
                 print(" INVALID INPUT ")
 
-## Returns a card picked from a location.
-def fetchCardFromLocation(text, location):
+def fetchCardFromLocation(text: str, location: "cardLocation"):
+    """Returns a card picked from a location."""
     preamble = []
     index = 1
     for card in location.getArray():
@@ -356,14 +399,27 @@ def fetchCardFromLocation(text, location):
     pick = pickValue(text, range(1, index), preamble = preamble) - 1
     return location.at(pick)
 
+def pickValue(
+    text: str,
+    setOfValues: list[int],
+    excludingValues: list[int] = [], 
+    preamble: list[str] = [],
+    passedInVisuals: "vis.prefabPassedInVisuals" = "null", 
+    canPass: bool = False, 
+    intType: bool = True,
+    scriptedInput: "scriptInput.gameplayScriptInput" = None):
+    """
+    With a text prompt and set of values, waits for user input until the input value is within the set of values.
 
-## Helper method -- With some text prompt and set of values, waits for user input until the
-##  input value is within the set. 
-##  excludingValues are numbers which are not valid.
-##  If user inputs 'pass' and canPass = True, returns -1.
-## TIP for picking a value from an array: ' range(1, len(LIST) + 1) '
-## TIP for picking a card index: pickValue("TEXT", range(1, len(LIST) + 1)) - 1
-def pickValue(text, setOfValues, excludingValues=[], preamble=[], passedInVisuals="null", canPass=False, intType=True, scriptedInput=None):
+    If the user inputs "pass" while canPass == True, returns -1. Otherwise, returns the index picked.
+
+    Key Arguments:
+        excludingValues (list[int]): values within the set of values which are not valid. 
+
+    Use Cases:
+        For picking a value from an array: 'range(1, len(LIST) + 1)'
+        For picking a Card index: 'pickValue("TEXT", range(1, len(LIST) + 1)) - 1'
+    """
     ## OBSERVE: Copy and pasted code from here into pickNonNegativeNumber
 
     ## Prepares UI for pickValue
@@ -412,9 +468,11 @@ def pickValue(text, setOfValues, excludingValues=[], preamble=[], passedInVisual
             elif passedInVisuals == "null" or not printCheckProperNouns(pick, passedInVisuals.entityNames, passedInVisuals.cardNames):
                 print(" INVALID INPUT ")
 
-## With some text prompt and set of letters, lets the user pick one such letter, returning it.
-##  Case-insensitive; returns the lowercase version of the letter.  
-def pickLetter(text, setOfLetters, excludingValues = []):
+def pickLetter(text: str, setOfLetters: list[str], excludingValues: list[str] = []) -> str:
+    """
+    With some text prompt and set of letters, lets the user pick one such letter, returning it.
+    Case-insensitive; returns the lowercase version of the letter.  
+    """
     lowercaseSetOfLetters = []
     for letter in setOfLetters:
         lowercaseSetOfLetters.append(letter.lower())
@@ -431,9 +489,11 @@ def pickLetter(text, setOfLetters, excludingValues = []):
         else:
             return pick.lower()
 
-## Sets a certain amount of 'separator' (meaning often white) space after a name. 
-##  If the input length is too long, ends it with ".."
-def normalize(text, spaces, separator = " ", cutFat = False) -> str:
+def normalize(text: str, spaces: int, separator: str = " ", cutFat: bool = False) -> str:
+    """
+    Sets a certain amount of 'separator' (meaning often white) space after a name. 
+    If the input length is too long, ends it with ".."
+    """
     text = str(text)
     if spaces <= len(text) and len(text) < spaces + len(separator):
         if cutFat:
@@ -445,14 +505,17 @@ def normalize(text, spaces, separator = " ", cutFat = False) -> str:
     else:
         return normalize(text + separator, spaces, separator = separator, cutFat = cutFat)
 
+def trueIndent(text: str, leftIndent: int, length: int, nextLineText: str = " ", keepAsArray: bool = False) -> str | list[str]:
+    """
+    Indents each line of some given text. Does not contain trailing line breaks, nor include any lines that would be purely blank. 
 
-## Indents each line of some given text. 
-##  Has no trailing line break, nor include any lines that would be purely blank. 
-##  text: the text we are giving an indent
-##  leftIndent: how many blank spaces until this given text is to be situated
-##  length: how long until we wrap around and indent
-##  nextLineText: after X number of white spaces from the left indent, what else to print
-def trueIndent(text, leftIndent, length, nextLineText = " ", keepAsArray = False):
+    Arguments:
+        text (str): the text we are giving an indent.
+        leftIndent (int): how many blank spaces to indent by.
+        length (int): how long until we wrap around and begin a new line.
+        nextLineText (str): after the leftIndent-number of white spaces, what to print before printing the text. 
+        keepAsArray (bool): if True, returns an list[str]; otherwise returns a str using \n for line breaks.
+    """
     ## Goes through all words, adding them to an array 
     splinterizedText = splinterize(text)
     newTextArray = [""]
@@ -517,8 +580,8 @@ def trueIndent(text, leftIndent, length, nextLineText = " ", keepAsArray = False
     return returnText
     '''
 
-## Truncates numbers to nearest thirds if in that form
-def roundThird(number):
+def roundThird(number: int) -> int:
+    """Truncates numbers to nearest third."""
     floor = math.floor(number)
     if number - floor > 0.9:
         floor += 1
@@ -530,65 +593,16 @@ def roundThird(number):
         return floor + 0.3
     if numberMod % 3 == 2:
         return floor + 0.6
-    
-## Adds a plusValue to a dictionary, given a key. 
-def plusDict(dictionary, key, plusValue):
-    if key in dictionary.keys():
-        dictionary.update({key: dictionary.get(key) + plusValue})
-    else:
-        dictionary.update({key: plusValue})
 
-## Checks if the crosscompareValue is greater or equal to the dictionary key value. 
-def dictContainsAtLeast(dictionary, key, crosscompareValue):
-    if key in dictionary.keys():
-        if crosscompareValue <= dictionary.get(key):
-            return True
-    return False
-
-unlockConditions = {
-    "Unlocked_Belly_Filled_Shrew": "3 or more 'Shrews' eliminated in one turn",
-    "Unlocked_Hungry_Wolf": "You made it one turn" 
-}
-
-'''
-## Updates the save value accordingly. 
-##  saveFile: the save file name. 
-##  key: the value on save. 
-##  updatedValue: the new thing to make the key paired to. 
-##  splashText: what to say if this variable got updated. 
-def saveUpdate(saveFile, key, updatedValue, majorSplashText):
-    minorSplashText = unlockConditions.get(key)
-    newFile = ""
-    file = open(str(saveFile), 'r')
-    for line in file:
-        keyValuePair = line.split(": ")
-        if keyValuePair[0] == key and keyValuePair[1] != str(updatedValue) + "\n":
-            splash(Fore.YELLOW + "Unlocked Achieved" + Fore.WHITE + ": "
-                + majorSplashText, printInsteadOfInput = True)
-            splash(" - Requirement: " + Fore.YELLOW + minorSplashText + ".", 
-                printInsteadOfInput = True)
-            yetToTypeYes = True
-            while yetToTypeYes:
-                yetToTypeYes = not yesOrNo("Type (Y)es to Continue.")
-            newFile += keyValuePair[0] + ": " + str(updatedValue) + "\n"
-        else:
-            newFile += line
-
-    file.close()
-    file = open(str(saveFile), 'w+')
-    file.write(newFile)
-    file.close()
-'''
-
-## Clears the terminal; works with Windows, Linux, and MacOS
-def clear_screen():
+def clear_screen() -> None:
+    """Clears the terminal; works with Windows, Linux, and MacOS."""
     if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
 
-## Adds colors to variables of a string, returning that newly colorized string
-def colorize(text):
+def colorize(text: str) -> str:
+    """Adds colors to certain key words/phrases in a string, returning that newly-colorized string."""
     returnText = ""
     splinterizedText = splinterize(text)
 
@@ -726,17 +740,19 @@ def colorize(text):
 
     return returnText
 
-## Splits a string of text into an array, 
-##  where each different word, number, punctuation, and grouping of spaces is separated.
-##  Retains the same order as the original text. 
-##  For example: "Hi, I am new!" --> ["Hi", ",", " ", "I", " ", "am", " ", "new", "!"]
-def splinterize(text):
+def splinterize(text: str) -> list[str]:
+    """
+    Splits a string of text into an array, where each different word, number, punctuation, and grouping of spaces is separated.
+    Retains the same order as the original text.
+
+    Example: `splinterize("Hi, I am new!")` returns `["Hi", ",", " ", "I", " ", "am", " ", "new", "!"]`.
+    """
     text = str(text)
     returnArray = [""]
     __splinterize(text, returnArray)
     return returnArray
     
-def __splinterize(text, returnArray):
+def __splinterize(text: str, returnArray: list[str]) -> None:
     if len(text) == 0:
         return
     elif text[0:1] in (PUNCTUATION_TYPES) or text[0:1].isnumeric(): ## Case with punctuation or number
@@ -797,8 +813,8 @@ def yesOrNo(
         elif passedInVisuals != None and not printCheckProperNouns(pick, passedInVisuals.entityNames, passedInVisuals.cardNames):
             print(" INVALID INPUT ")
 
-## Tries to print the name of a proper noun, returning True if it did. 
-def printCheckProperNouns(string, entityNames, cardNames):
+def printCheckProperNouns(string: str, entityNames: dict, cardNames: dict) -> bool:
+    """Tries to print the name of a proper noun, returning True if it did."""
     string = string.lower().strip()
     if string in entityNames.keys() and string != "":
         splash(entityNames[string], printInsteadOfInput = True)
@@ -810,16 +826,27 @@ def printCheckProperNouns(string, entityNames, cardNames):
         return True
     return False
 
-## Turns an array of cards into an array of card names, returned
-## Of the same order as the original array
-def cardsToCardNames(array):
-    returnArray = []
-    for card in array:
-        returnArray.append(card.name)
-    return returnArray
-
 ## Inputs, then colorizes the text. 
-def splash(text, printInsteadOfInput=False, removePreline=False, scriptedInput=None):
+def splash(
+    text: str, 
+    printInsteadOfInput: bool = False, 
+    removePreline: bool = False, 
+    scriptedInput: "scriptInput.gameplayScriptInput" = None
+) -> None:
+    """
+    Inputs (using `input()`) text for the player using the color-encoding defined in `colorize`.
+    Contains special all-caps, underscore-separated key phrases which print specific text. Most commonly used for 'Failure' cases.
+    
+    Arguments:
+        text (str): the text to be colorized and then input.
+        printInsteadOfInput (bool): if, instead of waiting for user input after showing this text, it is preferred to `print()` it,
+            does so.
+        removePreline (bool): if False, includes the " | " before the line.
+        scriptedInput (scriptInput.gameplayScriptInput): user-defined scripted input.
+
+    Notes:
+        If the scriptedInput.splashOverride_printInsteadOfInput == True, this method acts as if printInsteadOfInput == True.
+    """
     ## Special key phrases 
     if text == 'FAIL_MOVE':
         text = "FAILURE Could not Move some Card; there exists no available Card in that expected place."
@@ -848,114 +875,46 @@ def splash(text, printInsteadOfInput=False, removePreline=False, scriptedInput=N
     else:
         input(colorize(trueIndent(text + " ", 3, WIDTH)))
 
-## Makes a Clearing location
-'''
-class locale():
-    def __init__(self, name, enterable, home = False):
-        self.name = name
-        self.enterable = enterable
-        self.home = home
-        
-        self.children = []
-        
-        self.hillside = False
-        self.renown = False
-    
-    def addPrefix(self, renown = False, hillside = False):
-        self.renown = self.renown or renown
-        self.hillside = self.hillside or hillside
-    
-    def getPrefixInfoText(self, indent):
-        array = []
-        if self.renown:
-            array.append("+1 Looting when Entered.")
-        if self.hillside:
-            array.append("This Locale Reveals an extra, separated Clearing.")
-        
-        string = ""
-        first = True
-        for element in array:
-            if not first:
-                string += ("\n" 
-                    + normalize("    ", indent, separator = " . ", cutFat = True) 
-                    + element)
-            else:
-                string += element
-                first = False
-        return string
-    
-    def the(self):
-        if len(self.getArrayOfPrefixes()) > 0:
-            return "The "
-        return ""
-    
-    def getArrayOfPrefixes(self):
-        array = []
-        if self.renown:
-            array.append("Renown")
-        if self.hillside:
-            array.append("Hilly")
-        return array
-    
-    def getPrefixText(self):
-        array = self.getArrayOfPrefixes()
-        
-        if len(array) == 0:
-            return ""
-        
-        string = ""
-        first = True
-        for element in array:
-            if not first:
-                string += ", " + element
-            else:
-                string += element
-                first = False
-        return string + " "
-    
-    def addChild(self, childLocale):
-        self.children.append(childLocale)
-
-    def removeChild(self, childLocale):
-        newChildren = []
-        for i in range(len(self.children)):
-            if self.children[i].name != childLocale:
-                newChildren.append(self.children[i])
-        self.children = newChildren
-'''
-
-## A Card Location! 
 class cardLocation():
-    def __init__(self, name):
+    """Array-like container of Cards."""
+    def __init__(self, name: str) -> None:
         self.name = name
-        self.array = []
+        self.array: list["c.Card"] = []
 
-    def niceName(self):
+    def niceName(self) -> str:
+        """Returns a nicer version if this card location's name."""
         return self.name.title()
 
-    def length(self):
+    def length(self) -> str:
+        """Length of the card location."""
         return len(self.array)
 
-    def lengthExcludingFeathery(self):
+    def lengthExcludingFeathery(self) -> str:
+        """Length of the card location excluding <<feathery>> cards."""
         count = 0
         for card in self.array:
             if tk.checkTokensOnThis(card, [tk.feathery()]) == False:
                 count += 1
         return count
 
-    def getName(self):
+    def getName(self) -> str:
+        """Getter of the name of this card location."""
         return self.name
     
-    def append(self, item):
-        self.array.append(item)
+    def append(self, card: "c.Card") -> None:
+        """Appends the input card to the end of this card location."""
+        self.array.append(card)
         
-    def clear(self):
+    def clear(self) -> None:
+        """Clears this card location."""
         self.array.clear()
     
-    def isEmpty(self):
+    def isEmpty(self) -> bool:
+        """Returns True if this card location contains no cards."""
         return (len(self.array) == 0)
     
-    def indexErrorHandler(self, index, functionName):
+    def _indexErrorHandler(self, index: int, functionName: str) -> bool:
+        """Throws a runtime error if the input index for some function is out of bounds."""
         if (index > len(self.array)):
             text = " ERROR: " + self.name + " had an unchecked " 
             text += functionName + "() called---there are no Cards at index " + str(index) + "!!! "
@@ -963,22 +922,26 @@ class cardLocation():
             return False
         return True
 
-    ## Pops Cards (default behavior removes the Card at the TOP of the location)
-    def pop(self, index = 0):
-        self.indexErrorHandler(index, "pop")
+    def pop(self, index: int = 0) -> "c.Card":
+        """Pops Cards off of this card location; default behavior removes the Card at the top of this card location."""
+        self._indexErrorHandler(index, "pop")
         return self.array.pop(index)
     
-    def at(self, index):
-        self.indexErrorHandler(index, "at")
+    def at(self, index: int) -> "c.Card":
+        """Fetches and returns the Card at the passed-in index."""
+        self._indexErrorHandler(index, "at")
         return self.array[index]
         
-    def insert(self, index, card):
+    def insert(self, index: int, card: "c.Card") -> None:
+        """Inserts the given Card at the given index within this card location."""
         self.array.insert(index, card)
         
-    def shuffle(self):
+    def shuffle(self) -> None:
+        """Shuffles the card location."""
         random.shuffle(self.array)
 
-    def reverse(self):
+    def reverse(self) -> None:
+        """Reverses the ordering of this card location's cards."""
         otherList = []
         while len(self.array) > 0:
             otherList.insert(0, self.array.pop())
@@ -986,7 +949,8 @@ class cardLocation():
         while len(otherList) > 0:
             self.array.append(otherList.pop())
 
-    def shuffleTriggeredByDraw(self):
+    def shuffleTriggeredByDraw(self) -> None:
+        """Shuffles this card location based on each card's `reshuffleLocation` parameter."""
         topDraw = cardLocation("")
         unsetDraw = cardLocation("")
         bottomDraw = cardLocation("")
@@ -1032,7 +996,7 @@ class cardLocation():
             "cards": self.array
         }
 
-## Constants to compare for naming of card locations
+## Hard-coded constants to compare for naming of card locations
 CARD_LOCATION_DECK = "deck"
 CARD_LOCATION_HAND = "hand"
 CARD_LOCATION_DISCARD = "discard"
@@ -1042,8 +1006,12 @@ CARD_LOCATION_INTO_HAND = "into-hand"
 CARD_LOCATION_INTO_INTO_HAND = "into-into-hand"
 CARD_LOCATION_POCKET = "pocket"
 
-## Combines two card locations into a new one
-def unionCardLocations(location1, location2, name = 'DEFAULT'):
+def unionCardLocations(location1: "cardLocation", location2: "cardLocation", name: str = 'DEFAULT') -> "cardLocation":
+    """
+    Combines two card locations into a new one.
+    
+    If name == 'DEFAULT', this new clearing will be named `${location1.name} + and ${location2.name}`
+    """
     if name == 'DEFAULT':
         name = location1.name + " and " + location2.name
 
