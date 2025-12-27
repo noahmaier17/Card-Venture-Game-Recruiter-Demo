@@ -47,11 +47,10 @@ class TestRustedScythe(TestCard):
         """
         Tests on play of Rusted Scythe when 'yes' is input to discarding your hand for +2 Cards.
         """
-        intents = (
-            self.CORE_ON_PLAY_INTENTS + 
-            intent.entity_draw_several_cards_intent_factories(2) +
-            [intent.entity_draw_card_intent_factory()]
-        )
+        intents = self.CORE_ON_PLAY_INTENTS + [
+            intent.entity_draw_card_intent_factory(),
+            intent.entity_draw_card_intent_factory()
+        ]
 
         CardTestingMethods.default_test_card_intent_simulation(
             intents,

@@ -250,6 +250,8 @@ class HelperYesOrNoLogEntry(LogEntry):
     Log for answering Yes or No.
     Employed in `helper.yesOrNo()`
     """
+    _LOG_TYPE = "Helper Yes or No Log Entry"
+
     def __init__(
         self,
         text: str,

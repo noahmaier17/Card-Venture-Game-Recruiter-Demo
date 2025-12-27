@@ -95,7 +95,6 @@ class Entity():
         If `bandBreak` == True, further damage from the current damage string is negated.
             Reset at the end of dealing damage.
         `dealtDamageThisTurn` = True even if the damage dealt was 0 like with '0R / 0G / 0B.'
-        Functionality depends on the specific string names of the card locations (ie, 'deck').
     """
     def __init__(self):
         # Index in the enemy list
@@ -121,8 +120,7 @@ class Entity():
         # The health of the enemy; should be overridden in inheritance
         self.hp = cll.DeadHealthcons()
 
-        # The deck zones
-        # Do not change these names! Functionality depends on reading the names of these locations
+        # The deck zones; Do not change these names, for functionality depends on reading the names of these locations
         self.deck = h.cardLocation(h.CARD_LOCATION_DECK)
 
         self.draw = h.cardLocation(h.CARD_LOCATION_DRAW)
@@ -924,6 +922,8 @@ class Entity():
             r.reactionWindow([r.DiscardedCard(fromLocation, movedCard)] + moments)
         ])
         r.reactionStack.react(dino, enemies, passedInVisuals)
+
+        return movedCard
 
     def plusUpcomingPlusCard(self, when: int, count: int) -> None:
         """
