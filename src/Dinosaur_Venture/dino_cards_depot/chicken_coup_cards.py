@@ -49,7 +49,7 @@ class inWaitingCounterRevolt(gdc.DinoCard):
 
             ## Is this in a location EXCLUDING play and discard?
             locationName = caster.findMe(card).getName()
-            if locationName == 'play' or locationName == 'discard':
+            if locationName == h.CARD_LOCATION_PLAY or locationName == h.CARD_LOCATION_DISCARD:
                 return (False, r.EMPTY_RT)
 
             ## 2+ Actions remaining?
