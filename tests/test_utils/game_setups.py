@@ -30,7 +30,6 @@ def setup_getDinoEnemiesClearing():
     enemieses = [
         [enemieses_import.Copperals()],
         [enemieses_import.Shrew(), enemieses_import.Shrew()],
-        [enemieses_import.Enemy(), enemieses_import.Enemy(), enemieses_import.Enemy()],
         [enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit(), enemieses_import.RaccoonBandit()]
     ]
 

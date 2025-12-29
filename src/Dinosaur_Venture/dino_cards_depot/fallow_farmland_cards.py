@@ -40,7 +40,7 @@ class rustedScythe(gdc.DinoCard):
                                                                                cll.Attackcons([2, cll.M()],
                                                                                'nil')),
                                                                                scriptedInput=scriptedInput)
-            query = h.yesOrNo("Discard your Hand for +2 Cards?", passedInVisuals=passedInVisuals, scriptedInput=scriptedInput)
+            query = h.yesOrNo("Discard your Hand for +1 Card?", passedInVisuals=passedInVisuals, scriptedInput=scriptedInput)
             if query:
                 cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
                 dino.drawCard()
@@ -76,9 +76,9 @@ class brassMuzzle(gdc.DinoCard):
         self.bundle(throwCardFunction = self.duringPlay())
 
     class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
+        def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
             caster.plusActions(1)
-            index = h.pickLivingEnemy("Pick Enemy", enemies, passedInVisuals = passedInVisuals)
+            index = h.pickLivingEnemy("Pick Enemy", enemies, passedInVisuals = passedInVisuals, scriptedInput=scriptedInput)
             if index != -1:
                 enemies[index].damage(caster, dino, enemies, cll.Attackcons([2, cll.B()], cll.Attackcons([2, cll.M()], 'nil')))
                 if enemies[index].hand.length() > 0:

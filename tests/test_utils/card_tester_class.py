@@ -196,10 +196,12 @@ class CardTestingMethods():
         assert CardTestingMethods._assert_logs_match_intent(intent)
 
     @staticmethod
-    def default_dino_enemies_clearing_getter() -> tuple:
+    def default_dino_enemies_clearing_getter() -> tuple["e.Entity", list["e.Entity"], "clr.Clearing"]:
         """
         Returns a (dino, enemies, clearing) tuple used for testing.
         Most test cases simply need to call this unless the card must test specific, unique behavior.
+
+        Will return at least 1 enemy in the enemies list.
         """        
         return copy.deepcopy(DINOES_ENEMIESES_CLEARINGSES[random.randint(0, len(DINOES_ENEMIESES_CLEARINGSES) - 1)])
 

@@ -912,6 +912,11 @@ class Entity():
             As opposed to `moveCard` where the toLocation is 'discard', this function calls
                 unique triggers based on the fact the card was specifically "discarded".
         """
+        # Logging
+        log.write_to_log(
+            log_entry.EntityDiscardCard(fromLocation, cardIndex, dino, enemies, passedInVisuals, moments, printCard, inputCard)
+        )
+
         if moments == None:
             moments = []
 

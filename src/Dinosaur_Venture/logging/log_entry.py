@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from Dinosaur_Venture import helper as h
     from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture.entities import entity as e
+    from Dinosaur_Venture import react as r
 
 def serialize_object(object):
     """
@@ -77,6 +78,33 @@ class EntityLogEntry(LogEntry):
     Log Entries found within functions within `entity.py`.
     The purpose of this inheritance is mostly for code quality.
     """
+
+class EntityDiscardCard(EntityLogEntry):
+    """
+    Log for discarding a card.
+    Employed in `entity.discardCard()`.
+    """
+    _LOG_TYPE = "Entity Discard Card"
+
+    def __init__(
+        self,
+        fromLocation: "h.cardLocation",
+        cardIndex: int,
+        dino: "e.Entity",
+        enemies: list["e.Entity"],
+        passedInVisuals: "vis.prefabPassedInVisuals",
+        moments: list["r.reactMoments"],
+        printCard: bool,
+        inputCard: bool
+    ) -> None:
+        self.fromLocation = fromLocation
+        self.cardIndex = cardIndex
+        self.dino = dino
+        self.enemies = enemies
+        self.passedInVisuals = passedInVisuals
+        self.moments = moments
+        self.printCard = printCard
+        self.inputCard = inputCard
 
 class EntityDamage(EntityLogEntry):
     """
@@ -244,6 +272,25 @@ class HelperFunctionLogEntry(LogEntry):
     Log Entries found within functions within `helper.py` (or similar helper-method files).
     The purpose of this inheritance is mostly for code quality.
     """
+
+class HelperPickLivingEnemy(LogEntry):
+    """
+    Log for picking a living enemy.
+    Employed in `helper.pickLivingEnemy()`
+    """
+    _LOG_TYPE = "Helper Pick Living Enemy"
+
+    def __init__(
+        self,
+        text: str, 
+        enemies: list["e.Enemies"], 
+        preamble: list[str], 
+        passedInVisuals: "vis.prefabPassedInVisuals"
+    ) -> None:
+        self.text = text
+        self.enemies = enemies
+        self.preamble = preamble
+        self.passedInVisuals = passedInVisuals
 
 class HelperYesOrNoLogEntry(LogEntry):
     """

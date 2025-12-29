@@ -292,6 +292,9 @@ def pickLivingEnemy(
     scriptedInput: "scriptInput.gameplayScriptInput" = None
 ) -> int:
     """Allows the user to pick a living enemy. If there is no possible target, returns -1."""
+    # Logging
+    log.write_to_log(log_entry.HelperPickLivingEnemy(text, enemies, preamble, passedInVisuals))
+
     excludingValues = []
     allDead = True
     for i in range(len(enemies)):
@@ -995,7 +998,11 @@ class cardLocation():
             "name": self.name,
             "cards": self.array
         }
-
+    
+    def __eq__(self, otherCardLocation: "cardLocation") -> bool:
+        """Returns True if both objects are the same object."""
+        return (self is otherCardLocation)
+        
 ## Hard-coded constants to compare for naming of card locations
 CARD_LOCATION_DECK = "deck"
 CARD_LOCATION_HAND = "hand"

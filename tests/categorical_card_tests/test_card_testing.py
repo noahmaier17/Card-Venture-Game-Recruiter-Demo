@@ -26,18 +26,18 @@ class TestCardTesting(TestCard):
         """
         dino = e.Entity()
 
-        intents = [
-            intent.entity_play_card_intent_factory("SUPER DUPER WRONG NAME SO WRONG"),
-            intent.entity_plus_actions_intent_factory(1),
-            intent.entity_damage_intent_factory(
+        intents = (
+            intent.EntityFactory.play_card("SUPER DUPER WRONG NAME SO WRONG") +
+            intent.EntityFactory.plus_actions(1) +
+            intent.EntityFactory.damage(
                 cll.Attackcons([1, cll.Rnotick()],
                 cll.Attackcons([1, cll.Gnotick()],
                 cll.Attackcons([1, cll.Bnotick()],
                 cll.Attackcons([1, cll.M()],
                 'nil'))))
-            ),
-            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(dino.hand, True)
-        ]
+            ) +
+            intent.CardFunctionFactory.arbitrarily_discard_card_from_location(dino.hand, True)
+        )
         
         # Expects the assertion
         with pytest.raises(AssertionError):
@@ -58,10 +58,10 @@ class TestCardTesting(TestCard):
         """
         dino = e.Entity()
 
-        intents = [
-            intent.entity_play_card_intent_factory("Trampled Rodent"),
-            intent.entity_plus_actions_intent_factory(1),
-            intent.entity_damage_intent_factory(
+        intents = (
+            intent.EntityFactory.play_card("Trampled Rodent") +
+            intent.EntityFactory.plus_actions(1) +
+            intent.EntityFactory.damage(
                 cll.Attackcons([999, cll.Rnotick()],
                 cll.Attackcons([999, cll.Gnotick()],
                 cll.Attackcons([999, cll.Bnotick()],
@@ -71,9 +71,9 @@ class TestCardTesting(TestCard):
                 cll.Attackcons([999, cll.Bnotick()],
                 cll.Attackcons([1999, cll.M()],
                 'nil'))))))))
-            ),
-            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(dino.hand, True)
-        ]
+            ) +
+            intent.CardFunctionFactory.arbitrarily_discard_card_from_location(dino.hand, True)
+        )
 
         # Expects the assertion
         with pytest.raises(AssertionError):
@@ -94,11 +94,11 @@ class TestCardTesting(TestCard):
         """
         dino = e.Entity()
 
-        intents = [
-            intent.entity_play_card_intent_factory("Trampled Rodent"),
+        intents = (
+            intent.EntityFactory.play_card("Trampled Rodent") +
             # ...
-            intent.card_function_arbitrarily_discard_card_from_location_intent_factory(dino.hand, True)
-        ]
+            intent.CardFunctionFactory.arbitrarily_discard_card_from_location(dino.hand, True)
+        )
 
         CardTestingMethods.default_test_card_intent_simulation(
             intents,
