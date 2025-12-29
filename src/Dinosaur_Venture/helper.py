@@ -293,7 +293,7 @@ def pickLivingEnemy(
 ) -> int:
     """Allows the user to pick a living enemy. If there is no possible target, returns -1."""
     # Logging
-    log.write_to_log(log_entry.HelperPickLivingEnemy(text, enemies, preamble, passedInVisuals))
+    log.write_to_log(log_entry.HelperLogEntry.PickLivingEnemy(text, enemies, preamble, passedInVisuals))
 
     excludingValues = []
     allDead = True
@@ -783,7 +783,7 @@ def yesOrNo(
         scriptedInput (scriptInput.gameplayScriptInput): forced input; mostly for testing.
     """
     # Logging
-    log.write_to_log(log_entry.HelperYesOrNoLogEntry(text, preamble, passedInVisuals))
+    log.write_to_log(log_entry.HelperLogEntry.YesOrNo(text, preamble, passedInVisuals))
 
     newPreamble = []
     for amble in preamble:

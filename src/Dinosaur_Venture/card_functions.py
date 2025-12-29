@@ -380,7 +380,9 @@ class arbitrarilyDiscardCardFrom_Location(cardFunctions):
 
     def func(self, card, caster, dino, enemies, passedInVisuals, scriptedInput=None):
         # Logging
-        log.write_to_log(log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location(self, card, caster, dino, enemies, passedInVisuals))
+        log.write_to_log(log_entry.CardFunctionLogEntry.ArbitrarilyDiscardCardFrom_Location(
+            self, card, caster, dino, enemies, passedInVisuals
+        ))
 
         if self.location.length() > 0:
             position = random.randint(0, self.location.length() - 1)
@@ -412,6 +414,11 @@ class discardYourDraw(cardFunctions):
 ## Discard your Hand (OR Discard their Hand).
 class discardYourHand(cardFunctions):
     def func(self, card, caster, dino, enemies, passedInVisuals):
+        # Logging
+        log.write_to_log(log_entry.CardFunctionLogEntry.DiscardYourHand(
+            self, card, caster, dino, enemies, passedInVisuals
+        ))
+
         while caster.hand.length() > 0:
             caster.discardCard(caster.hand, 0, dino, enemies, passedInVisuals)
 
@@ -635,7 +642,7 @@ class drawUntilYouHaveXCardsInHand(cardFunctions):
 
     def func(self, card, caster: "e.Entity", dino, enemies, passedInVisuals):
         # logging
-        log.write_to_log(log_entry.CardFunctionDrawUntilYouHaveXCardsInHand(
+        log.write_to_log(log_entry.CardFunctionLogEntry.DrawUntilYouHaveXCardsInHand(
             self, card, caster, dino, enemies, passedInVisuals
         ))
 

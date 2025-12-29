@@ -502,7 +502,7 @@ class Entity():
             suppressFailText: if the move is unsuccessful, if we should ignore the FAIL_MOVE text.
         """
         # Logging
-        log.write_to_log(log_entry.EntityMoveMeLogEntry(
+        log.write_to_log(log_entry.EntityLogEntry.MoveMe(
             self, fromLocation, card, toLocation, position, printCard, inputCard, suppressFailText))
 
         index = h.locateCardIndex(fromLocation, card)
@@ -620,7 +620,9 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.write_to_log(log_entry.EntityPlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
+        log.write_to_log(log_entry.EntityLogEntry.PlayCard(
+            self, fromLocation, cardIndex, caster, dino, enemies
+        ))
 
         # Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
@@ -684,7 +686,9 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.write_to_log(log_entry.EntityPackingCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
+        log.write_to_log(log_entry.EntityLogEntry.PackingCard(
+            self, fromLocation, cardIndex, caster, dino, enemies
+        ))
 
         # Where are we playing this Card to?
         if overrideToLocation == "null":
@@ -768,7 +772,9 @@ class Entity():
         
         ## ----- does the drawing -----
         # Logging
-        log.write_to_log(log_entry.EntityDrawCard(self, fromLocation, toLocation, shuffleLocation, printCard, inputCard))
+        log.write_to_log(log_entry.EntityLogEntry.DrawCard(
+            self, fromLocation, toLocation, shuffleLocation, printCard, inputCard
+        ))
         
         # Reshuffles if need be. 
         if (fromLocation.length() == 0 and shuffleLocation.length() > 0):
@@ -913,9 +919,9 @@ class Entity():
                 unique triggers based on the fact the card was specifically "discarded".
         """
         # Logging
-        log.write_to_log(
-            log_entry.EntityDiscardCard(fromLocation, cardIndex, dino, enemies, passedInVisuals, moments, printCard, inputCard)
-        )
+        log.write_to_log(log_entry.EntityLogEntry.DiscardCard(
+            fromLocation, cardIndex, dino, enemies, passedInVisuals, moments, printCard, inputCard
+        ))
 
         if moments == None:
             moments = []
@@ -937,7 +943,7 @@ class Entity():
         Example: `plusUpcomingPlusCard(0, 1)` increase the hand size by 1 on the next turn.
         """
         # Logging
-        log.write_to_log(log_entry.EntityPlusUpcomingPlusCard(self, when, count))
+        log.write_to_log(log_entry.EntityLogEntry.PlusUpcomingPlusCard(self, when, count))
 
         self._plusUpcomingPlusCard(when, count)
 
@@ -968,7 +974,7 @@ class Entity():
         Example: `plusUpcomingPlusAction(0, 1)` increase action count by 1 for the next turn.
         """
         # Logging
-        log.write_to_log(log_entry.EntityPlusUpcomingPlusAction(self, when, count))
+        log.write_to_log(log_entry.EntityLogEntry.PlusUpcomingPlusAction(self, when, count))
 
         self._plusUpcomingPlusAction(when, count)
 
@@ -995,7 +1001,7 @@ class Entity():
     def plusActions(self, plusActions: int) -> None:
         """Attempts to give + Action, ignoring + Actions under specific debuffs."""
         # Logging
-        log.write_to_log(log_entry.EntityPlusActionsLogEntry(self, plusActions))
+        log.write_to_log(log_entry.EntityLogEntry.PlusActions(self, plusActions))
 
         if self.canGainActionsThisTurn:
             self.actions += plusActions
@@ -1088,7 +1094,7 @@ class Entity():
     ) -> "Entity.DamageData":
         """Deals attackData damage to this entity."""
         # Logging
-        log.write_to_log(log_entry.EntityDamage(caster, dino, enemies, attackData))
+        log.write_to_log(log_entry.EntityLogEntry.Damage(caster, dino, enemies, attackData))
 
         # Entity value for if any damage was dealt this turn
         caster.dealtDamageThisTurn = True
