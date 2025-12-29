@@ -24,7 +24,7 @@ class Enemy(e.Entity):
     def __init__(self) -> None:
         super().__init__()
 
-    def fillDeck(self, extraDrafts: h.cardLocation = h.cardLocation("extra drafts")) -> None:
+    def fillDeck(self, extraDrafts: h.cardLocation = None) -> None:
         """Fills this enemy's deck based on its `damageDist` and `siftDist` values."""
         # THE IMPLEMENTATION OF EXTRA DRAFTS ALSO NEEDS AN ODDS NUMBER OR SOMETHING
         EFD = h.cardLocation("EFD")
@@ -38,8 +38,11 @@ class Enemy(e.Entity):
                 EFD.append(card)
 
         # Adds extra drafts to the list too
-        for card in extraDrafts.getArray():
-            EFD.append(card)
+        if extraDrafts is not None:
+            for card in extraDrafts.getArray():
+                # Adds each card twice
+                EFD.append(card)
+                EFD.append(card)
 
         # Selects cards randomly, and if they pass a probability check, adds them
         while (self.deck.length() < 6):
@@ -474,7 +477,7 @@ class CinnamonBear(Enemy):
         self.siftDist = 1.1
         super().fillDeck()
         
-        self.difficulty = 7.25
+        self.difficulty = 8.25
 
     def __healthInit(self):
         hp = [0, 2, 3]
@@ -502,7 +505,7 @@ class Babybear(Enemy):
         self.siftDist = 1
         super().fillDeck()
         
-        self.difficulty = 1.45
+        self.difficulty = 1.95
     
     def __healthInit(self):
         hp = [3, 0, 0]

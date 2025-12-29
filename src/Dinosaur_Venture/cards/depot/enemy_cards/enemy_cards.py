@@ -709,21 +709,6 @@ class craveFishMantra(gec.EnemyCard):
             caster.heal(caster, dino, enemies, cll.Attackcons([1, cll.L()], 'nil'))
             caster.drawCard()
 
-class fishFrenzy(gec.EnemyCard):
-    def __init__(self, targetDamage = 0, targetSift = 0):
-        super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 6)
-        self.name = "Fish Frenzy"
-        self.bodyText = c.bb("+1 Action. To every Entity: Gain a ^Fish^ onto Draw.")
-        self.table = ["Enemy", "Enemy Card Pool"]
-        self.bundle(throwCardFunction = self.duringPlay())
-
-    class duringPlay(cf.cardFunctions):
-        def func(self, card, caster, dino, enemies, passedInVisuals):
-            caster.plusActions(1)
-            dino.gainCard(fish(), dino.draw)
-            for enemy in enemies:
-                enemy.gainCard(fish(), enemy.draw)
-
 ## + Cantrip. Top-Text Upgrade the Top Card of Draw with: //> +1 Action.
 class prepareToFly(gec.EnemyCard):
     def __init__(self, targetDamage = 0, targetSift = 0):
@@ -774,6 +759,22 @@ class goingNuts(gec.EnemyCard):
                 summedHp -= 1
 
             caster.hp.replaceBand(0, newHp)
+
+# +1 Action. To every Entity: Gain a ^Fish^ onto Draw.
+class fishFrenzy(gec.EnemyCard):
+    def __init__(self, targetDamage = 0, targetSift = 0):
+        super().__init__(damageDist = 0.5, siftDist = 0.5, likelihood = 6)
+        self.name = "Fish Frenzy"
+        self.bodyText = c.bb("+1 Action. To every Entity: Gain a ^Fish^ onto Draw.")
+        self.table = ["Enemy"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            dino.gainCard(fish(), dino.draw)
+            for enemy in enemies:
+                enemy.gainCard(fish(), enemy.draw)
 
 ## Summon a Shrew; it gets -1 Action. 
 class soapboxStump(gec.EnemyCard):
