@@ -22,7 +22,24 @@
           padding-bottom: 0.1em;
           font-size: 1.2em;
         }
-
+        .table-label:hover {
+          background-color:hsl(0, 0%, 83%, 0.05);
+        }
+        .table-label.shop {
+          color: rgb(242, 242, 169)
+        }
+        .table-label.wip_dino {
+          color: rgb(157, 157, 201)
+        }
+        .table-label.dino {
+          color: rgb(159, 212, 230)
+        }
+        .table-label.enemy {
+          color: rgb(190, 81, 81)
+        }
+        .table-label.none {
+          color: white
+        }
         .card-names-line {
           display: flex;
           align-items: center;
@@ -65,10 +82,10 @@
     <form method="get" action="/cards/view">
       <div>
         <form id="dummy-form" onsubmit="return false;"></form>
-        <label for="name-search-card">RegEx Search Card Name:</label>
+        <label for="name-search-card">RegEx Card Name:</label>
         <input type="text" id="name-search-box" placeholder="..." form="dumnmy-form" oninput="fetchCardsMatchingText()" autocomplete="off">
 
-        <label for="text-search-card">RegEx Search Card Text:</label>
+        <label for="text-search-card">RegEx Card Text:</label>
         <input type="text" id="text-search-box" placeholder="..." form="dumnmy-form" oninput="fetchCardsMatchingText()" autocomplete="off">
       </div>
       <div class="select-all-buttons">
@@ -76,15 +93,16 @@
       </div>
       <div class="select-all-buttons">
         <button type="button" onclick="toggleAll()">Toggle All</button>
+        <button type="button" onclick="selectEnemyCards()">Toggle Enemy Cards</button>
         <button type="button" onclick="selectDinosaurCards()">Toggle Dino Cards</button>
         <button type="button" onclick="selectDinosaurCardsIncludingWip()">Toggle Dino Cards (including WIP Tables)</button>
       </div>
 
       <div class="checkbox-grid">
-        {% for table in all_tables %}
-          <label>
-            <input type="checkbox" name="tables" value="{{ table }}" onchange="fetchCardsMatchingText()">
-            {{ table }}
+        {% for table_with_category in all_tables_with_categories %}
+          <label class="table-label {{ table_with_category.category }}">
+            <input type="checkbox" name="tables" value="{{ table_with_category.name }}" onchange="fetchCardsMatchingText()">
+            {{ table_with_category.name }}
           </label>
         {% endfor %}
       </div>
@@ -107,6 +125,11 @@
 
       // These scripts are using Jinja2 to get Python-related elements, but after
       // getting access to those variables they call scripts.js functions.
+      function selectEnemyCards() {
+        const ENEMY_TABLES = {{ enemy_tables|tojson }};
+        selectSubsetOfCards(ENEMY_TABLES);
+      }
+      
       function selectDinosaurCards() {
         const DINO_TABLES = {{ all_dino_cards|tojson }};
         selectSubsetOfCards(DINO_TABLES);
