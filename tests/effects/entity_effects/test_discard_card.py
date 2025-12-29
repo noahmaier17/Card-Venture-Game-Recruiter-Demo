@@ -1,7 +1,7 @@
 import pytest
 
-from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.entities import entity as e
 from tests.test_utils import card_location_utilities, list_utilities
 from tests.test_utils.game_setups import getSingleSliceOfDinoEnemiesClearing

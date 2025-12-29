@@ -3,8 +3,8 @@ import random
 import pytest
 import pytest_timeout
 
-from Dinosaur_Venture import card as c
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.mechanics import card as c
 from Dinosaur_Venture.entities import dinoes as dinoes_import
 from tests.test_utils.card_location_utilities import \
     check_card_locations_unordered

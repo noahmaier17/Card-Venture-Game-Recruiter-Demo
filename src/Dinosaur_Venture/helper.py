@@ -7,17 +7,18 @@ from typing import TYPE_CHECKING
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import card_tokens as tk
-from Dinosaur_Venture.card_initalization_zones import INITIALIZATION_ZONES
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
+    INITIALIZATION_ZONES
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import card as c
+    from Dinosaur_Venture import clearing as clr
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
     from Dinosaur_Venture import main_visuals as vis
-    from Dinosaur_Venture.entities import entity as e 
-    from Dinosaur_Venture import clearing as clr
+    from Dinosaur_Venture.cards.mechanics import card as c
+    from Dinosaur_Venture.entities import entity as e
 
 WIDTH = 117 - 2
 

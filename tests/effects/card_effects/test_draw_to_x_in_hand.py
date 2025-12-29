@@ -8,8 +8,9 @@ with the test_draw_cards.py test cases.
 
 import pytest
 
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture.card_functions import drawUntilYouHaveXCardsInHand
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics.card_functions import \
+    drawUntilYouHaveXCardsInHand
 from Dinosaur_Venture.entities import entity as e
 from Dinosaur_Venture.main_visuals import prefabEmpty
 from tests.test_utils import card_location_utilities

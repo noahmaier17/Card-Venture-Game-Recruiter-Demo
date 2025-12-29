@@ -4,12 +4,12 @@ import random
 import pytest
 import pytest_timeout
 
-from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 from Dinosaur_Venture import main_visuals as vis
-from Dinosaur_Venture.dino_cards_depot import \
+from Dinosaur_Venture.cards.depot.dino_cards import \
     general_dino_cards as generalDinoCards
+from Dinosaur_Venture.cards.mechanics import card_functions as cf
 from tests.test_utils.game_setups import setup_getDinoEnemiesClearing
 
 """

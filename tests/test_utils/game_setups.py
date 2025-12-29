@@ -5,13 +5,15 @@ import random
 import pytest
 
 from Dinosaur_Venture import clearing as clr
-from Dinosaur_Venture.dino_cards_depot.apple_orchard_hollow_cards import \
+from Dinosaur_Venture.cards.depot.dino_cards.apple_orchard_hollow_cards import \
     orchardTree
-from Dinosaur_Venture.dino_cards_depot.fallow_farmland_cards import (
+from Dinosaur_Venture.cards.depot.dino_cards.fallow_farmland_cards import (
     cultivator, gnawedCableCord, grasshopperCache, twigRockScarecrow)
-from Dinosaur_Venture.dino_cards_depot.fundamental_cards import twigExclamation
-from Dinosaur_Venture.dino_cards_depot.new_bear_order_cards import torchBearing
-from Dinosaur_Venture.dino_cards_depot.shop_cards import stick
+from Dinosaur_Venture.cards.depot.dino_cards.fundamental_cards import \
+    twigExclamation
+from Dinosaur_Venture.cards.depot.dino_cards.new_bear_order_cards import \
+    torchBearing
+from Dinosaur_Venture.cards.depot.dino_cards.shop_cards import stick
 from Dinosaur_Venture.entities import dinoes as dinoes_import
 from Dinosaur_Venture.entities import enemieses as enemieses_import
 

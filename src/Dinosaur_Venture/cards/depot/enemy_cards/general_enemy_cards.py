@@ -1,4 +1,4 @@
-import Dinosaur_Venture.card as c
+import Dinosaur_Venture.cards.mechanics.card as c
 
 
 ## Initiates all enemy cards

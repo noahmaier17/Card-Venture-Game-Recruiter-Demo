@@ -1,11 +1,11 @@
 import random
 
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
-from Dinosaur_Venture.dino_cards_depot.fundamental_cards import fish
-from Dinosaur_Venture.enemy_cards_depot import general_enemy_cards as gec
+from Dinosaur_Venture.cards.depot.dino_cards.fundamental_cards import fish
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_functions as cf
+from Dinosaur_Venture.cards.depot.enemy_cards import general_enemy_cards as gec
 from Dinosaur_Venture.entities import entity as e
 
 ## There is an Dinosaur_Venture.entities.enemieses import below because a card summons Shrews.

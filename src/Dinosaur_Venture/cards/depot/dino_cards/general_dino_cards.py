@@ -1,4 +1,4 @@
-from Dinosaur_Venture import card as c
+from Dinosaur_Venture.cards.mechanics import card as c
 
 
 ## Dino Cards

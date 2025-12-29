@@ -11,17 +11,17 @@ from typing import TYPE_CHECKING
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import card as c
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+    from Dinosaur_Venture.cards.mechanics import card as c
 
 class Entity():
     """
@@ -778,8 +778,8 @@ class Entity():
         
         # Reshuffles if need be. 
         if (fromLocation.length() == 0 and shuffleLocation.length() > 0):
-            if (self.enemy == False):
-                input("   " + Fore.MAGENTA + " Triggered a Shuffle" + Fore.WHITE + "... ")
+            # if (self.enemy == False):
+            #     input("   " + Fore.MAGENTA + " Triggered a Shuffle" + Fore.WHITE + "... ")
             shuffleLocation.shuffleTriggeredByDraw()
             for i in range(shuffleLocation.length()):
                 fromLocation.append(shuffleLocation.at(i))

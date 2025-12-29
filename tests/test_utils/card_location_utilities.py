@@ -6,9 +6,9 @@ Utilities for `helper.card_location`.
 
 from typing import Callable
 
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from tests.test_utils.list_utilities import are_lists_exactly_equal
 
 """

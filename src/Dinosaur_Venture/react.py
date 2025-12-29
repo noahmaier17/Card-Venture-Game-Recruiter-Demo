@@ -1,6 +1,6 @@
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 
 ## The reaction stack
 reactionStack = []
@@ -270,6 +270,12 @@ class reaction():
 class reactMoments():
     def __init__(self, name):
         self.name = name
+
+    def logIdentity(self) -> dict:
+        """
+        Returns log-imperitive information about this entity.
+        """
+        return {"name": self.name}
 
 class AtTurnEnd(reactMoments):
     def __init__(self):

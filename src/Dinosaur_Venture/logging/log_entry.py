@@ -9,13 +9,13 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import card as c
-    from Dinosaur_Venture import card_functions as cf
     from Dinosaur_Venture import channel_linked_lists as cll
     from Dinosaur_Venture import helper as h
     from Dinosaur_Venture import main_visuals as vis
-    from Dinosaur_Venture.entities import entity as e
     from Dinosaur_Venture import react as r
+    from Dinosaur_Venture.cards.mechanics import card as c
+    from Dinosaur_Venture.cards.mechanics import card_functions as cf
+    from Dinosaur_Venture.entities import entity as e
 
 def serialize_object(object):
     """
@@ -31,7 +31,7 @@ def serialize_object(object):
         for value in object:
             return_object.append(serialize_object(value))
         
-        if isinstance(object, tuple):
+        if not isinstance(object, tuple):
             return tuple(return_object)
         else:
             return return_object
@@ -73,13 +73,13 @@ class LogEntry(ABC):
         # ... and serialize the remaining attributes
         return log_json | serialize_object(self.__dict__)
 
-class EntityLogEntry(LogEntry):
+class EntityLogEntry():
     """
     Log Entries found within functions within `entity.py`.
     The purpose of this inheritance is mostly for code quality.
     """
 
-    class DiscardCard():
+    class DiscardCard(LogEntry):
         """
         Log for discarding a card.
         Employed in `entity.discardCard()`.
@@ -106,7 +106,7 @@ class EntityLogEntry(LogEntry):
             self.printCard = printCard
             self.inputCard = inputCard
 
-    class Damage():
+    class Damage(LogEntry):
         """
         Log for dealing damage.
         Employed in `entity.damage()`.
@@ -125,7 +125,7 @@ class EntityLogEntry(LogEntry):
             self.enemies = enemies
             self.attackData = attackData
 
-    class PlusActions():
+    class PlusActions(LogEntry):
         """
         Log for + Actions.
         Employed in `entity.plusActions()`.
@@ -136,7 +136,7 @@ class EntityLogEntry(LogEntry):
             self.entity = entity
             self.plusActions = plusActions
 
-    class MoveMe():
+    class MoveMe(LogEntry):
         """
         Log for moving a card by card object.
         Employed in `entity.moveMe()`.
@@ -163,7 +163,7 @@ class EntityLogEntry(LogEntry):
             self.inputCard = inputCard
             self.suppressFailText = suppressFailText
 
-    class PlayCard():
+    class PlayCard(LogEntry):
         """
         Log for playing a Card.
         Employed in `entity.playCard()`.
@@ -187,7 +187,7 @@ class EntityLogEntry(LogEntry):
             self.dino = dino
             self.enemies = enemies
 
-    class DrawCard():
+    class DrawCard(LogEntry):
         """
         Log for drawing a Card.
         Employed in `entity.drawCard()`.
@@ -209,7 +209,7 @@ class EntityLogEntry(LogEntry):
             self.printCard = printCard
             self.inputCard = inputCard
 
-    class PackingCard():
+    class PackingCard(LogEntry):
         """
         Log for playing a Card.
         Employed in `entity.packCard()`.
@@ -233,7 +233,7 @@ class EntityLogEntry(LogEntry):
             self.dino = dino
             self.enemies = enemies
 
-    class PlusUpcomingPlusAction():
+    class PlusUpcomingPlusAction(LogEntry):
         """
         Log for playing a Card.
         Employed in `entity.plusUpcomingPlusAction()`.
@@ -250,7 +250,7 @@ class EntityLogEntry(LogEntry):
             self.when = when
             self.count = count
 
-    class PlusUpcomingPlusCard():
+    class PlusUpcomingPlusCard(LogEntry):
         """
         Log for playing a Card.
         Employed in `entity.plusUpcomingPlusCard()`.
@@ -267,13 +267,13 @@ class EntityLogEntry(LogEntry):
             self.when = when
             self.count = count
 
-class HelperLogEntry(LogEntry):
+class HelperLogEntry():
     """
     Log Entries found within functions within `helper.py` (or similar helper-method files).
     The purpose of this inheritance is mostly for code quality.
     """
 
-    class PickLivingEnemy():
+    class PickLivingEnemy(LogEntry):
         """
         Log for picking a living enemy.
         Employed in `helper.pickLivingEnemy()`
@@ -292,7 +292,7 @@ class HelperLogEntry(LogEntry):
             self.preamble = preamble
             self.passedInVisuals = passedInVisuals
 
-    class YesOrNo():
+    class YesOrNo(LogEntry):
         """
         Log for answering Yes or No.
         Employed in `helper.yesOrNo()`
@@ -309,12 +309,12 @@ class HelperLogEntry(LogEntry):
             self.preamble = preamble
             self.passedInVisuals = passedInVisuals
 
-class CardFunctionLogEntry(LogEntry):
+class CardFunctionLogEntry():
     """
     Log Entries found within functions within `card_functions.py`.
     The purpose of this inheritance is mostly for code quality.
     """
-    class DiscardYourHand():
+    class DiscardYourHand(LogEntry):
         """
         Log for discarding your Hand.
         Employed in `card_functions.discardYourHand()`.
@@ -337,7 +337,7 @@ class CardFunctionLogEntry(LogEntry):
             self.enemies = enemies
             self.passedInVisuals = passedInVisuals
 
-    class DrawUntilYouHaveXCardsInHand():
+    class DrawUntilYouHaveXCardsInHand(LogEntry):
         """
         Log for drawing until you have X Card(s) in Hand.
         Employed in `card_functions.drawUntilYouHaveXCardsInHand()`.
@@ -360,7 +360,7 @@ class CardFunctionLogEntry(LogEntry):
             self.enemies = enemies
             self.passedInVisuals = passedInVisuals
 
-    class ArbitrarilyDiscardCardFrom_Location():
+    class ArbitrarilyDiscardCardFrom_Location(LogEntry):
         """
         Log for discarding an arbitrary card from [ location ].
         Employed in `card_functions.arbitrarilyDiscardCardFrom_Location()`.

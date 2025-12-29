@@ -2,17 +2,17 @@ import inspect
 import uuid
 from typing import TYPE_CHECKING
 
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import card_functions as cf
+    from Dinosaur_Venture.cards.mechanics import card_functions as cf
     from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.entities import entity as e
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
 
-from Dinosaur_Venture.card_initalization_zones import \
+from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
     REVERSED_INITIALIZATION_ZONES
 
 

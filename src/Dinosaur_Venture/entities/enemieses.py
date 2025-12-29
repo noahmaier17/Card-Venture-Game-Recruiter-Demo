@@ -11,9 +11,11 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
-from Dinosaur_Venture.enemy_cards_depot.enemy_cards import (
-    craveFishMantra, demandingInheritance, fishFrenzy, goingNuts, nothing,
-    prepareToFly, soapboxStump)
+from Dinosaur_Venture.cards.depot.enemy_cards.enemy_cards import (craveFishMantra,
+                                                      demandingInheritance,
+                                                      fishFrenzy, goingNuts,
+                                                      nothing, prepareToFly,
+                                                      soapboxStump)
 from Dinosaur_Venture.entities import entity as e
 
 

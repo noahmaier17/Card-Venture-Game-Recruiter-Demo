@@ -35,7 +35,7 @@ if TYPE_CHECKING:
 def code(
         DIFFICULTY_DEBUG_BONUS=0,
         NUMBER_OF_CARDS_TO_LOOT=4,
-        DO_ROUND_1_LOOTING=False,
+        DO_ROUND_1_LOOTING=True,        # This is a feature I am testing
         NUKE_DINO_DECK=False,
         DEBUG_DINO_DECK=False,
         SKIP_SHOP_DEBUG=False,
@@ -144,7 +144,7 @@ def code(
         dino.deck.append(testCard)
         '''
 
-        from Dinosaur_Venture.dino_cards_depot import shop_cards
+        from Dinosaur_Venture.cards.depot.dino_cards import shop_cards
 
         dino.deck.append(shop_cards.leavesRake())
 
@@ -156,9 +156,6 @@ def code(
         input(" ... ")
 
     difficulty += DIFFICULTY_DEBUG_BONUS
-
-    if DO_ROUND_1_LOOTING:
-        skipRoundZeroRestStop = False
 
     ## ----- Remaining Preparation Logic -----
     # Commented out line is for picking a special card to start with (possible later feature)
@@ -192,7 +189,7 @@ def code(
             ## ----- DISPLAY CODE -----
             h.clear_screen()
             roundCount += 1
-                        
+
             ## ----- Rest Stop -----
             if roundCount % 2 == 0:
                 # Upticks reset values
@@ -211,7 +208,7 @@ def code(
                 dino.hp.b = dino.resetB
             
                 # Loots a Clearing
-                if not skipRoundZeroRestStop:
+                if roundCount != 0:
                     h.selectCard(dino, 
                                  clearing.name, 
                                  roundCount, 
@@ -219,8 +216,6 @@ def code(
                                  [NUMBER_OF_CARDS_TO_LOOT], 
                                  canPass=True,
                                  activateAbilityOnPass=True)
-
-                skipRoundZeroRestStop = False
 
                 # Buy from a Shop
                 if not SKIP_SHOP_DEBUG and roundCount % 4 == 0:
@@ -284,6 +279,20 @@ def code(
 
                 # Sets the clearing
                 clearing = neckOfTheWoods.clearing
+
+                # Loots if we are doing that new feature
+                if DO_ROUND_1_LOOTING and roundCount == 0:
+                    h.selectCard(dino, 
+                                 clearing.name, 
+                                 roundCount, 
+                                 [lootTable], 
+                                 [NUMBER_OF_CARDS_TO_LOOT], 
+                                 canPass=True,
+                                 activateAbilityOnPass=True)
+
+                # Sets dino looting back to as it should be
+                dino.looting += dino.uptickLooting
+
 
             event = "Populate Clearing"
 

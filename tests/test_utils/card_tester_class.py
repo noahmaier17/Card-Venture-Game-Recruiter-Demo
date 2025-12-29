@@ -13,8 +13,8 @@ DINOES, ENEMIESES, CLEARINGSES = setup_getDinoEnemiesClearing()
 DINOES_ENEMIESES_CLEARINGSES = getCartesianProduct_anyInput([DINOES, ENEMIESES, CLEARINGSES])
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import card as c
     from Dinosaur_Venture import clearing as clr
+    from Dinosaur_Venture.cards.mechanics import card as c
     from Dinosaur_Venture.entities import entity as e
     from Dinosaur_Venture.logging.intent import Intent
     from Dinosaur_Venture.logging.log_entry import LogEntry

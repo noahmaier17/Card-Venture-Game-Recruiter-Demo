@@ -1,16 +1,16 @@
 import copy
 import random
 
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_functions as cf
-from Dinosaur_Venture import card_mod_functions as cmf
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
+from Dinosaur_Venture.cards.depot.dino_cards import general_dino_cards as gdc
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_functions as cf
+from Dinosaur_Venture.cards.mechanics import card_mod_functions as cmf
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 
 '''
     SHOP CARDS

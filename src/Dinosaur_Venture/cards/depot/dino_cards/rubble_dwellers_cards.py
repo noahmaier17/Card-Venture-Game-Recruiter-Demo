@@ -1,10 +1,10 @@
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_functions as cf
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
-from Dinosaur_Venture.dino_cards_depot import general_dino_cards as gdc
-from Dinosaur_Venture.dino_cards_depot.fundamental_cards import rubble
+from Dinosaur_Venture.cards.depot.dino_cards import general_dino_cards as gdc
+from Dinosaur_Venture.cards.depot.dino_cards.fundamental_cards import rubble
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_functions as cf
 
 '''
     Rubble Dwellers

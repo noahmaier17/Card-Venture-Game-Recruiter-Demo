@@ -2,9 +2,9 @@ import random
 
 import pytest
 
-from Dinosaur_Venture import card as c
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from Dinosaur_Venture.entities import entity as e
 from tests.test_utils import card_location_utilities, list_utilities
 
