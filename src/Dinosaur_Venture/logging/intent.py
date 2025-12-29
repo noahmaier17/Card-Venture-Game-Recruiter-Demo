@@ -42,7 +42,7 @@ class EntityFactory(IntentFactory):
     @staticmethod
     def discard_card(from_location: "h.cardLocation", print_card: bool, input_card: bool) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityDiscardCard`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.DiscardCard`, 
         forcing inclusion of key parameters.
 
         Arguments:
@@ -51,7 +51,7 @@ class EntityFactory(IntentFactory):
             input_card (bool): if we want the card to be input.
         """
         return [Intent(
-            log_entry.EntityDiscardCard,
+            log_entry.EntityLogEntry.DiscardCard,
             {},
             {
                 "fromLocation": from_location,
@@ -62,49 +62,49 @@ class EntityFactory(IntentFactory):
 
     def play_card(card_name: str) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityPlayCardLogEntry`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.PlayCard`, 
         forcing inclusion of key parameters.
         
         Arguments:
             card_name (str): the name of the card expected to be played.
         """
         return [Intent(
-            log_entry.EntityPlayCardLogEntry,
+            log_entry.EntityLogEntry.PlayCard,
             {},
             {"playedCard.name": card_name}
         )]
 
     def packing_card(card_name: str) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityPlayCardLogEntry`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.PackingCard`, 
         forcing inclusion of key parameters.
         
         Arguments:
             card_name (str): the name of the card expected to be played.
         """
         return [Intent(
-            log_entry.EntityPackingCardLogEntry,
+            log_entry.EntityLogEntry.PackingCard,
             {},
             {"packedCard.name": card_name}
         )]
 
     def damage(attackcons: "cll.Attackcons") -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityDamage`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.Damage`, 
         forcing inclusion of key parameters.
         
         Arguments:
             attackcons (cll.Attackcons): the damage that was expected to be dealt.
         """
         return [Intent(
-            log_entry.EntityDamage,
+            log_entry.EntityLogEntry.Damage,
             {},
             {"attackData": attackcons}    
         )]
 
     def plus_upcoming_plus_action(when: int, count: int) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityPlusUpcomingPlusAction`,
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.PlusUpcomingPlusAction`,
         forcing inclusion of key parameters.
 
         Arguments:
@@ -113,7 +113,7 @@ class EntityFactory(IntentFactory):
             count (int): how many plus actions to recieve.
         """
         return [Intent(
-            log_entry.EntityPlusUpcomingPlusAction,
+            log_entry.EntityLogEntry.PlusUpcomingPlusAction,
             {},
             {
                 "when": when,
@@ -123,7 +123,7 @@ class EntityFactory(IntentFactory):
 
     def plus_upcoming_plus_card(when: int, count: int) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityPlusUpcomingPlusCard`,
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.PlusUpcomingPlusCard`,
         forcing inclusion of key parameters.
 
         Arguments:
@@ -132,7 +132,7 @@ class EntityFactory(IntentFactory):
             count (int): how many plus cards to recieve.
         """
         return [Intent(
-            log_entry.EntityPlusUpcomingPlusCard,
+            log_entry.EntityLogEntry.PlusUpcomingPlusCard,
             {},
             {
                 "when": when,
@@ -142,14 +142,14 @@ class EntityFactory(IntentFactory):
 
     def plus_actions(plus_actions: int) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityPlusActionsLogEntry`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.PlusActions`, 
         forcing inclusion of key parameters.
         
         Arguments:
             plus_actions (cll.Attackcons): the number of plus actions that was expected to be recieved.
         """
         return [Intent(
-            log_entry.EntityPlusActionsLogEntry,
+            log_entry.EntityLogEntry.PlusActions,
             {},
             {"plusActions": plus_actions}
         )]
@@ -161,7 +161,7 @@ class EntityFactory(IntentFactory):
         position: int
     ) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityMoveMeLogEntry`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.MoveMe`, 
         forcing inclusion of key parameters.
 
         Arguments:
@@ -171,7 +171,7 @@ class EntityFactory(IntentFactory):
             position (int): where in the to_location this card is placed.
         """
         return [Intent(
-            log_entry.EntityMoveMeLogEntry,
+            log_entry.EntityLogEntry.MoveMe,
             {},
             {
                 "fromLocation": from_location,
@@ -188,7 +188,7 @@ class EntityFactory(IntentFactory):
         shuffle_location: "h.cardLocation"=None    
     ) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityDrawCardLogEntry`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.DrawCard`, 
         forcing inclusion of key parameters. 
 
         Arguments:
@@ -210,7 +210,7 @@ class EntityFactory(IntentFactory):
             python_object_parameters["shuffleLocation"] = shuffle_location
 
         return [Intent(
-            log_entry.EntityDrawCard,
+            log_entry.EntityLogEntry.DrawCard,
             {},
             python_object_parameters
         )] * cards_to_draw
@@ -221,7 +221,7 @@ class EntityFactory(IntentFactory):
         shuffle_location: "h.cardLocation"=None
     ) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.EntityDrawCardLogEntry`, 
+        Constructs an Intent for comparison against `log_entry.EntityLogEntry.DrawCard`, 
         forcing inclusion of key parameters (of which we have none required).
 
         Arguments:
@@ -242,7 +242,7 @@ class EntityFactory(IntentFactory):
             python_object_parameters["shuffleLocation"] = shuffle_location
 
         return [Intent(
-            log_entry.EntityDrawCard,
+            log_entry.EntityLogEntry.DrawCard,
             {},
             python_object_parameters
         )]
@@ -250,50 +250,61 @@ class EntityFactory(IntentFactory):
 class HelperFactory(IntentFactory):
     def pick_living_enemy(text: str) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `helper.pickLivingEnemy`, 
+        Constructs an Intent for comparison against `log_entry.HelperLogEntry.PickLivingEnemy`, 
         forcing inclusion of key parameters.
 
         Arguments:
             text (str): the text string that is used for the 'pick living enemy' prompt.
         """
         return [Intent(
-            log_entry.HelperPickLivingEnemy,
+            log_entry.HelperLogEntry.PickLivingEnemy,
             {},
             {"text": text}
         )]
 
     def yes_or_no(text: str) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `helper.yesOrNo`, 
+        Constructs an Intent for comparison against `log_entry.HelperLogEntry.YesOrNo`, 
         forcing inclusion of key parameters.
 
         Arguments:
             text (str): the text string that is used for the 'yes or no' prompt.
         """
         return [Intent(
-            log_entry.HelperYesOrNoLogEntry,
+            log_entry.HelperLogEntry.YesOrNo,
             {},
             {"text": text}
         )]
 
 class CardFunctionFactory(IntentFactory):
-    def draw_until_you_have_x_cards_in_hand(draw_to_x_number: int) -> list[Intent]:
+    def discard_your_hand() -> list[Intent]:
         """
         Constructs an Intent for comparison against `log_entry.CardFunctionDrawUntilYouHaveXCardsInHand`, 
+        forcing inclusion of key parameters (of which we have none).
+        """
+        return [Intent(
+            log_entry.CardFunctionLogEntry.DiscardYourHand,
+            {},
+            {}
+        )]
+
+    def draw_until_you_have_x_cards_in_hand(draw_to_x_number: int) -> list[Intent]:
+        """
+        Constructs an Intent for comparison against `log_entry.CardFunctionLogEntry.DrawUntilYouHaveXCardsInHand`, 
         forcing inclusion of key parameters.
         
         Arguments:
             draw_to_x_number (int): the draw to x value that is expected.
         """
         return [Intent(
-            log_entry.CardFunctionDrawUntilYouHaveXCardsInHand,
+            log_entry.CardFunctionLogEntry.DrawUntilYouHaveXCardsInHand,
             {},
             {"cardFunction.draw_to_x_number": draw_to_x_number}
         )]
 
     def arbitrarily_discard_card_from_location(location: "h.cardLocation", inputCard: bool) -> list[Intent]:
         """
-        Constructs an Intent for comparison against `log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location`, 
+        Constructs an Intent for comparison against `log_entry.CardFunctionLogEntry.ArbitrarilyDiscardCardFrom_Location`, 
         forcing inclusion of key parameters.
         
         Arguments:
@@ -301,7 +312,7 @@ class CardFunctionFactory(IntentFactory):
             inputCard (bool): if the inputCard parameter of this card function is True.
         """
         return [Intent(
-            log_entry.CardFunctionArbitrarilyDiscardCardFrom_Location,
+            log_entry.CardFunctionLogEntry.ArbitrarilyDiscardCardFrom_Location,
             {},
             {
                 "cardFunction.location": location,

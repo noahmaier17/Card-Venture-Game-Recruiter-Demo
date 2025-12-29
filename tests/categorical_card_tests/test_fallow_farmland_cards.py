@@ -63,6 +63,7 @@ class TestRustedScythe(TestCard):
         Tests on play of Rusted Scythe when 'yes' is input to discarding your hand for +1 Card.
         """
         intents = (self.CORE_ON_PLAY_INTENTS +
+            intent.CardFunctionFactory.discard_your_hand() +
             intent.EntityFactory.draw_card() +
             intent.EntityFactory.draw_card()
         )
