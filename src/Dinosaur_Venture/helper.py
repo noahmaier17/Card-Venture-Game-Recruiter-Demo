@@ -830,7 +830,6 @@ def printCheckProperNouns(string: str, entityNames: dict, cardNames: dict) -> bo
         return True
     return False
 
-## Inputs, then colorizes the text. 
 def splash(
     text: str, 
     printInsteadOfInput: bool = False, 
