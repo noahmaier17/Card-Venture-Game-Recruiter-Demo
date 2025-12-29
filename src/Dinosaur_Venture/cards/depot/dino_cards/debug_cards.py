@@ -7,10 +7,10 @@ from Dinosaur_Venture.cards.mechanics import card_functions as cf
 ''' 
     Debug/Testing Suite
 '''
-class draw6(gdc.DinoCard):
+class draw6Cards(gdc.DinoCard):
     def __init__(self):
         super().__init__()
-        self.name = "Draw 6"
+        self.name = "Draw 6 Cards"
         self.bodyText = c.bb("+6 Cards.")
         self.publishInitialization(top = True)
         self.table = ["Debug"]
