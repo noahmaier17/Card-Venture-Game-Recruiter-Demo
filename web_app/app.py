@@ -8,11 +8,12 @@ from flask import Flask, jsonify, render_template, request
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 
-## ----- Sets up Flask and friends -----
+## ----- Setup -----
+# Sets up Flask and friends
 app = Flask(__name__)
 converter = Ansi2HTMLConverter(inline=True) ## Used extensive Google for this
 
-## ----- Sets up a list of all Cards -----
+# Sets up a list of all Cards
 max_id = 1
 all_cards = []
 '''
@@ -42,12 +43,32 @@ for child in gcbt.getAllCards().getArray():
         "table": child.table
     })
     max_id += 1
+# Maps tables to if they belong to DINO, ENEMY, or NEITHER
+table_with_category = []
+'''
+table_with_category is of the form:
+    "name" (str): the name of the table
+    "category" (str): one of "dino", "enemy", "wip_dino", "shop", or "none"
+'''
+for table in gcbt.ALL_TABLES:
+    category = "none"
+    if table in gcbt.ALL_DINO_CARDS:
+        category = "dino"
+    elif table in gcbt.ENEMY_TABLES:
+        category = "enemy"
+    elif table in gcbt.ALL_DINO_CARDS_INCLUDING_WIP:
+        category = "wip_dino"
+    elif table == "Shop":
+        category = "shop"
 
-# Removes the mostly redundant "Enemy" Pool given that "Enemy Card Pool" exists
-ALL_CARDS_TABLE_MINUS_ENEMY = gcbt.ALL_TABLES
+    table_with_category.append({
+        "name": table,
+        "category": category
+    })
 
-if "Enemy" in gcbt.ALL_TABLES:
-    ALL_CARDS_TABLE_MINUS_ENEMY.remove("Enemy")
+# Sorts them in the order I want them to be displayed
+ORDER = {"enemy": 0, "shop": 1, "dino": 2, "wip_dino": 3, "none": 4}
+table_with_category = sorted(table_with_category, key=lambda d: ORDER[d["category"]])
 
 ## ----- GET: Shows all the cards -----
 @app.get("/cards")
@@ -58,8 +79,9 @@ def get_cards():
 @app.get("/cards/view")
 def view_cards():
     return render_template("view_cards.html", 
-                           all_tables=ALL_CARDS_TABLE_MINUS_ENEMY,
+                           all_tables_with_categories=table_with_category,
                            all_dino_cards=gcbt.ALL_DINO_CARDS,
+                           enemy_tables=gcbt.ENEMY_TABLES,
                            all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP)
 
 @app.post("/api/cards")

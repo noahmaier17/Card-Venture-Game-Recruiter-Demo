@@ -9,7 +9,6 @@ Moreover, some of the logic could be better factored out, which I have begun to 
 gameplayLoopEvents.py file.
 """
 
-import os
 import random
 from typing import TYPE_CHECKING
 
@@ -25,6 +24,7 @@ from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.logging import gameplay_logging as log
 
 if TYPE_CHECKING:
@@ -35,7 +35,7 @@ if TYPE_CHECKING:
 def code(
         DIFFICULTY_DEBUG_BONUS=0,
         NUMBER_OF_CARDS_TO_LOOT=4,
-        DO_ROUND_1_LOOTING=False,
+        DO_ROUND_1_LOOTING=True,        # This is a feature I am testing
         NUKE_DINO_DECK=False,
         DEBUG_DINO_DECK=False,
         SKIP_SHOP_DEBUG=False,
@@ -65,7 +65,7 @@ def code(
     roundDifficultyCreep: int = 3.50 + 0.5 - 0.5 - 0.25 + 2.10 + 1.10 + 0.75 - 0.75
 
     # Stores all the loot for this clearing
-    lootTable: h.cardLocation = h.cardLocation("loot table")
+    lootTable: CardLocation = CardLocation("loot-table")
 
     # The current difficulty
     # Gets modified a lot which is why there are so many numbers here
@@ -110,14 +110,14 @@ def code(
 
     ## ----- Does intensive remaining set up -----
     # List of all shop cards
-    shopLocation: h.cardLocation = gcbt.getCardsByTable(["Shop"], 
-                                                        locationName = "Shop Cards")
+    shopLocation: CardLocation = gcbt.getCardsByTable(["Shop"], 
+                                                      locationName = "Shop Cards")
     # Set of random tier-1 cards (which will get debuffed)
-    randomTier1Location: h.cardLocation = gcbt.getCardsByTable(gcbt.TIER_1_TABLES, 
-                                                               locationName = "Tier 1 Cards")
+    randomTier1Location: CardLocation = gcbt.getCardsByTable(gcbt.TIER_1_TABLES, 
+                                                             locationName = "Tier 1 Cards")
     # Card debuffs
-    allDebuffs: h.cardLocation = gcbt.getCardsByTable(["Debuffs"], 
-                                                      locationName = "Debuffs")
+    allDebuffs: CardLocation = gcbt.getCardsByTable(["Debuffs"], 
+                                                    locationName = "Debuffs")
 
     # Modifies all the random tier-1 cards to have debuffs
     for card in randomTier1Location.getArray():
@@ -134,7 +134,7 @@ def code(
         shopLocation = OVERRIDE_SHOP_LOCATION
 
     if NUKE_DINO_DECK or DEBUG_DINO_DECK:
-        dino.deck = h.cardLocation("deck")
+        dino.deck = CardLocation("deck")
 
     # If DEBUG_DINO_DECK == True, replaces dino's deck with the following cards
     if DEBUG_DINO_DECK:
@@ -144,9 +144,9 @@ def code(
         dino.deck.append(testCard)
         '''
 
-        from Dinosaur_Venture.dino_cards_depot import fallow_farmland_cards
+        from Dinosaur_Venture.cards.depot.dino_cards import shop_cards
 
-        dino.deck.append(fallow_farmland_cards.deadHarvestedGrass())
+        dino.deck.append(shop_cards.leavesRake())
 
     difficulty += DIFFICULTY_DEBUG_BONUS
     if difficulty <= 0:
@@ -156,9 +156,6 @@ def code(
         input(" ... ")
 
     difficulty += DIFFICULTY_DEBUG_BONUS
-
-    if DO_ROUND_1_LOOTING:
-        skipRoundZeroRestStop = False
 
     ## ----- Remaining Preparation Logic -----
     # Commented out line is for picking a special card to start with (possible later feature)
@@ -192,7 +189,7 @@ def code(
             ## ----- DISPLAY CODE -----
             h.clear_screen()
             roundCount += 1
-                        
+
             ## ----- Rest Stop -----
             if roundCount % 2 == 0:
                 # Upticks reset values
@@ -211,7 +208,7 @@ def code(
                 dino.hp.b = dino.resetB
             
                 # Loots a Clearing
-                if not skipRoundZeroRestStop:
+                if roundCount != 0:
                     h.selectCard(dino, 
                                  clearing.name, 
                                  roundCount, 
@@ -219,8 +216,6 @@ def code(
                                  [NUMBER_OF_CARDS_TO_LOOT], 
                                  canPass=True,
                                  activateAbilityOnPass=True)
-
-                skipRoundZeroRestStop = False
 
                 # Buy from a Shop
                 if not SKIP_SHOP_DEBUG and roundCount % 4 == 0:
@@ -271,7 +266,7 @@ def code(
                 neckOfTheWoods = clearingsAvailable.pop(pick - 1)
 
                 # Adds to the loot table Cards for looting
-                lootTable = h.cardLocation("loot table")
+                lootTable = CardLocation("loot table")
                 setOfCards = []
                 if LOOT_SHELLS_ONLY:
                     setOfCards = gcbt.getDinoShellCards()
@@ -284,6 +279,20 @@ def code(
 
                 # Sets the clearing
                 clearing = neckOfTheWoods.clearing
+
+                # Loots if we are doing that new feature
+                if DO_ROUND_1_LOOTING and roundCount == 0:
+                    h.selectCard(dino, 
+                                 clearing.name, 
+                                 roundCount, 
+                                 [lootTable], 
+                                 [NUMBER_OF_CARDS_TO_LOOT], 
+                                 canPass=True,
+                                 activateAbilityOnPass=True)
+
+                # Sets dino looting back to as it should be
+                dino.looting += dino.uptickLooting
+
 
             event = "Populate Clearing"
 
@@ -317,83 +326,14 @@ def code(
             event = returnValues[0]
 
         elif event == "Dino Turn End":
-            ## ----- PACKING ABILITIES -----
-            while True:
-                hasPackingCard = False
-                
-                # Finds all Cards that have yet to be revealed with Packing abilities
-                revealPicksIndexes = []
-                for i in range(dino.pocket.length()):
-                    card = dino.pocket.at(i)
-                    if card.hasPackingAbility and not(card.revealed):
-                        hasPackingCard = True
-                        revealPicksIndexes.append(i + 1)
-                for i in range(dino.hand.length()):
-                    card = dino.hand.at(i)
-                    if card.hasPackingAbility and not(card.revealed):
-                        hasPackingCard = True
-                        revealPicksIndexes.append(dino.pocket.length() + i + 1)
-                
-                # Quits if there are no such Cards
-                if not(hasPackingCard):
-                    break
-                
-                # Handles UI for the Packing Phase
-                extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
-                vis.printDinoTurn(dino, 
-                                  enemies, 
-                                  roundCount, 
-                                  clearing, 
-                                  event, 
-                                  extraSuppressedTypes=extraSuppressedTypes)
-
-                selectionText = (
-                    vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Pack a "
-                    + Fore.GREEN + "Card" + Fore.WHITE + ": "
-                )
-                pick = h.selectCardFromHandAndPocket(revealPicksIndexes, 
-                                                     selectionText,
-                                                     dino, 
-                                                     enemies, 
+            """Handles resolving dino revealing cards to play; handled via `gameEvent.dinoPackingCard()`."""
+            returnValues = gameEvent.dinoPackingCard(dino,
+                                                     enemies,
                                                      roundCount,
                                                      clearing,
                                                      event,
                                                      entityNames,
-                                                     cardNames,
-                                                     extraSuppressedTypes=extraSuppressedTypes,
-                                                     canPass=True)
-
-                if pick != "pass":
-                    # Handles visuals
-                    passedInVisuals = vis.prefabPrintDinoTurn(dino, 
-                                                              enemies, 
-                                                              roundCount, 
-                                                              clearing,
-                                                              entityNames, 
-                                                              cardNames, 
-                                                              event, 
-                                                              extraSuppressedTypes=extraSuppressedTypes)
-
-                    # Are we playing from the Pocket or from Hand?
-                    if pick <= dino.pocket.length():
-                        dino.packCard(dino.pocket, 
-                                      pick - 1, 
-                                      dino, 
-                                      dino, 
-                                      enemies, 
-                                      passedInVisuals)
-                    else:
-                        dino.packCard(dino.hand, 
-                                      pick - 1 - dino.pocket.length(), 
-                                      dino, 
-                                      dino, 
-                                      enemies,
-                                      passedInVisuals)
-                else:
-                    break
-            
-            for card in dino.getLocations():
-                card.revealed = False
+                                                     cardNames)
 
             ## ----- Reaction Window for Dino Turn End -----
             r.reactionStack = r.reactStack([
@@ -533,6 +473,43 @@ def code(
                     "Hungry Wolf Player!")
             '''
             
+            """
+            Here contains key formerly-used code for these unlocks.
+                        
+            unlockConditions = {
+                "Unlocked_Belly_Filled_Shrew": "3 or more 'Shrews' eliminated in one turn",
+                "Unlocked_Hungry_Wolf": "You made it one turn" 
+            }
+
+            ## Updates the save value accordingly. 
+            ##  saveFile: the save file name. 
+            ##  key: the value on save. 
+            ##  updatedValue: the new thing to make the key paired to. 
+            ##  splashText: what to say if this variable got updated. 
+            def saveUpdate(saveFile, key, updatedValue, majorSplashText):
+                minorSplashText = unlockConditions.get(key)
+                newFile = ""
+                file = open(str(saveFile), 'r')
+                for line in file:
+                    keyValuePair = line.split(": ")
+                    if keyValuePair[0] == key and keyValuePair[1] != str(updatedValue) + "\n":
+                        splash(Fore.YELLOW + "Unlocked Achieved" + Fore.WHITE + ": "
+                            + majorSplashText, printInsteadOfInput = True)
+                        splash(" - Requirement: " + Fore.YELLOW + minorSplashText + ".", 
+                            printInsteadOfInput = True)
+                        yetToTypeYes = True
+                        while yetToTypeYes:
+                            yetToTypeYes = not yesOrNo("Type (Y)es to Continue.")
+                        newFile += keyValuePair[0] + ": " + str(updatedValue) + "\n"
+                    else:
+                        newFile += line
+
+                file.close()
+                file = open(str(saveFile), 'w+')
+                file.write(newFile)
+                file.close()
+            """
+
             event = "Dino Turn Start"
 
         elif event == "Round End":

@@ -11,17 +11,18 @@ from typing import TYPE_CHECKING
 from colorama import Back, Fore, Style, init
 
 init(autoreset=True)
-from Dinosaur_Venture import card_tokens as tk
 from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation, CardZoneName
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
-    from Dinosaur_Venture import card as c
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+    from Dinosaur_Venture.cards.mechanics import card as c
 
 class Entity():
     """
@@ -95,7 +96,6 @@ class Entity():
         If `bandBreak` == True, further damage from the current damage string is negated.
             Reset at the end of dealing damage.
         `dealtDamageThisTurn` = True even if the damage dealt was 0 like with '0R / 0G / 0B.'
-        Functionality depends on the specific string names of the card locations (ie, 'deck').
     """
     def __init__(self):
         # Index in the enemy list
@@ -121,17 +121,16 @@ class Entity():
         # The health of the enemy; should be overridden in inheritance
         self.hp = cll.DeadHealthcons()
 
-        # The deck zones
-        # Do not change these names! Functionality depends on reading the names of these locations
-        self.deck = h.cardLocation('deck')
+        # The deck zones; Do not change these names, for functionality depends on reading the names of these locations
+        self.deck = CardLocation(CardZoneName.DECK)
 
-        self.draw = h.cardLocation('draw')
-        self.hand = h.cardLocation('hand')
-        self.discard = h.cardLocation('discard')
-        self.play = h.cardLocation('play')
-        self.intoHand = h.cardLocation('into-hand')
-        self.intoIntoHand = h.cardLocation('into-into-hand')
-        self.pocket = h.cardLocation('pocket')
+        self.draw = CardLocation(CardZoneName.DRAW)
+        self.hand = CardLocation(CardZoneName.HAND)
+        self.discard = CardLocation(CardZoneName.DISCARD)
+        self.play = CardLocation(CardZoneName.PLAY)
+        self.intoHand = CardLocation(CardZoneName.INTO_HAND)
+        self.intoIntoHand = CardLocation(CardZoneName.INTO_INTO_HAND)
+        self.pocket = CardLocation(CardZoneName.POCKET)
 
         # Card Handler Functions, which allow the overriding of cardFunctions functionality
         self.cmfDepot = []
@@ -214,7 +213,7 @@ class Entity():
             "deadCardPlays": self.deadCardPlays
         }
     
-    def getLocations(self) -> list["h.cardLocation"]:
+    def getLocations(self) -> list[CardLocation]:
         """Returns all locations (excluding deck) concatenated."""
         locations = self.getIterableOfLocations()
         returnArray = []
@@ -339,10 +338,10 @@ class Entity():
         self.deck.shuffle()
         
         # Initializes cards in all locations
-        topDraw = h.cardLocation("")
-        unsetDraw = h.cardLocation("")
-        bottomDraw = h.cardLocation("")
-        muck = h.cardLocation("")
+        topDraw = CardLocation("")
+        unsetDraw = CardLocation("")
+        bottomDraw = CardLocation("")
+        muck = CardLocation("")
 
         for deckCard in self.deck.array:
             card = copy.deepcopy(deckCard)
@@ -483,9 +482,9 @@ class Entity():
 
     def moveMe(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         card: "c.Card",
-        toLocation: h.cardLocation,
+        toLocation: CardLocation,
         position: int = 0,
         printCard: bool = False,
         inputCard: bool = False,
@@ -503,6 +502,10 @@ class Entity():
             inputCard: if the moved card's information should be shown via `input()`.
             suppressFailText: if the move is unsuccessful, if we should ignore the FAIL_MOVE text.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityLogEntry.MoveMe(
+            self, fromLocation, card, toLocation, position, printCard, inputCard, suppressFailText))
+
         index = h.locateCardIndex(fromLocation, card)
         if index >= 0 and card.shelled == False:
             self.moveCard(
@@ -521,13 +524,13 @@ class Entity():
 
     def playMe(
         self, 
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         card: "c.Card", 
         caster: "Entity", 
         dino: "Entity", 
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
-        overrideToLocation: h.cardLocation | str = "null", 
+        overrideToLocation: CardLocation | str = "null", 
         suppressFailText: bool = False
     ) -> None:
         """
@@ -560,7 +563,7 @@ class Entity():
 
     def discardMe(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         card: "c.Card",
         dino: "Entity",
         enemies: list["Entity"],
@@ -595,13 +598,13 @@ class Entity():
     # Given a selected index, plays that Card. 
     def playCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int, 
         caster: "Entity", 
         dino: "Entity", 
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
-        overrideToLocation: h.cardLocation | str = "null", 
+        overrideToLocation: CardLocation | str = "null", 
         scriptedInput: "scriptInput.gameplayScriptInput" = None
     ) -> None:
         """
@@ -618,7 +621,9 @@ class Entity():
                 If not "null," expected parameter is a `h.cardLocation`.
         """
         # Logging
-        log.write_to_log(log_entry.EntityPlayCardLogEntry(self, fromLocation, cardIndex, caster, dino, enemies))
+        log.write_to_log(log_entry.EntityLogEntry.PlayCard(
+            self, fromLocation, cardIndex, caster, dino, enemies
+        ))
 
         # Can we play this Card or is it <<inoperable>>?
         if tk.checkTokensOnThis(fromLocation.at(cardIndex), [tk.inoperable()]):
@@ -659,13 +664,14 @@ class Entity():
 
     def packCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int, 
         caster: "Entity", 
         dino: "Entity", 
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
-        overrideToLocation: h.cardLocation | str = "null", 
+        overrideToLocation: CardLocation | str = "null", 
+        scriptedInput: "scriptInput.gameplayScriptInput" = None
     ) -> None:
         """
         Given a selected index, resolves the packing text of that Card.
@@ -680,6 +686,11 @@ class Entity():
             overrideToLocation: if this card will not be played to `caster.play`.
                 If not "null," expected parameter is a `h.cardLocation`.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityLogEntry.PackingCard(
+            self, fromLocation, cardIndex, caster, dino, enemies
+        ))
+
         # Where are we playing this Card to?
         if overrideToLocation == "null":
             # We move in nowhere, but still need access to this card
@@ -688,18 +699,43 @@ class Entity():
             card = self.moveCard(fromLocation, cardIndex, overrideToLocation)
 
         ## ----- Calls the onPacking of the Card -----
-        card.onPacking(caster, dino, enemies, passedInVisuals)
+        card.onPacking(caster, dino, enemies, passedInVisuals, scriptedInput=scriptedInput)
 
         # Resets state after playing a Card
         for entity in enemies + [dino]:
             for card in entity.getLocations():
                 card.resetCardState_AfterAnyCardResolves()
 
+    def fetchLocationByConstant(self, name: str) -> CardLocation:
+        """Retrieves the card location matching the `CardLocationName` constant."""
+        if name == CardZoneName.DECK:
+            return self.deck
+        elif name == CardZoneName.DISCARD:
+            return self.discard
+        elif name == CardZoneName.DRAW:
+            return self.draw
+        elif name == CardZoneName.HAND:
+            return self.hand
+        elif name == CardZoneName.INTO_HAND:
+            return self.intoHand
+        elif name == CardZoneName.INTO_INTO_HAND:
+            return self.intoIntoHand
+        elif name == CardZoneName.PLAY:
+            return self.play
+        elif name == CardZoneName.POCKET:
+            return self.pocket
+        else:
+            assert False, "Cannot fetch location by name of " + str(name)
+
+    # Constants for denoting default locations we will draw from
+    DEFAULT_CARD_LOCATION = 'DEFAULT'
+    NO_CARD_LOCATION = 'NONE'
+
     def drawCard(
         self,
-        fromLocation: h.cardLocation | str = 'DEFAULT', 
-        toLocation: h.cardLocation | str = 'DEFAULT', 
-        shuffleLocation: h.cardLocation | str = 'DEFAULT', 
+        fromLocation: CardLocation | str = DEFAULT_CARD_LOCATION, 
+        toLocation: CardLocation | str = DEFAULT_CARD_LOCATION, 
+        shuffleLocation: CardLocation | str = DEFAULT_CARD_LOCATION, 
         printCard: bool = False, 
         inputCard: bool = False
     ) -> any:
@@ -718,30 +754,33 @@ class Entity():
             Either 'empty' or the Card, depending if a Card was drawn.
     
         Notes:
-            If a location == 'DEFAULT', we draw from the following locations:
+            If a location == DEFAULT_CARD_LOCATION, we draw from the following locations:
                 fromLocation: 'draw'
                 toLocation: 'hand'
                 shuffleLocation: 'discard'
-            If shuffleLocation == 'NONE', reshuffles nothing.
-
- 
+            If shuffleLocation == NO_CARD_LOCATION, reshuffles nothing.
         """
         
         ## ----- sets default locations -----
-        if fromLocation == 'DEFAULT':
+        if isinstance(fromLocation, str) and fromLocation == self.DEFAULT_CARD_LOCATION:
             fromLocation = self.draw
-        if toLocation == 'DEFAULT':
+        if isinstance(toLocation, str) and toLocation == self.DEFAULT_CARD_LOCATION:
             toLocation = self.hand
-        if shuffleLocation == 'DEFAULT':
+        if isinstance(shuffleLocation, str) and shuffleLocation == self.DEFAULT_CARD_LOCATION:
             shuffleLocation = self.discard
-        if shuffleLocation == 'NONE':
-            shuffleLocation = h.cardLocation("Nothing")
+        if isinstance(shuffleLocation, str) and shuffleLocation == self.NO_CARD_LOCATION:
+            shuffleLocation = CardLocation("nothing")
         
         ## ----- does the drawing -----
+        # Logging
+        log.write_to_log(log_entry.EntityLogEntry.DrawCard(
+            self, fromLocation, toLocation, shuffleLocation, printCard, inputCard
+        ))
+        
         # Reshuffles if need be. 
         if (fromLocation.length() == 0 and shuffleLocation.length() > 0):
-            if (self.enemy == False):
-                input("   " + Fore.MAGENTA + " Triggered a Shuffle" + Fore.WHITE + "... ")
+            # if (self.enemy == False):
+            #     input("   " + Fore.MAGENTA + " Triggered a Shuffle" + Fore.WHITE + "... ")
             shuffleLocation.shuffleTriggeredByDraw()
             for i in range(shuffleLocation.length()):
                 fromLocation.append(shuffleLocation.at(i))
@@ -762,11 +801,11 @@ class Entity():
         else:
             return "empty"
     
-    def destroyCard(self, location: h.cardLocation, index: int) -> None:
+    def destroyCard(self, location: CardLocation, index: int) -> None:
         """Destroys the card at the index of the location."""
         location.pop(index)
     
-    def printMovedCard(self, card: "c.Card", locationName: h.cardLocation, booleanPrint: bool):
+    def printMovedCard(self, card: "c.Card", locationName: CardLocation, booleanPrint: bool):
         """
         Handles UI for moving a card when printed.
         
@@ -781,20 +820,20 @@ class Entity():
     def gainCard(
         self, 
         card: "c.Card", 
-        toLocation: h.cardLocation, 
+        toLocation: CardLocation, 
         position: int = 0, 
         printCard: bool = False, 
         inputCard: bool = False
     ) -> None:
         """Gains a Card to the to location at the given position; card should be initialized."""
-        fantasy = h.cardLocation("fantasy")
+        fantasy = CardLocation("fantasy")
         fantasy.append(card)
         self.moveCard(fantasy, 0, toLocation, position, printCard, inputCard)
 
     def gainCopyOfCard(
         self, 
         card: "c.Card", 
-        toLocation: h.cardLocation, 
+        toLocation: CardLocation, 
         position: int = 0, 
         printCard: bool = False, 
         inputCard: bool = False
@@ -805,16 +844,16 @@ class Entity():
         Effectively the same as `gainCard` except this will `copy.deepcopy` the other card.
         Useful for when the copied card is already in deck/will continue to be played with.
         """
-        fantasy = h.cardLocation("fantasy")
+        fantasy = CardLocation("fantasy")
         cardCopy = copy.deepcopy(card)
         fantasy.append(cardCopy)
         self.moveCard(fantasy, 0, toLocation, position, printCard, inputCard)
 
     def moveCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int,
-        toLocation: h.cardLocation,
+        toLocation: CardLocation,
         position: int = 0,
         printCard: bool = False,
         inputCard: bool = False,
@@ -854,7 +893,7 @@ class Entity():
     
     def discardCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int,
         dino: "Entity",
         enemies: list["Entity"],
@@ -880,6 +919,11 @@ class Entity():
             As opposed to `moveCard` where the toLocation is 'discard', this function calls
                 unique triggers based on the fact the card was specifically "discarded".
         """
+        # Logging
+        log.write_to_log(log_entry.EntityLogEntry.DiscardCard(
+            fromLocation, cardIndex, dino, enemies, passedInVisuals, moments, printCard, inputCard
+        ))
+
         if moments == None:
             moments = []
 
@@ -891,15 +935,24 @@ class Entity():
         ])
         r.reactionStack.react(dino, enemies, passedInVisuals)
 
+        return movedCard
+
     def plusUpcomingPlusCard(self, when: int, count: int) -> None:
         """
         Increases hand size `when`-turns in the future by `count.`
         
         Example: `plusUpcomingPlusCard(0, 1)` increase the hand size by 1 on the next turn.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityLogEntry.PlusUpcomingPlusCard(self, when, count))
+
+        self._plusUpcomingPlusCard(when, count)
+
+    def _plusUpcomingPlusCard(self, when: int, count: int) -> None:
+        """Helper function for increasing future card count, recursively."""
         if len(self.upcomingPlusCard) < when + 1:
             self.upcomingPlusCard.append(0)
-            self.plusUpcomingPlusCard(when, count)
+            self._plusUpcomingPlusCard(when, count)
         else:
             self.upcomingPlusCard[when] += count
 
@@ -921,9 +974,16 @@ class Entity():
         
         Example: `plusUpcomingPlusAction(0, 1)` increase action count by 1 for the next turn.
         """
+        # Logging
+        log.write_to_log(log_entry.EntityLogEntry.PlusUpcomingPlusAction(self, when, count))
+
+        self._plusUpcomingPlusAction(when, count)
+
+    def _plusUpcomingPlusAction(self, when: int, count: int) -> None:
+        """Helper function for increasing future action count, recursively."""
         if len(self.upcomingPlusAction) < when + 1:
             self.upcomingPlusAction.append(0)
-            self.plusUpcomingPlusAction(when, count)
+            self._plusUpcomingPlusAction(when, count)
         else:
             self.upcomingPlusAction[when] += count
 
@@ -942,7 +1002,7 @@ class Entity():
     def plusActions(self, plusActions: int) -> None:
         """Attempts to give + Action, ignoring + Actions under specific debuffs."""
         # Logging
-        log.write_to_log(log_entry.EntityPlusActionsLogEntry(self, plusActions))
+        log.write_to_log(log_entry.EntityLogEntry.PlusActions(self, plusActions))
 
         if self.canGainActionsThisTurn:
             self.actions += plusActions
@@ -1035,7 +1095,7 @@ class Entity():
     ) -> "Entity.DamageData":
         """Deals attackData damage to this entity."""
         # Logging
-        log.write_to_log(log_entry.EntityDamage(caster, dino, enemies, attackData))
+        log.write_to_log(log_entry.EntityLogEntry.Damage(caster, dino, enemies, attackData))
 
         # Entity value for if any damage was dealt this turn
         caster.dealtDamageThisTurn = True

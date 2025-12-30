@@ -122,3 +122,97 @@ def dinoPlayCard(
         else:
             event = "Dino Turn End"
     return (event,)
+
+def dinoPackingCard(
+    dino: "e.Entity", 
+    enemies: "e.Entity",
+    roundCount: int, 
+    clearing: "clr.Clearing", 
+    event: str, 
+    entityNames: dict, 
+    cardNames: dict, 
+    scriptedInput=None
+) -> None:
+
+    ## ----- PACKING ABILITIES -----
+    while True:
+        hasPackingCard = False
+        
+        # Finds all Cards that have yet to be revealed with Packing abilities
+        revealPicksIndexes = []
+        for i in range(dino.pocket.length()):
+            card = dino.pocket.at(i)
+            if card.hasPackingAbility and not(card.revealed):
+                hasPackingCard = True
+                revealPicksIndexes.append(i + 1)
+        for i in range(dino.hand.length()):
+            card = dino.hand.at(i)
+            if card.hasPackingAbility and not(card.revealed):
+                hasPackingCard = True
+                revealPicksIndexes.append(dino.pocket.length() + i + 1)
+        
+        # Quits if there are no such Cards
+        if not(hasPackingCard):
+            break
+        
+        # Handles UI for the Packing Phase
+        extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
+        vis.printDinoTurn(dino, 
+                            enemies, 
+                            roundCount, 
+                            clearing, 
+                            event, 
+                            extraSuppressedTypes=extraSuppressedTypes)
+
+        selectionText = (
+            vis.eventText(event) + "(Clear), (Pass), [Input Noun], or Pack a "
+            + Fore.GREEN + "Card" + Fore.WHITE + ": "
+        )
+        pick = h.selectCardFromHandAndPocket(revealPicksIndexes, 
+                                                selectionText,
+                                                dino, 
+                                                enemies, 
+                                                roundCount,
+                                                clearing,
+                                                event,
+                                                entityNames,
+                                                cardNames,
+                                                extraSuppressedTypes=extraSuppressedTypes,
+                                                canPass=True,
+                                                scriptedInput=scriptedInput)
+
+        if pick != "pass":
+            # Handles visuals
+            passedInVisuals = vis.prefabPrintDinoTurn(dino, 
+                                                        enemies, 
+                                                        roundCount, 
+                                                        clearing,
+                                                        entityNames, 
+                                                        cardNames, 
+                                                        event, 
+                                                        extraSuppressedTypes=extraSuppressedTypes)
+
+            # Are we playing from the Pocket or from Hand?
+            if pick <= dino.pocket.length():
+                dino.packCard(dino.pocket, 
+                                pick - 1, 
+                                dino, 
+                                dino, 
+                                enemies, 
+                                passedInVisuals,
+                                scriptedInput=scriptedInput)
+            else:
+                dino.packCard(dino.hand, 
+                                pick - 1 - dino.pocket.length(), 
+                                dino, 
+                                dino, 
+                                enemies,
+                                passedInVisuals,
+                                scriptedInput=scriptedInput)
+        else:
+            break
+    
+    for card in dino.getLocations():
+        card.revealed = False
+
+    return (event,)

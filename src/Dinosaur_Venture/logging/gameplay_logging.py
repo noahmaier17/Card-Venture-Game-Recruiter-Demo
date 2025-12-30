@@ -78,6 +78,10 @@ class InMemoryLogger(Logger):
         pass # Nothing needs to be opened
 
     def _write(self, log_entry: "LogEntry") -> None:
+        # For testing VS the physical logger, we want to see if we can convert the log entry into JSON
+        dictonary = log_entry.to_json()
+        _ = json.dumps(dictonary, indent=2)
+
         self.logs.append(log_entry)
     
     def read(self) -> str:

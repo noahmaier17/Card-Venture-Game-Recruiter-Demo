@@ -30,6 +30,12 @@ class dinoPlayCard(simulateGameEvent):
         gameEvents.dinoPlayCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames,
                                 scriptedInput=self.scriptedInput)
 
+## Dino packing Card
+class dinoPackingCard(simulateGameEvent):
+    def sim(self, dino, enemies, roundCount, clearing, event):
+        gameEvents.dinoPackingCard(dino, enemies, roundCount, clearing, event, entityNames, cardNames,
+                                   scriptedInput=self.scriptedInput)
+
 ## Simulates gameplay.
 ##  simualteGameEventsArray: an array of simulateGameEvent methods, which corresponds to the order
 ##  of what is simulated.
@@ -43,6 +49,8 @@ def simulate(dino, enemies, clearing, simulateGameEventsArray):
         elif isinstance(simulateGameEvent, dinoTurnStart):
             simulateGameEvent.sim(dino, enemies)
         elif isinstance(simulateGameEvent, dinoPlayCard):
-            simulateGameEvent.sim(dino, enemies, 0, clearing, "Dino Play Card")
+            simulateGameEvent.sim(dino, enemies, 0, clearing, "Unneccesary Event Text")
+        elif isinstance(simulateGameEvent, dinoPackingCard):
+            simulateGameEvent.sim(dino, enemies, 0, clearing, "Unneccesary Event Text")
         else:
             raise Exception(simulateGameEventsArray + " is not implemented for simulation")

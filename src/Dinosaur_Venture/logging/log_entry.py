@@ -5,12 +5,17 @@ Creates entries within the log for specific game events.
 Each LogEntry is coupled with specific classes/function calls.
 """
 
+from enum import Enum
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import channel_linked_lists as cll
-    from Dinosaur_Venture import helper as h
+    from Dinosaur_Venture import main_visuals as vis
+    from Dinosaur_Venture import react as r
+    from Dinosaur_Venture.cards.mechanics import card as c
+    from Dinosaur_Venture.cards.mechanics import card_functions as cf
+    from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
     from Dinosaur_Venture.entities import entity as e
 
 def serialize_object(object):
@@ -27,7 +32,7 @@ def serialize_object(object):
         for value in object:
             return_object.append(serialize_object(value))
         
-        if isinstance(object, tuple):
+        if not isinstance(object, tuple):
             return tuple(return_object)
         else:
             return return_object
@@ -39,13 +44,18 @@ def serialize_object(object):
             return_object[key] = serialize_object(value)
         return return_object
     
+    # Do we have an enum?
+    elif isinstance(object, Enum):
+        return object.value
+
     # Do we have an object with logIdentity or log_identity call?
     elif hasattr(object, "logIdentity") and callable(object.logIdentity):
         return serialize_object(object.logIdentity())
     elif hasattr(object, "log_identity") and callable(object.log_identity):
         return serialize_object(object.log_identity())
 
-    raise Exception("Cannot serialize parameter " + str(object))
+    # If none of those are true, we cannot serialize this value.
+    raise Exception("Cannot serialize parameter (likely missing logIdentity() call)" + str(object))
     
 class LogEntry(ABC):
     """
@@ -69,91 +79,313 @@ class LogEntry(ABC):
         # ... and serialize the remaining attributes
         return log_json | serialize_object(self.__dict__)
 
-class EntityLogEntry(LogEntry):
+class EntityLogEntry():
     """
     Log Entries found within functions within `entity.py`.
     The purpose of this inheritance is mostly for code quality.
     """
 
-class EntityDamage(EntityLogEntry):
+    class DiscardCard(LogEntry):
+        """
+        Log for discarding a card.
+        Employed in `entity.discardCard()`.
+        """
+        _LOG_TYPE = "Entity Discard Card"
+
+        def __init__(
+            self,
+            fromLocation: "CardLocation",
+            cardIndex: int,
+            dino: "e.Entity",
+            enemies: list["e.Entity"],
+            passedInVisuals: "vis.prefabPassedInVisuals",
+            moments: list["r.reactMoments"],
+            printCard: bool,
+            inputCard: bool
+        ) -> None:
+            self.fromLocation = fromLocation
+            self.cardIndex = cardIndex
+            self.dino = dino
+            self.enemies = enemies
+            self.passedInVisuals = passedInVisuals
+            self.moments = moments
+            self.printCard = printCard
+            self.inputCard = inputCard
+
+    class Damage(LogEntry):
+        """
+        Log for dealing damage.
+        Employed in `entity.damage()`.
+        """
+        _LOG_TYPE = "Entity Damage"
+
+        def __init__(
+            self,
+            caster: "e.Entity", 
+            dino: "e.Entity", 
+            enemies: list["e.Entity"], 
+            attackData: "cll.Attackcons"
+        ) -> None:
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+            self.attackData = attackData
+
+    class PlusActions(LogEntry):
+        """
+        Log for + Actions.
+        Employed in `entity.plusActions()`.
+        """
+        _LOG_TYPE = "Entity Plus Actions"
+
+        def __init__(self, entity: "e.Entity", plusActions: int) -> None:
+            self.entity = entity
+            self.plusActions = plusActions
+
+    class MoveMe(LogEntry):
+        """
+        Log for moving a card by card object.
+        Employed in `entity.moveMe()`.
+        """
+        _LOG_TYPE = "Entity Move Me"
+
+        def __init__(
+            self,
+            entity: "e.Entity",
+            fromLocation: "CardLocation",
+            card: "c.Card",
+            toLocation: "CardLocation",
+            position: int,
+            printCard: bool,
+            inputCard: bool,
+            suppressFailText: bool
+        ) -> None:
+            self.entity = entity
+            self.fromLocation = fromLocation
+            self.card = card
+            self.toLocation = toLocation
+            self.position = position
+            self.printCard = printCard
+            self.inputCard = inputCard
+            self.suppressFailText = suppressFailText
+
+    class PlayCard(LogEntry):
+        """
+        Log for playing a Card.
+        Employed in `entity.playCard()`.
+        """    
+        _LOG_TYPE = "Entity Play Card"
+
+        def __init__(
+            self,
+            entity: "e.Entity",
+            fromLocation: "CardLocation",
+            cardIndex: int,
+            caster: "e.Entity",
+            dino: "e.Entity",
+            enemies: list["e.Entity"]
+        ) -> None:
+            self.playedCard = fromLocation.at(cardIndex) # Customly added for ease of log parsing
+            self.entity = entity
+            self.fromLocation = fromLocation
+            self.cardIndex = cardIndex
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+
+    class DrawCard(LogEntry):
+        """
+        Log for drawing a Card.
+        Employed in `entity.drawCard()`.
+        """
+        _LOG_TYPE = "Entity Draw Card"
+
+        def __init__(
+            self,
+            entity: "e.Entity",
+            fromLocation: "CardLocation", 
+            toLocation: "CardLocation", 
+            shuffleLocation: "CardLocation", 
+            printCard: bool, 
+            inputCard: bool
+        ) -> None:
+            self.fromLocation = fromLocation
+            self.toLocation = toLocation
+            self.shuffleLocation = shuffleLocation
+            self.printCard = printCard
+            self.inputCard = inputCard
+
+    class PackingCard(LogEntry):
+        """
+        Log for playing a Card.
+        Employed in `entity.packCard()`.
+        """    
+        _LOG_TYPE = "Entity Packing Card"
+
+        def __init__(
+            self,
+            entity: "e.Entity",
+            fromLocation: "CardLocation",
+            cardIndex: int,
+            caster: "e.Entity",
+            dino: "e.Entity",
+            enemies: list["e.Entity"]
+        ) -> None:
+            self.packedCard = fromLocation.at(cardIndex) # Customly added for ease of log parsing
+            self.entity = entity
+            self.fromLocation = fromLocation
+            self.cardIndex = cardIndex
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+
+    class PlusUpcomingPlusAction(LogEntry):
+        """
+        Log for playing a Card.
+        Employed in `entity.plusUpcomingPlusAction()`.
+        """    
+        _LOG_TYPE = "Entity Plus Upcoming Plus Action"
+
+        def __init__(
+            self,
+            caster: "e.Entity",
+            when: int, 
+            count: int
+        ) -> None:
+            self.caster = caster
+            self.when = when
+            self.count = count
+
+    class PlusUpcomingPlusCard(LogEntry):
+        """
+        Log for playing a Card.
+        Employed in `entity.plusUpcomingPlusCard()`.
+        """    
+        _LOG_TYPE = "Entity Plus Upcoming Plus Card"
+
+        def __init__(
+            self,
+            caster: "e.Entity",
+            when: int, 
+            count: int
+        ) -> None:
+            self.caster = caster
+            self.when = when
+            self.count = count
+
+class HelperLogEntry():
     """
-    Log for dealing damage.
-    Employed in `entity.damage()`.
+    Log Entries found within functions within `helper.py` (or similar helper-method files).
+    The purpose of this inheritance is mostly for code quality.
     """
-    _LOG_TYPE = "Entity Damage"
 
-    def __init__(
-        self,
-        caster: "e.Entity", 
-        dino: "e.Entity", 
-        enemies: list["e.Entity"], 
-        attackData: "cll.Attackcons"
-    ) -> None:
-        self.caster = caster
-        self.dino = dino
-        self.enemies = enemies
-        self.attackData = attackData
+    class PickLivingEnemy(LogEntry):
+        """
+        Log for picking a living enemy.
+        Employed in `helper.pickLivingEnemy()`
+        """
+        _LOG_TYPE = "Helper Pick Living Enemy"
 
-class EntityPlusActionsLogEntry(EntityLogEntry):
-    """
-    Log for + Actions.
-    Employed in `entity.plusActions()`.
-    """
-    _LOG_TYPE = "Entity Plus Actions"
+        def __init__(
+            self,
+            text: str, 
+            enemies: list["e.Enemies"], 
+            preamble: list[str], 
+            passedInVisuals: "vis.prefabPassedInVisuals"
+        ) -> None:
+            self.text = text
+            self.enemies = enemies
+            self.preamble = preamble
+            self.passedInVisuals = passedInVisuals
 
-    def __init__(self, entity: "e.Entity", plusActions: int) -> None:
-        self.entity = entity
-        self.plusActions = plusActions
+    class YesOrNo(LogEntry):
+        """
+        Log for answering Yes or No.
+        Employed in `helper.yesOrNo()`
+        """
+        _LOG_TYPE = "Helper Yes or No Log Entry"
 
-class EntityPlayCardLogEntry(EntityLogEntry):
-    """
-    Log for playing a Card.
-    Employed in `entity.playCard()`.
-    """    
-    _LOG_TYPE = "Entity Play Card"
+        def __init__(
+            self,
+            text: str,
+            preamble: list,
+            passedInVisuals: "vis.prefabPassedInVisuals"
+        ) -> None:
+            self.text = text
+            self.preamble = preamble
+            self.passedInVisuals = passedInVisuals
 
-    def __init__(
-        self,
-        entity: "e.Entity",
-        fromLocation: "h.cardLocation",
-        cardIndex: int,
-        caster: "e.Entity",
-        dino: "e.Entity",
-        enemies: list["e.Entity"]
-    ) -> None:
-        self.playedCard = fromLocation.at(cardIndex) # Customly added for ease of log parsing
-        self.entity = entity
-        self.fromLocation = fromLocation
-        self.cardIndex = cardIndex
-        self.caster = caster
-        self.dino = dino
-        self.enemies = enemies
-
-class CardFunctionLogEntry(LogEntry):
+class CardFunctionLogEntry():
     """
     Log Entries found within functions within `card_functions.py`.
     The purpose of this inheritance is mostly for code quality.
     """
+    class DiscardYourHand(LogEntry):
+        """
+        Log for discarding your Hand.
+        Employed in `card_functions.discardYourHand()`.
+        """
+        _LOG_TYPE = "Card Function Discard Your Hand"
 
-class CardFunctionDrawUntilYouHaveXCardsInHand(CardFunctionLogEntry):
-    """
-    Log for drawing until you have X Card(s) in Hand.
-    Employed in `card_functions.drawUntilYouHaveXCardsInHand()`.
-    """    
-    _LOG_TYPE = "Card Function Draw To X in Hand"
+        def __init__(
+            self,
+            cardFunction: "cf.cardFunctions",
+            card: "c.Card", 
+            caster: "e.Entity", 
+            dino: "e.Entity", 
+            enemies: list["e.Entity"], 
+            passedInVisuals: "vis.prefabPassedInVisuals"
+        ) -> None:
+            self.cardFunction = cardFunction
+            self.card = card
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+            self.passedInVisuals = passedInVisuals
 
-    def __init__(
-        self,
-        cardFunction,
-        card, 
-        caster, 
-        dino, 
-        enemies, 
-        passedInVisuals
-    ) -> None:
-        self.cardFunction = cardFunction
-        self.card = card
-        self.caster = caster
-        self.dino = dino
-        self.enemies = enemies
-        self.passedInVisuals = passedInVisuals
+    class DrawUntilYouHaveXCardsInHand(LogEntry):
+        """
+        Log for drawing until you have X Card(s) in Hand.
+        Employed in `card_functions.drawUntilYouHaveXCardsInHand()`.
+        """    
+        _LOG_TYPE = "Card Function Draw To X in Hand"
+
+        def __init__(
+            self,
+            cardFunction: "cf.cardFunctions",
+            card: "c.Card", 
+            caster: "e.Entity", 
+            dino: "e.Entity", 
+            enemies: list["e.Entity"], 
+            passedInVisuals: "vis.prefabPassedInVisuals"
+        ) -> None:
+            self.cardFunction = cardFunction
+            self.card = card
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+            self.passedInVisuals = passedInVisuals
+
+    class ArbitrarilyDiscardCardFrom_Location(LogEntry):
+        """
+        Log for discarding an arbitrary card from [ location ].
+        Employed in `card_functions.arbitrarilyDiscardCardFrom_Location()`.
+        """    
+        _LOG_TYPE = "Arbitrarily Discard Card From Location"
+
+        def __init__(
+            self,
+            cardFunction: "cf.cardFunctions",
+            card: "c.Card", 
+            caster: "e.Entity", 
+            dino: "e.Entity", 
+            enemies: list["e.Entity"], 
+            passedInVisuals: "vis.prefabPassedInVisuals"
+        ) -> None:
+            self.cardFunction = cardFunction
+            self.card = card
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+            self.passedInVisuals = passedInVisuals
+        

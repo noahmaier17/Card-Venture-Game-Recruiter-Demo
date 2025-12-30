@@ -32,6 +32,10 @@ def are_upcoming_lists_equal(list_1: list, list_2: list, comparison_parameter: C
     
     return are_upcoming_lists_equal(list_1[1:], list_2[2:], comparison_parameter=comparison_parameter)
 
+def default_name_comparison_parameter(card):
+    """Possible default parameter for `are_lists_exactly_equal` to compare cards by name."""
+    return card.name
+
 def are_lists_exactly_equal(list_1: list, list_2: list, comparison_parameter: Callable[[any], any]=None):
     """
     Tests if list_1 and list_2 are exactly equal. 
