@@ -4,12 +4,15 @@ check_card_location.py
 Utilities for `helper.card_location`.
 """
 
-from typing import Callable
+from typing import TYPE_CHECKING, Callable
 
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card as c
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from tests.test_utils.list_utilities import are_lists_exactly_equal
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 
 """
 Constants useful for checking ordering of cards.
@@ -19,7 +22,7 @@ LOWERCASE_ALHPABET = [letter.lower() for letter in h.ALPHABET]
 NUMBERS = [number for number in list(range(0, 24))]
 NUMBERS_AS_STRINGS = [str(number) for number in NUMBERS]
 
-def is_location_sorted_per_parameter(card_location: "h.cardLocation", increasing_order_array: list):
+def is_location_sorted_per_parameter(card_location: "CardLocation", increasing_order_array: list):
     """
     Does the card location contains cards with names that strictly increase based on our increasing_order_array?
 
@@ -41,7 +44,7 @@ def is_location_sorted_per_parameter(card_location: "h.cardLocation", increasing
     
     return True
 
-def populate_card_location(count: int, card_location: "h.cardLocation", names_array: list, feathery_list_by_index=None):
+def populate_card_location(count: int, card_location: "CardLocation", names_array: list, feathery_list_by_index=None):
     """
     Appends count-number of cards to the given card location, where the i-th card is named the i-th element of names_array.
     Does so in order.
@@ -57,8 +60,8 @@ def populate_card_location(count: int, card_location: "h.cardLocation", names_ar
         card_location.append(new_card)
 
 def check_card_locations_unordered(
-    card_location_1: h.cardLocation, 
-    card_location_2: h.cardLocation, 
+    card_location_1: "CardLocation", 
+    card_location_2: "CardLocation", 
     comparison_parameter: Callable[[any], any]=None
 ) -> bool:
     """

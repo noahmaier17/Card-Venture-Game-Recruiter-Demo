@@ -6,6 +6,7 @@ from Dinosaur_Venture.cards.depot.dino_cards import general_dino_cards as gdc
 from Dinosaur_Venture.cards.mechanics import card as c
 from Dinosaur_Venture.cards.mechanics import card_functions as cf
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_location import CardZoneName
 
 '''
     Chicken Coup
@@ -49,7 +50,7 @@ class inWaitingCounterRevolt(gdc.DinoCard):
 
             ## Is this in a location EXCLUDING play and discard?
             locationName = caster.findMe(card).getName()
-            if locationName == h.CARD_LOCATION_PLAY or locationName == h.CARD_LOCATION_DISCARD:
+            if locationName == CardZoneName.PLAY or locationName == CardZoneName.DISCARD:
                 return (False, r.EMPTY_RT)
 
             ## 2+ Actions remaining?

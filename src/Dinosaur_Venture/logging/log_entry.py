@@ -5,16 +5,17 @@ Creates entries within the log for specific game events.
 Each LogEntry is coupled with specific classes/function calls.
 """
 
+from enum import Enum
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import channel_linked_lists as cll
-    from Dinosaur_Venture import helper as h
     from Dinosaur_Venture import main_visuals as vis
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.cards.mechanics import card as c
     from Dinosaur_Venture.cards.mechanics import card_functions as cf
+    from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
     from Dinosaur_Venture.entities import entity as e
 
 def serialize_object(object):
@@ -43,13 +44,18 @@ def serialize_object(object):
             return_object[key] = serialize_object(value)
         return return_object
     
+    # Do we have an enum?
+    elif isinstance(object, Enum):
+        return object.value
+
     # Do we have an object with logIdentity or log_identity call?
     elif hasattr(object, "logIdentity") and callable(object.logIdentity):
         return serialize_object(object.logIdentity())
     elif hasattr(object, "log_identity") and callable(object.log_identity):
         return serialize_object(object.log_identity())
 
-    raise Exception("Cannot serialize parameter " + str(object))
+    # If none of those are true, we cannot serialize this value.
+    raise Exception("Cannot serialize parameter (likely missing logIdentity() call)" + str(object))
     
 class LogEntry(ABC):
     """
@@ -88,7 +94,7 @@ class EntityLogEntry():
 
         def __init__(
             self,
-            fromLocation: "h.cardLocation",
+            fromLocation: "CardLocation",
             cardIndex: int,
             dino: "e.Entity",
             enemies: list["e.Entity"],
@@ -146,9 +152,9 @@ class EntityLogEntry():
         def __init__(
             self,
             entity: "e.Entity",
-            fromLocation: "h.cardLocation",
+            fromLocation: "CardLocation",
             card: "c.Card",
-            toLocation: "h.cardLocation",
+            toLocation: "CardLocation",
             position: int,
             printCard: bool,
             inputCard: bool,
@@ -173,7 +179,7 @@ class EntityLogEntry():
         def __init__(
             self,
             entity: "e.Entity",
-            fromLocation: "h.cardLocation",
+            fromLocation: "CardLocation",
             cardIndex: int,
             caster: "e.Entity",
             dino: "e.Entity",
@@ -197,9 +203,9 @@ class EntityLogEntry():
         def __init__(
             self,
             entity: "e.Entity",
-            fromLocation: "h.cardLocation", 
-            toLocation: "h.cardLocation", 
-            shuffleLocation: "h.cardLocation", 
+            fromLocation: "CardLocation", 
+            toLocation: "CardLocation", 
+            shuffleLocation: "CardLocation", 
             printCard: bool, 
             inputCard: bool
         ) -> None:
@@ -219,7 +225,7 @@ class EntityLogEntry():
         def __init__(
             self,
             entity: "e.Entity",
-            fromLocation: "h.cardLocation",
+            fromLocation: "CardLocation",
             cardIndex: int,
             caster: "e.Entity",
             dino: "e.Entity",

@@ -1,7 +1,7 @@
 import pytest
 
-from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.entities import entity as e
 from tests.test_utils import card_location_utilities, list_utilities
 
@@ -67,14 +67,14 @@ def test_move_card_onto_location(test_arguments: test_arguments):
     # fromLocation and toLocation will be ordered from A to Z to test correct sequencing.
 
     # Does that aforementioned populating
-    fromLocation = h.cardLocation("from-location")
+    fromLocation = CardLocation("from-location")
     card_location_utilities.populate_card_location(
         test_arguments.from_location_size, 
         fromLocation,
         card_location_utilities.LOWERCASE_ALHPABET
     )
 
-    toLocation = h.cardLocation("to-location")
+    toLocation = CardLocation("to-location")
     card_location_utilities.populate_card_location(
         test_arguments.to_location_size,
         toLocation, 
@@ -107,7 +107,7 @@ def test_move_card_onto_location(test_arguments: test_arguments):
         assert card_location_utilities.is_location_sorted_per_parameter(fromLocation, card_location_utilities.LOWERCASE_ALHPABET)
 
         # ... does our toLocation contain this card at index position while otherwise remaining unchanged?
-        compare_to_location = h.cardLocation("compare-to-location")
+        compare_to_location = CardLocation("compare-to-location")
         card_location_utilities.populate_card_location(
             test_arguments.to_location_size,
             compare_to_location, 

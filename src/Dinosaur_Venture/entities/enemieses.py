@@ -11,11 +11,10 @@ from Dinosaur_Venture import channel_linked_lists as cll
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
-from Dinosaur_Venture.cards.depot.enemy_cards.enemy_cards import (craveFishMantra,
-                                                      demandingInheritance,
-                                                      fishFrenzy, goingNuts,
-                                                      nothing, prepareToFly,
-                                                      soapboxStump)
+from Dinosaur_Venture.cards.depot.enemy_cards.enemy_cards import (
+    craveFishMantra, demandingInheritance, fishFrenzy, goingNuts, nothing,
+    prepareToFly, soapboxStump)
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.entities import entity as e
 
 
@@ -24,10 +23,10 @@ class Enemy(e.Entity):
     def __init__(self) -> None:
         super().__init__()
 
-    def fillDeck(self, extraDrafts: h.cardLocation = None) -> None:
+    def fillDeck(self, extraDrafts: CardLocation = None) -> None:
         """Fills this enemy's deck based on its `damageDist` and `siftDist` values."""
         # THE IMPLEMENTATION OF EXTRA DRAFTS ALSO NEEDS AN ODDS NUMBER OR SOMETHING
-        EFD = h.cardLocation("EFD")
+        EFD = CardLocation("EFD")
 
         # Pre-processing, finding all cards that are reasonable-enough matches
         for Card in gcbt.ENEMY_CARD_POOL_UNINIT:

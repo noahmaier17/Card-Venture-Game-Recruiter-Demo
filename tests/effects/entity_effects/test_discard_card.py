@@ -1,9 +1,9 @@
 import pytest
 
-from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.entities import entity as e
-from tests.test_utils import card_location_utilities, list_utilities
+from tests.test_utils import card_location_utilities
 from tests.test_utils.game_setups import getSingleSliceOfDinoEnemiesClearing
 
 
@@ -57,7 +57,7 @@ def test_discard_card(test_arguments: test_arguments):
     dino, enemies, _ = getSingleSliceOfDinoEnemiesClearing()
 
     # And some arbitrary from location
-    from_location = h.cardLocation("from-location")
+    from_location = CardLocation("from-location")
 
     # Populates card locations (for these tests, the naming of cards in the locations is not important)
     card_location_utilities.populate_card_location(

@@ -4,6 +4,7 @@ from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture.cards.depot.dino_cards import general_dino_cards as gdc
 from Dinosaur_Venture.cards.mechanics import card as c
 from Dinosaur_Venture.cards.mechanics import card_functions as cf
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 
 '''
     Fruit-Bearing Monks Cards
@@ -205,7 +206,7 @@ class headCaptain(gdc.DinoCard):
     class duringPlay(cf.cardFunctions):
         def func(self, card, caster, dino, enemies, passedInVisuals):
             cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.G()], 'nil'))
-            pickUp = h.cardLocation("Pick Up")
+            pickUp = CardLocation("pick-up")
 
             for i in range(3):
                 if caster.draw.length() > 0:

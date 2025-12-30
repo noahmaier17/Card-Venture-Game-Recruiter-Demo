@@ -1,4 +1,5 @@
 from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.dinosaur_venture import code
 
 ## ----- Debugging Values ----
@@ -38,7 +39,7 @@ DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS = True
 # To replace the shop cards, uncomment the following and add cards as you please
 OVERRIDE_SHOP_LOCATION = None
 # '''
-OVERRIDE_SHOP_LOCATION = h.cardLocation("")
+OVERRIDE_SHOP_LOCATION = CardLocation("override-shop-location")
 
 from Dinosaur_Venture.cards.depot.dino_cards import shop_cards
 

@@ -9,7 +9,6 @@ Moreover, some of the logic could be better factored out, which I have begun to 
 gameplayLoopEvents.py file.
 """
 
-import os
 import random
 from typing import TYPE_CHECKING
 
@@ -25,6 +24,7 @@ from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.logging import gameplay_logging as log
 
 if TYPE_CHECKING:
@@ -65,7 +65,7 @@ def code(
     roundDifficultyCreep: int = 3.50 + 0.5 - 0.5 - 0.25 + 2.10 + 1.10 + 0.75 - 0.75
 
     # Stores all the loot for this clearing
-    lootTable: h.cardLocation = h.cardLocation("loot table")
+    lootTable: CardLocation = CardLocation("loot-table")
 
     # The current difficulty
     # Gets modified a lot which is why there are so many numbers here
@@ -110,14 +110,14 @@ def code(
 
     ## ----- Does intensive remaining set up -----
     # List of all shop cards
-    shopLocation: h.cardLocation = gcbt.getCardsByTable(["Shop"], 
-                                                        locationName = "Shop Cards")
+    shopLocation: CardLocation = gcbt.getCardsByTable(["Shop"], 
+                                                      locationName = "Shop Cards")
     # Set of random tier-1 cards (which will get debuffed)
-    randomTier1Location: h.cardLocation = gcbt.getCardsByTable(gcbt.TIER_1_TABLES, 
-                                                               locationName = "Tier 1 Cards")
+    randomTier1Location: CardLocation = gcbt.getCardsByTable(gcbt.TIER_1_TABLES, 
+                                                             locationName = "Tier 1 Cards")
     # Card debuffs
-    allDebuffs: h.cardLocation = gcbt.getCardsByTable(["Debuffs"], 
-                                                      locationName = "Debuffs")
+    allDebuffs: CardLocation = gcbt.getCardsByTable(["Debuffs"], 
+                                                    locationName = "Debuffs")
 
     # Modifies all the random tier-1 cards to have debuffs
     for card in randomTier1Location.getArray():
@@ -134,7 +134,7 @@ def code(
         shopLocation = OVERRIDE_SHOP_LOCATION
 
     if NUKE_DINO_DECK or DEBUG_DINO_DECK:
-        dino.deck = h.cardLocation("deck")
+        dino.deck = CardLocation("deck")
 
     # If DEBUG_DINO_DECK == True, replaces dino's deck with the following cards
     if DEBUG_DINO_DECK:
@@ -266,7 +266,7 @@ def code(
                 neckOfTheWoods = clearingsAvailable.pop(pick - 1)
 
                 # Adds to the loot table Cards for looting
-                lootTable = h.cardLocation("loot table")
+                lootTable = CardLocation("loot table")
                 setOfCards = []
                 if LOOT_SHELLS_ONLY:
                     setOfCards = gcbt.getDinoShellCards()

@@ -7,7 +7,7 @@ from Dinosaur_Venture.cards.mechanics import card as c
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from Dinosaur_Venture.entities import entity as e
 from tests.test_utils import card_location_utilities, list_utilities
-
+from Dinosaur_Venture.cards.mechanics.card_location import CardZoneName
 
 class test_arguments():
     """
@@ -344,7 +344,7 @@ def test_draw_cards_ignoring_feathery_cards(test_arguments: test_arguments):
             plus_cards_count=1,
             draw_size=3,
             expected_draw_size=2,
-            to_location=h.CARD_LOCATION_INTO_HAND,
+            to_location=CardZoneName.INTO_HAND,
             to_location_length=1
         ),
         # Draws a card to the play mat
@@ -352,13 +352,13 @@ def test_draw_cards_ignoring_feathery_cards(test_arguments: test_arguments):
             plus_cards_count=8,
             draw_size=2,
             discard_size=3,
-            to_location=h.CARD_LOCATION_PLAY,
+            to_location=CardZoneName.PLAY,
             to_location_length=5
         ),
         # Fails to draw a card to the discard mat (no cards to draw)
         test_arguments(
             plus_cards_count=16,
-            to_location=h.CARD_LOCATION_DISCARD,
+            to_location=CardZoneName.DISCARD,
             to_location_length=0
         )
     ]

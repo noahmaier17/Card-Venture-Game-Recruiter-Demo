@@ -16,6 +16,7 @@ from Dinosaur_Venture import helper as h
 from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation, CardZoneName
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
@@ -121,15 +122,15 @@ class Entity():
         self.hp = cll.DeadHealthcons()
 
         # The deck zones; Do not change these names, for functionality depends on reading the names of these locations
-        self.deck = h.cardLocation(h.CARD_LOCATION_DECK)
+        self.deck = CardLocation(CardZoneName.DECK)
 
-        self.draw = h.cardLocation(h.CARD_LOCATION_DRAW)
-        self.hand = h.cardLocation(h.CARD_LOCATION_HAND)
-        self.discard = h.cardLocation(h.CARD_LOCATION_DISCARD)
-        self.play = h.cardLocation(h.CARD_LOCATION_PLAY)
-        self.intoHand = h.cardLocation(h.CARD_LOCATION_INTO_HAND)
-        self.intoIntoHand = h.cardLocation(h.CARD_LOCATION_INTO_INTO_HAND)
-        self.pocket = h.cardLocation(h.CARD_LOCATION_POCKET)
+        self.draw = CardLocation(CardZoneName.DRAW)
+        self.hand = CardLocation(CardZoneName.HAND)
+        self.discard = CardLocation(CardZoneName.DISCARD)
+        self.play = CardLocation(CardZoneName.PLAY)
+        self.intoHand = CardLocation(CardZoneName.INTO_HAND)
+        self.intoIntoHand = CardLocation(CardZoneName.INTO_INTO_HAND)
+        self.pocket = CardLocation(CardZoneName.POCKET)
 
         # Card Handler Functions, which allow the overriding of cardFunctions functionality
         self.cmfDepot = []
@@ -212,7 +213,7 @@ class Entity():
             "deadCardPlays": self.deadCardPlays
         }
     
-    def getLocations(self) -> list["h.cardLocation"]:
+    def getLocations(self) -> list[CardLocation]:
         """Returns all locations (excluding deck) concatenated."""
         locations = self.getIterableOfLocations()
         returnArray = []
@@ -337,10 +338,10 @@ class Entity():
         self.deck.shuffle()
         
         # Initializes cards in all locations
-        topDraw = h.cardLocation("")
-        unsetDraw = h.cardLocation("")
-        bottomDraw = h.cardLocation("")
-        muck = h.cardLocation("")
+        topDraw = CardLocation("")
+        unsetDraw = CardLocation("")
+        bottomDraw = CardLocation("")
+        muck = CardLocation("")
 
         for deckCard in self.deck.array:
             card = copy.deepcopy(deckCard)
@@ -481,9 +482,9 @@ class Entity():
 
     def moveMe(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         card: "c.Card",
-        toLocation: h.cardLocation,
+        toLocation: CardLocation,
         position: int = 0,
         printCard: bool = False,
         inputCard: bool = False,
@@ -523,13 +524,13 @@ class Entity():
 
     def playMe(
         self, 
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         card: "c.Card", 
         caster: "Entity", 
         dino: "Entity", 
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
-        overrideToLocation: h.cardLocation | str = "null", 
+        overrideToLocation: CardLocation | str = "null", 
         suppressFailText: bool = False
     ) -> None:
         """
@@ -562,7 +563,7 @@ class Entity():
 
     def discardMe(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         card: "c.Card",
         dino: "Entity",
         enemies: list["Entity"],
@@ -597,13 +598,13 @@ class Entity():
     # Given a selected index, plays that Card. 
     def playCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int, 
         caster: "Entity", 
         dino: "Entity", 
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
-        overrideToLocation: h.cardLocation | str = "null", 
+        overrideToLocation: CardLocation | str = "null", 
         scriptedInput: "scriptInput.gameplayScriptInput" = None
     ) -> None:
         """
@@ -663,13 +664,13 @@ class Entity():
 
     def packCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int, 
         caster: "Entity", 
         dino: "Entity", 
         enemies: list["Entity"], 
         passedInVisuals: vis.prefabPassedInVisuals, 
-        overrideToLocation: h.cardLocation | str = "null", 
+        overrideToLocation: CardLocation | str = "null", 
         scriptedInput: "scriptInput.gameplayScriptInput" = None
     ) -> None:
         """
@@ -705,23 +706,23 @@ class Entity():
             for card in entity.getLocations():
                 card.resetCardState_AfterAnyCardResolves()
 
-    def fetchLocationByConstant(self, name: str) -> h.cardLocation:
-        """Retrieves the card location matching the `h.CARD_LOCATION_*` constant."""
-        if name == h.CARD_LOCATION_DECK:
+    def fetchLocationByConstant(self, name: str) -> CardLocation:
+        """Retrieves the card location matching the `CardLocationName` constant."""
+        if name == CardZoneName.DECK:
             return self.deck
-        elif name == h.CARD_LOCATION_DISCARD:
+        elif name == CardZoneName.DISCARD:
             return self.discard
-        elif name == h.CARD_LOCATION_DRAW:
+        elif name == CardZoneName.DRAW:
             return self.draw
-        elif name == h.CARD_LOCATION_HAND:
+        elif name == CardZoneName.HAND:
             return self.hand
-        elif name == h.CARD_LOCATION_INTO_HAND:
+        elif name == CardZoneName.INTO_HAND:
             return self.intoHand
-        elif name == h.CARD_LOCATION_INTO_INTO_HAND:
+        elif name == CardZoneName.INTO_INTO_HAND:
             return self.intoIntoHand
-        elif name == h.CARD_LOCATION_PLAY:
+        elif name == CardZoneName.PLAY:
             return self.play
-        elif name == h.CARD_LOCATION_POCKET:
+        elif name == CardZoneName.POCKET:
             return self.pocket
         else:
             assert False, "Cannot fetch location by name of " + str(name)
@@ -732,9 +733,9 @@ class Entity():
 
     def drawCard(
         self,
-        fromLocation: h.cardLocation | str = DEFAULT_CARD_LOCATION, 
-        toLocation: h.cardLocation | str = DEFAULT_CARD_LOCATION, 
-        shuffleLocation: h.cardLocation | str = DEFAULT_CARD_LOCATION, 
+        fromLocation: CardLocation | str = DEFAULT_CARD_LOCATION, 
+        toLocation: CardLocation | str = DEFAULT_CARD_LOCATION, 
+        shuffleLocation: CardLocation | str = DEFAULT_CARD_LOCATION, 
         printCard: bool = False, 
         inputCard: bool = False
     ) -> any:
@@ -768,7 +769,7 @@ class Entity():
         if isinstance(shuffleLocation, str) and shuffleLocation == self.DEFAULT_CARD_LOCATION:
             shuffleLocation = self.discard
         if isinstance(shuffleLocation, str) and shuffleLocation == self.NO_CARD_LOCATION:
-            shuffleLocation = h.cardLocation("Nothing")
+            shuffleLocation = CardLocation("nothing")
         
         ## ----- does the drawing -----
         # Logging
@@ -800,11 +801,11 @@ class Entity():
         else:
             return "empty"
     
-    def destroyCard(self, location: h.cardLocation, index: int) -> None:
+    def destroyCard(self, location: CardLocation, index: int) -> None:
         """Destroys the card at the index of the location."""
         location.pop(index)
     
-    def printMovedCard(self, card: "c.Card", locationName: h.cardLocation, booleanPrint: bool):
+    def printMovedCard(self, card: "c.Card", locationName: CardLocation, booleanPrint: bool):
         """
         Handles UI for moving a card when printed.
         
@@ -819,20 +820,20 @@ class Entity():
     def gainCard(
         self, 
         card: "c.Card", 
-        toLocation: h.cardLocation, 
+        toLocation: CardLocation, 
         position: int = 0, 
         printCard: bool = False, 
         inputCard: bool = False
     ) -> None:
         """Gains a Card to the to location at the given position; card should be initialized."""
-        fantasy = h.cardLocation("fantasy")
+        fantasy = CardLocation("fantasy")
         fantasy.append(card)
         self.moveCard(fantasy, 0, toLocation, position, printCard, inputCard)
 
     def gainCopyOfCard(
         self, 
         card: "c.Card", 
-        toLocation: h.cardLocation, 
+        toLocation: CardLocation, 
         position: int = 0, 
         printCard: bool = False, 
         inputCard: bool = False
@@ -843,16 +844,16 @@ class Entity():
         Effectively the same as `gainCard` except this will `copy.deepcopy` the other card.
         Useful for when the copied card is already in deck/will continue to be played with.
         """
-        fantasy = h.cardLocation("fantasy")
+        fantasy = CardLocation("fantasy")
         cardCopy = copy.deepcopy(card)
         fantasy.append(cardCopy)
         self.moveCard(fantasy, 0, toLocation, position, printCard, inputCard)
 
     def moveCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int,
-        toLocation: h.cardLocation,
+        toLocation: CardLocation,
         position: int = 0,
         printCard: bool = False,
         inputCard: bool = False,
@@ -892,7 +893,7 @@ class Entity():
     
     def discardCard(
         self,
-        fromLocation: h.cardLocation,
+        fromLocation: CardLocation,
         cardIndex: int,
         dino: "Entity",
         enemies: list["Entity"],

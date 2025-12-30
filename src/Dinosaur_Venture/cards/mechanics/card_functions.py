@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card_mod_functions as cmf
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
@@ -374,7 +375,7 @@ class arbitrarilyDiscardCardFromDraw(cardFunctions):
 
 ## Arbitrarily Discard a Card from [ Location ].
 class arbitrarilyDiscardCardFrom_Location(cardFunctions):
-    def __init__(self, location: h.cardLocation, inputCard: bool = False):
+    def __init__(self, location: CardLocation, inputCard: bool = False):
         self.location = location
         self.inputCard = inputCard
 
@@ -515,7 +516,7 @@ class mill(cardFunctions):
 
         self.usingDefaultToLocation = (toLocation == 'DEFAULT')
         if self.usingDefaultToLocation:
-            self.toLocation = h.cardLocation("Mill's Set Aside Mat")
+            self.toLocation = CardLocation("Mill's Set Aside Mat")
         else:
             self.toLocation = toLocation
 

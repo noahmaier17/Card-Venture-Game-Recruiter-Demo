@@ -5,6 +5,7 @@ import pytest_timeout
 
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.entities import dinoes as dinoes_import
 from tests.test_utils.card_location_utilities import \
     check_card_locations_unordered
@@ -15,8 +16,8 @@ def test_gainACopyOfThis():
     dino = dinoes_import.Dinosaur()
 
     # Populates dino's deck with several non-important cards, and gets a list to compare against
-    comparison_original_card_location = h.cardLocation("comparison list")
-    comparison_after_copy_card_location = h.cardLocation("after comparison list")
+    comparison_original_card_location = CardLocation("comparison list")
+    comparison_after_copy_card_location = CardLocation("after comparison list")
     for letter in h.ALPHABET:
         new_card = c.Card()
         new_card.name = letter

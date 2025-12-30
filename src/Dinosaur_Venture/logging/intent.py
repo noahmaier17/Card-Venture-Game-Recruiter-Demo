@@ -10,8 +10,8 @@ from Dinosaur_Venture.logging import log_entry
 
 if TYPE_CHECKING:
     from Dinosaur_Venture import channel_linked_lists as cll
-    from Dinosaur_Venture import helper as h
     from Dinosaur_Venture.cards.mechanics import card as c
+    from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 
 class Intent():
     """
@@ -40,13 +40,13 @@ class IntentFactory():
 
 class EntityFactory(IntentFactory):
     @staticmethod
-    def discard_card(from_location: "h.cardLocation", print_card: bool, input_card: bool) -> list[Intent]:
+    def discard_card(from_location: "CardLocation", print_card: bool, input_card: bool) -> list[Intent]:
         """
         Constructs an Intent for comparison against `log_entry.EntityLogEntry.DiscardCard`, 
         forcing inclusion of key parameters.
 
         Arguments:
-            from_location (h.cardLocation): where the card is expected to be discarded from.
+            from_location (cardLocation): where the card is expected to be discarded from.
             print_card (bool): if we want the card to be printed.
             input_card (bool): if we want the card to be input.
         """
@@ -155,9 +155,9 @@ class EntityFactory(IntentFactory):
         )]
 
     def move_me(
-        from_location: "h.cardLocation", 
+        from_location: "CardLocation", 
         card: "c.Card", 
-        to_location: "h.cardLocation",
+        to_location: "CardLocation",
         position: int
     ) -> list[Intent]:
         """
@@ -165,9 +165,9 @@ class EntityFactory(IntentFactory):
         forcing inclusion of key parameters.
 
         Arguments:
-            from_location (h.cardLocation): the location where the card is moved from.
+            from_location (cardLocation): the location where the card is moved from.
             card (c.Card): the card to move.
-            to_location (h.cardLocation): the location where the card is moved to.
+            to_location (cardLocation): the location where the card is moved to.
             position (int): where in the to_location this card is placed.
         """
         return [Intent(
@@ -183,9 +183,9 @@ class EntityFactory(IntentFactory):
 
     def special_draw_several_cards(
         cards_to_draw: int,
-        to_location: "h.cardLocation"=None,
-        from_location: "h.cardLocation"=None,
-        shuffle_location: "h.cardLocation"=None    
+        to_location: "CardLocation"=None,
+        from_location: "CardLocation"=None,
+        shuffle_location: "CardLocation"=None    
     ) -> list[Intent]:
         """
         Constructs an Intent for comparison against `log_entry.EntityLogEntry.DrawCard`, 
@@ -193,11 +193,11 @@ class EntityFactory(IntentFactory):
 
         Arguments:
             cards_to_draw (int): number of cards expected to be drawn.
-            to_location (h.cardLocation): location where we will draw cards to. 
+            to_location (cardLocation): location where we will draw cards to. 
                 If not included, will assume the default, untested, to_location of hand.
-            from_location (h.cardLocation): location where we will draw cards from. 
+            from_location (cardLocation): location where we will draw cards from. 
                 If not included, will assume the default, untested, from_location of draw.
-            shuffle_location (h.cardLocation): location where we will shuffle from. 
+            shuffle_location (cardLocation): location where we will shuffle from. 
                 If not included, will assume the default, untested, shuffle_location of discard.
         """
         python_object_parameters = {}
@@ -216,20 +216,20 @@ class EntityFactory(IntentFactory):
         )] * cards_to_draw
 
     def draw_card(
-        to_location: "h.cardLocation"=None,
-        from_location: "h.cardLocation"=None,
-        shuffle_location: "h.cardLocation"=None
+        to_location: "CardLocation"=None,
+        from_location: "CardLocation"=None,
+        shuffle_location: "CardLocation"=None
     ) -> list[Intent]:
         """
         Constructs an Intent for comparison against `log_entry.EntityLogEntry.DrawCard`, 
         forcing inclusion of key parameters (of which we have none required).
 
         Arguments:
-            to_location (h.cardLocation): location where we will draw cards to. 
+            to_location (cardLocation): location where we will draw cards to. 
                 If not included, will assume the default, untested, to_location of hand.
-            from_location (h.cardLocation): location where we will draw cards from. 
+            from_location (cardLocation): location where we will draw cards from. 
                 If not included, will assume the default, untested, from_location of draw.
-            shuffle_location (h.cardLocation): location where we will shuffle from. 
+            shuffle_location (cardLocation): location where we will shuffle from. 
                 If not included, will assume the default, untested, shuffle_location of discard.
         """
         python_object_parameters = {}
@@ -302,13 +302,13 @@ class CardFunctionFactory(IntentFactory):
             {"cardFunction.draw_to_x_number": draw_to_x_number}
         )]
 
-    def arbitrarily_discard_card_from_location(location: "h.cardLocation", inputCard: bool) -> list[Intent]:
+    def arbitrarily_discard_card_from_location(location: "CardLocation", inputCard: bool) -> list[Intent]:
         """
         Constructs an Intent for comparison against `log_entry.CardFunctionLogEntry.ArbitrarilyDiscardCardFrom_Location`, 
         forcing inclusion of key parameters.
         
         Arguments:
-            location (h.cardLocation): the location we will arbitrarily discard from.
+            location (cardLocation): the location we will arbitrarily discard from.
             inputCard (bool): if the inputCard parameter of this card function is True.
         """
         return [Intent(

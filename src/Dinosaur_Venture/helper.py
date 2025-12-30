@@ -10,6 +10,7 @@ init(autoreset=True)
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
     INITIALIZATION_ZONES
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
@@ -89,7 +90,7 @@ def selectCard(
     dino: "e.Entity", 
     clearingName: "clr.Clearing", 
     roundCount: int, 
-    lootTables: list["cardLocation"], 
+    lootTables: list[CardLocation], 
     pullsTable: list[int],
     lootVacuously: bool = False, 
     canPass: bool = False, 
@@ -156,7 +157,7 @@ def selectCard(
     print(normalize(" | ", WIDTH + 2, separator = "` "))
 
     ## Picks Cards from the lootTable
-    pulledFromLootTable = cardLocation("pulled loot table")
+    pulledFromLootTable = CardLocation("pulled loot table")
     for index in range(len(pullsTable)):
         pulls = pullsTable[index]
         table = lootTables[index]
@@ -173,7 +174,7 @@ def selectCard(
         return
     else:
         ## Drafts!
-        holdingSpot = cardLocation("Card to Pick")
+        holdingSpot = CardLocation("Card to Pick")
 
         ## print(" -- Drafting to <<" + holdingSpot.niceName() + ">> --")
         if pulledFromLootTable.length() == 0 or (pulledFromLootTable.length() == 0):
@@ -181,11 +182,11 @@ def selectCard(
             input(" Attempted to draft cards, but Pulls: " + str(pulledFromLootTable.length()) + " and pulledFromLootTable: " + str(pulledFromLootTable))
             return
         
-        draftPoolCopy = cardLocation("")
+        draftPoolCopy = CardLocation("")
         for card in pulledFromLootTable.getArray():
             draftPoolCopy.append(copy.deepcopy(card))
 
-        picks = cardLocation("")
+        picks = CardLocation("")
         for i in range(pulledFromLootTable.length()):
             if draftPoolCopy.length() > 0:
                 picks.append(draftPoolCopy.pop(random.randint(0, draftPoolCopy.length() -1)))
@@ -272,7 +273,7 @@ def selectCard(
     else:
         selectCard(dino, clearingName, roundCount, lootTables, pulls = pulls, lootVacuously = lootVacuously)
 
-def locateCardIndex(array: "cardLocation", card: "c.Card"):
+def locateCardIndex(array: CardLocation, card: "c.Card"):
     """
     Checks for if a given card is found within an array of cards. 
     
@@ -392,7 +393,7 @@ def pickNonNegativeNumber(
             elif passedInVisuals == "null" or not printCheckProperNouns(pick, passedInVisuals.entityNames, passedInVisuals.cardNames):
                 print(" INVALID INPUT ")
 
-def fetchCardFromLocation(text: str, location: "cardLocation"):
+def fetchCardFromLocation(text: str, location: "CardLocation"):
     """Returns a card picked from a location."""
     preamble = []
     index = 1
@@ -878,142 +879,7 @@ def splash(
     else:
         input(colorize(trueIndent(text + " ", 3, WIDTH)))
 
-class cardLocation():
-    """Array-like container of Cards."""
-    def __init__(self, name: str) -> None:
-        self.name = name
-        self.array: list["c.Card"] = []
-
-    def niceName(self) -> str:
-        """Returns a nicer version if this card location's name."""
-        return self.name.title()
-
-    def length(self) -> str:
-        """Length of the card location."""
-        return len(self.array)
-
-    def lengthExcludingFeathery(self) -> str:
-        """Length of the card location excluding <<feathery>> cards."""
-        count = 0
-        for card in self.array:
-            if tk.checkTokensOnThis(card, [tk.feathery()]) == False:
-                count += 1
-        return count
-
-    def getName(self) -> str:
-        """Getter of the name of this card location."""
-        return self.name
-    
-    def append(self, card: "c.Card") -> None:
-        """Appends the input card to the end of this card location."""
-        self.array.append(card)
-        
-    def clear(self) -> None:
-        """Clears this card location."""
-        self.array.clear()
-    
-    def isEmpty(self) -> bool:
-        """Returns True if this card location contains no cards."""
-        return (len(self.array) == 0)
-    
-    def _indexErrorHandler(self, index: int, functionName: str) -> bool:
-        """Throws a runtime error if the input index for some function is out of bounds."""
-        if (index > len(self.array)):
-            text = " ERROR: " + self.name + " had an unchecked " 
-            text += functionName + "() called---there are no Cards at index " + str(index) + "!!! "
-            input(text)
-            return False
-        return True
-
-    def pop(self, index: int = 0) -> "c.Card":
-        """Pops Cards off of this card location; default behavior removes the Card at the top of this card location."""
-        self._indexErrorHandler(index, "pop")
-        return self.array.pop(index)
-    
-    def at(self, index: int) -> "c.Card":
-        """Fetches and returns the Card at the passed-in index."""
-        self._indexErrorHandler(index, "at")
-        return self.array[index]
-        
-    def insert(self, index: int, card: "c.Card") -> None:
-        """Inserts the given Card at the given index within this card location."""
-        self.array.insert(index, card)
-        
-    def shuffle(self) -> None:
-        """Shuffles the card location."""
-        random.shuffle(self.array)
-
-    def reverse(self) -> None:
-        """Reverses the ordering of this card location's cards."""
-        otherList = []
-        while len(self.array) > 0:
-            otherList.insert(0, self.array.pop())
-
-        while len(otherList) > 0:
-            self.array.append(otherList.pop())
-
-    def shuffleTriggeredByDraw(self) -> None:
-        """Shuffles this card location based on each card's `reshuffleLocation` parameter."""
-        topDraw = cardLocation("")
-        unsetDraw = cardLocation("")
-        bottomDraw = cardLocation("")
-        muck = cardLocation("")
-
-        self.shuffle()
-
-        for card in self.array:
-            if card.reshuffleLocation == "Draw":
-                unsetDraw.append(card)
-            elif card.reshuffleLocation == "Top":
-                topDraw.append(card)
-            elif card.reshuffleLocation == "Bottom":
-                bottomDraw.append(card)
-            elif card.reshuffleLocation == "Muck":
-                muck.append(card)
-            elif card.reshuffleLocation == "Into Hand":
-                self.intoHand.append(card)
-            elif card.reshuffleLocation == "Discard":
-                self.discard.append(card)
-            else:
-                input("ERROR!")
-                input(str(card.name) + " has no valid reshuffle location!")
-
-        self.array.clear()
-
-        ## Adds Cards to deck
-        for card in topDraw.getArray():
-            self.array.append(card)
-        for card in unsetDraw.getArray():
-            self.array.append(card)
-        for card in muck.getArray():
-            self.array.append(card)
-        for card in bottomDraw.getArray():
-            self.array.append(card)
-
-    def getArray(self) -> list["c.Card"]:
-        return self.array
-
-    def logIdentity(self) -> dict:
-        return {
-            "name": self.name,
-            "cards": self.array
-        }
-    
-    def __eq__(self, otherCardLocation: "cardLocation") -> bool:
-        """Returns True if both objects are the same object."""
-        return (self is otherCardLocation)
-        
-## Hard-coded constants to compare for naming of card locations
-CARD_LOCATION_DECK = "deck"
-CARD_LOCATION_HAND = "hand"
-CARD_LOCATION_DISCARD = "discard"
-CARD_LOCATION_DRAW = "draw"
-CARD_LOCATION_PLAY = "play"
-CARD_LOCATION_INTO_HAND = "into-hand"
-CARD_LOCATION_INTO_INTO_HAND = "into-into-hand"
-CARD_LOCATION_POCKET = "pocket"
-
-def unionCardLocations(location1: "cardLocation", location2: "cardLocation", name: str = 'DEFAULT') -> "cardLocation":
+def unionCardLocations(location1: CardLocation, location2: CardLocation, name: str = 'DEFAULT') -> CardLocation:
     """
     Combines two card locations into a new one.
     
@@ -1022,7 +888,7 @@ def unionCardLocations(location1: "cardLocation", location2: "cardLocation", nam
     if name == 'DEFAULT':
         name = location1.name + " and " + location2.name
 
-    unionCardLocation = cardLocation(name)
+    unionCardLocation = CardLocation(name)
     for card in location1.array + location2.array:
         unionCardLocation.append(card)
 
