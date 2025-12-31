@@ -66,7 +66,7 @@ def dinoTurnStart(dino: "e.Entity", enemies: "e.Entity"):
 ## Returns (event)
 def dinoPlayCard(
     dino: "e.Entity", 
-    enemies: "e.Entity",
+    enemies: list["e.Entity"],
     roundCount: int, 
     clearing: "clr.Clearing", 
     event: str, 
@@ -125,7 +125,7 @@ def dinoPlayCard(
 
 def dinoPackingCard(
     dino: "e.Entity", 
-    enemies: "e.Entity",
+    enemies: list["e.Entity"],
     roundCount: int, 
     clearing: "clr.Clearing", 
     event: str, 

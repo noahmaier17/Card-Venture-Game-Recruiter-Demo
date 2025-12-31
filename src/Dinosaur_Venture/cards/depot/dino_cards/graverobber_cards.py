@@ -51,7 +51,7 @@ class luggedCreature(gdc.DinoCard):
         super().__init__()
         self.name = "Lugged Creature"
         self.bodyText = c.bb("+1 Action. 1B-notick.")
-        self.publishRoundStart("Pocket a ^Holy Shovel^ Card.")
+        self.publishRoundStart("Pocket a ^Lightweight Shovel^ Card.")
         self.table = ["Graverobber"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -62,7 +62,7 @@ class luggedCreature(gdc.DinoCard):
                                                                  'nil'))
 
     def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
-        caster.gainCard(holyShovel(), caster.pocket)
+        caster.gainCard(lightweightShovel(), caster.pocket)
 
 class faithfulHound(gdc.DinoCard):
     def __init__(self):
@@ -201,10 +201,10 @@ class friendlyBark(gdc.DinoCard):
                 caster.drawCard()
             cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals)
 
-class holyShovel(gdc.DinoCard):
+class lightweightShovel(gdc.DinoCard):
     def __init__(self):
         super().__init__()
-        self.name = "Holy Shovel"
+        self.name = "Lightweight Shovel"
         self.bodyText = c.bb("||Temporary|| +1 Action. Discard your Hand, for +2 Cards.")
         self.publishPacking("Entoken all Pocket Cards with <<feathery>>.")
         self.table = ["Fundamental"]
