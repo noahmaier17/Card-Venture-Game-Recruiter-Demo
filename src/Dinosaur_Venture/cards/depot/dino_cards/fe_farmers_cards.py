@@ -264,7 +264,7 @@ class newFarmLeader(gdc.DinoCard):
     def onLooted(self, dino):
         card = h.fetchCardFromLocation("Change a Card in Deck to: [ iTop ]", dino.deck)
         card.name = "NEW-ORDER " + card.name
-        card.publishInitialization(top = True)
+        card.publish_initialization_top()
 
 class bayOfPigs(gdc.DinoCard):
     def __init__(self):

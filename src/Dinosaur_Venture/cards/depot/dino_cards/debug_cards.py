@@ -12,7 +12,7 @@ class draw6Cards(gdc.DinoCard):
         super().__init__()
         self.name = "Draw 6 Cards"
         self.bodyText = c.bb("+6 Cards.")
-        self.publishInitialization(top = True)
+        self.publish_initialization_top()
         self.table = ["Debug"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -26,7 +26,7 @@ class drawAll(gdc.DinoCard):
         super().__init__()
         self.name = "Draw All"
         self.bodyText = c.bb("+20 Cards.")
-        self.publishInitialization(top = True)
+        self.publish_initialization_top()
         self.table = ["Debug"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -41,7 +41,7 @@ class pocketTest(gdc.DinoCard):
         self.name = "Pocket Test"
         self.bodyText = c.bb("Move this onto the Pocket Mat.")
         self.table = ["Debug"]
-        self.publishInitialization(top = True)
+        self.publish_initialization_top()
         self.publishPacking("999M.")
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 

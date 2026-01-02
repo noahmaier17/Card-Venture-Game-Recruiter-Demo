@@ -14,7 +14,7 @@ class junk(gdc.DinoCard):
         self.bodyText = c.bb("Do Nothing.")
         self.bodyText.heavinessText("{ 1H }")
         self.table = ["Muck"]
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.destructable = False
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -30,7 +30,7 @@ class miscellany(gdc.DinoCard):
         self.bodyText = c.bb("Do Nothing.")
         self.bodyText.heavinessText("{ HH }")
         self.table = ["Muck"]
-        self.publishInitialization(pocket = True)
+        self.publish_initialization_pocket()
         self.destructable = False
         self.bundle(throwCardFunction = self.duringPlay())
 

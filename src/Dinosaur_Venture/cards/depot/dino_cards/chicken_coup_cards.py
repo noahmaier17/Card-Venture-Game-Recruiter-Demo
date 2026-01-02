@@ -18,8 +18,8 @@ class inWaitingCounterRevolt(gdc.DinoCard):
         self.name = "In-Waiting Counter-Revolt"
         self.bodyText = c.bb("+1 Action. (2M x4). +1 Card.")
         self.publishDollarTrigger("WTI-Zones of yours (EXCEPT Play and Discard), at your Turn End, if you have 2+ Actions, you may: Move this onto Draw.")
-        self.publishInitialization(muck = True)
-        self.publishReshuffle(muck = True)
+        self.publish_initialization_muck()
+        self.publish_reshuffle_muck()
         self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -71,8 +71,8 @@ class revolutionarysMilitia(gdc.DinoCard):
         super().__init__()
         self.name = "Revolutionary's Militia"
         self.bodyText = c.bb("Break a Band.")
-        self.publishInitialization(muck = True)
-        self.publishReshuffle(muck = True)
+        self.publish_initialization_muck()
+        self.publish_reshuffle_muck()
         self.bodyText.lootingText("Change a Card in Deck to: [ iMuck ], < iMuck >.")
         self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
@@ -84,16 +84,16 @@ class revolutionarysMilitia(gdc.DinoCard):
     def onLooted(self, dino):
         card = h.fetchCardFromLocation("Change a Card in Deck to: [ iMuck ], < iMuck >", dino.deck)
         card.name = "MILITANT " + card.name
-        card.publishInitialization(muck = True)
-        card.publishReshuffle(muck = True)
+        card.publish_initialization_muck()
+        card.publish_reshuffle_muck()
 
 class persecutedProtestors(gdc.DinoCard):
     def __init__(self):
         super().__init__()
         self.name = "Persecuted Protestors"
         self.bodyText = c.bb("+ Cantrip. +2 Cards.")
-        self.publishInitialization(muck = True)
-        self.publishReshuffle(muck = True)
+        self.publish_initialization_muck()
+        self.publish_reshuffle_muck()
         self.table = ["Chicken Coup"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -114,8 +114,8 @@ class jailbreaker(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "LIBERATED " + cardToEnshell.name
-        cardToEnshell.publishInitialization(muck = True)
-        cardToEnshell.publishReshuffle(muck = True)
+        cardToEnshell.publish_initialization_muck()
+        cardToEnshell.publish_reshuffle_muck()
         cardToEnshell.publishShell(belowThrowTextWrapper = cf.shellTextWrapper("At Turn End, Discard this.", cf.dots()))
         cardToEnshell.triggers.append(r.reaction(cardToEnshell, False, self.trigger_1(cardToEnshell)))
 

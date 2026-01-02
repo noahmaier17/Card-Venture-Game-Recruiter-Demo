@@ -226,7 +226,7 @@ class fishPot(gdc.DinoCard):
 
     def onLooted(self, dino):
         toAddCard = fish()
-        toAddCard.publishInitialization(muck = True)
+        toAddCard.publish_initialization_muck()
         dino.gainCard(toAddCard, dino.deck)
 
 class dipNetting(gdc.DinoCard):
@@ -358,7 +358,7 @@ class disphoticFishZone(gdc.DinoCard):
         super().__init__()
         self.name = "Disphotic Fish Zone"
         self.bodyText = c.bb("+1 Action. Per Card in Hand below 3, Gain a ^Fish^ to Hand. //Entoken this with <<inoperable>>.")
-        self.publishInitialization(pocket = True)
+        self.publish_initialization_pocket()
         self.table = ["The Pier"]
         self.bundle(throwCardFunction = self.duringPlay())
 

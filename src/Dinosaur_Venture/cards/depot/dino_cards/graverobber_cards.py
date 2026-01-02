@@ -15,7 +15,7 @@ class heirloom(gdc.DinoCard):
         self.name = "Heirloom"
         self.bodyText = c.bb("2M.")
         # self.bodyText.lootingText("When Replaced with Loot: Change Replacement Card with [ iTop ].")
-        # self.publishInitialization(top = True)
+        # self.publish_initialization_top()
         self.table = ["Graverobber"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -26,7 +26,7 @@ class heirloom(gdc.DinoCard):
 
     # def onReplacedWithLoot(self, dino, newCard):
     #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iTop ].")
-    #     newCard.publishInitialization(top = True)
+    #     newCard.publish_initialization_top()
 
 class emptyMantle(gdc.DinoCard):
     def __init__(self):
@@ -34,7 +34,7 @@ class emptyMantle(gdc.DinoCard):
         self.name = "Empty Mantle"
         self.bodyText = c.bb("Do Nothing.")
         # self.bodyText.lootingText("When Replaced with Loot: Change Replacement Card with [ iDiscard ].")
-        self.publishInitialization(discard = True)
+        self.publish_initialization_discard()
         self.table = ["Graverobber"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -44,7 +44,7 @@ class emptyMantle(gdc.DinoCard):
 
     # def onReplacedWithLoot(self, dino, newCard):
     #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iDiscard ].")
-    #     newCard.publishInitialization(discard = True)
+    #     newCard.publish_initialization_discard()
 
 class luggedCreature(gdc.DinoCard):
     def __init__(self):
@@ -87,7 +87,7 @@ class spareSpade(gdc.DinoCard):
         super().__init__()
         self.name = "Spare Spade"
         self.bodyText = c.bb("+1 Action. Discard your Hand, for +2 Cards.")
-        self.publishInitialization(pocket = True)
+        self.publish_initialization_pocket()
         self.table = ["Graverobber"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -127,7 +127,7 @@ class willOWisps(gdc.DinoCard):
 
     # def onReplacedWithLoot(self, dino, newCard):
     #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iTop ].")
-    #     newCard.publishInitialization(top = True)
+    #     newCard.publish_initialization_top()
 
 class flickeringLantern(gdc.DinoCard):
     def __init__(self):

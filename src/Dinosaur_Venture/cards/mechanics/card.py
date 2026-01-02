@@ -12,6 +12,8 @@ if TYPE_CHECKING:
     from Dinosaur_Venture import react as r
     from Dinosaur_Venture.entities import entity as e
     from Dinosaur_Venture import gameplay_scripted_input as scriptInput
+    from Dinosaur_Venture.cards.mechanics import card_mod_functions as cmf
+    from Dinosaur_Venture import react as r
 
 from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
     REVERSED_INITIALIZATION_ZONES
@@ -286,77 +288,77 @@ class Card():
         bool1 (bool): stored information about this card.
         bool2 (bool): stored information about this card.
     """
-    def __init__(self, likelihood: int = 0.5, damageDist: int = 0.5, siftDist: int = 0.5) -> None:
+    def __init__(self, likelihood: float = 0.5, damageDist: float = 0.5, siftDist: float = 0.5) -> None:
         # Chance the enemy picks that card, tends to scale with power.
         #   So, higher likelihood values means more likely to be picked and not skipped.
         #   A value from 0 to 100 (although, normally at value 0.5).
-        self.likelihood = likelihood 
+        self.likelihood: float = likelihood 
 
         # A value from 0 to 100 representing to what extent this card does damage. 
-        self.damageDist = damageDist
+        self.damageDist: float = damageDist
         # Similarly, a value from 0 to 100 representing to what extent this card sifts.
         #   Sifting includes +Actions and +Cards. Imagine it as an inverse to 'stiffness.'
-        self.siftDist = siftDist
+        self.siftDist: float = siftDist
 
         # Name and original name of the card
-        self.name = ""
-        self.unmodifiedName = ""
+        self.name: str = ""
+        self.unmodifiedName: str = ""
 
         # Card Handler Functions, which allow the overriding of cardFunctions functionality
         #   Similar to Tokens, except alter what happens on play
-        self.cmfDepot = []
+        self.cmfDepot: list["cmf.cardModFunction"] = []
 
         # Non-negative number of turns a card is staying out. At 0, it is discarded from play. 
-        self.lingering = 0
+        self.lingering: int = 0
         # If true, no matter the lingering value, this is not discarded from play during Tidying. 
-        self.foreverLinger = False
+        self.foreverLinger: bool = False
         # Tracks the number of turns a Card has been out; lingering can sometimes change b.c. of other Cards
-        self.turnsLingering = 0
+        self.turnsLingering: int = 0
         
         # The location the card is initialized. 
         self.initialized: CardInsertionPostion = CardInsertionPostion.DRAW
         self.reshuffleLocation: CardInsertionPostion = CardInsertionPostion.DRAW
 
         # The check for other phases
-        self.hasUnpackingAbility = False
-        self.hasPackingAbility = False
-        self.hasRoundStartAbility = False
+        self.hasUnpackingAbility: bool = False
+        self.hasPackingAbility: bool = False
+        self.hasRoundStartAbility: bool = False
         
         # Checks if the Card has been revealed or not
-        self.revealed = False
+        self.revealed: bool = False
 
         # If the Card is shelled, meaning it cannot be moved
-        self.shelled = False
+        self.shelled: bool = False
 
         # Parameters for looting
-        self.destructable = True
-        self.mustDestroyCardWhenLooted = True
+        self.destructable: bool = True
+        self.mustDestroyCardWhenLooted: bool = True
 
         # If the Card is Enshells something when looted
-        self.mustEnshellCardWhenLooted = False
+        self.mustEnshellCardWhenLooted: bool = False
 
         # The type of Card
-        self.isShellCard = False
-        self.isGainedCard = True
-        self.isConfidant = False
+        self.isShellCard: bool = False
+        self.isGainedCard: bool = True
+        self.isConfidant: bool = False
 
         # List of tokens
-        self.tokens = []
+        self.tokens: list[tk.token] = []
 
         # List of triggers 
-        self.triggers = []
+        self.triggers: list["r.responseAndTrigger"] = []
 
         # Allows for special stored values
-        self.custom1 = 0
-        self.bool1 = False
-        self.bool2 = False
+        self.custom1: int = 0
+        self.bool1: bool = False
+        self.bool2: bool = False
 
         # Arrays for cardFunctions
-        self.throwTextCardFunctions = []
-        self.packingTextCardFunctions = []
+        self.throwTextCardFunctions: list["cf.cardFunctions"] = []
+        self.packingTextCardFunctions: list["cf.cardFunctions"] = []
 
         # Creates a copy-resistant identifier of this card using uuid
-        self.uniqueID = uuid.uuid4()
+        self.uniqueID: uuid = uuid.uuid4()
 
     def logIdentity(self) -> dict:
         """
@@ -487,51 +489,30 @@ class Card():
         self.bodyText.reshuffleText(location)
         self.reshuffleLocation = location
 
-    def publishInitialization(
-        self, 
-        top: bool = False, 
-        intoHand: bool = False, 
-        muck: bool = False, 
-        discard: bool = False, 
-        pocket: bool = False
-    ) -> None:
-        """Publishes an Intialization location; only one True value is expected."""
-        location = self.__publishedLocationFetcher(top = top,
-                                                   intoHand = intoHand,
-                                                   muck = muck,
-                                                   discard = discard,
-                                                   pocket = pocket)
-        self.bodyText.initializationText(location.value)
-        self.initialized = location
+    def publish_reshuffle_top(self):
+        """Changes reshuffle location to be Top."""
+        self.reshuffleLocation = CardInsertionPostion.TOP
 
-    def __publishedLocationFetcher(
-        self, 
-        top: bool = False, 
-        intoHand: bool = False, 
-        muck: bool = False, 
-        discard: bool = False, 
-        pocket: bool = False
-    ) -> CardInsertionPostion:
-        """
-        Gets the location name based on which of the parameters == True
-        Only one True value is expected.
-        """
-        if top + intoHand + muck + discard + pocket != 1:
-            assert False, Exception("__publishedLocationFetcher has multiple or no parameters for card: " + self.name)
+    def publish_reshuffle_muck(self):
+        """Changes reshuffle location to be Muck."""
+        self.reshuffleLocation = CardInsertionPostion.MUCK
 
-        if top:
-            location = CardInsertionPostion.TOP
-        if intoHand:
-            location = CardInsertionPostion.INTO_HAND
-        if muck:
-            location = CardInsertionPostion.MUCK
-        if discard:
-            location = CardInsertionPostion.DISCARD
-        if pocket:
-            location = CardInsertionPostion.POCKET
+    def publish_initialization_top(self):
+        """Changes initialization to be Top."""
+        self.initialized = CardInsertionPostion.TOP
 
-        return location
+    def publish_initialization_pocket(self):
+        """Changes initialization to be Pocket."""
+        self.initialized = CardInsertionPostion.POCKET
 
+    def publish_initialization_discard(self):
+        """Changes initialization to be Top."""
+        self.initialized = CardInsertionPostion.DISCARD
+
+    def publish_initialization_muck(self):
+        """Changes initialization to be Top."""
+        self.initialized = CardInsertionPostion.MUCK
+        
     def publishDollarTrigger(self, text: str) -> None:
         """Publishes a Dollar Trigger based on the input `text` value."""
         self.bodyText.addDollarTrigger(text)

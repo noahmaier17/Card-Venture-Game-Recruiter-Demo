@@ -143,7 +143,7 @@ class cowboysInExile(gdc.DinoCard):
         self.bodyText = c.bb("+2 Actions.")
         self.publishPacking("Entoken all Cards in Play with <<feathery>>.")
         self.publishToken(tk.alliance())
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.table = ["Horse Hostelry"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 
@@ -163,7 +163,7 @@ class getawayHorse(gdc.DinoCard):
         ## "Trainyard Rendezvous"
         self.bodyText = c.bb("Discard all ^Junk^ in Hand. +4 Cards.")
         self.publishToken(tk.alliance())
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.table = ["Horse Hostelry"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -222,7 +222,7 @@ class timeInABottle(gdc.DinoCard):
         self.bodyText = c.bb("+ Cantrip.")
         ## self.publishPacking("Take a 2nd Turn. To every Enemy: Take a 2nd Turn. //    Replace this with ^Broken Bottle^.")
         self.publishPacking("{ HH } Take a 2nd Turn. To every Enemy: Take a 2nd Turn. //    Gain a ^Broken Bottle^.")
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.table = ["Horse Hostelry"]
         self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
 

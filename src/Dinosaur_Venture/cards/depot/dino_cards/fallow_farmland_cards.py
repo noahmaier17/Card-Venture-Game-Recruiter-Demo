@@ -220,7 +220,7 @@ class lastSeeds(gdc.DinoCard):
         self.name = "Last Seeds"
         self.bodyText = c.bb("+1 Action. 9L. +1 Card.")
         self.bodyText.lootingText("Gain a Copy of this.")
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.table = ["Fallow Farmland"]
         self.bundle(throwCardFunction = self.duringPlay())
 

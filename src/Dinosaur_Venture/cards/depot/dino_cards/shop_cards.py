@@ -357,7 +357,7 @@ class magicalReassortment(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "REASSORTED " + cardToEnshell.name
-        cardToEnshell.publishReshuffle(top = True)
+        cardToEnshell.publish_reshuffle_top()
 
 class magicalAssortment(gdc.DinoShellCard):
     def __init__(self):
@@ -368,7 +368,7 @@ class magicalAssortment(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "ASSORTED " + cardToEnshell.name
-        cardToEnshell.publishInitialization(top = True)
+        cardToEnshell.publish_initialization_top()
 
 class liquidation(gdc.DinoShellCard):
     def __init__(self):

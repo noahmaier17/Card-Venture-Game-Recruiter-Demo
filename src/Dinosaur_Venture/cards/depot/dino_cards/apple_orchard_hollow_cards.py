@@ -120,7 +120,7 @@ class ripeMantra(gdc.DinoCard):
         super().__init__()
         self.name = "Ripe Mantra"
         self.bodyText = c.bb("+1 Action. 1R. +1 Card. //Mill, Unless a ^Junk^ is found; Discard such a Card. Then, Immill. //9x, 'Plow' Discard.")
-        self.publishInitialization(top = True)
+        self.publish_initialization_top()
         self.table = ["Apple Orchard Hollow"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -372,7 +372,7 @@ class compostBin(gdc.DinoCard):
         self.name = "Compost Bin"
         self.bodyText = c.bb("2G-notick / 2B-notick.")
         self.publishRoundStart("Invisibly, to every [ iMuck ] Card: //(1) 0.33 Chance to Entoken it with <<prepared>>.")
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.table = ["Apple Orchard Hollow"]
         self.bundle(throwCardFunction = self.duringPlay())
 
