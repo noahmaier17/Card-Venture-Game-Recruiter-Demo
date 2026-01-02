@@ -201,7 +201,7 @@ class mangledShrew(gdc.DinoCard):
     def __init__(self):
         super().__init__()
         self.name = "Mangled Shrew"
-        self.bodyText = c.bb("2R-notick / 1Notnil / 1Notnil / 1Notnil.")
+        self.bodyText = c.bb("2R-notick / 1Notnil / 1Notnil / 1Notnil / 1Notnil.")
         self.table = ["Fallow Farmland"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -211,7 +211,8 @@ class mangledShrew(gdc.DinoCard):
                                                                  cll.Attackcons([1, cll.Filled()],
                                                                  cll.Attackcons([1, cll.Filled()],
                                                                  cll.Attackcons([1, cll.Filled()],
-                                                                 'nil')))),
+                                                                 cll.Attackcons([1, cll.Filled()],
+                                                                 'nil'))))),
                                                                  scriptedInput=scriptedInput)
 
 class lastSeeds(gdc.DinoCard):
@@ -219,7 +220,7 @@ class lastSeeds(gdc.DinoCard):
         super().__init__()
         self.name = "Last Seeds"
         self.bodyText = c.bb("+1 Action. 9L. +1 Card.")
-        self.bodyText.lootingText("Gain a Copy of this.")
+        self.bodyText.lootingText("Gain 2 Copies of this.")
         self.publish_initialization_muck()
         self.table = ["Fallow Farmland"]
         self.bundle(throwCardFunction = self.duringPlay())
@@ -233,7 +234,8 @@ class lastSeeds(gdc.DinoCard):
             caster.drawCard()
 
     def onLooted(self, dino):
-        dino.gainCopyOfCard(self, dino.deck)
+        for _ in range(2):
+            dino.gainCopyOfCard(self, dino.deck)
 
 '''
 class finalStraw(DinoShellCard):
