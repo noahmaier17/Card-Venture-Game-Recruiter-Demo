@@ -68,13 +68,10 @@ def check_card_locations_unordered(
     Checks if both input card locations have the same cards irregardless of order,
     essentially checking if the two sets are equal.
     """
-    def sort_function(card):
-        return card.name
-
     list_1 = card_location_1.getArray()
     list_2 = card_location_2.getArray()
 
-    list_1.sort(key=sort_function)
-    list_2.sort(key=sort_function)
+    list_1.sort(key=lambda c: (c.uniqueID))
+    list_2.sort(key=lambda c: (c.uniqueID))
 
     return are_lists_exactly_equal(list_1, list_2, comparison_parameter=comparison_parameter)

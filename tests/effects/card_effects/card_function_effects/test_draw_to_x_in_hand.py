@@ -56,7 +56,6 @@ def test_drawToXInHand(
     card_location_utilities.populate_card_location(cards_in_discard, caster.discard, card_location_utilities.NUMBERS_AS_STRINGS)
 
     # As of right now, our "card", dino, enemies, and passedInVisuals are not important.
-    # If we were to later implement a card_mod_function, we will still pass in burner values to these.
     drawUntilYouHaveXCardsInHand(draw_to_x_value).func(c.Card(), caster, DINO, ENEMIES, prefabEmpty())
 
     # Is the size of our hand as expected?

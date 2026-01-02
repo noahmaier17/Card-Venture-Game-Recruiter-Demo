@@ -889,7 +889,7 @@ def unionCardLocations(location1: CardLocation, location2: CardLocation, name: s
         name = location1.name + " and " + location2.name
 
     unionCardLocation = CardLocation(name)
-    for card in location1.array + location2.array:
+    for card in location1.getArray() + location2.getArray():
         unionCardLocation.append(card)
 
     return unionCardLocation
