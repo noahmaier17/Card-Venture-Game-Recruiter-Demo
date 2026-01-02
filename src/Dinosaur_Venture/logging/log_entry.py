@@ -5,8 +5,8 @@ Creates entries within the log for specific game events.
 Each LogEntry is coupled with specific classes/function calls.
 """
 
-from enum import Enum
 from abc import ABC, abstractmethod
+from enum import Enum
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

@@ -1,9 +1,10 @@
 import random
-from typing import TYPE_CHECKING
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
-from Dinosaur_Venture.cards.mechanics.card_initalization_zones import CardInsertionPostion
+from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
+    CardInsertionPostion
 
 if TYPE_CHECKING:
     from Dinosaur_Venture.cards.mechanics import card as c

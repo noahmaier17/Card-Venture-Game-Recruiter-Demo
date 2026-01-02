@@ -1,13 +1,10 @@
-import random
-
 import pytest
 
-from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card as c
-from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
+    CardInsertionPostion
 from Dinosaur_Venture.entities import entity as e
-from Dinosaur_Venture.cards.mechanics.card_initalization_zones import CardInsertionPostion
-from Dinosaur_Venture.cards.mechanics.card_location import CardZoneName
+
 
 class test_arguments():
     """
