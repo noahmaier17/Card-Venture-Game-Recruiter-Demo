@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_location import CardInsertionPostion
 
 if TYPE_CHECKING:
     from Dinosaur_Venture.cards.mechanics import card_functions as cf
@@ -164,7 +165,7 @@ class bb():
             array.append(self.heaviness)
             prefix = True
 
-        if (self.initialization != "" and self.initialization != "Draw" and "[]" not in suppressedTypes):
+        if (self.initialization != "" and self.initialization != CardInsertionPostion.DRAW.value and "[]" not in suppressedTypes):
             codeLocation = "[ " + REVERSED_INITIALIZATION_ZONES.get(self.initialization) + " ]"
             if (prefix):
                 array[len(array) - 1] += ", " + codeLocation
@@ -172,7 +173,7 @@ class bb():
                 prefix = True
                 array.append(codeLocation)
 
-        if (self.reshuffle != "" and self.initialization != "Draw" and "<>" not in suppressedTypes):
+        if (self.reshuffle != "" and self.initialization != CardInsertionPostion.DRAW.value and "<>" not in suppressedTypes):
             codeLocation = "< " + REVERSED_INITIALIZATION_ZONES.get(self.reshuffle) + " >"
             if (prefix):
                 array[len(array) - 1] += ", " + codeLocation
@@ -312,11 +313,9 @@ class Card():
         # Tracks the number of turns a Card has been out; lingering can sometimes change b.c. of other Cards
         self.turnsLingering = 0
         
-        # The location the card is initialized. Includes: "Draw", "Into Hand", "Top of Draw", "Bottom of Draw", "Discard", "Muck" 
-        #   Check roundStart of the entity file to ensure this is implemented correctly. 
-        #   Check colorize in helper file to ensure that we color in the text correctly. 
-        self.initialized = "Draw"
-        self.reshuffleLocation = "Draw"
+        # The location the card is initialized. 
+        self.initialized: CardInsertionPostion = CardInsertionPostion.DRAW
+        self.reshuffleLocation: CardInsertionPostion = CardInsertionPostion.DRAW
 
         # The check for other phases
         self.hasUnpackingAbility = False
@@ -502,7 +501,7 @@ class Card():
                                                    muck = muck,
                                                    discard = discard,
                                                    pocket = pocket)
-        self.bodyText.initializationText(location)
+        self.bodyText.initializationText(location.value)
         self.initialized = location
 
     def __publishedLocationFetcher(
@@ -512,31 +511,25 @@ class Card():
         muck: bool = False, 
         discard: bool = False, 
         pocket: bool = False
-    ) -> None:
+    ) -> CardInsertionPostion:
         """
         Gets the location name based on which of the parameters == True
         Only one True value is expected.
         """
-        trueCount = 0
-        location = ""
-        if top and "Top" in REVERSED_INITIALIZATION_ZONES:
-            trueCount += 1
-            location = "Top"
-        if intoHand and "Into Hand" in REVERSED_INITIALIZATION_ZONES: 
-            trueCount += 1
-            location = "Into Hand"
-        if muck and "Muck" in REVERSED_INITIALIZATION_ZONES:
-            trueCount += 1
-            location = "Muck"
-        if discard and "Discard" in REVERSED_INITIALIZATION_ZONES:
-            trueCount += 1 
-            location = "Discard"
-        if pocket and "Pocket" in REVERSED_INITIALIZATION_ZONES:
-            trueCount += 1
-            location = "Pocket"
+        if top + intoHand + muck + discard + pocket != 1:
+            assert False, Exception("__publishedLocationFetcher has multiple or no parameters for card: " + self.name)
 
-        if (trueCount != 1):
-            input("ERROR! __publishedLocationFetcher has multiple parameters for card: " + self.name)
+        if top:
+            location = CardInsertionPostion.TOP
+        if intoHand:
+            location = CardInsertionPostion.INTO_HAND
+        if muck:
+            location = CardInsertionPostion.MUCK
+        if discard:
+            location = CardInsertionPostion.DISCARD
+        if pocket:
+            location = CardInsertionPostion.POCKET
+
         return location
 
     def publishDollarTrigger(self, text: str) -> None:

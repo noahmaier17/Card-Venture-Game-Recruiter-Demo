@@ -17,6 +17,7 @@ from Dinosaur_Venture import main_visuals as vis
 from Dinosaur_Venture import react as r
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
 from Dinosaur_Venture.cards.mechanics.card_location import CardLocation, CardZoneName
+from Dinosaur_Venture.cards.mechanics.card_initalization_zones import CardInsertionPostion
 from Dinosaur_Venture.logging import gameplay_logging as log
 from Dinosaur_Venture.logging import log_entry
 
@@ -337,41 +338,13 @@ class Entity():
         # Shuffles deck
         self.deck.shuffle()
         
-        # Initializes cards in all locations
-        topDraw = CardLocation("")
-        unsetDraw = CardLocation("")
-        bottomDraw = CardLocation("")
-        muck = CardLocation("")
+        # Initializes cards in all locations (creating a copy of them from the deck)
+        for deck_card in self.deck.getArray():
+            card = copy.deepcopy(deck_card)
+            self.draw.append(card)
 
-        for deckCard in self.deck.array:
-            card = copy.deepcopy(deckCard)
-            if card.initialized == "Draw":
-                unsetDraw.append(card)
-            elif card.initialized == "Top":
-                topDraw.append(card)
-            elif card.initialized == "Bottom":
-                bottomDraw.append(card)
-            elif card.initialized == "Muck":
-                muck.append(card)
-            elif card.initialized == "Into Hand":
-                self.intoHand.append(card)
-            elif card.initialized == "Discard":
-                self.discard.append(card)
-            elif card.initialized == "Pocket":
-                self.pocket.append(card)
-            else:
-                input("ERROR!")
-                input(str(card.name) + " has no valid initialization location!")
-        
-        # Adds Cards to deck
-        for card in topDraw.getArray():
-            self.draw.append(card)
-        for card in unsetDraw.getArray():
-            self.draw.append(card)
-        for card in muck.getArray():
-            self.draw.append(card)
-        for card in bottomDraw.getArray():
-            self.draw.append(card)
+        # Does aforementioned shuffle
+        self.initializationShuffle()
 
         # Updates upcoming plus Action and plus Card
         self.upcomingPlusAction = copy.deepcopy(self.resetUpcomingPlusAction)
@@ -727,6 +700,70 @@ class Entity():
         else:
             assert False, "Cannot fetch location by name of " + str(name)
 
+    def initializationShuffle(self) -> None:
+        """
+        Shuffles all pertinent card locations for initialization.
+        """
+        return self.__shuffleTriggeredByDraw()
+    
+    def reshuffleShuffle(self) -> None:
+        """
+        Shuffles all pertinent card locations for a reshuffle.
+        """
+        return self.__shuffleTriggeredByDraw(is_reshuffle=True)
+    
+    def __shuffleTriggeredByDraw(self, is_reshuffle = False) -> None:
+        """
+        Shuffles this card location based on a specific card insertion position parameter.
+        """
+        # Preps the locations
+        top_draw = CardLocation("top")
+        unset_draw = CardLocation("unset")
+        muck = CardLocation("muck")
+        bottom_draw = CardLocation("bottom")
+
+        # Shuffles
+        self.draw.shuffle()
+
+        # Iterates across all cards
+        for card in self.draw.getArray():
+            # By what CardInsertionPosition value are we checking?
+            if is_reshuffle:
+                card_insertion_position = card.reshuffleLocation
+            else:
+                card_insertion_position = card.initialized
+
+            if card_insertion_position == CardInsertionPostion.DRAW:
+                unset_draw.append(card)
+            elif card_insertion_position == CardInsertionPostion.TOP:
+                top_draw.append(card)
+            elif card_insertion_position == CardInsertionPostion.BOTTOM:
+                bottom_draw.append(card)
+            elif card_insertion_position == CardInsertionPostion.MUCK:
+                muck.append(card)
+            elif card_insertion_position == CardInsertionPostion.INTO_HAND:
+                self.intoHand.append(card)
+            elif card_insertion_position == CardInsertionPostion.DISCARD:
+                self.discard.append(card)
+            elif card_insertion_position == CardInsertionPostion.POCKET:
+                self.pocket.append(card)
+            else:
+                input("ERROR!")
+                input(str(card.name) + " has no valid reshuffle location!")
+
+        # Clears the old array
+        self.draw.clear()
+
+        ## Adds Cards to deck
+        for card in top_draw.getArray():
+            self.draw.append(card)
+        for card in unset_draw.getArray():
+            self.draw.append(card)
+        for card in muck.getArray():
+            self.draw.append(card)
+        for card in bottom_draw.getArray():
+            self.draw.append(card)
+
     # Constants for denoting default locations we will draw from
     DEFAULT_CARD_LOCATION = 'DEFAULT'
     NO_CARD_LOCATION = 'NONE'
@@ -781,7 +818,7 @@ class Entity():
         if (fromLocation.length() == 0 and shuffleLocation.length() > 0):
             # if (self.enemy == False):
             #     input("   " + Fore.MAGENTA + " Triggered a Shuffle" + Fore.WHITE + "... ")
-            shuffleLocation.shuffleTriggeredByDraw()
+            self.reshuffleShuffle()
             for i in range(shuffleLocation.length()):
                 fromLocation.append(shuffleLocation.at(i))
             shuffleLocation.clear()
