@@ -1,8 +1,10 @@
 import random
-from typing import TYPE_CHECKING
 from enum import Enum
+from typing import TYPE_CHECKING
 
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+from Dinosaur_Venture.cards.mechanics.card_initalization_zones import \
+    CardInsertionPostion
 
 if TYPE_CHECKING:
     from Dinosaur_Venture.cards.mechanics import card as c
@@ -80,44 +82,6 @@ class CardLocation():
 
         while len(otherList) > 0:
             self.array.append(otherList.pop())
-
-    def shuffleTriggeredByDraw(self) -> None:
-        """Shuffles this card location based on each card's `reshuffleLocation` parameter."""
-        topDraw = CardLocation("")
-        unsetDraw = CardLocation("")
-        bottomDraw = CardLocation("")
-        muck = CardLocation("")
-
-        self.shuffle()
-
-        for card in self.array:
-            if card.reshuffleLocation == "Draw":
-                unsetDraw.append(card)
-            elif card.reshuffleLocation == "Top":
-                topDraw.append(card)
-            elif card.reshuffleLocation == "Bottom":
-                bottomDraw.append(card)
-            elif card.reshuffleLocation == "Muck":
-                muck.append(card)
-            elif card.reshuffleLocation == "Into Hand":
-                self.intoHand.append(card)
-            elif card.reshuffleLocation == "Discard":
-                self.discard.append(card)
-            else:
-                input("ERROR!")
-                input(str(card.name) + " has no valid reshuffle location!")
-
-        self.array.clear()
-
-        ## Adds Cards to deck
-        for card in topDraw.getArray():
-            self.array.append(card)
-        for card in unsetDraw.getArray():
-            self.array.append(card)
-        for card in muck.getArray():
-            self.array.append(card)
-        for card in bottomDraw.getArray():
-            self.array.append(card)
 
     def getArray(self) -> list["c.Card"]:
         return self.array

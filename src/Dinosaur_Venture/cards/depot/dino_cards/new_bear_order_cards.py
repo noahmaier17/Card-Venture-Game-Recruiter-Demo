@@ -102,8 +102,8 @@ class torchBearing(gdc.DinoCard):
         super().__init__()
         self.name = "Torch Bearing"
         self.bodyText = c.bb("+2 Actions.")
-        self.publishInitialization(top = True)
-        self.publishReshuffle(top = True)
+        self.publish_initialization_top()
+        self.publish_reshuffle_top()
         self.table = ["New Bear Order"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -117,8 +117,8 @@ class recyclingBin(DinoCard):
         super().__init__()
         self.name = "Recycling Bin"
         self.bodyText = c.bb("1B / 1B / 1B / 1G / 1G. //+1 Card. Discard the Bottom Card of Draw.")
-        self.publishInitialization(top = True)
-        self.publishReshuffle(top = True)
+        self.publish_initialization_top()
+        self.publish_reshuffle_top()
         self.table = ["New Bear Order"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -168,8 +168,8 @@ class reclaimedApexPredation(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "APEX " + cardToEnshell.name
-        cardToEnshell.publishInitialization(top = True)
-        cardToEnshell.publishReshuffle(top = True)
+        cardToEnshell.publish_initialization_top()
+        cardToEnshell.publish_reshuffle_top()
         cardToEnshell.publishShell(aboveThrowTextWrapper = cf.shellTextWrapper("Shell this.", cf.shellThis()))
 
 class shoulderHump(gdc.DinoCard):
@@ -208,8 +208,8 @@ class honeyPot(gdc.DinoCard):
         self.name = "Honey Pot"
         self.bodyText = c.bb("Discard your Hand. //Next Turn, +2 Actions.")
         self.bodyText.heavinessText("{ 1H }")
-        self.publishInitialization(top = True)
-        self.publishReshuffle(top = True)
+        self.publish_initialization_top()
+        self.publish_reshuffle_top()
         self.table = ["New Bear Order"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -227,8 +227,8 @@ class hibernation(gdc.DinoCard):
         super().__init__()
         self.name = "Hibernation"
         self.bodyText = c.bb("To each Enemy that has yet to take a Turn: //(1) Discard their Hand. //Discard your Hand.")
-        self.publishInitialization(top = True)
-        self.publishReshuffle(top = True)
+        self.publish_initialization_top()
+        self.publish_reshuffle_top()
         self.table = ["New Bear Order"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -270,8 +270,8 @@ class backScratcher(gdc.DinoCard):
         super().__init__()
         self.name = "Back Scratcher"
         self.bodyText = c.bb("+1 Action. (1L x6). +1 Card.")
-        self.publishInitialization(discard = True)
-        self.publishReshuffle(top = True)
+        self.publish_initialization_discard()
+        self.publish_reshuffle_top()
         self.table = ["New Bear Order"]
         self.bundle(throwCardFunction = self.duringPlay())
 
@@ -333,8 +333,8 @@ class chaseUntilExhaustion(gdc.DinoCard):
         super().__init__()
         self.name = "Chase Until Exhaustion"
         self.bodyText = c.bb("+1 Action. 1Notnil. //Discard your Draw. 0.67 Chance for: { HH }.")
-        self.publishInitialization(top = True)
-        self.publishReshuffle(top = True)
+        self.publish_initialization_top()
+        self.publish_reshuffle_top()
         self.table = ["New Bear Order"]
         self.bundle(throwCardFunction = self.duringPlay())
 

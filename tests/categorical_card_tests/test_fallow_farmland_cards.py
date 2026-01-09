@@ -323,7 +323,8 @@ class TestMangledShrew(TestCard):
                 cll.Attackcons([1, cll.Filled()],
                 cll.Attackcons([1, cll.Filled()],
                 cll.Attackcons([1, cll.Filled()],
-                'nil'))))
+                cll.Attackcons([1, cll.Filled()],
+                'nil')))))
             )
         )
 

@@ -5,8 +5,8 @@ Creates entries within the log for specific game events.
 Each LogEntry is coupled with specific classes/function calls.
 """
 
-from enum import Enum
 from abc import ABC, abstractmethod
+from enum import Enum
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -320,72 +320,44 @@ class CardFunctionLogEntry():
     Log Entries found within functions within `card_functions.py`.
     The purpose of this inheritance is mostly for code quality.
     """
-    class DiscardYourHand(LogEntry):
+    class DefaultCardFunctionLogEntry(LogEntry):
+        """
+        Inheritance for default card function log entries.
+        Parameters are the default parameters for a CardFunction object.
+        """
+        def __init__(
+            self,
+            cardFunction: "cf.cardFunctions",
+            card: "c.Card", 
+            caster: "e.Entity", 
+            dino: "e.Entity", 
+            enemies: list["e.Entity"], 
+            passedInVisuals: "vis.prefabPassedInVisuals"
+        ) -> None:
+            self.cardFunction = cardFunction
+            self.card = card
+            self.caster = caster
+            self.dino = dino
+            self.enemies = enemies
+            self.passedInVisuals = passedInVisuals
+
+    class DiscardYourHand(DefaultCardFunctionLogEntry):
         """
         Log for discarding your Hand.
         Employed in `card_functions.discardYourHand()`.
         """
         _LOG_TYPE = "Card Function Discard Your Hand"
 
-        def __init__(
-            self,
-            cardFunction: "cf.cardFunctions",
-            card: "c.Card", 
-            caster: "e.Entity", 
-            dino: "e.Entity", 
-            enemies: list["e.Entity"], 
-            passedInVisuals: "vis.prefabPassedInVisuals"
-        ) -> None:
-            self.cardFunction = cardFunction
-            self.card = card
-            self.caster = caster
-            self.dino = dino
-            self.enemies = enemies
-            self.passedInVisuals = passedInVisuals
-
-    class DrawUntilYouHaveXCardsInHand(LogEntry):
+    class DrawUntilYouHaveXCardsInHand(DefaultCardFunctionLogEntry):
         """
         Log for drawing until you have X Card(s) in Hand.
         Employed in `card_functions.drawUntilYouHaveXCardsInHand()`.
         """    
         _LOG_TYPE = "Card Function Draw To X in Hand"
 
-        def __init__(
-            self,
-            cardFunction: "cf.cardFunctions",
-            card: "c.Card", 
-            caster: "e.Entity", 
-            dino: "e.Entity", 
-            enemies: list["e.Entity"], 
-            passedInVisuals: "vis.prefabPassedInVisuals"
-        ) -> None:
-            self.cardFunction = cardFunction
-            self.card = card
-            self.caster = caster
-            self.dino = dino
-            self.enemies = enemies
-            self.passedInVisuals = passedInVisuals
-
-    class ArbitrarilyDiscardCardFrom_Location(LogEntry):
+    class ArbitrarilyDiscardCardFrom_Location(DefaultCardFunctionLogEntry):
         """
         Log for discarding an arbitrary card from [ location ].
         Employed in `card_functions.arbitrarilyDiscardCardFrom_Location()`.
         """    
-        _LOG_TYPE = "Arbitrarily Discard Card From Location"
-
-        def __init__(
-            self,
-            cardFunction: "cf.cardFunctions",
-            card: "c.Card", 
-            caster: "e.Entity", 
-            dino: "e.Entity", 
-            enemies: list["e.Entity"], 
-            passedInVisuals: "vis.prefabPassedInVisuals"
-        ) -> None:
-            self.cardFunction = cardFunction
-            self.card = card
-            self.caster = caster
-            self.dino = dino
-            self.enemies = enemies
-            self.passedInVisuals = passedInVisuals
-        
+        _LOG_TYPE = "Arbitrarily Discard Card From Location"        

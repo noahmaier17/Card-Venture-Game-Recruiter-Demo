@@ -26,5 +26,5 @@ ENV/
 # VS Code
 .vscode/
 
-# Other files that not important and are only for debugging/personal use
+# Other files that are not important and are only for debugging/personal use
 documents

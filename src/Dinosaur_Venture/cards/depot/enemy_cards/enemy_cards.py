@@ -783,7 +783,7 @@ class soapboxStump(gec.EnemyCard):
         self.name = "Soapbox Stump"
         self.bodyText = c.bb("Summon a 'Shrew'; it gets -1 Action.")
         self.bodyText.heavinessText("{ HH }")
-        self.publishInitialization(muck = True)
+        self.publish_initialization_muck()
         self.table = ["Enemy"]
         self.bundle(throwCardFunction = self.duringPlay())
 

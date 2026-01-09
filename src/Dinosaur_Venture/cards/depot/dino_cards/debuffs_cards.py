@@ -28,7 +28,7 @@ class dirty(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "DIRTY " + cardToEnshell.name
-        cardToEnshell.publishInitialization(muck = True)
+        cardToEnshell.publish_initialization_muck()
 
 class misplaced(gdc.DinoShellCard):
     def __init__(self):
@@ -39,7 +39,7 @@ class misplaced(gdc.DinoShellCard):
 
     def onLootedEnshelling(self, dino, cardToEnshell):
         cardToEnshell.name = "MISPLACED " + cardToEnshell.name
-        cardToEnshell.publishInitialization(discard = True)
+        cardToEnshell.publish_initialization_discard()
 
 class heavy(gdc.DinoShellCard):
     def __init__(self):
