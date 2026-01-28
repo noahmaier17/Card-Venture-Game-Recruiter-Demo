@@ -103,6 +103,10 @@ def api_cards():
 
     return jsonify(selected_cards)
 
+@app.route("/")
+def default_route():
+    return "Default"
+
 '''
 ## ----- GET: Shows a card based on an ID value -----
 @app.get("/cards/<card_id>")

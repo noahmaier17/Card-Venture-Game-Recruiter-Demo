@@ -1,0 +1,527 @@
+"""
+dinosaur_venture.py
+
+The main file of the program where all the logic is run.
+
+In being the very first thing I programmed, some of the logic could use some significant work.
+IE, handling each event with a string value could be replaced with something more robust.
+Moreover, some of the logic could be better factored out, which I have begun to do with the
+gameplayLoopEvents.py file.
+"""
+
+import random
+from typing import TYPE_CHECKING
+
+from colorama import Back, Fore, Style, init
+
+from Dinosaur_Venture.entities import dinoes
+
+init(autoreset=True) 
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import clearing as clr
+from Dinosaur_Venture import gameplay_loop_events as gameEvent
+from Dinosaur_Venture import get_cards_by_table as gcbt
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture import main_visuals as vis
+from Dinosaur_Venture import react as r
+from Dinosaur_Venture.cards.mechanics.card_location import CardLocation
+from Dinosaur_Venture.logging import gameplay_logging as log
+
+if TYPE_CHECKING:
+    from Dinosaur_Venture.entities import entity as e
+
+# This code can also be run using debug_run_dinosaur_venture.py, which will override some of these values in this code function.
+# See that file for more details.
+def code(
+        DIFFICULTY_DEBUG_BONUS=0,
+        NUMBER_OF_CARDS_TO_LOOT=4,
+        DO_ROUND_1_LOOTING=True,        # This is a feature I am testing
+        NUKE_DINO_DECK=False,
+        DEBUG_DINO_DECK=False,
+        SKIP_SHOP_DEBUG=False,
+        LOOT_SHELLS_ONLY=False,
+        SKIP_PICKING_CLEARINGS=False,
+        DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS=False,
+        OVERRIDE_SHOP_LOCATION=None
+    ):
+    ## ----- Starting Variables -----
+    # Whatever current event we are at; main logic driver
+    event: str = "Initialize Round"
+
+    # If we are going to skip the 0th Rest Stop
+    skipRoundZeroRestStop: bool = True
+
+    # Round count
+    roundCount: int = -1
+
+    # List of all enemies
+    enemies: list[e.Entity] = []
+    
+    # The current clearing
+    clearing: clr.Clearing = None
+
+    # How much to increase difficulty across each round
+    # Gets modified a lot which is why there are so many numbers here
+    roundDifficultyCreep: int = 3.50 + 0.5 - 0.5 - 0.25 + 2.10 + 1.10 + 0.75 - 0.75
+
+    # Stores all the loot for this clearing
+    lootTable: CardLocation = CardLocation("loot-table")
+
+    # The current difficulty
+    # Gets modified a lot which is why there are so many numbers here
+    difficulty = 10 + 8 - roundDifficultyCreep
+
+    # Gets a list of all possible places we can traverse
+    setOfAllWoods: list[clr.NeckOfTheWoods] = []
+    for neck in clr.NeckOfTheWoods.__subclasses__():
+        if neck().include:
+            setOfAllWoods.append(neck())
+
+    # Current neck of the woods
+    neckOfTheWoods: clr.NeckOfTheWoods = None
+
+    # Available clearings from the superset of possible places to traverse
+    clearingsAvailable: list[clr.NeckOfTheWoods] = []
+
+    # List of all playable characters
+    characters: list[e.Entity] = [
+        dinoes.Rover(),
+        dinoes.Graverobber()
+    ]
+
+    # No longer used
+    # possible_heirlooms: h.cardLocation = ["Shop"]
+
+    # I use to automatically play nature sounds via webbrowser when the game is played
+    ## webbrowser.open('https://www.youtube.com/watch?v=xNN7iTA57jM&t=291s&ab_channel=TheGuildofAmbience')
+
+    ## ----- Pick your Player -----
+    h.clear_screen()
+    preamble = []
+    preamble.append(" WELCOME TO THE DINSAUR VENTURE")
+
+    for i in range(len(characters)):
+        character = characters[i]
+        preamble.append(str(i + 1) + ": '" + character.name + "'")
+    value = h.pickValue("Pick a Character", range(1, len(characters) + 1), preamble = preamble) - 1
+
+    # The player's entity
+    dino: e.Entity = characters[value]
+
+    ## ----- Does intensive remaining set up -----
+    # List of all shop cards
+    shopLocation: CardLocation = gcbt.getCardsByTable(["Shop"], 
+                                                      locationName = "Shop Cards")
+    # Set of random tier-1 cards (which will get debuffed)
+    randomTier1Location: CardLocation = gcbt.getCardsByTable(gcbt.TIER_1_TABLES, 
+                                                             locationName = "Tier 1 Cards")
+    # Card debuffs
+    allDebuffs: CardLocation = gcbt.getCardsByTable(["Debuffs"], 
+                                                    locationName = "Debuffs")
+
+    # Modifies all the random tier-1 cards to have debuffs
+    for card in randomTier1Location.getArray():
+        if not card.isShellCard:
+            for i in range(2):
+                debuff = allDebuffs.at(random.randint(0, allDebuffs.length() - 1))
+                debuff.onLootedEnshelling(dino, card)
+
+    # Gets maps for entities/cards and their description/text
+    entityNames, cardNames = gameEvent.setupEntityAndCardNames()
+    
+    ## ----- Performs Debugging Actions -----
+    if OVERRIDE_SHOP_LOCATION:
+        shopLocation = OVERRIDE_SHOP_LOCATION
+
+    if NUKE_DINO_DECK or DEBUG_DINO_DECK:
+        dino.deck = CardLocation("deck")
+
+    # If DEBUG_DINO_DECK == True, replaces dino's deck with the following cards
+    if DEBUG_DINO_DECK:
+        '''
+        testCard = shop_cards.firewoodAxe()
+        debuffs_cards.inRuins().onLootedEnshelling(dino, testCard)
+        dino.deck.append(testCard)
+        '''
+
+        from Dinosaur_Venture.cards.depot.dino_cards import shop_cards
+
+        dino.deck.append(shop_cards.leavesRake())
+
+    difficulty += DIFFICULTY_DEBUG_BONUS
+    if difficulty <= 0:
+        print(Fore.RED + " CLEARING DIFFICULTY IS A NEGATIVE VALUE!")
+        print(Fore.RED + " CLEARING DIFFICULTY IS A NEGATIVE VALUE!")
+        print(Fore.RED + " CLEARING DIFFICULTY IS A NEGATIVE VALUE!")
+        input(" ... ")
+
+    difficulty += DIFFICULTY_DEBUG_BONUS
+
+    ## ----- Remaining Preparation Logic -----
+    # Commented out line is for picking a special card to start with (possible later feature)
+    # h.selectCard(dino, "Hierloom", 0, [randomTier1Location], [4], lootVacuously = True, canPass = True, activateAbilityOnPass = True)
+
+    # Logic for picking a guarenteed location
+    h.clear_screen()
+    notFirstNeckOfTheWoods = True
+    guarenteedClearing = None
+    if not SKIP_PICKING_CLEARINGS and DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS:
+        woodsPreamble = []
+        for index, wood in enumerate(setOfAllWoods):
+            woodsPreamble.append(str(index + 1) + ": '" + wood.name + "'")
+        guarenteedClearingIndex = h.pickValue("Pick a guarenteed Neck of the Woods", 
+                                              range(1, len(setOfAllWoods) + 1), 
+                                              preamble=woodsPreamble) - 1
+        guarenteedClearing = setOfAllWoods.pop(guarenteedClearingIndex)
+
+    # Creates a new log file instance
+    log.new_physical_log_file()
+
+    # The below while loop runs the entire game
+    while True:
+        # log.current_event_log(event)
+
+        if event == "Initialize Round":
+            """Prepares a Round, doing tasks like looting/buying Cards."""
+            ## Uptick difficulty 
+            difficulty += roundDifficultyCreep
+            
+            ## ----- DISPLAY CODE -----
+            h.clear_screen()
+            roundCount += 1
+
+            ## ----- Rest Stop -----
+            if roundCount % 2 == 0:
+                # Upticks reset values
+                dino.resetR += dino.uptickResetR
+                dino.resetG += dino.uptickResetG
+                dino.resetB += dino.uptickResetB
+            
+                # Heals back to values
+                if dino.hp.isDeathHealthcons == True:
+                    dino.hp = ""
+                    dino.hp = cll.Healthcons(dino.healR, dino.healG, dino.healB, 'nil')
+                    dino.dead = False
+                
+                dino.hp.r = dino.resetR
+                dino.hp.g = dino.resetG
+                dino.hp.b = dino.resetB
+            
+                # Loots a Clearing
+                if roundCount != 0:
+                    h.selectCard(dino, 
+                                 clearing.name, 
+                                 roundCount, 
+                                 [lootTable], 
+                                 [NUMBER_OF_CARDS_TO_LOOT], 
+                                 canPass=True,
+                                 activateAbilityOnPass=True)
+
+                # Buy from a Shop
+                if not SKIP_SHOP_DEBUG and roundCount % 4 == 0:
+                    if dino.skipNextShop:
+                        h.splash("'" + dino.name + "' must skip this shop...")
+                        dino.skipNextShop = False
+                    else:
+                        h.selectCard(dino, 
+                                     "Shop", 
+                                     0, 
+                                     [shopLocation, randomTier1Location], 
+                                     [4, 0], 
+                                     lootVacuously=True, 
+                                     canPass=True, 
+                                     activateAbilityOnPass=True)
+
+                ## ----- End of Rest Stop Triggers -----
+                for card in dino.deck.getArray():
+                    card.atTriggerEndOfRestStop(dino)
+
+                # Clears screen
+                h.clear_screen()
+
+                # Sets dino looting back to as it should be
+                dino.looting += dino.uptickLooting
+
+            ## ----- New Neck of the Woods -----
+            if roundCount % 4 == 0:
+                # ----- Pick Neck of the Woods Clearing -----
+                # print(" The Wilderness beckons towards... ")
+
+                # Populates the available clearings
+                while len(clearingsAvailable) < 2 and len(setOfAllWoods) > 0:
+                    if notFirstNeckOfTheWoods and guarenteedClearing != None:
+                        clearingsAvailable.append(guarenteedClearing)
+                        notFirstNeckOfTheWoods = False
+                    else:
+                        random.shuffle(setOfAllWoods)
+                        clearingsAvailable.append(setOfAllWoods.pop())
+
+                clr.printClearings(clearingsAvailable, roundCount)
+
+                # For debugging if we want to skip picking (automatically picking the 0th option)
+                if SKIP_PICKING_CLEARINGS:
+                    pick = 0
+                else:
+                    pick = h.pickValue("Pick a Direction", range(1, len(clearingsAvailable) + 1))
+                neckOfTheWoods = clearingsAvailable.pop(pick - 1)
+
+                # Adds to the loot table Cards for looting
+                lootTable = CardLocation("loot table")
+                setOfCards = []
+                if LOOT_SHELLS_ONLY:
+                    setOfCards = gcbt.getDinoShellCards()
+                else:
+                    setOfCards = gcbt.getDinoCards() + gcbt.getDinoShellCards()
+                for card in setOfCards:
+                    if neckOfTheWoods.name in card.table:
+                        lootTable.append(card)
+                lootTable.shuffle()
+
+                # Sets the clearing
+                clearing = neckOfTheWoods.clearing
+
+                # Loots if we are doing that new feature
+                if DO_ROUND_1_LOOTING and roundCount == 0:
+                    h.selectCard(dino, 
+                                 clearing.name, 
+                                 roundCount, 
+                                 [lootTable], 
+                                 [NUMBER_OF_CARDS_TO_LOOT], 
+                                 canPass=True,
+                                 activateAbilityOnPass=True)
+
+                # Sets dino looting back to as it should be
+                dino.looting += dino.uptickLooting
+
+
+            event = "Populate Clearing"
+
+        elif event == "Populate Clearing":
+            """Populates a clearing, adding things like the enemies."""
+            clearing.populate(difficulty)
+            enemies = clearing.enemies
+            event = "Start Round"
+
+        elif event == "Start Round":
+            """Starts a Round; handled via `gameEvent.startRound()`."""
+            h.clear_screen()
+            gameEvent.startRound(dino, enemies)
+            event = "Dino Turn Start"
+
+        elif event == "Dino Turn Start":
+            """Handles the start of dino's turn; handled via `gameEvent.dinoTurnStart()`."""
+            h.clear_screen()
+            gameEvent.dinoTurnStart(dino, enemies)
+            event = "Dino Play Card"
+
+        elif event == "Dino Play Card":   
+            """Handles dino playing a card; handled via `gameEvent.dinoPlayCard()`."""
+            returnValues = gameEvent.dinoPlayCard(dino, 
+                                                  enemies, 
+                                                  roundCount, 
+                                                  clearing, 
+                                                  event, 
+                                                  entityNames, 
+                                                  cardNames)
+            event = returnValues[0]
+
+        elif event == "Dino Turn End":
+            """Handles resolving dino revealing cards to play; handled via `gameEvent.dinoPackingCard()`."""
+            returnValues = gameEvent.dinoPackingCard(dino,
+                                                     enemies,
+                                                     roundCount,
+                                                     clearing,
+                                                     event,
+                                                     entityNames,
+                                                     cardNames)
+
+            ## ----- Reaction Window for Dino Turn End -----
+            r.reactionStack = r.reactStack([
+                r.reactionWindow([r.AtTurnEnd(), r.DinoTurn()])
+            ])
+            extraSuppressedTypes = ["looting", "core", "{}", "revealed", "round start"]
+            passedInVisuals = vis.prefabPrintDinoTurn(dino, 
+                                                      enemies, 
+                                                      roundCount, 
+                                                      clearing, 
+                                                      entityNames, 
+                                                      cardNames, 
+                                                      event, 
+                                                      extraSuppressedTypes=extraSuppressedTypes)
+            r.reactionStack.react(dino, enemies, passedInVisuals)
+
+            dino.turnEndTidying(dino, enemies, passedInVisuals)
+
+            ## ----- Reset Card States -----
+            for card in dino.deck.getArray():
+                card.resetCardState_TurnEnd()
+
+            ## ----- Check if all enemies are dead -----
+            allDead = True
+            for enemy in enemies:
+                if enemy.dead == False:
+                    allDead = False
+            
+            if allDead:
+                h.splash(" Cleared Clearing! ")
+                event = "Round End"
+            else:        
+                dino.dinoTurnDinoDeathCheck(roundCount)
+                if dino.takeAnotherTurnQuery():
+                    event = "Dino Turn Start"
+                else:
+                    event = "Enemy Turn"
+        
+        elif event == "Enemy Turn":
+            """Each enemy takes their turn(s)."""
+            enemyIndex = 0
+
+            # Iterates across all enemies
+            while enemyIndex < len(enemies):
+                enemy = enemies[enemyIndex]
+                h.clear_screen()
+                unfinishedWithEnemyFlag = True
+
+                ## ----- Checks if this turn is finished already -----
+                if enemy.dead == True and enemy.deadCardPlays == False:
+                    unfinishedWithEnemyFlag = False
+                
+                ## ----- During Turn -----
+                while unfinishedWithEnemyFlag:
+                    vis.printEnemyTurn(enemy, dino, enemies, roundCount, clearing, enemyIndex, event)
+                    ## ----- Enemy Turn Start -----
+                    enemy.turnStart()
+                    
+                    for card in enemy.play.getArray():
+                        card.atTriggerTurnStart(enemy, dino, enemies)
+                
+                    ## ----- Enemy Play Cards -----
+                    # Checks if the enemy can even play any cards
+                    playedAnyCards = False
+                    while unfinishedWithEnemyFlag:
+
+                        # Handles all cases where the enemy cannot play a card
+                        if enemy.dead == True and enemy.deadCardPlays == False:
+                            unfinishedWithEnemyFlag = False
+                        elif enemy.hand.length() == 0 and playedAnyCards == False:
+                            h.splash("Hand is empty, so it cannot play any Cards.")
+                            unfinishedWithEnemyFlag = False
+                        elif enemy.actions == 0 and playedAnyCards == False:
+                            h.splash("Enemy has no Actions, so it cannot play any Cards.")
+                            unfinishedWithEnemyFlag = False
+                        elif enemy.actions == 0 or enemy.hand.length() == 0: 
+                            unfinishedWithEnemyFlag = False
+                        else:
+                            # Picks the card index that the enemy will play
+                            cardIndex = enemy.cardIntellect()
+
+                            if cardIndex != "nil":
+                                card = enemy.hand.at(cardIndex)
+
+                                # Plays the card
+                                passedInVisuals = vis.prefabPrintEnemyTurn(enemy, 
+                                                                           dino, 
+                                                                           enemies, 
+                                                                           roundCount, 
+                                                                           clearing, 
+                                                                           enemyIndex, 
+                                                                           event, 
+                                                                           entityNames, 
+                                                                           cardNames)
+                                enemy.playCard(enemy.hand, 
+                                               cardIndex, 
+                                               enemy, 
+                                               dino, 
+                                               enemies, 
+                                               passedInVisuals=passedInVisuals)
+
+                                playedAnyCards = True
+                                input(" ... ")
+                                print("")
+                            else:
+                                unfinishedWithEnemyFlag = False
+
+                ## ----- End Of Turn -----
+                if enemy.dead == False:
+                    enemy.atTriggerTurnEnd(dino, enemies)
+                
+                    enemy.turnEndTidying(dino, enemies, passedInVisuals)
+                    
+                    dino.enemyTurnDinoDeathCheck()
+
+                if enemy.takeAnotherTurnQuery():
+                    pass
+                else:
+                    enemyIndex += 1
+
+            event = "End of All Enemy Turns"
+        
+        elif event == "End of All Enemy Turns":
+            """Currently does nothing; considered to be used for Unlocks."""
+            ## ----- Check for Unlocks [[ by turn ]] -----
+            '''
+            updateMap = {}
+            for enemy in enemies:
+                if enemy.initialEnemyName == "Shrew" and enemy.diedThisTurn == True:
+                    h.plusDict(updateMap, "Shrews Dead", 1)
+            
+            if h.dictContainsAtLeast(updateMap, "Shrews Dead", 3):
+                h.saveUpdate("save.txt", "Unlocked_Belly_Filled_Shrew", True,
+                    "Belly-Filled Shrew!")
+            
+            h.saveUpdate("save.txt", "Unlocked_Hungry_Wolf", True, 
+                    "Hungry Wolf Player!")
+            '''
+            
+            """
+            Here contains key formerly-used code for these unlocks.
+                        
+            unlockConditions = {
+                "Unlocked_Belly_Filled_Shrew": "3 or more 'Shrews' eliminated in one turn",
+                "Unlocked_Hungry_Wolf": "You made it one turn" 
+            }
+
+            ## Updates the save value accordingly. 
+            ##  saveFile: the save file name. 
+            ##  key: the value on save. 
+            ##  updatedValue: the new thing to make the key paired to. 
+            ##  splashText: what to say if this variable got updated. 
+            def saveUpdate(saveFile, key, updatedValue, majorSplashText):
+                minorSplashText = unlockConditions.get(key)
+                newFile = ""
+                file = open(str(saveFile), 'r')
+                for line in file:
+                    keyValuePair = line.split(": ")
+                    if keyValuePair[0] == key and keyValuePair[1] != str(updatedValue) + "\n":
+                        splash(Fore.YELLOW + "Unlocked Achieved" + Fore.WHITE + ": "
+                            + majorSplashText, printInsteadOfInput = True)
+                        splash(" - Requirement: " + Fore.YELLOW + minorSplashText + ".", 
+                            printInsteadOfInput = True)
+                        yetToTypeYes = True
+                        while yetToTypeYes:
+                            yetToTypeYes = not yesOrNo("Type (Y)es to Continue.")
+                        newFile += keyValuePair[0] + ": " + str(updatedValue) + "\n"
+                    else:
+                        newFile += line
+
+                file.close()
+                file = open(str(saveFile), 'w+')
+                file.write(newFile)
+                file.close()
+            """
+
+            event = "Dino Turn Start"
+
+        elif event == "Round End":
+            """Handles the end of an entire Round."""
+            ## ----- Check for Unlocks [[ BY ROUND BY ROUND BY ROUND ]] -----
+            '''Currently not used.'''
+
+            ## ----- Resets Variables -----
+            dino.roundEndTidying()
+            
+            ## ----- New Round -----
+            event = "Initialize Round"
+
+if __name__ == '__main__':
+    code()
