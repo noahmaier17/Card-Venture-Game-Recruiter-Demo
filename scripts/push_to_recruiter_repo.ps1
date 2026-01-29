@@ -11,8 +11,6 @@ if (git status --porcelain) {
 # Runs the pytest suite to ensure correctness
 pytest
 
-exit 1
-
 # Checks out the recruiter-demo branch on this repository
 Write-Host ">> Checkout recruiter-demo branch" -ForegroundColor Cyan
 git checkout recruiter-demo
