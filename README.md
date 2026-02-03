@@ -66,7 +66,7 @@ The following depicts and explains the project directory. The most important and
             test_utils/*                        # Testing utilities
 
         web_app/                                                                                                    [APP]
-            app.py                              # Remote-hosted Flask web app for card lookup                       [ENTRY]
+            app.py                              # AWS-hosted Flask web app for card lookup                          s[ENTRY]
             static/scripts.js                   # JavaScript components
             templates/view_cards.html           # HTML component
 
@@ -94,8 +94,9 @@ The following is a list of the the biggest features within my project with a bit
 - Test Cases (`tests/`)
     - I have been working to implement test cases for my game, which can be found within this folder.
 - Simulate Cards Web Application (`web_app/`)
-    - As a tool for looking at the list of all cards in the game, I have created a small remotely-hosted web application using Python, JavaScript, and HTML.
+    - As a tool for looking at the list of all cards in the game, I have created a small, continuously deployed web application using Python, JavaScript, HTML, AWS, and Zappa. AWS services I utilized included API Gateway, AWS Lambda, and Route 53.
     - The tool contains several checkboxes for selecting which table to include for looking at the code, and buttons for toggling certain sets of cards (like selecting all the playable characters' cards). It also contains RegEx tools for looking up cards based on their name and on their card text.
+    - Web application link: [https://api.deck-building-card-game.com/cards/view](https://api.deck-building-card-game.com/cards/view)
 
 ## Current Main Focuses
 
