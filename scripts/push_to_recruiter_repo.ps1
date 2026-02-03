@@ -9,6 +9,7 @@ if (git status --porcelain) {
 }
 
 # Runs the pytest suite to ensure correctness
+Write-Host ">> Running pytest suite" -ForegroundColor Cyan
 pytest
 
 # Checks out the recruiter-demo branch on this repository
