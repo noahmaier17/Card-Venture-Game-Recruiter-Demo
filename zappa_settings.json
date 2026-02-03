@@ -10,7 +10,7 @@
             "concurrent"
         ],
         "profile_name": "default",
-        "project_name": "card-venture-ga",
+        "project_name": "card-venture",
         "runtime": "python3.13",
         "s3_bucket": "zappa-9an8zqb2f"
     }
