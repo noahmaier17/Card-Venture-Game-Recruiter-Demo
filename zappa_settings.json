@@ -1,0 +1,17 @@
+{
+    "dev": {
+        "app_function": "web_app.app.app",
+        "aws_region": "us-east-1",
+        "exclude": [
+            "boto3",
+            "dateutil",
+            "botocore",
+            "s3transfer",
+            "concurrent"
+        ],
+        "profile_name": "default",
+        "project_name": "card-venture",
+        "runtime": "python3.13",
+        "s3_bucket": "zappa-9an8zqb2f"
+    }
+}

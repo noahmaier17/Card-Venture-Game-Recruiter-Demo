@@ -8,6 +8,10 @@ if (git status --porcelain) {
     exit 1
 }
 
+# Runs the pytest suite to ensure correctness
+Write-Host ">> Running pytest suite" -ForegroundColor Cyan
+pytest
+
 # Checks out the recruiter-demo branch on this repository
 Write-Host ">> Checkout recruiter-demo branch" -ForegroundColor Cyan
 git checkout recruiter-demo
@@ -24,6 +28,7 @@ if (Test-Path ".git/MERGE_HEAD") {
 Write-Host ">> Removes several undesired files from this branch; fatal pathspec errors expected" -ForegroundColor Cyan
 git rm -r '.\Storage of Deprecated Things'
 git rm -r .\documents\
+git rm -r .\build\
 
 # Detects if this merge had any conflicts
 if (git ls-files -u) {

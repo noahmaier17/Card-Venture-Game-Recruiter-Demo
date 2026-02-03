@@ -1,0 +1,88 @@
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.depot.dino_cards import general_dino_cards as gdc
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_functions as cf
+
+''' 
+    Debug/Testing Suite
+'''
+class draw6Cards(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Draw 6 Cards"
+        self.bodyText = c.bb("+6 Cards.")
+        self.publish_initialization_top()
+        self.table = ["Debug"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            for i in range(6):
+                caster.drawCard()
+
+class drawAll(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Draw All"
+        self.bodyText = c.bb("+20 Cards.")
+        self.publish_initialization_top()
+        self.table = ["Debug"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            for i in range(20):
+                caster.drawCard()
+
+class pocketTest(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Pocket Test"
+        self.bodyText = c.bb("Move this onto the Pocket Mat.")
+        self.table = ["Debug"]
+        self.publish_initialization_top()
+        self.publishPacking("999M.")
+        self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            index = h.locateCardIndex(caster.play, caster)
+            if index >= 0:
+                caster.moveCard(caster.play, index, caster.pocket, position = 0)
+            else:
+                h.splash('FAIL_MOVE')
+
+    class duringPacking(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([999, cll.M()], 'nil'))
+
+class megaDamage(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "MEGA Damage"
+        self.bodyText = c.bb("+1 Action. 10R / 10G / 10B. Pocket this.")
+        self.table = ["Debug"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([10, cll.R()],
+                                                                 cll.Attackcons([10, cll.G()],
+                                                                 cll.Attackcons([10, cll.B()],
+                                                                 'nil'))))
+            caster.moveMe(caster.play, card, caster.pocket)
+
+class cantrip(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Cantrip"
+        self.bodyText = c.bb("+ Cantrip.")
+        self.table = ["Debug"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            caster.drawCard()

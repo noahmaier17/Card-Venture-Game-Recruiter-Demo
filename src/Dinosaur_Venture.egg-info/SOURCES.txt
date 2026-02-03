@@ -1,16 +1,10 @@
 README.md
 pyproject.toml
 src/Dinosaur_Venture/__init__.py
-src/Dinosaur_Venture/card.py
-src/Dinosaur_Venture/card_functions.py
-src/Dinosaur_Venture/card_initalization_zones.py
-src/Dinosaur_Venture/card_mod_functions.py
-src/Dinosaur_Venture/card_tokens.py
 src/Dinosaur_Venture/channel_linked_lists.py
 src/Dinosaur_Venture/clearing.py
 src/Dinosaur_Venture/debug_run_dinosaur_venture.py
 src/Dinosaur_Venture/dinosaur_venture.py
-src/Dinosaur_Venture/gameplay_logging.py
 src/Dinosaur_Venture/gameplay_loop_events.py
 src/Dinosaur_Venture/gameplay_scripted_input.py
 src/Dinosaur_Venture/get_cards_by_table.py
@@ -22,6 +16,7 @@ src/Dinosaur_Venture.egg-info/SOURCES.txt
 src/Dinosaur_Venture.egg-info/dependency_links.txt
 src/Dinosaur_Venture.egg-info/requires.txt
 src/Dinosaur_Venture.egg-info/top_level.txt
+<<<<<<< HEAD
 <<<<<<< HEAD
 src/Dinosaur_Venture/dino_cards_depot/AppleOrchardHollowCards.py
 src/Dinosaur_Venture/dino_cards_depot/BanditsOfTheHighwayCards.py
@@ -89,6 +84,45 @@ src/Dinosaur_Venture/dino_cards_depot/the_pier_cards.py
 src/Dinosaur_Venture/enemy_cards_depot/enemy_cards.py
 src/Dinosaur_Venture/enemy_cards_depot/general_enemy_cards.py
 >>>>>>> main
+=======
+src/Dinosaur_Venture/cards/__init__.py
+src/Dinosaur_Venture/cards/depot/__init__.py
+src/Dinosaur_Venture/cards/depot/dino_cards/__init__.py
+src/Dinosaur_Venture/cards/depot/dino_cards/apple_orchard_hollow_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/bandits_of_the_highway_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/chicken_coup_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/debuffs_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/debug_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/fallow_farmland_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/fast_food_mascots_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/fe_farmers_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/fruitbearing_monks_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/fundamental_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/general_dino_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/graverobber_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/horse_hostelry_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/new_bear_order_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/packing_bot_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/rubble_dwellers_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/shop_cards.py
+src/Dinosaur_Venture/cards/depot/dino_cards/the_pier_cards.py
+src/Dinosaur_Venture/cards/depot/enemy_cards/__init__.py
+src/Dinosaur_Venture/cards/depot/enemy_cards/enemy_cards.py
+src/Dinosaur_Venture/cards/depot/enemy_cards/general_enemy_cards.py
+src/Dinosaur_Venture/cards/mechanics/__init__.py
+src/Dinosaur_Venture/cards/mechanics/card.py
+src/Dinosaur_Venture/cards/mechanics/card_functions.py
+src/Dinosaur_Venture/cards/mechanics/card_initalization_zones.py
+src/Dinosaur_Venture/cards/mechanics/card_location.py
+src/Dinosaur_Venture/cards/mechanics/card_mod_functions.py
+src/Dinosaur_Venture/cards/mechanics/card_tokens.py
+src/Dinosaur_Venture/devtools/enemy_card_mappings.py
+src/Dinosaur_Venture/devtools/simulate_cards.py
+src/Dinosaur_Venture/devtools/simulate_pulls.py
+>>>>>>> main
 src/Dinosaur_Venture/entities/dinoes.py
 src/Dinosaur_Venture/entities/enemieses.py
 src/Dinosaur_Venture/entities/entity.py
+src/Dinosaur_Venture/logging/gameplay_logging.py
+src/Dinosaur_Venture/logging/intent.py
+src/Dinosaur_Venture/logging/log_entry.py

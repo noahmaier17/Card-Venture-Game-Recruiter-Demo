@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 # For running pytest correctly
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["src"]
 
 [project]
 name = "Dinosaur_Venture"
@@ -18,3 +18,9 @@ dependencies = [
     "flask>=3.1.2",
     "ansi2html>=1.9.2"
 ]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

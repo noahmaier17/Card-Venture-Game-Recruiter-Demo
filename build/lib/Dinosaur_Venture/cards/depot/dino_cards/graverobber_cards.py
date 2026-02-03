@@ -1,0 +1,223 @@
+from Dinosaur_Venture import channel_linked_lists as cll
+from Dinosaur_Venture import helper as h
+from Dinosaur_Venture.cards.depot.dino_cards import general_dino_cards as gdc
+from Dinosaur_Venture.cards.mechanics import card as c
+from Dinosaur_Venture.cards.mechanics import card_functions as cf
+from Dinosaur_Venture.cards.mechanics import card_tokens as tk
+
+'''
+    Graverobber Cards
+'''
+
+class heirloom(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Heirloom"
+        self.bodyText = c.bb("2M.")
+        # self.bodyText.lootingText("When Replaced with Loot: Change Replacement Card with [ iTop ].")
+        # self.publish_initialization_top()
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([2, cll.M()],
+                                                                 'nil'))
+
+    # def onReplacedWithLoot(self, dino, newCard):
+    #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iTop ].")
+    #     newCard.publish_initialization_top()
+
+class emptyMantle(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Empty Mantle"
+        self.bodyText = c.bb("Do Nothing.")
+        # self.bodyText.lootingText("When Replaced with Loot: Change Replacement Card with [ iDiscard ].")
+        self.publish_initialization_discard()
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            pass
+
+    # def onReplacedWithLoot(self, dino, newCard):
+    #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iDiscard ].")
+    #     newCard.publish_initialization_discard()
+
+class luggedCreature(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Lugged Creature"
+        self.bodyText = c.bb("+1 Action. 1B-notick.")
+        self.publishRoundStart("Pocket a ^Lightweight Shovel^ Card.")
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Bnotick()],
+                                                                 'nil'))
+
+    def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
+        caster.gainCard(lightweightShovel(), caster.pocket)
+
+class faithfulHound(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Faithful Hound"
+        self.bodyText = c.bb("1Notnil / 1Notnil.")
+        self.publishRoundStart("Pocket a ^Friendly Bark^ Card.")
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Filled()],
+                                                                 cll.Attackcons([1, cll.Filled()],
+                                                                 'nil')))
+
+    def atTriggerRoundStart(self, caster, dino, enemies, passedInVisuals):
+        caster.gainCard(friendlyBark(), caster.pocket)
+
+class spareSpade(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Spare Spade"
+        self.bodyText = c.bb("+1 Action. Discard your Hand, for +2 Cards.")
+        self.publish_initialization_pocket()
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+            for _ in range(2):
+                caster.drawCard()
+
+class stowaway(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Stowaway"
+        self.bodyText = c.bb("+1 Action. 3G.")
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([3, cll.G()],
+                                                                 'nil'))
+
+class willOWisps(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Will-o-Wisps"
+        self.bodyText = c.bb("2x, to an Arbitrary Enemy: 1L.")
+        # self.bodyText.lootingText("When Replaced with Loot: Change Replacement Card with [ iTop ].")
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            cf.numberX_toArbitraryEnemy_dealDamage(2, cll.Attackcons([1, cll.L()], 'nil')).func(card, caster, dino, enemies, passedInVisuals)
+
+    # def onReplacedWithLoot(self, dino, newCard):
+    #     h.splash("Triggered On Replaced with Loot: Changing Replacement Card with [ iTop ].")
+    #     newCard.publish_initialization_top()
+
+class flickeringLantern(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Flickering Lantern"
+        self.bodyText = c.bb("+1 Action. 1R-notick.")
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Rnotick()],
+                                                                 'nil'))
+
+    '''
+    def onPacking(self, caster, dino, enemies, passedInVisuals):
+        super().onPacking(caster, dino, enemies, passedInVisuals)
+        cf.discardBottomCardOfDraw().func(self, caster, dino, enemies, passedInVisuals)
+
+        success = caster.moveMe(caster.hand, self, caster.draw, position = caster.draw.length(), suppressFailText = True)
+        if not success:
+            caster.moveMe(caster.pocket, self, caster.draw, position = caster.draw.length())
+    '''
+
+class courageBuilding(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Courage Building"
+        self.bodyText = c.bb("1B-notick / 1R.")
+        self.publishPacking("Pocket a ^Trip^ Card.")
+        ## Could change to use the Into-Hand or even Into-Pocket mat.
+        self.table = ["Graverobber"]
+        self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            ## caster.plusActions(1)
+            cf.dealDamage().func(card, caster, dino, enemies, passedInVisuals, cll.Attackcons([1, cll.Bnotick()],
+                                                                 cll.Attackcons([1, cll.R()],
+                                                                 'nil')))
+
+    class duringPacking(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.gainCard(trip(), caster.pocket)
+
+class trip(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Trip"
+        self.bodyText = c.bb("||Temporary|| + Cantrip.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            caster.drawCard()
+
+class friendlyBark(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Friendly Bark"
+        self.bodyText = c.bb("||Temporary|| +1 Card. Destroy this.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            for i in range(1):
+                caster.drawCard()
+            cf.destroyThis().func(card, caster, dino, enemies, passedInVisuals)
+
+class lightweightShovel(gdc.DinoCard):
+    def __init__(self):
+        super().__init__()
+        self.name = "Lightweight Shovel"
+        self.bodyText = c.bb("||Temporary|| +1 Action. Discard your Hand, for +2 Cards.")
+        self.publishPacking("Entoken all Pocket Cards with <<feathery>>.")
+        self.table = ["Fundamental"]
+        self.bundle(throwCardFunction = self.duringPlay(), packingCardFunction = self.duringPacking())
+
+    class duringPlay(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            caster.plusActions(1)
+            cf.discardYourHand().func(card, caster, dino, enemies, passedInVisuals)
+            for _ in range(2):
+                caster.drawCard()
+
+    class duringPacking(cf.cardFunctions):
+        def func(self, card, caster, dino, enemies, passedInVisuals):
+            for card in caster.pocket.getArray():
+                card.publishToken(tk.feathery())

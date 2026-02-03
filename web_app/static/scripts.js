@@ -130,10 +130,22 @@ async function fetchCardsMatchingText() {
   // "-nt" and "-notick" with "-n(t|otick)".
   matchingTextBodyText = matchingTextBodyText.replace(/-nt/g, "-n(t|otick)");
   matchingTextBodyText = matchingTextBodyText.replace(/-notick/g, "-n(t|otick)");
-  const bodyTextRegex = new RegExp(matchingTextBodyText, "i");
+  // Handles incorrect regex values
+  var malformedRegex = false
+  var bodyTextRegex = null
+  try {
+    bodyTextRegex = new RegExp(matchingTextBodyText, "i");
+  } catch(e) {
+    malformedRegex = true
+  }
 
   // We also need the RegEx expression for the card name
-  const cardNameRegex = new RegExp(matchingTextName, "i");
+  var cardNameRegex = null
+  try {
+    cardNameRegex = new RegExp(matchingTextName, "i");
+  } catch(e) {
+    malformedRegex = true
+  }
 
   // Sends the list of selected tables
   const res = await fetch("/api/cards", {
@@ -151,12 +163,16 @@ async function fetchCardsMatchingText() {
     return;
   }
 
-  // Otherwise, we get a subset of cards where we must match the text
+  // If our RegEx is malformed, we will show no cards (otherwise we have silent errors)
   const subsetOfCards = [];
-  cards.forEach(card => {
-    if (cardNameRegex.test(card.plainName) && bodyTextRegex.test(card.plainText)) {
-      subsetOfCards.push(card);
-    }
-  });
+  if (!malformedRegex) {
+    // Otherwise, we get a subset of cards where we must match the text
+    cards.forEach(card => {
+      if (cardNameRegex.test(card.plainName) && bodyTextRegex.test(card.plainText)) {
+        subsetOfCards.push(card);
+      }
+    });
+  }
+
   renderCards(subsetOfCards, cards.length);
 }
