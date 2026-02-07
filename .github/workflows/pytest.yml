@@ -1,14 +1,14 @@
 name: Run Pytest
 
-on: [push, pull_request] # Run on every push and PR
+on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest # GitHub gives you a fresh VM
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
