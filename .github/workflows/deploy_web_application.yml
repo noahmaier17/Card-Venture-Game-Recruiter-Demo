@@ -23,20 +23,6 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Debug raw OIDC response
-        shell: bash
-        run: |
-          echo "ACTIONS_ID_TOKEN_REQUEST_URL:"
-          echo "$ACTIONS_ID_TOKEN_REQUEST_URL"
-          echo
-
-          echo "Requesting token..."
-          RESPONSE=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com")
-
-          echo "Raw response:"
-          echo "$RESPONSE"
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
