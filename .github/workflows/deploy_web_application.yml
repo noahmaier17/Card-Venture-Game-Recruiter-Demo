@@ -1,6 +1,7 @@
 name: Deploy Web Application
 
 on:
+  workflow_dispatch: # ?
   push:
     branches:
       - main
@@ -11,7 +12,7 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest # Instead of windows
 
     steps:
       - name: Checkout code
@@ -22,16 +23,20 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Install project and dependencies
-        run: pip install .
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::766766277102:role/GitHubActionsLambdaDeploy
           aws-region: us-east-1
+          
+      - name: Install project and dependencies
+        run: pip install .
 
-      - name: Run web application deployment script
-        shell: pwsh
+      - name: Deploy with Zappa
         run: |
-          ./scripts/deploy_aws_website.ps1 
+          zappa update dev
+
+      # - name: Run web application deployment script
+      #   shell: pwsh
+      #   run: |
+      #     ./scripts/deploy_aws_website.ps1 
