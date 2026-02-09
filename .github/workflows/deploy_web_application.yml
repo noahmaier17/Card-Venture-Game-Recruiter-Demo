@@ -23,6 +23,20 @@ jobs:
         with:
           python-version: '3.14'
 
+      - name: Debug OIDC claims
+        shell: bash
+        run: |
+          echo "Requesting OIDC token..."
+          TOKEN_JSON=$(curl -s -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com")
+
+          TOKEN=$(echo "$TOKEN_JSON" | jq -r '.value')
+          echo "Raw token acquired"
+
+          PAYLOAD=$(echo "$TOKEN" | cut -d '.' -f2 | base64 --decode 2>/dev/null | jq)
+          echo "Decoded token payload:"
+          echo "$PAYLOAD"
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
