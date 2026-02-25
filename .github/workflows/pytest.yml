@@ -1,7 +1,6 @@
-name: Run Pytest Workflow Call
+name: Run Pytest
 
-on: 
-  workflow_call:
+on: [push, pull_request]
 
 jobs:
   test:
@@ -17,12 +16,7 @@ jobs:
           python-version: '3.14'
 
       - name: Install project and dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install .
+        run: pip install .
 
       - name: Runs PyTest
-        run: |
-          source venv/bin/activate
-          pytest
+        run: pytest
