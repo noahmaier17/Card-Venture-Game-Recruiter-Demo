@@ -1,4 +1,4 @@
-name: Deploy Web Application
+name: Deploy Web Frontend
 
 on:
   workflow_dispatch:
