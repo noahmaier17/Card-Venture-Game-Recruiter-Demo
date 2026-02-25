@@ -29,6 +29,7 @@ Write-Host ">> Removes several undesired files from this branch; fatal pathspec 
 git rm -r '.\Storage of Deprecated Things'
 git rm -r .\documents\
 git rm -r .\build\
+git rm -r .\VSCodeCounter\
 
 # Detects if this merge had any conflicts
 if (git ls-files -u) {

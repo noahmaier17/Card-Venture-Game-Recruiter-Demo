@@ -16,7 +16,10 @@ The following depicts and explains the project directory. The most important and
 **Files**
 
     Card-Venture-Game/
-        .github/                                # GitHub Actions; automatically runs pytest on push/pull
+        .github/workflows/                      # GitHub Actions; automatically runs pytest on push/pull
+            pytest.yml                          # Runs PyTest test suite
+            deploy_web_backend.yml              # Deploys AWS-hosted Flask API
+            deploy_web_frontend.yml             # Deploys AWS-hosted React frontend website
         ...
 
         scripts/
@@ -66,9 +69,10 @@ The following depicts and explains the project directory. The most important and
             test_utils/*                        # Testing utilities
 
         web_app/                                                                                                    [APP]
-            app.py                              # AWS-hosted Flask web app for card lookup                          s[ENTRY]
-            static/scripts.js                   # JavaScript components
-            templates/view_cards.html           # HTML component
+            app.py                              # AWS-hosted Flask API for card lookup                              [ENTRY]
+            frontend/*                          # React-based frontend                                              [ENTRY]
+            static/scripts.js                   # Deprecated JavaScript components
+            templates/view_cards.html           # Deprecated HTML component
 
         logs/                                   # Location of debugging logs
         

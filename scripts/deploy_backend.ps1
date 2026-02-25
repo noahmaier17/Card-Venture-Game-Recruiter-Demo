@@ -1,5 +1,5 @@
 # ======================================================
-# Script: Updates remote-hosted Lambda website.
+# Script: Updates remote-hosted Lambda backend/website.
 # ======================================================
 
 # Activates the virtual environment that zappa requires

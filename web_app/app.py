@@ -4,6 +4,7 @@ import random
 
 from ansi2html import Ansi2HTMLConverter
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
 
 from Dinosaur_Venture import get_cards_by_table as gcbt
 from Dinosaur_Venture import helper as h
@@ -11,6 +12,14 @@ from Dinosaur_Venture import helper as h
 ## ----- Setup -----
 # Sets up Flask and friends
 app = Flask(__name__)
+'''
+app = Flask(
+    __name__,
+    static_folder="frontend/dist",
+    static_url_path=""
+)
+'''
+CORS(app)
 converter = Ansi2HTMLConverter(inline=True) ## Used extensive Google for this
 
 # Sets up a list of all Cards
@@ -44,7 +53,7 @@ for child in gcbt.getAllCards().getArray():
     })
     max_id += 1
 # Maps tables to if they belong to DINO, ENEMY, or NEITHER
-table_with_category = []
+table_with_category: dict[str, str] = []
 '''
 table_with_category is of the form:
     "name" (str): the name of the table
@@ -70,11 +79,6 @@ for table in gcbt.ALL_TABLES:
 ORDER = {"enemy": 0, "shop": 1, "dino": 2, "wip_dino": 3, "none": 4}
 table_with_category = sorted(table_with_category, key=lambda d: ORDER[d["category"]])
 
-## ----- GET: Shows all the cards -----
-@app.get("/cards")
-def get_cards():
-    return jsonify(all_cards)
-
 ## ----- GET: UI for showing all cards -----
 @app.get("/cards/view")
 def view_cards():
@@ -84,11 +88,37 @@ def view_cards():
                            enemy_tables=gcbt.ENEMY_TABLES,
                            all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP)
 
-@app.post("/api/cards")
+## ----- API: Fetches all tables with their corresponding category (see above) -----
+@app.route("/api/tables_with_categories")
+def api_tables_with_categories():
+    return jsonify(table_with_category)
+
+## ----- API: Fetches all dino cards (EXCLUDING WIP cards) -----
+@app.route("/api/dino_cards")
+def api_dino_cards():
+    return jsonify(gcbt.ALL_DINO_CARDS)
+
+## ----- API: Fetches all enemy tables -----
+@app.route("/api/enemy_tables")
+def api_enemy_tables():
+    return jsonify(gcbt.ENEMY_TABLES)
+
+## ----- API: Fetches all dino cards (INCLUDING WIP cards) -----
+@app.route("/api/dino_cards_including_wip")
+def api_dino_cards_including_wip():
+    return jsonify(gcbt.ALL_DINO_CARDS_INCLUDING_WIP)
+
+## ----- API: Gets all the cards -----
+@app.get("/api/all_cards")
+def get_cards():
+    return jsonify(all_cards)
+
+## ----- API: Fetches cards based on passed-in tables -----
+@app.route("/api/cards", methods=["POST"])
 def api_cards():
     # Read the JSON from our request
     data = request.get_json()
-    selected_tables = data.get("tables", []) 
+    selected_tables = data.get("tables", [])
 
     # Filters the cards
     selected_cards = []
