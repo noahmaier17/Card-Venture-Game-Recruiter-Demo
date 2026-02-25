@@ -66,9 +66,10 @@ The following depicts and explains the project directory. The most important and
             test_utils/*                        # Testing utilities
 
         web_app/                                                                                                    [APP]
-            app.py                              # AWS-hosted Flask web app for card lookup                          s[ENTRY]
-            static/scripts.js                   # JavaScript components
-            templates/view_cards.html           # HTML component
+            app.py                              # AWS-hosted Flask API for card lookup                              [ENTRY]
+            frontend/*                          # React-based frontend                                              [ENTRY]
+            static/scripts.js                   # Deprecated JavaScript components
+            templates/view_cards.html           # Deprecated HTML component
 
         logs/                                   # Location of debugging logs
         
