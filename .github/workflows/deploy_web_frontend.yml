@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest # Instead of windows
 
     steps:
-      - name: Runs PyTest
-        uses: ./.github/workflows/pytest.yml
-
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Runs PyTest
+        uses: ./.github/workflows/pytest.yml
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
