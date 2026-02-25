@@ -31,15 +31,17 @@ jobs:
           role-to-assume: arn:aws:iam::766766277102:role/GitHubActionsLambdaDeploy
           aws-region: us-east-1
 
-      - name: Test AWS credentials
-        run: aws sts get-caller-identity
-
+      - name: Creating and activating virtual environment (for Deploy with Zappa step)
+        run: python -m venv venv
 
       - name: Install project and dependencies
-        run: pip install .
+        run: |
+          source venv/bin/activate
+          pip install .
 
       - name: Deploy with Zappa
         run: |
+          source venv/bin/activate
           zappa update dev
 
       # - name: Run web application deployment script
