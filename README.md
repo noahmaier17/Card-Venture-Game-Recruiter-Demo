@@ -16,7 +16,10 @@ The following depicts and explains the project directory. The most important and
 **Files**
 
     Card-Venture-Game/
-        .github/                                # GitHub Actions; automatically runs pytest on push/pull
+        .github/workflows/                      # GitHub Actions; automatically runs pytest on push/pull
+            pytest.yml                          # Runs PyTest test suite
+            deploy_web_backend.yml              # Deploys AWS-hosted Flask API
+            deploy_web_frontend.yml             # Deploys AWS-hosted React frontend website
         ...
 
         scripts/
