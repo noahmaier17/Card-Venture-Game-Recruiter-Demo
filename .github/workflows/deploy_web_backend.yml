@@ -1,7 +1,7 @@
 name: Deploy Web Application
 
 on:
-  workflow_dispatch: # ?
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -43,8 +43,3 @@ jobs:
         run: |
           source venv/bin/activate
           zappa update dev
-
-      # - name: Run web application deployment script
-      #   shell: pwsh
-      #   run: |
-      #     ./scripts/deploy_aws_website.ps1 
