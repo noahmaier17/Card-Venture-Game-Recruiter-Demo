@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest # Instead of windows
 
     steps:
+      - name: Runs PyTest
+        uses: ./.github/workflows/pytest.yml
+
       - name: Checkout code
         uses: actions/checkout@v4
 
