@@ -176,3 +176,5 @@ async function fetchCardsMatchingText() {
 
   renderCards(subsetOfCards, cards.length);
 }
+
+window.fetchCardsMatchingText = fetchCardsMatchingText
