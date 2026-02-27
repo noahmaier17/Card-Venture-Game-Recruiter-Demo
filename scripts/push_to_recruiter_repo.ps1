@@ -12,8 +12,6 @@ if (git status --porcelain) {
 Write-Host ">> Changing directory" - ForegroundColor Cyan
 Set-Location $PSScriptRoot/..
 
-exit
-
 # Runs the pytest suite to ensure correctness
 Write-Host ">> Running pytest suite" -ForegroundColor Cyan
 pytest
