@@ -11,18 +11,20 @@ function Controls({
     return(
     <div>
         <div>
-            <label htmlFor="name-search-card">RegEx Card Name: </label>
+            <label htmlFor="name-search-card-input">RegEx Card Name: </label>
             <input
-                type="text" 
+                type="text"
+                id="name-search-card-input"
                 value={nameFilter}
                 onChange={e => setNameFilter(e.target.value)}
                 placeholder="..."
                 autoComplete="off">
             </input>
 
-            <label htmlFor="text-search-card"> RegEx Card Text: </label>
+            <label htmlFor="text-search-card-input"> RegEx Card Text: </label>
             <input
                 type="text" 
+                id="text-search-card-input"
                 value={bodyTextFilter}
                 onChange={e => setBodyTextFilter(e.target.value)}
                 placeholder="..."

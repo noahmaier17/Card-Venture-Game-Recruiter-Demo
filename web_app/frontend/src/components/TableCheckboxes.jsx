@@ -1,8 +1,16 @@
 function TableCheckboxes({
     tablesWithCategories, 
     selectedTables, 
+    loadingTablesWithCategories, 
     setSelectedTables
 }) {
+    // If this component is yet to load, we return a "loading..." element
+    if (loadingTablesWithCategories) {
+        return (
+            <div>Fetching table (free tier on AWS has cold starts)...</div>
+        );
+    }
+
     // We need to have a function that toggles on these tables
     const handleToggle = (table) => {
         if (selectedTables.some(otherTable => otherTable.name === table.name)) {

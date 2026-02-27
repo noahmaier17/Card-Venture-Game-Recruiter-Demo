@@ -1,6 +1,6 @@
 function CardsList({
-    numberOfTableFilteredCards,
-    numberOfTableAndRegexFilteredCards,
+    numberOfTableFilteredCards = 0,
+    numberOfTableAndRegexFilteredCards = 0,
     cards
 }) {
     // First, we will prep an element that shows how many cards were returned

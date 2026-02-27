@@ -13,7 +13,11 @@ function App() {
   // All the cards
   const [allCards, setAllCards] = useState([]);
 
-  // Mutatable state
+  // Mutatable state -- backend loading variables
+  // Boolean to determine if the `tablesWithCategories` API call has finished 
+  const [loadingTablesWithCategories, setLoadingTablesWithCategories] = useState(true);
+
+  // Mutatable state -- frontend variables
   // The cards we will display for the user
   const [cards, setCards] = useState([]);
   // Our name filter
@@ -29,9 +33,20 @@ function App() {
 
   // Fetches all the tables so we may list them out with HTML
   useEffect(() => { 
-    fetch(`${apiURL}/api/tables_with_categories`)
-    .then(res => res.json())
-    .then(setTablesWithCategories)
+    async function loadTablesWithCategories() {
+      // Fetches the cards
+      const res = await fetch(`${apiURL}/api/tables_with_categories`);
+
+      const tablesWithCategories = await res.json();
+
+      setTablesWithCategories(tablesWithCategories);
+      setLoadingTablesWithCategories(false);
+    }
+    loadTablesWithCategories();
+
+    // fetch(`${apiURL}/api/tables_with_categories`)
+    // .then(res => res.json())
+    // .then(setTablesWithCategories)
   }, []);
 
   // Debug useEffect to print out changes to variables
@@ -173,6 +188,7 @@ function App() {
       <TableCheckboxes
         tablesWithCategories={tablesWithCategories}
         selectedTables={selectedTables}
+        loadingTablesWithCategories={loadingTablesWithCategories}
         setSelectedTables={setSelectedTables}
       />
       <CardsList
