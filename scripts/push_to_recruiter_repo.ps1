@@ -8,6 +8,10 @@ if (git status --porcelain) {
     exit 1
 }
 
+# We need to change our starting directory for when we run PyTest
+Write-Host ">> Changing directory" - ForegroundColor Cyan
+Set-Location $PSScriptRoot/..
+
 # Runs the pytest suite to ensure correctness
 Write-Host ">> Running pytest suite" -ForegroundColor Cyan
 pytest
