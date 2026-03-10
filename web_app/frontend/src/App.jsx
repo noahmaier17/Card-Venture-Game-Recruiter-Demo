@@ -174,6 +174,7 @@ function App() {
 
   return (
     <div>
+      <title>Simulate Cards</title>
       <h1>Simulate Cards</h1>
       <Controls
         toggleAllTables={toggleAllTables}
