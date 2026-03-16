@@ -52,6 +52,9 @@ button {
   font-style: italic;
   color: gray;
 }
+.card-body-text {
+  white-space: pre-wrap;
+}
 pre {
   white-space: pre-wrap;
 }

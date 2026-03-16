@@ -8,3 +8,5 @@ Requires-Dist: pytest-timeout>=2.4.0
 Requires-Dist: send2trash>=1.8.3
 Requires-Dist: flask>=3.1.2
 Requires-Dist: ansi2html>=1.9.2
+Requires-Dist: zappa>=0.61.4
+Requires-Dist: flask-cors>=6.0.2

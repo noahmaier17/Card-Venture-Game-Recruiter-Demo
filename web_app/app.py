@@ -1,7 +1,9 @@
 ## SERVER
 import copy
+import json
 import random
 
+from typing import Optional
 from ansi2html import Ansi2HTMLConverter
 from flask import Flask, jsonify, render_template, request
 from flask_cors import CORS
@@ -43,13 +45,27 @@ for child in gcbt.getAllCards().getArray():
     prettyText = child.prettyCardText(0, 99999, suppressedTypes=[]) # , noColor=True)
     prettyText = converter.convert(prettyText, full=False)
 
+    bodyTextAsCodes = child.bodyText.getNiceBodyText_AsCodes()
+
+    bodyTextAsJSONCodes: list[tuple[str, Optional["h.colorize_AsCodes.ColorizeCode"]]] = []
+    for bodyText, code in bodyTextAsCodes:
+        if code:
+            bodyTextAsJSONCodes.append((bodyText, json.dumps(code.__dict__)))
+        else:
+            bodyTextAsJSONCodes.append((bodyText, None))
+    
+    # if len(bodyTextAsJSONCodes) != 0:
+    #     print(name)
+    #     print(text)
+
     all_cards.append({
         "id": max_id,
         "name": prettyName,
         "plainName": name,
         "text": prettyText,
         "plainText": text,
-        "table": child.table
+        "table": child.table,
+        "bodyTextAsJSONCodes": bodyTextAsJSONCodes
     })
     max_id += 1
 # Maps tables to if they belong to DINO, ENEMY, or NEITHER

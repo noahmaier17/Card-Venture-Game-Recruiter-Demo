@@ -2,7 +2,7 @@ import copy
 import math
 import os
 import random
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from colorama import Back, Fore, Style, init
 
@@ -605,6 +605,69 @@ def clear_screen() -> None:
         os.system('cls')
     else:
         os.system('clear')
+
+def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.ColorizeCode"]]]:
+    """
+    Returns a sequence of tuples, with the first element being the text and the second element being
+    color categories, if any.
+    """
+    class ColorizeCode():
+        def __init__(
+            self,
+            style_bright=False,
+            style_normal=False,
+            style_dim=False,
+            fore_black=False
+        ) -> None:
+            self.style_bright = style_bright
+            self.style_normal = style_normal
+            self.style_dim = style_dim
+            self.fore_black = fore_black
+    
+    return_sequence: list[tuple[str, ColorizeCode]] = []
+
+    # To avoid long return sequences, we will cache words that can be grouped together in a `None` category
+    cached_blank_sequence: str = ""
+
+    def appendNewColorizeCode(
+        cached_blank_sequence: str,
+        text_to_add: str, 
+        colorize_code: ColorizeCode,
+        return_sequence: list[tuple[str, ColorizeCode]]
+    ) -> bool:
+        """
+        Adds the new colorized code while also pushing the cache.
+        Returns if anything was appended (which will always be true).
+        """
+        # Adds cached None-type value
+        return_sequence.append((cached_blank_sequence, None))
+        # Adds colorized codes
+        return_sequence.append((text_to_add, colorize_code))
+
+        return True
+
+    # Iterates across all words, adding to the code if applicable
+    for word in splinterize(text):
+        entered_else_branch: bool = False
+
+        if word == "@":
+            appendNewColorizeCode(
+                cached_blank_sequence,
+                "@",
+                ColorizeCode(fore_black=True, style_bright=True),
+                return_sequence
+            )
+        else:
+            entered_else_branch = True
+            cached_blank_sequence += word
+        
+        # If we did not enter this else branch, that means we appended, so we should void the current
+        # cached blank sequence
+        if entered_else_branch:
+            cached_blank_sequence = ""
+
+    return return_sequence
+
 
 def colorize(text: str) -> str:
     """Adds colors to certain key words/phrases in a string, returning that newly-colorized string."""

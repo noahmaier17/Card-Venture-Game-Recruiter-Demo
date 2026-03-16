@@ -1,6 +1,6 @@
 import inspect
 import uuid
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from Dinosaur_Venture import helper as h
 from Dinosaur_Venture.cards.mechanics import card_tokens as tk
@@ -143,6 +143,14 @@ class bb():
     def addDollarTrigger(self, text: str) -> None:
         """Add a Dollar Trigger to this body text."""
         self.dollarTriggers.append(text)
+
+    def getNiceBodyText_AsCodes(self) -> list[tuple[str, Optional["h.colorize_AsCodes.ColorizeCode"]]]:
+        """
+        Gets the nice body text of this card, except returns sequences of the card
+        text with corresponding text component categories.
+        """
+        text: str = self.getNiceBodyText(0, 99999, [], noColor=True)
+        return h.colorize_AsCodes(text)
 
     def getNiceBodyText(
         self, 
@@ -303,6 +311,9 @@ class Card():
         # Name and original name of the card
         self.name: str = ""
         self.unmodifiedName: str = ""
+
+        # Body text; always rewrite during inheritance
+        self.bodyText: bb = bb("")
 
         # Card Handler Functions, which allow the overriding of cardFunctions functionality
         #   Similar to Tokens, except alter what happens on play
