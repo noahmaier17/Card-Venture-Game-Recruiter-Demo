@@ -1,3 +1,4 @@
+/*
 function NumericText({
     text
 }) {
@@ -7,6 +8,13 @@ function NumericText({
 const textTypeToTextFunction = {
     numeric: NumericText
 }
+*/
+
+/* 
+    Converts the `ColorizeCode` values into Tailwind CSS elements.
+*/
+
+
 
 function CardsList({
     numberOfTableFilteredCards = 0,
@@ -44,6 +52,42 @@ function CardsList({
         })
         tableString += ")"
 
+        // Handles creating the card text with its unique coloring
+        const cardBodyTextJSX = []
+
+        if (card.bodyTextAsJSONCodes) {
+            card.bodyTextAsJSONCodes.forEach(([cardText, codes], index) => {
+
+                const parsedCodes = JSON.parse(codes);
+
+                // If we have parsed codes, we read them. 
+                if (parsedCodes) {
+                    // console.log(parsedCodes);
+
+                    if (parsedCodes["style_bright"]) {
+                        cardBodyTextJSX.push(
+                            <span key={index}>{cardText}</span>
+                        );
+
+                    // Even with parsed codes, we might not have any styling elements.
+                    } else {
+                        cardBodyTextJSX.push(
+                            <span key={index}>{cardText}</span>
+                        );
+                    }
+                
+                // Without any codes, simply add this card text element.
+                } else {
+                        cardBodyTextJSX.push(
+                            <span key={index}>{cardText}</span>
+                        );
+                }
+            })
+        } else {
+            console.log("ERROR")
+        }
+
+
         // Sets the actual JSX elements
         cardsListJSX.push(
             <div key={card.name} className="card">
@@ -52,8 +96,7 @@ function CardsList({
                     <span className="card-table-text">{tableString}</span>
                 </div>
                 <div>
-                    {card.plainText.map}
-                    <pre className="card-body-text">{card.plainText}</pre>
+                    <pre className="card-body-text">{cardBodyTextJSX}</pre>
                 </div>
             </div>
         )

@@ -657,14 +657,25 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
                 ColorizeCode(fore_black=True, style_bright=True),
                 return_sequence
             )
+        elif word == "R":
+            appendNewColorizeCode(
+                cached_blank_sequence,
+                "R",
+                ColorizeCode(fore_black=True, style_bright=True),
+                return_sequence
+            )
         else:
             entered_else_branch = True
             cached_blank_sequence += word
         
         # If we did not enter this else branch, that means we appended, so we should void the current
         # cached blank sequence
-        if entered_else_branch:
+        if not entered_else_branch:
             cached_blank_sequence = ""
+
+    # After, we must cache the rest of our text
+    if len(cached_blank_sequence) != 0:
+        return_sequence.append((cached_blank_sequence, None))
 
     return return_sequence
 
