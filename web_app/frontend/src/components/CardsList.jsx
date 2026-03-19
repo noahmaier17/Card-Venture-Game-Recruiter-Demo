@@ -1,21 +1,3 @@
-/*
-function NumericText({
-    text
-}) {
-    return <span style={{ color: "red", fontWeight: "bold" }}>{text}</span>
-}
-
-const textTypeToTextFunction = {
-    numeric: NumericText
-}
-*/
-
-/* 
-    Converts the `ColorizeCode` values into Tailwind CSS elements.
-*/
-
-
-
 function CardsList({
     numberOfTableFilteredCards = 0,
     numberOfTableAndRegexFilteredCards = 0,
@@ -102,7 +84,6 @@ function CardsList({
         } else {
             console.log("ERROR")
         }
-
 
         // Sets the actual JSX elements
         cardsListJSX.push(
