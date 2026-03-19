@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 WIDTH = 117 - 2
 
 ## Types of punctuation we splinterize, and that we do not want a new indent line to begin with
-PUNCTUATION_TYPES = [' ', ',', '!', '.', '-', ':', ';', '?', '{', '}', '[', ']', '(', ')', '*', '`']
+PUNCTUATION_TYPES = [' ', ',', '!', '.', '-', ':', ';', '?', '{', '}', '[', ']', '(', ')', '*', '`', '|']
 MULTIPLICATIVE_NUMERAL_TYPES = ["Nonce", "Once", "Twice", "Thrice", "Quarce", "Quince", "Sextce", "Spece", "Octce", "Nince", "Tence"]
 ALPHABET = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
@@ -610,6 +610,8 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
     """
     Returns a sequence of tuples, with the first element being the text and the second element being
     color categories, if any.
+
+    Does not currently support use of FoG, FoW, FoR, FoY.
     """
     class ColorizeCode():
         def __init__(
@@ -617,20 +619,50 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
             style_bright=False,
             style_normal=False,
             style_dim=False,
-            fore_black=False
+
+            fore_black=False,
+            fore_red=False,
+            fore_green=False,
+            fore_blue=False,
+            fore_cyan=False,
+            fore_magenta=False,
+            fore_yellow=False,
+
+            back_red=False,
+            back_green=False,
+            back_blue=False,
+            back_white=False,
+            back_cyan=False
         ) -> None:
+            """
+            Creates a class (that is later converted into a dictionary) of color encodings.
+            Behavior expects only one value to be true for every *_ grouping (like style, fore, etc.). 
+            """
             self.style_bright = style_bright
             self.style_normal = style_normal
             self.style_dim = style_dim
+
             self.fore_black = fore_black
-    
+            self.fore_red = fore_red
+            self.fore_green = fore_green
+            self.fore_blue = fore_blue
+            self.fore_cyan = fore_cyan
+            self.fore_magenta = fore_magenta
+            self.fore_yellow = fore_yellow
+
+            self.back_red = back_red
+            self.back_green = back_green
+            self.back_blue = back_blue
+            self.back_white = back_white
+            self.back_cyan = back_cyan
+
     return_sequence: list[tuple[str, ColorizeCode]] = []
 
     # To avoid long return sequences, we will cache words that can be grouped together in a `None` category
     cached_blank_sequence: str = ""
 
     def appendNewColorizeCode(
-        cached_blank_sequence: str,
+        cached_blank_sequence: Optional[str],
         text_to_add: str, 
         colorize_code: ColorizeCode,
         return_sequence: list[tuple[str, ColorizeCode]]
@@ -638,32 +670,229 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
         """
         Adds the new colorized code while also pushing the cache.
         Returns if anything was appended (which will always be true).
+
+        If `cached_blank_sequence` is None, does not add an unnecessary list entry.
         """
         # Adds cached None-type value
-        return_sequence.append((cached_blank_sequence, None))
+        if (cached_blank_sequence):
+            return_sequence.append((cached_blank_sequence, None))
         # Adds colorized codes
         return_sequence.append((text_to_add, colorize_code))
 
         return True
 
+    apostrophe_sequence: bool = False
+    percentage_sequence: bool = False
+    carrot_sequence: bool = False
+
     # Iterates across all words, adding to the code if applicable
     for word in splinterize(text):
         entered_else_branch: bool = False
 
-        if word == "@":
-            appendNewColorizeCode(
-                cached_blank_sequence,
-                "@",
-                ColorizeCode(fore_black=True, style_bright=True),
-                return_sequence
-            )
+        # If the length of the word is 0, we will have bounds errors when checking word length
+        # and, after all, do not even have a word to include. So we just continue.
+        if len(word) == 0:
+            continue
+
+        # If our word is part of a specific sequence, we need to handle that edge case.
+        # We will consider all the sequences mutually exclusive. Because apostrophes can be parts of words, we will handle that
+        # case last, as a lazy way of handling edge case conditions.
+        # For any sequence, we can either be at the end of it or be part of it.
+        # These sequences are mutually exclusive to other styling conditions.
+        if apostrophe_sequence:
+            if word[len(word) - 1:len(word)] == "'":
+                apostrophe_sequence = False
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_bright=True, fore_yellow=True), return_sequence)
+        elif percentage_sequence:
+            if word[len(word) - 1:len(word)] == "%":
+                percentage_sequence = False
+                appendNewColorizeCode(cached_blank_sequence, word[0:len(word) - 1] + " ",
+                                      ColorizeCode(fore_black=True, back_red=True), return_sequence)
+            else:
+                appendNewColorizeCode(cached_blank_sequence, word,
+                                      ColorizeCode(fore_black=True, back_red=True), return_sequence)
+        elif carrot_sequence:
+            if word[len(word) - 1:len(word)] == "^":
+                carrot_sequence = False
+                appendNewColorizeCode(cached_blank_sequence, word[0:len(word) - 1] + " ",
+                                      ColorizeCode(style_bright=True, back_cyan=True), return_sequence)
+            else:
+                appendNewColorizeCode(cached_blank_sequence, word,
+                                      ColorizeCode(style_bright=True, back_cyan=True), return_sequence)
+                
+
+        elif word == "DAS":
+            appendNewColorizeCode(cached_blank_sequence, "---",
+                                  ColorizeCode(style_bright=True), return_sequence)
+        elif word == "`":
+            appendNewColorizeCode(cached_blank_sequence, "",
+                                  None, return_sequence)
+        elif word == "~":
+            appendNewColorizeCode(cached_blank_sequence, "~",
+                                  ColorizeCode(fore_green=True, style_bright=True), return_sequence)
+        elif word == "@":
+            appendNewColorizeCode(cached_blank_sequence, "@", 
+                                  ColorizeCode(fore_black=True, style_bright=True), return_sequence)
+        elif word == "$":
+            appendNewColorizeCode(cached_blank_sequence, "$",
+                                  ColorizeCode(fore_cyan=True, style_bright=True), return_sequence)
+        elif word == "Random":
+            appendNewColorizeCode(cached_blank_sequence, "Random",
+                                  ColorizeCode(fore_magenta=True), return_sequence)
+        elif word == "Row":
+            appendNewColorizeCode(cached_blank_sequence, "R",
+                                  ColorizeCode(back_red=True, style_bright=True), return_sequence)
+            appendNewColorizeCode(None, "o",
+                                  ColorizeCode(back_green=True, style_bright=True), return_sequence)
+            appendNewColorizeCode(None, "w",
+                                  ColorizeCode(back_blue=True, style_bright=True), return_sequence)
+        elif word == "Notnil" or word == "Filled":
+            appendNewColorizeCode(cached_blank_sequence, "Filled",
+                                  ColorizeCode(style_bright=True, fore_black=True), return_sequence)
         elif word == "R":
-            appendNewColorizeCode(
-                cached_blank_sequence,
-                "R",
-                ColorizeCode(fore_black=True, style_bright=True),
-                return_sequence
-            )
+            appendNewColorizeCode(cached_blank_sequence, "R",
+                                  ColorizeCode(fore_red=True), return_sequence)
+        elif word == "G":
+            appendNewColorizeCode(cached_blank_sequence, "G",
+                                  ColorizeCode(fore_green=True), return_sequence)
+        elif word == "B":
+            appendNewColorizeCode(cached_blank_sequence, "B",
+                                  ColorizeCode(fore_blue=True), return_sequence)
+        elif word == "L":
+            appendNewColorizeCode(cached_blank_sequence, "L",
+                                  ColorizeCode(fore_yellow=True), return_sequence)
+        elif word in ["otherwise", "Otherwise", "may", "May", "+", "-", "Replace", "Mill", "Milling", "Immill", "Then", "Unless", "Turn"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_bright=True), return_sequence)
+        elif word in ["Move", "Number", "number", "not", "?"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_bright=True), return_sequence)
+        elif word in ["Success", "Successes"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_green=True, style_bright=True), return_sequence)
+        elif word in ["Failure"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_red=True, style_bright=True), return_sequence)
+        elif word in ["Card", "Cards"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_green=True), return_sequence)
+        elif word == "Card(s)":
+            appendNewColorizeCode(cached_blank_sequence, "Card",
+                                  ColorizeCode(fore_green=True), return_sequence)
+            appendNewColorizeCode(None, "(",
+                                  None, return_sequence)
+            appendNewColorizeCode(None, "s",
+                                  ColorizeCode(fore_green=True), return_sequence)
+            appendNewColorizeCode(None, ")",
+                                  None, return_sequence)
+        elif word == "Action" or word == "Actions":
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_cyan=True, style_bright=True), return_sequence)
+        elif word in ["Discard", "Discarding"]:
+            # Not having coloring for discarding looks nicer to me
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  None, return_sequence)
+        elif word == "Hand":
+            # This word is not styled
+            appendNewColorizeCode(cached_blank_sequence, "Hand",
+                                  None, return_sequence)
+        elif word == "FAILURE":
+            appendNewColorizeCode(cached_blank_sequence, "[ FAILURE ]",
+                                  ColorizeCode(style_bright=True, fore_red=True), return_sequence)
+        elif word == "Cantrip":
+            green_colorize_code = ColorizeCode(fore_green=True)
+            cyan_colorize_code = ColorizeCode(style_bright=True, fore_cyan=True)
+            appendNewColorizeCode(cached_blank_sequence, "C",
+                                  green_colorize_code, return_sequence)
+            appendNewColorizeCode(None, "a",
+                                  cyan_colorize_code, return_sequence)
+            appendNewColorizeCode(None, "n",
+                                  green_colorize_code, return_sequence)
+            appendNewColorizeCode(None, "t",
+                                  cyan_colorize_code, return_sequence)
+            appendNewColorizeCode(None, "r",
+                                  green_colorize_code, return_sequence)
+            appendNewColorizeCode(None, "i",
+                                  cyan_colorize_code, return_sequence)
+            appendNewColorizeCode(None, "p",
+                                  green_colorize_code, return_sequence)
+        elif word == "Chance":
+            appendNewColorizeCode(cached_blank_sequence, "Chance",
+                                  ColorizeCode(fore_yellow=True), return_sequence)
+        elif word == "M":
+            appendNewColorizeCode(cached_blank_sequence, "M",
+                                  ColorizeCode(back_white=True, style_bright=True, fore_black=True), return_sequence)
+        elif word in ["H", "HH"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_black=True, style_bright=True), return_sequence)
+        elif word in ["Enemy", "Enemies", "Carcass"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(back_red=True), return_sequence)
+        elif word == "Enemy's":
+            appendNewColorizeCode(cached_blank_sequence, "Enemy",
+                                  ColorizeCode(back_red=True), return_sequence)
+            appendNewColorizeCode(None, "'s",
+                                  None, return_sequence)
+        elif word in ["Band", "Bands", "EXCEPT"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_red=True, style_bright=True), return_sequence)
+        elif word in ["Triggered", "Special", "Gimmick"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(fore_yellow=True), return_sequence)
+        elif word == "Temporary":
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_dim=True), return_sequence)
+        elif word.isnumeric():
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_bright=True), return_sequence)
+        elif word == "#x":
+            appendNewColorizeCode(cached_blank_sequence, "#",
+                                  ColorizeCode(style_bright=True), return_sequence)
+            appendNewColorizeCode(None, "x",
+                                  None, return_sequence)
+        elif word == "x#":
+            appendNewColorizeCode(cached_blank_sequence, "x",
+                                  None, return_sequence)
+            appendNewColorizeCode(None, "#",
+                                  ColorizeCode(style_bright=True), return_sequence)
+        elif word in INITIALIZATION_ZONES.keys():
+            appendNewColorizeCode(cached_blank_sequence, INITIALIZATION_ZONES.get(word),
+                                  ColorizeCode(fore_black=True, style_bright=True), return_sequence)
+        elif word in ["notick"]:
+            # I could just add this word to the cached blank sequence, but doing this this way is less error prone
+            appendNewColorizeCode(cached_blank_sequence, "nt",
+                                  None, return_sequence)
+        elif word in ["Fatal"]:
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(back_red=True), return_sequence)
+        elif word == "ARR":
+            appendNewColorizeCode(cached_blank_sequence, "-->",
+                                  ColorizeCode(style_dim=True), return_sequence)
+        elif word[0:1] == "'" and word[len(word) - 1:len(word)] == "'":                       ## Contains 'text' phrase
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_bright=True, fore_yellow=True), return_sequence)
+        elif word[0:1] == "'":                                                              ## Starts with '
+            appendNewColorizeCode(cached_blank_sequence, word,
+                                  ColorizeCode(style_bright=True, fore_yellow=True), return_sequence)
+            apostrophe_sequence = True
+            # We do not have phrases that end with ' because we handle that actual case above
+        elif word[0:1] == "^" and word[len(word) - 1:len(word)] == "^":                     ## Contains ^text^ phrase
+            appendNewColorizeCode(cached_blank_sequence, " " + word[1:len(word) - 1] + " ",
+                                  ColorizeCode(style_bright=True, back_cyan=True), return_sequence)
+        elif word[0:1] == "^":                                                              ## Starts with ^
+            appendNewColorizeCode(cached_blank_sequence, " " + word[1:len(word)],
+                                  ColorizeCode(style_bright=True, back_cyan=True), return_sequence)
+            carrot_sequence = True
+            # We do not have phrases that end with ^ because we handle that actual case above
+        elif word[0:1] == "%" and word[len(word) - 1:len(word)] == "%":                     ## Contains %text% phrase
+            appendNewColorizeCode(cached_blank_sequence, " " + word[1:len(word) - 1] + " ",
+                                  ColorizeCode(fore_black=True, back_red=True), return_sequence)
+        elif word[0:1] == "%":                                                              ## Starts with %
+            appendNewColorizeCode(cached_blank_sequence, " " + word[1:len(word)],
+                                  ColorizeCode(fore_black=True, back_red=True), return_sequence)
+            percentage_sequence = True
+            # We do not have phrases that end with % because we handle that actual case above
         else:
             entered_else_branch = True
             cached_blank_sequence += word
@@ -736,10 +965,9 @@ def colorize(text: str) -> str:
             returnText += Style.BRIGHT + Fore.CYAN + word + Style.NORMAL + Fore.WHITE
         elif word in ["Discard", "Discarding"]:
             returnText += Fore.MAGENTA + word + Fore.WHITE
-            ## returnText += Fore.MAGENTA + word + Fore.WHITE
         elif word == "Hand":
             returnText += word
-            ## returnText += Fore.GREEN + word + Fore.WHITE
+            # returnText += Fore.GREEN + word + Fore.WHITE
         elif word == "FAILURE":
             returnText += Style.BRIGHT + Fore.RED + "[ FAILURE ]" + Fore.WHITE + Style.NORMAL
         elif word == "Cantrip":

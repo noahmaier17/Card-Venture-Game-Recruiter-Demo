@@ -35,7 +35,7 @@ function CardsList({
 
     // Then for every card, adds it to a JSX list for rendering
     const cardsListJSX = []
-    copyCards.forEach(card => {
+    copyCards.forEach((card, index) => {
         // const div = document.createElement("div");
         // div.classList.add("card");
 
@@ -62,19 +62,35 @@ function CardsList({
 
                 // If we have parsed codes, we read them. 
                 if (parsedCodes) {
-                    // console.log(parsedCodes);
+                    var tailwindClassName = ""
 
-                    if (parsedCodes["style_bright"]) {
-                        cardBodyTextJSX.push(
-                            <span key={index}>{cardText}</span>
-                        );
+                    // Text coloring elements
+                    if (parsedCodes["fore_red"]) tailwindClassName += "text-red-600 ";
+                    if (parsedCodes["fore_green"]) tailwindClassName += "text-green-600 ";
+                    if (parsedCodes["fore_blue"]) tailwindClassName += "text-blue-600 ";
+                    if (parsedCodes["fore_yellow"]) tailwindClassName += "text-yellow-600 ";
+                    if (parsedCodes["fore_cyan"]) tailwindClassName += "text-cyan-600 "; // Maybe do cyan 500
+                    if (parsedCodes["fore_magenta"]) tailwindClassName += "text-customMagenta ";
+                    if (parsedCodes["fore_white"]) tailwindClassName += "text-gray-200 "; // Test this one out
+                    // It is hard to see the black color, so we will bold it
+                    if (parsedCodes["fore_black"]) tailwindClassName += "text-customLightBlack font-bold ";
 
-                    // Even with parsed codes, we might not have any styling elements.
-                    } else {
-                        cardBodyTextJSX.push(
-                            <span key={index}>{cardText}</span>
-                        );
-                    }
+                    // Opacity elements
+                    if (parsedCodes["style_bright"]) tailwindClassName += "font-bold ";
+                    if (parsedCodes["style_dim"]) tailwindClassName += "opacity-60 ";
+
+                    // Back coloring elements
+                    if (parsedCodes["back_red"]) tailwindClassName += "bg-red-600 ";
+                    if (parsedCodes["back_green"]) tailwindClassName += "bg-green-600 ";
+                    if (parsedCodes["back_blue"]) tailwindClassName += "bg-blue-600 ";
+                    if (parsedCodes["back_white"]) tailwindClassName += "bg-gray-200 ";
+                    if (parsedCodes["back_cyan"]) tailwindClassName += "bg-cyan-600 ";
+
+                    tailwindClassName += "font-light "
+
+                    cardBodyTextJSX.push(
+                        <span key={index} className={tailwindClassName}>{cardText}</span>
+                    );
                 
                 // Without any codes, simply add this card text element.
                 } else {
@@ -92,6 +108,7 @@ function CardsList({
         cardsListJSX.push(
             <div key={card.name} className="card">
                 <div className="card-names-line">
+                    <span className="card-index">{String(index + 1) + "."}</span>
                     <span className="card-name-text">{card.plainName}</span>
                     <span className="card-table-text">{tableString}</span>
                 </div>
@@ -109,6 +126,7 @@ function CardsList({
             <span id="cards-fraction">{fraction_text}</span>
         </div>
         <div id="cards-container">{cardsListJSX}</div>
+        <div className="below-all-cards"></div>
     </div>
     )
 }

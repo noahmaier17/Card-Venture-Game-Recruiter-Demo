@@ -54,10 +54,6 @@ for child in gcbt.getAllCards().getArray():
         else:
             bodyTextAsJSONCodes.append((bodyText, None))
     
-    # if len(bodyTextAsJSONCodes) != 0:
-    #     print(name)
-    #     print(text)
-
     all_cards.append({
         "id": max_id,
         "name": prettyName,
