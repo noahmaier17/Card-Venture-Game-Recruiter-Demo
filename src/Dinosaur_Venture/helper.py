@@ -656,6 +656,8 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
             self.back_white = back_white
             self.back_cyan = back_cyan
 
+            # When this is changed, make sure to change types.ts in the front end code
+
     return_sequence: list[tuple[str, ColorizeCode]] = []
 
     # To avoid long return sequences, we will cache words that can be grouped together in a `None` category
