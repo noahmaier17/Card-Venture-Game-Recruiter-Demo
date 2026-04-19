@@ -656,6 +656,8 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
             self.back_white = back_white
             self.back_cyan = back_cyan
 
+            # When this is changed, make sure to change types.ts in the front end code
+
     return_sequence: list[tuple[str, ColorizeCode]] = []
 
     # To avoid long return sequences, we will cache words that can be grouped together in a `None` category
@@ -834,7 +836,7 @@ def colorize_AsCodes(text: str) -> list[tuple[str, Optional["colorize_AsCodes.Co
                                   ColorizeCode(back_red=True), return_sequence)
             appendNewColorizeCode(None, "'s",
                                   None, return_sequence)
-        elif word in ["Band", "Bands", "EXCEPT"]:
+        elif word in ["Band", "Bands", "EXCEPT", "HP"]:
             appendNewColorizeCode(cached_blank_sequence, word,
                                   ColorizeCode(fore_red=True, style_bright=True), return_sequence)
         elif word in ["Triggered", "Special", "Gimmick"]:
@@ -984,7 +986,7 @@ def colorize(text: str) -> str:
             returnText += Back.RED + word + Back.RESET
         elif word == "Enemy's":
             returnText += Back.RED + "Enemy" + Back.RESET + "'s"
-        elif word in ["Band", "Bands", "EXCEPT"]:
+        elif word in ["Band", "Bands", "EXCEPT", "HP"]:
             returnText += Fore.RED + Style.BRIGHT + word + Fore.WHITE + Style.NORMAL
         elif word in ["Triggered", "Special", "Gimmick"]:
             returnText += Fore.YELLOW + word + Fore.WHITE

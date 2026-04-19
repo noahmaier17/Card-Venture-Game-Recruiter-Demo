@@ -2,7 +2,7 @@
 # Script: Merges main branch into recruiter-demo branch and pushes changes to recruiter repository.
 # ======================================================
 
-# If there are any uncommited changes on the current branch, does not run the script
+# If there are any uncommitted changes on the current branch, does not run the script
 if (git status --porcelain) {
     Write-Host ">> Manually commit all changes/resolve all conflicts on this branch, then re-run this script" -ForegroundColor Red
     exit 1

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Controls from "./components/Controls";
 import CardsList from "./components/CardsList";
 import TableCheckboxes from "./components/TableCheckboxes";
+import type { Card, TableWithCategory } from "./types";
 
 function App() {
   // Gets the api url
@@ -9,27 +10,28 @@ function App() {
 
   // Static state; accessed with API calls
   // All the tables; see app.py for details of implementation
-  const [tablesWithCategories, setTablesWithCategories] = useState([]);
+  const [tablesWithCategories, setTablesWithCategories] = useState<TableWithCategory[]>([]);
+
   // All the cards
-  const [allCards, setAllCards] = useState([]);
+  const [allCards, setAllCards] = useState<Card[]>([]);
 
-  // Mutatable state -- backend loading variables
+  // Mutable state -- backend loading variables
   // Boolean to determine if the `tablesWithCategories` API call has finished 
-  const [loadingTablesWithCategories, setLoadingTablesWithCategories] = useState(true);
+  const [loadingTablesWithCategories, setLoadingTablesWithCategories] = useState<boolean>(true);
 
-  // Mutatable state -- frontend variables
+  // Mutable state -- frontend variables
   // The cards we will display for the user
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState<Card[]>([]);
   // Our name filter
-  const [nameFilter, setNameFilter] = useState("");
+  const [nameFilter, setNameFilter] = useState<string>("");
   // Our body text filter
-  const [bodyTextFilter, setBodyTextFilter] = useState("");
+  const [bodyTextFilter, setBodyTextFilter] = useState<string>("");
   // Our selected tables filter
-  const [selectedTables, setSelectedTables] = useState([]);
+  const [selectedTables, setSelectedTables] = useState<TableWithCategory[]>([]);
   // The number of cards matching the table filter
-  const [numberOfTableFilteredCards, setNumberOfTableFilteredCards] = useState();
+  const [numberOfTableFilteredCards, setNumberOfTableFilteredCards] = useState<number>(0);
   // The number of cards matching the table filter + regex filter
-  const [numberOfTableAndRegexFilteredCards, setNumberOfTableAndRegexFilteredCards] = useState();
+  const [numberOfTableAndRegexFilteredCards, setNumberOfTableAndRegexFilteredCards] = useState<number>(0);
 
   // Fetches all the tables so we may list them out with HTML
   useEffect(() => { 
@@ -49,18 +51,8 @@ function App() {
     // .then(setTablesWithCategories)
   }, []);
 
-  // Debug useEffect to print out changes to variables
-  /*
-  useEffect(() => {
-    console.log("selectedTables", selectedTables)
-  }, [selectedTables])
-  useEffect(() => {
-    console.log("cards", cards)
-  }, [cards])
-  */
-
   // Toggles all tables on or off; if any currently are on OR none are on, will toggle all on.
-  function toggleAllTables() {
+  const toggleAllTables = () => {
     if (selectedTables.length === tablesWithCategories.length) {
       setSelectedTables([]); // Sets them to be empty
     } else {
@@ -70,7 +62,7 @@ function App() {
 
   // Toggles a set of cards on or off depending on the table.
   // If any currently are on OR none are on, will toggle all on.
-  function toggleTables(passedInCategories) {
+  const toggleTables = (passedInCategories: string[]) => {
     var subsetTables = tablesWithCategories
       .filter(table => {
         return passedInCategories.includes(table.category);
@@ -86,15 +78,15 @@ function App() {
   }
 
   // Toggles enemy cards on or off; if any currently are on OR none are on, will toggle all on.
-  function toggleEnemyTables() {
+  const toggleEnemyTables = () => {
     toggleTables(new Array("enemy")); // Would be more robust to use an API call to fetch this value.
   }
 
-  function toggleDinosaurTables() {
+  const toggleDinosaurTables = () => {
     toggleTables(new Array("dino"));
   }
 
-  function toggleDinosaurAndWIPTables() {
+  const toggleDinosaurAndWIPTables = () => {
     toggleTables(new Array("dino", "wip_dino"));
   }
 
@@ -104,7 +96,7 @@ function App() {
   }, [nameFilter, bodyTextFilter, selectedTables]);
 
   // Gets all the cards to cache
-  useEffect (() => {
+  useEffect(() => {
     async function loadCards() {
       // Fetches the cards
       const res = await fetch(`${apiURL}/api/all_cards`);
@@ -124,27 +116,26 @@ function App() {
     let patchedBodyTextFilter = nameFilter.replace(/-notick/g, "-n(t|otick)");
     patchedBodyTextFilter = bodyTextFilter.replace(/-nt/g, "-n(t|otick)");
     // Handles incorrect regex values
-    let malformedRegex = false;
-    let bodyTextRegex = null;
+    let bodyTextRegex: RegExp | null = null;
     try {
       bodyTextRegex = new RegExp(patchedBodyTextFilter, "i");
     } catch(e) {
-      malformedRegex = true;
+      // Empty catch
     }
 
     // We also need the RegEx expression for the card name
-    let cardNameRegex = null;
+    let cardNameRegex: RegExp | null = null;
     try {
       cardNameRegex = new RegExp(nameFilter, "i");
     } catch(e) {
-      malformedRegex = true;
+      // Empty catch
     }
 
     // We need to only include cards where the tables match
-    let tableNames = selectedTables.map(table => table.name)
+    let tableNames = selectedTables.map(table => table.name);
     const tableFilteredCards = allCards.filter(card => {
       return card.table.some(table => tableNames.includes(table))
-    })
+    });
 
     // Sets the number of cards that were filtered by table
     setNumberOfTableFilteredCards(tableFilteredCards.length)
@@ -157,8 +148,8 @@ function App() {
     }
 
     // If our RegEx is malformed, we will show no cards (otherwise we have silent errors)
-    const regexFilteredCards = [];
-    if (!malformedRegex) {
+    const regexFilteredCards: Card[] = [];
+    if (cardNameRegex && bodyTextRegex) {
       // Otherwise, we get a subset of cards where we must match the text
       tableFilteredCards.forEach(card => {
         if (cardNameRegex.test(card.plainName) && bodyTextRegex.test(card.plainText)) {

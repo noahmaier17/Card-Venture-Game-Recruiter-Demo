@@ -1,3 +1,14 @@
+interface ControlsProps {
+    toggleAllTables: () => void;
+    toggleEnemyTables: () => void;
+    toggleDinosaurTables: () => void;
+    toggleDinosaurAndWIPTables: () => void;
+    nameFilter: string
+    setNameFilter: React.Dispatch<React.SetStateAction<string>>;
+    bodyTextFilter: string;
+    setBodyTextFilter: React.Dispatch<React.SetStateAction<string>>;
+}
+
 function Controls({
     toggleAllTables,
     toggleEnemyTables,
@@ -7,7 +18,7 @@ function Controls({
     setNameFilter,
     bodyTextFilter,
     setBodyTextFilter
-}) {
+}: ControlsProps) {
     return(
     <div>
         <div>
@@ -41,31 +52,5 @@ function Controls({
     </div>
     );
 }
-
-/*
-    return(
-    <div>
-        <div>
-            <form id="dummy-form" onsubmit="return false;"></form>
-            <label for="name-search-card">RegEx Card Name:</label>
-            <input type="text" id="name-search-box" placeholder="..." form="dummy-form" oninput={fetchCardsMatchingText} autocomplete="off"></input>
-
-            <label for="text-search-card">RegEx Card Text:</label>
-            <input type="text" id="text-search-box" placeholder="..." form="dummy-form" oninput={fetchCardsMatchingText} autocomplete="off"></input>
-        </div>
-        
-        <div class="select-all-buttons">
-            <button type="button" onclick={randomize}>Randomize Order</button>
-        </div>
-    
-        <div class="select-all-buttons">
-            <button type="button" onclick={toggleAllTables}>Toggle All</button>
-            <button type="button" onclick={selectEnemyCards}>Toggle Enemy Cards</button>
-            <button type="button" onclick={selectDinosaurCards}>Toggle Dino Cards</button>
-            <button type="button" onclick={selectDinosaurCardsIncludingWip}>Toggle Dino Cards (including WIP Tables)</button>
-        </div>
-    </div>
-    );
-*/
 
 export default Controls;

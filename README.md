@@ -1,6 +1,6 @@
 # Deck-Building Card Game
 
-A turn-based command-line game card game, in which the player (named dino) traverses across different clearings, fights the monsters they meet, and improves their deck based off the enemies they defeat. 
+A turn-based command-line card game, in which the player (named Dino) traverses across different clearings, fights monsters they meet, and improves their deck based on the enemies they defeat. Includes 13+ core subsystems designed to best scale with the introduction of new and novel card effects. Contains code for a web application ([https://app.deck-building-card-game.com/](https://app.deck-building-card-game.com/)) hosted on AWS to query and filter all 200+ cards in the game.
 
 ## File Structure
 
@@ -70,7 +70,7 @@ The following depicts and explains the project directory. The most important and
 
         web_app/                                                                                                    [APP]
             app.py                              # AWS-hosted Flask API for card lookup                              [ENTRY]
-            frontend/*                          # React-based frontend                                              [ENTRY]
+            frontend/*                          # React-based TypeScript frontend                                   [ENTRY]
             static/scripts.js                   # Deprecated JavaScript components
             templates/view_cards.html           # Deprecated HTML component
 
@@ -98,14 +98,20 @@ The following is a list of the the biggest features within my project with a bit
 - Test Cases (`tests/`)
     - I have been working to implement test cases for my game, which can be found within this folder.
 - Simulate Cards Web Application (`web_app/`)
-    - As a tool for looking at the list of all cards in the game, I have created a small, continuously deployed web application using Python, JavaScript, HTML, AWS, and Zappa. AWS services I utilized included API Gateway, AWS Lambda, and Route 53.
+    - As a tool for looking at the list of all cards in the game, I have created a continuously deployed web application using Python, TypeScript, HTML, AWS, and Zappa. AWS services I utilized included API Gateway, AWS Lambda, S3, and Route 53.
     - The tool contains several checkboxes for selecting which table to include for looking at the code, and buttons for toggling certain sets of cards (like selecting all the playable characters' cards). It also contains RegEx tools for looking up cards based on their name and on their card text.
-    - Web application link: [https://api.deck-building-card-game.com/cards/view](https://api.deck-building-card-game.com/cards/view)
+    - Web application link: [https://app.deck-building-card-game.com/](https://app.deck-building-card-game.com/)
+
+## Most Recent Big Feature/Addition
+
+I converted my JavaScript code to utilize TypeScript. This required adding better typing and type-checking to some of my Python backend code, and converting several files from JavaScript to TypeScript. I utilized when convenient Generative AI (Claude) to help with that process, both helping me better understand how certain React elements are typed in TS, and to best determine the implicit types I was utilizing in JavaScript. 
+
+It was a big task and took 2 weeks to complete. 
 
 ## Current Main Focuses
 
 - Adding more test cases
-    - I have been trying to add better test coverage of my project. With 200+ cards in the game, there is a lot of work to be done to have thourough test coverage, so I have been creating tests on the most essential and most potentially-buggy features. 
+    - I have been trying to add better test coverage of my project. With 200+ cards in the game, there is a lot of work to be done to have thorough test coverage, so I have been creating tests on the most essential and most potentially-buggy features. 
 - Better UI
     - Most of my focus is on the backend logic of my game, so the UI is currently command line with the `colorama` package for unique text coloring and styling. 
     - Almost all of the visual elements of this game are handled with `src/Dinosaur_Venture/main_visuals.py`, with some helper calls found in in `src/Dinosaur_Venture/helper.py`. The UI aspect of my program is well factored (almost every print statement is found in either of those two aforementioned files), so I best prepped my code to support this change. 

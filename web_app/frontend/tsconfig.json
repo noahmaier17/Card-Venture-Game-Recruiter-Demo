@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // Environment
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
+    // React
+    "jsx": "react-jsx",
+
+    // Vite requirements
+    "isolatedModules": true,
+    "noEmit": true,
+    "types": ["vite/client"],
+
+    // Type checking
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noUncheckedSideEffectImports": true,
+    "skipLibCheck": true,
+    "sourceMap": true
+  },
+  "include": ["src"]
+}

@@ -30,7 +30,7 @@ all_cards = []
 '''
 card objects are in the form:
     "id" (int): an internal id value
-    "name" (str): the name of the card
+    "name" (str): the name of the card as HTML/JSX
     "plainName" (str): the name of the card without any special formatting
     "text" (str): the text of the card
     "plainText" (str): the text of the card without any special formatting
@@ -50,7 +50,7 @@ for child in gcbt.getAllCards().getArray():
     bodyTextAsJSONCodes: list[tuple[str, Optional["h.colorize_AsCodes.ColorizeCode"]]] = []
     for bodyText, code in bodyTextAsCodes:
         if code:
-            bodyTextAsJSONCodes.append((bodyText, json.dumps(code.__dict__)))
+            bodyTextAsJSONCodes.append((bodyText, code.__dict__))
         else:
             bodyTextAsJSONCodes.append((bodyText, None))
     
