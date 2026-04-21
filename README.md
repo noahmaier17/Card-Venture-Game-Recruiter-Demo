@@ -17,7 +17,7 @@ Alongside the game itself, this repository contains a full-stack web application
 | Project | Stack | Link |
 |---|---|---|
 | Deck-Building Card Game | Python, PyTest, Docker, GitHub Actions, PowerShell | This repo |
-| [Card Query Web Service](#card-query-web-service) | React, TypeScript, Tailwind CSS, Flask, AWS Lambda, Zappa, S3, API Gateway | [app.deck-building-card-game.com](https://app.deck-building-card-game.com/) |
+| [Card Query Web Service](#card-query-web-service) | React, TypeScript, Tailwind CSS, Flask, Zappa, AWS Lambda, S3, API Gateway | [app.deck-building-card-game.com](https://app.deck-building-card-game.com/) |
  
 ## Technical Highlights
 
