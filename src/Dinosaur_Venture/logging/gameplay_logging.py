@@ -56,10 +56,10 @@ class PhysicalLogger(Logger):
         # Opens the file
         with open(self.log_file_name, "a") as file:
             # Converts the log entry into almost-JSON
-            dictonary = log_entry.to_json()
+            dictionary = log_entry.to_json()
 
             # Converts that dictionary into JSON
-            JSON = json.dumps(dictonary, indent=2)
+            JSON = json.dumps(dictionary, indent=2)
 
             # Writes it
             file.write(JSON + "\n")
@@ -79,8 +79,8 @@ class InMemoryLogger(Logger):
 
     def _write(self, log_entry: "LogEntry") -> None:
         # For testing VS the physical logger, we want to see if we can convert the log entry into JSON
-        dictonary = log_entry.to_json()
-        _ = json.dumps(dictonary, indent=2)
+        dictionary = log_entry.to_json()
+        _ = json.dumps(dictionary, indent=2)
 
         self.logs.append(log_entry)
     
@@ -133,23 +133,3 @@ def get_next_log_line() -> "LogEntry":
 def contains_next_log_line() -> bool:
     """Returns True if the log contains another line."""
     return _log.contains_next_log_line()
-
-## ----- Gameplay Logging -----
-'''
-def round_start_entity_log(entity: "e.Entity") -> None:
-    """Logs the state of an entity at Round Start."""
-    locationsSpiel = ""
-    for cardLocaiton in entity.getIterableOfLocations():
-        locationsSpiel += get_card_location_spiel(cardLocaiton)
-    write_to_log(
-        "ROUND START: " + 
-        entity.name + " state: " + locationsSpiel
-    )
-
-def current_event_log(event: str) -> None:
-    """Logs the current 'event'."""
-    write_to_log(
-        "CURRENT EVENT: " +
-        event
-    )
-'''

@@ -1,6 +1,5 @@
 ## SERVER
 import copy
-import json
 import random
 
 from typing import Optional
@@ -148,51 +147,6 @@ def api_cards():
 @app.route("/")
 def default_route():
     return "Default"
-
-'''
-## ----- GET: Shows a card based on an ID value -----
-@app.get("/cards/<card_id>")
-def read_card(card_id: int):
-    card_id = int(card_id)
-    for card in all_cards:
-        if card["id"] == card_id:
-            return card
-    return {"error": "No such card of that id"}, 404
-
-## ----- GET: Shows a card based on an ID value -----
-@app.get("/cards/view/<card_id>")
-def view_card(card_id: int):
-    # Gets query parameters
-    selected_tables: list[str] = request.args.getlist("tables")
-
-    card_id = int(card_id)
-
-    set_of_cards = []
-    for card in all_cards:
-        if card["id"] == card_id:
-            set_of_cards.append(card)
-
-    if len(set_of_cards) > 0:
-        return render_template("view_cards.html", 
-                               set_of_cards=set_of_cards,
-                               all_tables=ALL_CARDS_TABLE_MINUS_ENEMY,
-                               all_dino_cards=gcbt.ALL_DINO_CARDS,
-                               all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP,
-                               selected_tables=selected_tables)
-    else:
-        return {"error": "No such card of that id"}, 404
-
-## ----- POST: Renders the cards -----
-@app.post("/cards")
-def add_card():
-    if request.is_json:
-        card = request.get_json()
-        all_cards["id"] = max_id
-        max_id += 1
-        all_cards.append(card)
-        return card, 201
-    return {"error": "Request must be JSON"}, 415
-'''
 
 ## ----- Main Guard ------
 if __name__ == "__main__":

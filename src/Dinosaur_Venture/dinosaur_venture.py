@@ -41,7 +41,7 @@ def code(
         SKIP_SHOP_DEBUG=False,
         LOOT_SHELLS_ONLY=False,
         SKIP_PICKING_CLEARINGS=False,
-        DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS=False,
+        DEBUG_PICK_guaranteed_NECK_OF_THE_WOODS=False,
         OVERRIDE_SHOP_LOCATION=None
     ):
     ## ----- Starting Variables -----
@@ -98,7 +98,7 @@ def code(
     ## ----- Pick your Player -----
     h.clear_screen()
     preamble = []
-    preamble.append(" WELCOME TO THE DINSAUR VENTURE")
+    preamble.append(" WELCOME TO THE DINOSAUR VENTURE")
 
     for i in range(len(characters)):
         character = characters[i]
@@ -161,21 +161,21 @@ def code(
     # Commented out line is for picking a special card to start with (possible later feature)
     # h.selectCard(dino, "Hierloom", 0, [randomTier1Location], [4], lootVacuously = True, canPass = True, activateAbilityOnPass = True)
 
-    # Logic for picking a guarenteed location
+    # Logic for picking a guaranteed location
     h.clear_screen()
     notFirstNeckOfTheWoods = True
-    guarenteedClearing = None
-    if not SKIP_PICKING_CLEARINGS and DEBUG_PICK_GUARENTEED_NECK_OF_THE_WOODS:
+    guaranteedClearing = None
+    if not SKIP_PICKING_CLEARINGS and DEBUG_PICK_guaranteed_NECK_OF_THE_WOODS:
         woodsPreamble = []
         for index, wood in enumerate(setOfAllWoods):
             woodsPreamble.append(str(index + 1) + ": '" + wood.name + "'")
-        guarenteedClearingIndex = h.pickValue("Pick a guarenteed Neck of the Woods", 
+        guaranteedClearingIndex = h.pickValue("Pick a guaranteed Neck of the Woods", 
                                               range(1, len(setOfAllWoods) + 1), 
                                               preamble=woodsPreamble) - 1
-        guarenteedClearing = setOfAllWoods.pop(guarenteedClearingIndex)
+        guaranteedClearing = setOfAllWoods.pop(guaranteedClearingIndex)
 
     # Creates a new log file instance
-    log.new_physical_log_file()
+    log.new_in_memory_log_file()
 
     # The below while loop runs the entire game
     while True:
@@ -249,8 +249,8 @@ def code(
 
                 # Populates the available clearings
                 while len(clearingsAvailable) < 2 and len(setOfAllWoods) > 0:
-                    if notFirstNeckOfTheWoods and guarenteedClearing != None:
-                        clearingsAvailable.append(guarenteedClearing)
+                    if notFirstNeckOfTheWoods and guaranteedClearing != None:
+                        clearingsAvailable.append(guaranteedClearing)
                         notFirstNeckOfTheWoods = False
                     else:
                         random.shuffle(setOfAllWoods)
