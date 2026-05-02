@@ -1,6 +1,6 @@
 {
     "dev": {
-        "app_function": "web_app.app.app",
+        "app_function": "web_app.card_objects_backend.app",
         "aws_region": "us-east-1",
         "exclude": [
             "boto3",

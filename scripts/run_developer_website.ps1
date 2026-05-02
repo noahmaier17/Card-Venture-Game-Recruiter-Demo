@@ -19,7 +19,7 @@ $backendProcess = Start-Process powershell -PassThru -ArgumentList "-NoExit", "-
 Write-Host '================ BACKEND ==================' -ForegroundColor Magenta
 cd '$PSScriptRoot\..'
 . '$PSScriptRoot\..\.venv\Scripts\Activate'
-flask --app web_app.app run
+flask --app web_app.card_objects_backend run
 "
 
 # Opens the developer website
