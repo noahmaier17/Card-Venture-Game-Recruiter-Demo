@@ -1,4 +1,3 @@
-## SERVER
 import copy
 import random
 
@@ -13,13 +12,6 @@ from Dinosaur_Venture import helper as h
 ## ----- Setup -----
 # Sets up Flask and friends
 app = Flask(__name__)
-'''
-app = Flask(
-    __name__,
-    static_folder="frontend/dist",
-    static_url_path=""
-)
-'''
 CORS(app)
 converter = Ansi2HTMLConverter(inline=True) ## Used extensive Google for this
 
@@ -146,7 +138,7 @@ def api_cards():
 
 @app.route("/")
 def default_route():
-    return "Default"
+    return "Card Service"
 
 ## ----- Main Guard ------
 if __name__ == "__main__":

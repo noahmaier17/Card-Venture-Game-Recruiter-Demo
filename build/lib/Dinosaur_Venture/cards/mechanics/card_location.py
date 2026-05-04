@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 class CardLocation():
     """Array-like container of Cards."""
     def __init__(self, name: str) -> None:
+        assert isinstance(name, str), f"Expected str, got {type(name)}: {name}"
         self.name = name
         self.array: list["c.Card"] = []
 
@@ -97,7 +98,7 @@ class CardLocation():
         return (self is otherCardLocation)
         
 ## Hard-coded constants to compare for naming of card locations
-class CardZoneName(Enum):
+class CardZoneName(str, Enum):
     DECK = "deck"
     HAND = "hand"
     DISCARD = "discard"

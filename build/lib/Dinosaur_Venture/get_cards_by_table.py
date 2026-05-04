@@ -37,7 +37,7 @@ CHARACTER_TABLES = [
 ## All Dino Cards (so TIER 1, 2, 3, and 4)
 ALL_DINO_CARDS = [] + CHARACTER_TABLES + TIER_1_TABLES
 
-## Tables that are implememented but their cards are not in the game currently
+## Tables that are implemented but their cards are not in the game currently
 WIP_TABLES = [
     "Fruit-Bearing Monks",
     "Horse Hostelry",
@@ -92,7 +92,7 @@ def getCardByName(name):
 ## Gathers into a list all cards that contain at least 1 matching location
 ##  Performs a deep copy of the cards.
 def getCardsByTable(crosscompareTable, locationName = "", excludeShells = False, excludeNonShells = False):
-    cardLocation = cardLocation(locationName)
+    cardLocation = CardLocation(locationName)
     tabulizedCards = []
 
     for card in ALL_CARDS.getArray():

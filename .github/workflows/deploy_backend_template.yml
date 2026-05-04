@@ -1,11 +1,11 @@
-name: Deploy Web Backend
+name: Deploy Backend Template
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-      - react-frontend
+  workflow_call:
+    inputs:
+      zappa_stage:
+        type: string
+        required: true
 
 permissions:
   id-token: write
@@ -14,7 +14,6 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,7 +30,7 @@ jobs:
           role-to-assume: arn:aws:iam::766766277102:role/GitHubActionsLambdaDeploy
           aws-region: us-east-1
 
-      - name: Creating and activating virtual environment (for Deploy with Zappa step)
+      - name: Creating and activating virtual environment
         run: python -m venv venv
 
       - name: Install project and dependencies
@@ -42,4 +41,4 @@ jobs:
       - name: Deploy with Zappa
         run: |
           source venv/bin/activate
-          zappa update dev
+          zappa update ${{ inputs.zappa_stage }}

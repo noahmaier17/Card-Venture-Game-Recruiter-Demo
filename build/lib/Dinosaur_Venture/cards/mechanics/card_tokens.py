@@ -1,8 +1,9 @@
-## Checks for tokens. If the token parameter equals True, it will check if that token exists.
-##  Of all checked-for Tokens, if one is not part of this Card, return False.
-##  Otherwise (meaning, all checks were passed), returns True.
-## Tokens is a List of Tokens
-def checkTokensOnThis(card, tokens):
+def checkTokensOnThis(card, tokens: list['token']):
+    '''
+    Checks for tokens. If the token parameter equals True, it will check if that token exists.
+    Of all checked-for Tokens, if one is not part of this Card, return False.
+    Otherwise (meaning, all checks were passed), returns True.
+    '''
     allTokensExist = True
     tokensToCheck = []
     for token in tokens:
@@ -17,16 +18,21 @@ def checkTokensOnThis(card, tokens):
 
     return allTokensExist
 
-## Connected directly by the "publishToken" function in Card.py
-## Token in a singular token
-##  --> NEVER CALL THIS
-def publishTokenOnThis(card, token):
+def publishTokenOnThis(card, token: 'token'):
+    '''
+    DO NOT CALL THIS OUTSIDE OF THE EXISTING CALL IN `card.py` IN `publish_token()`.
+    Adds a token to the passed in Card.
+    '''
     if not checkTokensOnThis(card, [token]):
         card.tokens.append(token)
 
 ## Removes a token from a location. Returns TRUE if that token was removed, FALSE otherwise.
 ##  --> NEVER CALL THIS
 def removeToken(card, tokenToRemove):
+    '''
+    DO NOT CALL THIS OUTSIDE OF THE EXISTING CALL IN `card.py` IN `remove_token()`.
+    Removes a token from a location. Returns TRUE if that token was removed, FALSE otherwise.
+    '''
     if not checkTokensOnThis(card, [tokenToRemove]):
         return False
 
@@ -43,7 +49,6 @@ def removeToken(card, tokenToRemove):
 '''
 
 class token():
-    ## Creates a token.
     def __init__(self, name):
         self.name = name
         self.displayByName = True
@@ -56,27 +61,27 @@ class token():
     def getThrowText(self):
         return self.throwText
 
-## <<feathery>>
-##  When having an effect that says "Draw to [ # ] Cards in [ Location ]",
-##  these Cards do not count in the total card count of that Location.
+# <<feathery>>
+#  When having an effect that says "Draw to [ # ] Cards in [ Location ]",
+#  these Cards do not count in the total card count of that Location.
 class feathery(token):
     def __init__(self):
         super().__init__("feathery")
 
-## <<alliance>>
-##  At Turn Start, with this in Hand or Pocket, +1 Action.
+# <<alliance>>
+#  At Turn Start, with this in Hand or Pocket, +1 Action.
 class alliance(token):
     def __init__(self):
         super().__init__("alliance")
 
-## <<mutated>>
-##  Means the Card was mutated; does not have any inherent special mechanic.
+# <<mutated>>
+#  Means the Card was mutated; does not have any inherent special mechanic.
 class mutated(token):
     def __init__(self):
         super().__init__("new")
 
-## <<inoperable>>
-##  You cannot Play <<inoperable>> Cards from Hand nor Pocket. 
+# <<inoperable>>
+#  You cannot Play <<inoperable>> Cards from Hand nor Pocket. 
 class inoperable(token):
     def __init__(self):
         super().__init__("inoperable")
@@ -84,8 +89,8 @@ class inoperable(token):
         # self.displayWithThrowText = True
         # self.throwText = "! <<inoperable>> ARR Cannot Play this from Hand nor Pocket."
 
-## <<prepared>>
-## When Played, Before Resolution: +1 Action, and Remove this Token.
+# <<prepared>>
+# When Played, Before Resolution: +1 Action, and Remove this Token.
 class prepare(token):
     def __init__(self):
         super().__init__("prepared")
@@ -93,13 +98,14 @@ class prepare(token):
         # self.displayWithThrowText = True
         # self.throwText = "! <<prepared>> ARR When Played, Before Resolution: +1 Action."
 
-## <<confidant>>
-## When looting a //confidant//, only cards without the <<confidant>> token can be modified by this //confidant//.
+# <<confidant>>
+# When looting a //confidant//, only cards without the <<confidant>> token can be modified by this //confidant//.
 class confidant(token):
     def __init__(self):
         super().__init__("confidant")
 
-'''
+    # This card is currently in development, therefore the rest of the functionality is commented out.
+    '''
         self.triggers.append(r.reaction(self, True, self.trigger_1(self)))
 
     class trigger_1(r.token_responseAndTrigger):
@@ -123,7 +129,7 @@ class confidant(token):
         def trigger(self, card, caster, dino, enemies):
             card.reacted_1 = True
             cf.dealDamage().func(card, caster, dino, enemies, "null", cll.Attackcons([1, cll.M()], 'nil'))
-'''
+    '''
 
 
 

@@ -20,8 +20,11 @@ from Dinosaur_Venture.entities import entity as e
 
 class Enemy(e.Entity):
     """General enemy class; works well for testing and inheritance"""
-    def __init__(self) -> None:
+    def __init__(self, is_debugging_enemy=False) -> None:
         super().__init__()
+
+        # True if the enemy is just for debugging; will not include it in the web service
+        self.is_debugging_enemy = is_debugging_enemy
 
     def fillDeck(self, extraDrafts: CardLocation = None) -> None:
         """Fills this enemy's deck based on its `damageDist` and `siftDist` values."""
@@ -87,7 +90,7 @@ class Litterbugs(Enemy):
 class plainEnemy(Enemy):
     """Plain, bland enemy."""
     def __init__(self):
-        super().__init__()
+        super().__init__(is_debugging_enemy=True)
         self.text = "A plain Enemy."
         self.name = "Enemy"
         self.initialEnemyName = self.name
@@ -200,12 +203,10 @@ class plainEnemy(Enemy):
 class Fisherman(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = ""
-        self.name = "Ravenous Fisherman"
+        self.text = "With bountiful amounts of fish, they possess the luxury of eating almost simply when they haphazardly please."
+        self.name = "Decadent Fisherman"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
-
-        
 
         self.deck.append(craveFishMantra())
         self.damageDist = 1.8
@@ -222,7 +223,7 @@ class Fisherman(Enemy):
 class FishingCaravan(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = ""
+        self.text = "A boat of fishermen, all boastful of their catches."
         self.name = "Fishing Caravan"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -248,7 +249,7 @@ class FishingCaravan(Enemy):
 class FlyingSquirrel(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = ""
+        self.text = "Perched atop the treeline, they await the perfect moment to pounce on those who lie unprepared down below."
         self.name = "Flying Squirrel"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -269,7 +270,7 @@ class FlyingSquirrel(Enemy):
 class MalabarGiantSquirrel(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = ""
+        self.text = "An erratic animal, they scurry and scamper up and down and across these fields of apple trees."
         self.name = "Malabar Giant Squirrel"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -289,7 +290,7 @@ class MalabarGiantSquirrel(Enemy):
 class Copperals(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "Small copper critters, fighting for what is right."
+        self.text = "Worn copper contraptions, left forgotten, they transmogrified their farming equipment into small weapons of revolt."
         self.name = "Copperals"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -308,7 +309,7 @@ class Copperals(Enemy):
 class Rusterials(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "The forgotten, disillusioned, and angry."
+        self.text = "Mechanical farmers, corroded by abandonment and the hot sun; a metal husk of an outside veneer hides a small battery heart in the inside."
         self.name = "Rusterials"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -337,7 +338,7 @@ class Rusterials(Enemy):
 class Karkit(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "A baby Skunk."
+        self.text = "A young skunk, yet to be taught in the arts of the steal."
         self.name = "Karkit"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -356,7 +357,7 @@ class Karkit(Enemy):
 class Skunk(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "They reek."
+        self.text = "Crafty scavengers, they slightly fortify themselves with salvaged scrap metal."
         self.name = "Skunk"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -365,7 +366,7 @@ class Skunk(Enemy):
         self.siftDist = 1.25
         super().fillDeck()
         
-        self.difficulty = 1.75
+        self.difficulty = 2.25
     
     def __healthInit(self):
         hpA = [1, 0, 0]
@@ -377,7 +378,7 @@ class Skunk(Enemy):
 class RaccoonBandit(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "Bandits of the Night, first you must unmask them in order to chase them away."
+        self.text = "Bandits of the night, they must first be unmasked before they can be chased away."
         self.name = "Raccoon Bandit"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -404,11 +405,10 @@ class RaccoonBandit(Enemy):
                 self.moveCard(self.hand, 0, self.discard)
     '''
 
-## Hoard of Shrews
 class HoardOfShrews(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "A Legion of Shrews, jealous of each other, far more feral in a pack than alone."
+        self.text = "Alone they are scattered, together they bite."
         self.name = "Hoard Of Shrews"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -434,11 +434,10 @@ class HoardOfShrews(Enemy):
             while self.hand.length() > 0:
                 self.moveCard(self.hand, 0, self.discard)
 
-## Shrew -- A timid creature, easily frightened. 
 class Shrew(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "A timid creature, easily frightened."
+        self.text = "A meek, scurrying thing, more frightened of you than you are of it."
         self.name = "Shrew"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -461,11 +460,10 @@ class Shrew(Enemy):
             while (self.hand.length() > 0):
                 self.discardCard(self.hand, 0, dino, enemies, vis.prefabEmpty)
 
-## Torch Bear -- It calls to the wild for apostles of the new order. 
 class CinnamonBear(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "It calls to the wild for apostles of what can become of a New Order; only 'Shrews' heed the call."
+        self.text = "It calls to the wild for apostles of what can become of a New Order."
         self.name = "Torch Bearer"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
@@ -490,11 +488,10 @@ class CinnamonBear(Enemy):
             while self.hand.length() > 0:
                 self.moveCard(self.hand, 0, self.discard)
 
-## Babybear -- The upcoming new beneficiary, disillusioned by how small of land they shall inherit. 
 class Babybear(Enemy):
     def __init__(self):
         super().__init__()
-        self.text = "The upcoming new beneficiary, disillusioned by how small of a land they shall inherit."
+        self.text = "The upcoming beneficiary of this New Order, disillusioned by how small of a land they shall inherit."
         self.name = "Babybear"
         self.initialEnemyName = self.name
         self.hp = self.__healthInit()
