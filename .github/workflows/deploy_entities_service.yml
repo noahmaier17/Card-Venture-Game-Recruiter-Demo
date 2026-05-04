@@ -12,6 +12,9 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      id-token: write
+      contents: read
     uses: ./.github/workflows/deploy_backend_template.yml
     with:
       zappa_stage: entities-dev
