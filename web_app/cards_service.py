@@ -92,32 +92,32 @@ def view_cards():
                            all_dino_cards_including_wip=gcbt.ALL_DINO_CARDS_INCLUDING_WIP)
 
 ## ----- API: Fetches all tables with their corresponding category (see above) -----
-@app.route("/api/tables_with_categories")
+@app.route("/cards/api/tables_with_categories")
 def api_tables_with_categories():
     return jsonify(table_with_category)
 
 ## ----- API: Fetches all dino cards (EXCLUDING WIP cards) -----
-@app.route("/api/dino_cards")
+@app.route("/cards/api/dino_cards")
 def api_dino_cards():
     return jsonify(gcbt.ALL_DINO_CARDS)
 
 ## ----- API: Fetches all enemy tables -----
-@app.route("/api/enemy_tables")
+@app.route("/cards/api/enemy_tables")
 def api_enemy_tables():
     return jsonify(gcbt.ENEMY_TABLES)
 
 ## ----- API: Fetches all dino cards (INCLUDING WIP cards) -----
-@app.route("/api/dino_cards_including_wip")
+@app.route("/cards/api/dino_cards_including_wip")
 def api_dino_cards_including_wip():
     return jsonify(gcbt.ALL_DINO_CARDS_INCLUDING_WIP)
 
 ## ----- API: Gets all the cards -----
-@app.get("/api/all_cards")
+@app.get("/cards/api/all_cards")
 def get_cards():
     return jsonify(all_cards)
 
 ## ----- API: Fetches cards based on passed-in tables -----
-@app.route("/api/cards", methods=["POST"])
+@app.route("/cards/api/cards", methods=["POST"])
 def api_cards():
     # Read the JSON from our request
     data = request.get_json()

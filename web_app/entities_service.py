@@ -45,11 +45,11 @@ for DinoClass in dinoes.Dinosaur.__subclasses__():
     })
 
 ## ----- API: Gets all enemies -----
-@app.get("/api/enemies")
+@app.get("/entities/api/enemies")
 def get_enemies():
     return jsonify(all_enemies)
 
-@app.get("/api/dinoes")
+@app.get("/entities/api/dinoes")
 def get_dinoes():
     return jsonify(all_dinoes)
 
