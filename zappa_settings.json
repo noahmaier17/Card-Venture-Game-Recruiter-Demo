@@ -1,15 +1,33 @@
 {
     "dev": {
-        "app_function": "web_app.app.app",
+        "app_function": "web_app.cards_service.app",
         "aws_region": "us-east-1",
         "exclude": [
             "boto3",
             "dateutil",
             "botocore",
             "s3transfer",
-            "concurrent"
+            "concurrent",
+            "build"
         ],
+        "endpoint_configuration": ["REGIONAL"],
         "project_name": "card-venture",
+        "runtime": "python3.13",
+        "s3_bucket": "zappa-9an8zqb2f"
+    },
+    "entities-dev": {
+        "app_function": "web_app.entities_service.app",
+        "aws_region": "us-east-1",
+        "exclude": [
+            "boto3",
+            "dateutil",
+            "botocore",
+            "s3transfer",
+            "concurrent",
+            "build"
+        ],
+        "endpoint_configuration": ["REGIONAL"],
+        "project_name": "card-venture-entities",
         "runtime": "python3.13",
         "s3_bucket": "zappa-9an8zqb2f"
     }

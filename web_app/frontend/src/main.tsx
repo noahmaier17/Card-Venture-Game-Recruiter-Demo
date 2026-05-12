@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App.js'; // Imports the main App component
 import './index.css'; // Imports global styles
 
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(rootElement);
 
 // Renders the App component into the root
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </BrowserRouter>
 );

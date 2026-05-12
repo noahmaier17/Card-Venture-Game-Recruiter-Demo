@@ -1,0 +1,20 @@
+name: Deploy Entities Service
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - react-frontend
+    paths:
+      - 'web_app/entities_service.py'
+      - 'src/Dinosaur_Venture/**'
+
+jobs:
+  deploy:
+    permissions:
+      id-token: write
+      contents: read
+    uses: ./.github/workflows/deploy_backend_template.yml
+    with:
+      zappa_stage: entities-dev

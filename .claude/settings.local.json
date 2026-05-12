@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(claude-api)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\light\\\\Card-Venture-Game\" -Force)",
+      "Bash(Select-Object -Property Name, FullName)",
+      "Bash(dir -R)"
+    ]
+  }
+}

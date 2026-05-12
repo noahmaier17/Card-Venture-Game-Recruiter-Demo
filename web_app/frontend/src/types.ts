@@ -5,6 +5,20 @@ export interface TableWithCategory {
   name: string
 }
 
+export interface Dino {
+  name: string;
+  health: ([number, number, number] | null)[];
+  text: string;
+  is_enemy: boolean;
+}
+
+export interface Enemy extends Dino {
+  difficulty: number;
+  damage_dist: number;
+  sift_dist: number;
+}
+
+
 interface ColorizeCode {
     style_bright: boolean
     style_normal: boolean;

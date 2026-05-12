@@ -69,7 +69,7 @@ class Rover(Dinosaur):
     """The Rover character; very basic and vanilla character."""
     def __init__(self):
         super().__init__()
-        self.text = "It has been left in the package for a decade, only now free to roam the cruel, changing, crying world. "
+        self.text = "Spending the last five decades packing boxes for mankind, it has freed itself and now roams this new world."
         ## "//Special Gimmick: At Turn Start, pockets a 'Petrol Mantra' [+1 Action. All Damage arrays you deal this turn are now the M channel.]"
         self.name = "Rover"
 
@@ -87,7 +87,7 @@ class Graverobber(Dinosaur):
     """
     def __init__(self):
         super().__init__()
-        self.text = "As a scrappy dinosaur, maybe there is something out in the beyond that can sedate its wandering soul."
+        self.text = "As a scrappy creature, it seeks something out in the beyond that can satisfy its wandering soul."
         self.name = "Graverobber"
 
         cards = gcbt.getCardsByTable(["Graverobber"])
@@ -107,7 +107,7 @@ class Shepherd(Dinosaur):
     """Work-in-progress Shepherd Character."""
     def __init__(self):
         super().__init__()
-        self.text = ""
+        self.text = "The leader of the sheep, it acts as a guide both for itself and for others."
         self.name = "Shepherd"
 
         cards = gcbt.getCardsByTable(["Shepherd"])
