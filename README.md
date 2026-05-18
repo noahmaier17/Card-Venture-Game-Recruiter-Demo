@@ -2,7 +2,7 @@
 
 A turn-based, deck-building card game built in Python over 5+ years, including a live AWS-hosted web service for querying and filtering all 200+ in-game cards. 
 
-**See the card querying application:** [app.deck-building-card-game.com](app.deck-building-card-game.com).
+**See the card querying application:** [app.deck-building-card-game.com](https://app.deck-building-card-game.com/).
 
 ## What is this?
 
